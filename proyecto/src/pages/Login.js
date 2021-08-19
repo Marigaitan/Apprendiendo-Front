@@ -42,7 +42,7 @@ export default class Login extends Component {
                     var respuesta = response[0];
                     cookies.set('username', respuesta.username, { path: "/" });
                     cookies.set('role', respuesta.role, { path: "/" });
-                    //ver como lo saco de la cabecera buscar axios.header
+                    cookies.set('id', respuesta.id, { path: "/" });
                     debugger
                     if (cookies.get('role') === "ROLE_STUDENT") {
                         window.location.href = "./menualumno";

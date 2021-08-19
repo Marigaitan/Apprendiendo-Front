@@ -8,6 +8,7 @@ export default class MenuDocente extends Component {
         cookies.remove('token', {path: "/"});
         cookies.remove('username', {path: "/"});
         cookies.remove('role', {path: "/"});
+        cookies.remove('id', respuesta.id, { path: "/" });
         window.location.href='./' //lo redirijo al login
     }
 
