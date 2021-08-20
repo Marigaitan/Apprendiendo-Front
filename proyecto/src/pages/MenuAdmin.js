@@ -13,7 +13,7 @@ export default class MenuAdmin extends Component {
     }
 
     componentDidMount(){    //para que lo redirija al login si no hay token
-        if(!cookies.get('token')){
+        if(!cookies.get('token')|| cookies.get('role') !== "ROLE_ADMIN"){
             window.location.href="./";
         }
     }
