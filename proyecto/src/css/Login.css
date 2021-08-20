@@ -1,0 +1,37 @@
+.containerPrincipal{
+    margin: 0px;
+    display: flex;
+    justify-content: center; 
+}
+.containerSecundario{
+    background-color: orange;
+    border-radius: 20px;
+    flex: 1;
+    max-width: 400px;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+    text-align: center;
+}
+#logo {
+    width: 100%;
+}
+.inputs {
+    outline: 0px;
+    width: 80%;
+    padding: 10px;
+    border: 0px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    margin-bottom: 20px;
+    border: 0px;
+    border-radius: 10px;
+    padding: 10px;
+    outline: 0px;
+}
+
+.submit-button:hover {
+    cursor: pointer;
+}
