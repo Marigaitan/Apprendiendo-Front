@@ -12,20 +12,18 @@ export default class MenuAlumno extends Component {
         super(props);
         this.state = {dropdown: false};
       }
+    componentDidMount(){    //para que lo redirija al login si no hay token
+        if(!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT"){
+            window.location.href="./";
+        }
+    }
     cerrarSesion=()=>{
-        cookies.remove('token', {path: "/"});
+        cookies.remove('token', {path: "/"});                                       
         cookies.remove('username', {path: "/"});
         cookies.remove('role', {path: "/"});
         cookies.remove('id', { path: "/" });
         window.location.href='./' //lo redirijo al login
-    }
-
-    componentDidMount(){    //para que lo redirija al login si no hay token
-        if(!cookies.get('token')){
-            window.location.href="./";
-        }
-    }
-
+    }   
     Menu() {
         const opencloseDropdown=()=>{
             this.setState({dropdown:!this.state.dropdown});

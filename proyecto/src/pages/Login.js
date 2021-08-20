@@ -26,7 +26,7 @@ export default class Login extends Component {
                 [e.target.name]: e.target.value
             }
         })
-        //console.log(this.state.form); //Lo mostramos por consola para ver que funcione
+        console.log(this.state.form); //Lo mostramos por consola para ver que funcione
     }                              //uso async y await para q sea asincrono y verlo en tiempo real
     
     
@@ -38,12 +38,10 @@ export default class Login extends Component {
                 return response.data; //aca retonamos la data que viene en el body
             })
             .then(response => {  //aca la podemos utilizar
-                if (response.length > 0) {
-                    var respuesta = response[0];
-                    cookies.set('username', respuesta.username, { path: "/" });
-                    cookies.set('role', respuesta.role, { path: "/" });
-                    cookies.set('id', respuesta.id, { path: "/" });
-                    debugger
+                console.log(response);                 
+                    cookies.set('username', response.username, { path: "/" });
+                    cookies.set('role', response.role, { path: "/" });
+                    cookies.set('id', response.id, { path: "/" });
                     if (cookies.get('role') === "ROLE_STUDENT") {
                         window.location.href = "./menualumno";
                     } else if (cookies.get('role') === "ROLE_TEACHER") {
@@ -51,15 +49,11 @@ export default class Login extends Component {
                     } else if (cookies.get('role') === "ROLE_ADMIN") {
                         window.location.href = "./menuadmin";
                     }
-
-
-                } else {
-                    alert('El usuario o la contraseña no son correctos');
                 }
-
-            })
+            )
             .catch(error => {
                 console.log(error);
+                alert('El usuario o la contraseña no son correctos');
             })
     }
 
