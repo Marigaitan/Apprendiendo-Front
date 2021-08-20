@@ -6,7 +6,7 @@ import axios from 'axios' //para las peticiones a la API
 //import md5 from 'md5'
 import Cookies from 'universal-cookie/es6'
 
-const baseUrl = "http://localhost:8080/login";  //Url de la API
+const baseUrl = "https://api.apprendiendo.net/login";  //Url de la API
 const cookies = new Cookies();
 
 export default class Login extends Component {
