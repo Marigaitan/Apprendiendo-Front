@@ -3,9 +3,12 @@ import Cookies from 'universal-cookie/es6'
 import img from '../Images/logoMini.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
+import '../css/MenuAlumno.css'
+import axios from 'axios' 
 
 
 const cookies = new Cookies();
+let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classroom";
 
 export default class MenuAlumno extends Component {
     constructor(props) {        //constructor de mi clase
@@ -24,7 +27,7 @@ export default class MenuAlumno extends Component {
         cookies.remove('id', { path: "/" });
         window.location.href='./' //lo redirijo al login
     }   
-    Menu() {
+    Menu=()=>{
         const opencloseDropdown=()=>{
             this.setState({dropdown:!this.state.dropdown});
         } 
@@ -37,7 +40,7 @@ export default class MenuAlumno extends Component {
             <div className = 'DropMenu'>
                 <Dropdown isOpen={this.state.dropdown} toggle={opencloseDropdown}>
                     <DropdownToggle caret> 
-                     Dropdown Ejemplo    {/*boton que se va a desplegar */}
+                     Dropdown Ejemplo  
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem onClick={()=>irPerfil}>Ver Perfil</DropdownItem>
@@ -48,21 +51,46 @@ export default class MenuAlumno extends Component {
             </div>
         )
         
+    } 
+    
+    classroomAssigned = async () => {
+        await axios.get(classUrl) //El token me aparece como undefined
+            .then(response => {
+                return response.data; 
+            })
+            .then(response => {  
+                console.log(response);                 
+                    
+                }
+            )
+            .catch(error => {
+                console.log(error);
+                alert('Aun no tiene cursos asignados');
+            })
     }
+
     render() {
         console.log('role: ' + cookies.get('role'));
         console.log('username: ' + cookies.get('username'));
+        console.log('id: ' + cookies.get('id'));
+        console.log('token: ' + cookies.get('token'));
+
+        window.onload = this.classroomAssigned;
+ 
         return (
-            <div>
-                Menú principal del alumno
-                <img 
-                    src= {img}
-                    id="logoAvatar"
-                    alt= "No se encuentra la imagen"
-                    />
-                <h2>Hola {cookies.get('username')}</h2>
-                <br />
-                <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
+            <div className="containerPrin">
+                <div className="containerSec">
+                    <div className="barraUser">
+                        <img 
+                            src= {img}
+                            id="logoAvatar"
+                            alt= "No se encuentra la imagen"
+                        />
+                        <h1 id="userName">{cookies.get('username')}</h1>
+                    </div>
+                    <br />
+                    <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
+                </div>
             </div>
         )
     }

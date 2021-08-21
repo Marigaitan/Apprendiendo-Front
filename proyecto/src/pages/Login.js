@@ -34,7 +34,7 @@ export default class Login extends Component {
         let body = { username: this.state.form.username, password: this.state.form.password };
         await axios.post(baseUrl, body) //aca podria usar MD5
             .then(response => {
-                cookies.set('token', response.headers.Authentication, { path: "/" });
+                //cookies.set('token', response.headers.Authentication, { path: "/" });  retomar cuando se solucione CORS
                 return response.data; //aca retonamos la data que viene en el body
             })
             .then(response => {  //aca la podemos utilizar
@@ -42,6 +42,8 @@ export default class Login extends Component {
                     cookies.set('username', response.username, { path: "/" });
                     cookies.set('role', response.role, { path: "/" });
                     cookies.set('id', response.id, { path: "/" });
+                    cookies.set('token', response.token, { path: "/" });
+                    axios.defaults.headers.common['Authorization'] = cookies.get('token'); //??
                     if (cookies.get('role') === "ROLE_STUDENT") {
                         window.location.href = "./menualumno";
                     } else if (cookies.get('role') === "ROLE_TEACHER") {

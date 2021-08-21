@@ -1,0 +1,28 @@
+.containerPrin{
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Indie Flower';
+}
+.containerSec{
+    background-color: rgb(8, 83, 245);
+    border-radius: 20px;
+    flex: 1;
+    max-width: 400px;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+    text-align: center;
+}
+.barraUser{
+    position: relative;
+    text-align: left;
+    
+}
+#userName{
+    font-variant: small-caps;
+    font-weight: 900;
+}
+
+#logoAvatar {
+    width: 20%;
+}
