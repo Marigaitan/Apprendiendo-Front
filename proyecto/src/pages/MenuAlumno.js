@@ -54,7 +54,7 @@ export default class MenuAlumno extends Component {
     } 
 
     goClassroom(){
-        window.location.href = "./menualumno";
+        window.location.href = "/menualumno/classroom";
     }
     
     classroomAssigned = async () => {

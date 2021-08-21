@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class AClassroom extends Component {
+export default class AlumnoClassroom extends Component {
     render() {
         return (
             <div>
