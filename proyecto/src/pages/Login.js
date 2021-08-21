@@ -43,6 +43,7 @@ export default class Login extends Component {
                     cookies.set('role', response.role, { path: "/" });
                     cookies.set('id', response.id, { path: "/" });
                     cookies.set('token', response.token, { path: "/" });
+                    axios.defaults.headers.common['Authorization'] = cookies.get('token'); //??
                     if (cookies.get('role') === "ROLE_STUDENT") {
                         window.location.href = "./menualumno";
                     } else if (cookies.get('role') === "ROLE_TEACHER") {

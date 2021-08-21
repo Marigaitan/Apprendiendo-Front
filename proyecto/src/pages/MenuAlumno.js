@@ -52,8 +52,9 @@ export default class MenuAlumno extends Component {
         )
         
     } 
+    
     classroomAssigned = async () => {
-        await axios.get(classUrl, {Authorization: cookies.get('token')}) //El token me aparece como undefined
+        await axios.get(classUrl) //El token me aparece como undefined
             .then(response => {
                 return response.data; 
             })
