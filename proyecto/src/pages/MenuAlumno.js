@@ -25,7 +25,7 @@ export default class MenuAlumno extends Component {
         cookies.remove('id', { path: "/" });
         window.location.href='./' //lo redirijo al login
     }   
-    Menu() {
+    Menu=()=>{
         const opencloseDropdown=()=>{
             this.setState({dropdown:!this.state.dropdown});
         } 
@@ -38,7 +38,7 @@ export default class MenuAlumno extends Component {
             <div className = 'DropMenu'>
                 <Dropdown isOpen={this.state.dropdown} toggle={opencloseDropdown}>
                     <DropdownToggle caret> 
-                     Dropdown Ejemplo    {/*boton que se va a desplegar */}
+                     Dropdown Ejemplo  
                     </DropdownToggle>
                     <DropdownMenu>
                         <DropdownItem onClick={()=>irPerfil}>Ver Perfil</DropdownItem>
@@ -49,20 +49,21 @@ export default class MenuAlumno extends Component {
             </div>
         )
         
-    }
+    } 
+
     render() {
         console.log('role: ' + cookies.get('role'));
         console.log('username: ' + cookies.get('username'));
         return (
-            <div className="containerPrincipal">
-                <div className="containerSecundario">
+            <div className="containerPrin">
+                <div className="containerSec">
                     <div className="barraUser">
                         <img 
                             src= {img}
                             id="logoAvatar"
                             alt= "No se encuentra la imagen"
                         />
-                        <h2 id="userName">{cookies.get('username')}</h2>
+                        <h1 id="userName">{cookies.get('username')}</h1>
                     </div>
                     <br />
                     <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
