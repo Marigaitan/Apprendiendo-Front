@@ -4,9 +4,11 @@ import img from '../Images/logoMini.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import '../css/MenuAlumno.css'
+import axios from 'axios' 
 
 
 const cookies = new Cookies();
+let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classroom";
 
 export default class MenuAlumno extends Component {
     constructor(props) {        //constructor de mi clase
@@ -50,10 +52,30 @@ export default class MenuAlumno extends Component {
         )
         
     } 
+    classroomAssigned = async () => {
+        await axios.get(classUrl, {Authorization: cookies.get('token')}) //El token me aparece como undefined
+            .then(response => {
+                return response.data; 
+            })
+            .then(response => {  
+                console.log(response);                 
+                    
+                }
+            )
+            .catch(error => {
+                console.log(error);
+                alert('Aun no tiene cursos asignados');
+            })
+    }
 
     render() {
         console.log('role: ' + cookies.get('role'));
         console.log('username: ' + cookies.get('username'));
+        console.log('id: ' + cookies.get('id'));
+        console.log('token: ' + cookies.get('token'));
+
+        window.onload = this.classroomAssigned;
+ 
         return (
             <div className="containerPrin">
                 <div className="containerSec">
