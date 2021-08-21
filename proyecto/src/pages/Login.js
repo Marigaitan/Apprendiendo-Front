@@ -42,7 +42,7 @@ export default class Login extends Component {
                     cookies.set('username', response.username, { path: "/" });
                     cookies.set('role', response.role, { path: "/" });
                     cookies.set('id', response.id, { path: "/" });
-                    cookies.set('token', { path: "/" });
+                    cookies.set('token', response.token, { path: "/" });
                     if (cookies.get('role') === "ROLE_STUDENT") {
                         window.location.href = "./menualumno";
                     } else if (cookies.get('role') === "ROLE_TEACHER") {
