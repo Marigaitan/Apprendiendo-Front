@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie/es6'
 import img from '../Images/logoMini.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
+import '../css/MenuAlumno.css'
 
 
 const cookies = new Cookies();
@@ -53,16 +54,19 @@ export default class MenuAlumno extends Component {
         console.log('role: ' + cookies.get('role'));
         console.log('username: ' + cookies.get('username'));
         return (
-            <div>
-                Menú principal del alumno
-                <img 
-                    src= {img}
-                    id="logoAvatar"
-                    alt= "No se encuentra la imagen"
-                    />
-                <h2>Hola {cookies.get('username')}</h2>
-                <br />
-                <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
+            <div className="containerPrincipal">
+                <div className="containerSecundario">
+                    <div className="barraUser">
+                        <img 
+                            src= {img}
+                            id="logoAvatar"
+                            alt= "No se encuentra la imagen"
+                        />
+                        <h2 id="userName">{cookies.get('username')}</h2>
+                    </div>
+                    <br />
+                    <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
+                </div>
             </div>
         )
     }

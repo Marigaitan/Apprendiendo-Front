@@ -1,0 +1,27 @@
+.containerPrincipal{
+    margin: 0px;
+    display: flex;
+    justify-content: center; 
+}
+.containerSecundario{
+    background-color: rgb(0, 89, 255);
+    border-radius: 20px;
+    flex: 1;
+    max-width: 400px;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+    text-align: center;
+}
+.barraUser{
+    position: relative;
+    text-align: left;
+    
+}
+#userName{
+    font-variant: small-caps;
+    
+
+}
+#logoAvatar {
+    width: 20%;
+}
