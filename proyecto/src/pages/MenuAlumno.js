@@ -13,7 +13,7 @@ let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classrooms"
 export default class MenuAlumno extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = {dropdown: false};
+        this.state = {dropdown: false, classrooms: []};
       }
     componentDidMount(){    //para que lo redirija al login si no hay token
         if(!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT"){
@@ -53,10 +53,10 @@ export default class MenuAlumno extends Component {
         
     } 
 
-    goClassroom(){
+    goClassroom(classroomId){
         window.location.href = "/menualumno/classroom";
     }
-    
+
     classroomAssigned = async () => {
         await axios.get(classUrl , {
             headers: {
@@ -64,11 +64,9 @@ export default class MenuAlumno extends Component {
             }
           }) 
             .then(response => {
-                return response.data; 
+                const classrooms = response.data.map(classroom => ({name: classroom.name, id: classroom.id}));
+                this.setState({ classrooms });
             })
-            .then(response => {  
-               console.log(response); 
-            })   
             .catch(error => {
                 console.log(error);
                 alert('Aun no tiene cursos asignados');
@@ -93,6 +91,9 @@ export default class MenuAlumno extends Component {
                             alt= "No se encuentra la imagen"
                         />
                         <h1 id="userName">{cookies.get('username')}</h1>
+                        <li>
+                            {this.state.classrooms.map(classroom => {return (<li><button onClick={()=> this.goClassroom(classroom.id)}>{classroom.name}</button></li>)})}
+                        </li>
                     </div>
                     <br />
                     <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
