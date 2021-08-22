@@ -8,7 +8,7 @@ import axios from 'axios'
 
 
 const cookies = new Cookies();
-let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classroom";
+let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classrooms";
 
 export default class MenuDocente extends Component {
     constructor(props) {        //constructor de mi clase
