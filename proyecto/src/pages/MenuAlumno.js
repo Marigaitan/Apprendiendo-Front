@@ -52,17 +52,23 @@ export default class MenuAlumno extends Component {
         )
         
     } 
+
+    goClassroom(){
+        window.location.href = "/menualumno/classroom";
+    }
     
     classroomAssigned = async () => {
-        await axios.get(classUrl) //El token me aparece como undefined
+        await axios.get(classUrl , {
+            headers: {
+              'Authorization': cookies.get('token')
+            }
+          }) 
             .then(response => {
                 return response.data; 
             })
             .then(response => {  
-                console.log(response);                 
-                    
-                }
-            )
+               console.log(response); 
+            })   
             .catch(error => {
                 console.log(error);
                 alert('Aun no tiene cursos asignados');
