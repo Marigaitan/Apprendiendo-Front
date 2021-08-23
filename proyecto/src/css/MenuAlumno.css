@@ -15,12 +15,27 @@
 }
 .barraUser{
     position: relative;
-    text-align: left;
+    text-align: left;  
+}
+.classcontainer{
+    
+    justify-content: center;
+}
+.classButton{
+    margin-bottom: 30px;
+    margin-right: 20px;
+    border: 0px;
+    border-radius: 10px;
+    padding: 50px;
+    outline: 0px;
+    font-weight: 900;
+    font-size: 2em;
     
 }
 #userName{
     font-variant: small-caps;
     font-weight: 900;
+    font-size: 3em;
 }
 
 #logoAvatar {

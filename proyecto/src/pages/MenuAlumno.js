@@ -92,11 +92,13 @@ export default class MenuAlumno extends Component {
                             alt= "No se encuentra la imagen"
                         />
                         <h1 id="userName">{cookies.get('username')}</h1>
-                        
-                            {this.state.classrooms.map(classroom => {return (<button onClick={()=> this.goClassroom(classroom.id)}>{classroom.name}</button>)})}
-                        
-                    </div>
+                        </div>
                     <br />
+                        <div className="classcontainer">
+                            {this.state.classrooms.map(classroom => {return (<button className="classButton" onClick={()=> this.goClassroom(classroom.id)}>{classroom.name}</button>)})}
+                        </div>
+                        
+                    
                     <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
                 </div>
             </div>
