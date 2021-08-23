@@ -27,7 +27,7 @@ export default class MenuAlumno extends Component {
         cookies.remove('id', { path: "/" });
         window.location.href='./' //lo redirijo al login
     }   
-    Menu=()=>{
+    /* Menu=()=>{
         const opencloseDropdown=()=>{
             this.setState({dropdown:!this.state.dropdown});
         } 
@@ -51,10 +51,11 @@ export default class MenuAlumno extends Component {
             </div>
         )
         
-    } 
+    }  */
 
     goClassroom(classroomId){
         window.location.href = "/menualumno/classroom";
+        cookies.set('classid', classroomId, { path: "/menualumno" });
     }
 
     classroomAssigned = async () => {

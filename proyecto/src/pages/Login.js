@@ -20,14 +20,13 @@ export default class Login extends Component {
     }
 
     handleChange = async e => {   //con este metodo guardamos en el estado el valor del imput de acuerdo 
-        await this.setState({     //a su nombre. Asi que los estado tienen que coincidir con el nombre
-            form: {              //de los imputs.
+        this.setState({
+            form: {
                 ...this.state.form,
                 [e.target.name]: e.target.value
             }
         })
-        console.log(this.state.form); //Lo mostramos por consola para ver que funcione
-    }                              //uso async y await para q sea asincrono y verlo en tiempo real
+    }
     
     
     sendCredentials = async () => {
