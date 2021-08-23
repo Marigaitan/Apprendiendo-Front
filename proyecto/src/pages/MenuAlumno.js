@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Cookies from 'universal-cookie/es6'
 import img from '../Images/account.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,6 +6,8 @@ import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import '../css/MenuAlumno.css'
 import axios from 'axios' 
 
+
+ 
 
 const cookies = new Cookies();
 let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classrooms";
@@ -26,32 +28,11 @@ export default class MenuAlumno extends Component {
         cookies.remove('role', {path: "/"});
         cookies.remove('id', { path: "/" });
         window.location.href='./' //lo redirijo al login
-    }   
-    /* Menu=()=>{
-        const opencloseDropdown=()=>{
-            this.setState({dropdown:!this.state.dropdown});
-        } 
-        const irPerfil=()=>{
-            alert("aca se ve el perfil de usuario");
-        }
-        
-
-        return (
-            <div className = 'DropMenu'>
-                <Dropdown isOpen={this.state.dropdown} toggle={opencloseDropdown}>
-                    <DropdownToggle caret> 
-                     Dropdown Ejemplo  
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem onClick={()=>irPerfil}>Ver Perfil</DropdownItem>
-                        <DropdownItem divider/>
-                        <DropdownItem onClick={()=>this.cerrarSesion()}>Cerrar Sesión</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-            </div>
-        )
-        
-    }  */
+    } 
+    irPerfil=()=>{
+        alert("aca se ve el perfil de usuario");
+    }  
+     
 
     goClassroom(classroomId){
         window.location.href = "/menualumno/classroom";
@@ -74,6 +55,31 @@ export default class MenuAlumno extends Component {
             })
     }
 
+    Menu=()=>{
+        const opencloseDropdown=()=>{
+            this.setState({dropdown:!this.state.dropdown});
+        } 
+        const irPerfil=()=>{
+            alert("aca se ve el perfil de usuario");
+        }
+        
+        return (
+            <div className = 'DropMenu'>
+                <Dropdown isOpen={this.state.dropdown} toggle={opencloseDropdown}>
+                    <DropdownToggle caret> 
+                     Dropdown Ejemplo  
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={()=>irPerfil}>Ver Perfil</DropdownItem>
+                        <DropdownItem divider/>
+                        <DropdownItem onClick={()=>this.cerrarSesion()}>Cerrar Sesión</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            </div>
+        )
+        
+    } 
+
     render() {
         console.log('role: ' + cookies.get('role'));
         console.log('username: ' + cookies.get('username'));
@@ -90,6 +96,7 @@ export default class MenuAlumno extends Component {
                             src= {img}
                             id="logoAccount"
                             alt= "No se encuentra la imagen"
+                            onClick= {this.Menu()}
                         />
                         <h1 id="userName">{cookies.get('username')}</h1>
                         </div>

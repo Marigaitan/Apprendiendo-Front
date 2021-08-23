@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
+import axios from 'axios';
 
 const cookies = new Cookies();
 
