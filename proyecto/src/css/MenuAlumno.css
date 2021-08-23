@@ -12,14 +12,17 @@
     margin-top: 50vh;
     transform: translateY(-50%);
     text-align: center;
+    
 }
 .barraUser{
     position: relative;
-    text-align: left;  
+    text-align: left;   
+    
 }
 .classcontainer{
     
     justify-content: center;
+    
 }
 .classButton{
     margin-bottom: 30px;
@@ -36,8 +39,10 @@
     font-variant: small-caps;
     font-weight: 900;
     font-size: 3em;
+    margin-left: 5px;
+    display: inline-block;
 }
 
-#logoAvatar {
+#logoAccount {
     width: 20%;
 }

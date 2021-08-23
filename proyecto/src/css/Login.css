@@ -25,6 +25,7 @@
     border-radius: 10px;
     margin-bottom: 10px;
     font-weight: 900;
+    font-size: 1.25em;
 }
 
 .submit-button {
@@ -34,6 +35,7 @@
     padding: 10px;
     outline: 0px;
     font-weight: 900;
+    font-size: 1.25em;
 }
 
 .submit-button:hover {

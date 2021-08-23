@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Cookies from 'universal-cookie/es6'
-import img from '../Images/logoMini.png'
+import img from '../Images/account.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import '../css/MenuAlumno.css'
@@ -88,7 +88,7 @@ export default class MenuAlumno extends Component {
                     <div className="barraUser">
                         <img 
                             src= {img}
-                            id="logoAvatar"
+                            id="logoAccount"
                             alt= "No se encuentra la imagen"
                         />
                         <h1 id="userName">{cookies.get('username')}</h1>
