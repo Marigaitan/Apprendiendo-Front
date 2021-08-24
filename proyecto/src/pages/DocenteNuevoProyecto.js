@@ -8,7 +8,7 @@ import '../css/MenuAlumno.css'
 import { get } from 'lodash';
 
 const cookies = new Cookies();
-let newProjectUrl = "http://localhost:8080/classroom/" + cookies.get('classId') + "/project";
+let newProjectUrl = "http://localhost:8080/classroom/" + cookies.get('classid') + "/project";
 let getMethodologiesUrl = "http://localhost:8080/methodologies";
 
 export default class DocenteNuevoProyecto extends Component {
@@ -31,9 +31,9 @@ export default class DocenteNuevoProyecto extends Component {
                 'Authorization': cookies.get('token')
             },
             body: {
-                'methodologyId': methodologyId.toString(),
-                'name': name,
-                'challengeId': '0'
+                methodologyId: methodologyId.toString(),
+                name: name,
+                challengeId: "0"
             }
         })
             .then(response => {
@@ -53,9 +53,6 @@ export default class DocenteNuevoProyecto extends Component {
             }
         })
             .then(response => {
-                console.log("AAAAAAAAA");
-                console.log(response.data);
-                console.log("AAAAAAAAA");
                 const methodologies = response.data.map(methodology => ({ name: methodology.name, id: methodology.id }));
                 this.setState({ methodologies });
             })
@@ -91,7 +88,11 @@ export default class DocenteNuevoProyecto extends Component {
                     <br />
                     <div className="classcontainer">
                             {this.state.methodologies.map(methodology => { 
-                                return (<button className="classButton" id={methodology.id} onClick={() => this.setState(state => state.methodologyId = methodology.id)}>
+                                return (<button className="classButton" id={methodology.id} onClick={() => {this.setState(state => state.methodologyId = methodology.id);
+                                console.log("BBBBBBBBBBBBBBBBBBBBBBBB");
+                                console.log(this.state);
+                                console.log("BBBBBBBBBBBBBBBBBBBBBBBB");
+                                }}>
                                     {methodology.name}
                                     </button>) 
                                 })};
