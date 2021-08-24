@@ -33,7 +33,9 @@ export default class DocenteNuevoProyecto extends Component {
                 challengeId: "0"
             },
             {
-                'Authorization': cookies.get('token')
+                headers: {
+                    'Authorization': cookies.get('token')
+                }
             }
         )
             .then(response => {
