@@ -44,7 +44,7 @@ export default class MenuAlumno extends Component {
             }
           }) 
             .then(response => {
-                const classrooms = response.data.map(classroom => ({name: classroom.name, id: classroom.id}));
+                const classrooms = response.data.map(classroom => ({name: classroom.subject, id: classroom.id}));
                 this.setState({ classrooms });
             })
             .catch(error => {
@@ -97,14 +97,15 @@ export default class MenuAlumno extends Component {
                             onClick= {this.Menu()}
                         />
                         <h1 id="userName">{cookies.get('username')}</h1>
+                        <button id='botonlogout' onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
                         </div>
-                    <br />
+                        <br />
                         <div className="classcontainer">
-                            {this.state.classrooms.map(classroom => {return (<button className="classButton" onClick={()=> this.goClassroom(classroom.id)}>{classroom.name}</button>)})}
+                            {this.state.classrooms.map(classroom => {return (<button className="classButton" onClick={()=> this.goClassroom(classroom.id)}>{classroom.name}</button>)})};
+                            
                         </div>
-                        
                     
-                    <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
+                       
                 </div>
             </div>
         )
