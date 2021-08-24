@@ -17,6 +17,7 @@ function Routes() {
       <Route exact path = "/menualumno" component={MenuAlumno}/>
       <Route exact path = "/menudocente" component={MenuDocente}/>
       <Route exact path = "/menualumno/classroom" component={AlumnoClassroom}/>
+      <Route exact path = "/menudocente/classroom" component={AlumnoClassroom}/>
     </Switch>
    </BrowserRouter>
   );
