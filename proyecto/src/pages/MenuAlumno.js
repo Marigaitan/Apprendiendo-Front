@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react'
 import Cookies from 'universal-cookie/es6'
 import img from '../Images/account.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import '../css/MenuAlumno.css'
 import axios from 'axios'
 import Header from "./Header"
@@ -35,7 +35,7 @@ export default class MenuAlumno extends Component {
 
     goClassroom(classroomId) {
         window.location.href = "/menualumno/classroom";
-        cookies.set('classid', classroomId, { path: "/menualumno" });
+        cookies.set('classid', classroomId, { path: "/menualumno/classroom" });
     }
 
     classroomAssigned = async () => {

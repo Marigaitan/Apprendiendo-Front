@@ -12,7 +12,7 @@ let getStudentsUrl = "http://localhost:8080/classroom/" + cookies.get('classid')
 let getProjectsUrl = "http://localhost:8080/classroom/" + cookies.get('classid') + "/projects";
 let getTeacherUrl = "http://localhost:8080/user/";
 
-export default class AlumnoClassroom extends Component {
+export default class DocenteClassroom extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
         this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "" };
@@ -98,12 +98,12 @@ export default class AlumnoClassroom extends Component {
                 console.log(error);
                 alert('error obteniendo usuarios');
             })
-    }
+    }   
 
     goNewProject(classroomId, teacherId) {
         window.location.href = "/menudocente/classroom/nuevo_proyecto";
-        cookies.set('classId', classroomId, { path: "/menudocente/classroom" });
-        cookies.set('teacherId', teacherId, { path: "/menudocente/classroom" });
+        cookies.set('classid', classroomId, { path: "/menudocente/classroom/nuevo_proyecto" });
+        cookies.set('teacherId', teacherId, { path: "/menudocente/classroom/nuevo_proyecto" });
     }
 
     render() {

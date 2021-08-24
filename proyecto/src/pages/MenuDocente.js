@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Cookies from 'universal-cookie/es6'
 import img from '../Images/logoMini.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,7 +6,7 @@ import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import '../css/MenuAlumno.css'
 import axios from 'axios' 
 import * as _ from "lodash";
-
+import Header from "./Header"
 
 const cookies = new Cookies();
 let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classrooms";
@@ -56,7 +56,7 @@ export default class MenuDocente extends Component {
 
     goClassroom(classroomId){
         window.location.href = "/menudocente/classroom";
-        cookies.set('classid', classroomId, { path: "/menudocente" });
+        cookies.set('classid', classroomId, { path: "/menudocente/classroom" });
     }
     
     classroomAssigned = async () => {
