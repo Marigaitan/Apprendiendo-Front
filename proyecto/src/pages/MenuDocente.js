@@ -56,7 +56,7 @@ export default class MenuDocente extends Component {
 
     goClassroom(classroomId){
         window.location.href = "/menudocente/classroom";
-        cookies.set('classid', classroomId, { path: "/menudocente/classroom" });
+        cookies.set('classid', classroomId, { path: "/" });
     }
     
     classroomAssigned = async () => {

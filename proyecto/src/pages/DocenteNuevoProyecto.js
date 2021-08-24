@@ -14,7 +14,7 @@ let getMethodologiesUrl = "http://localhost:8080/methodologies";
 export default class DocenteNuevoProyecto extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = {name: "Nuevo Proyecto", teacherId: -1, methodologies: [], methodologyId: -1};
+        this.state = {name: "Nuevo Proyecto", teacherId: cookies.get('teacherId'), methodologies: [], methodologyId: -1};
     }
     
     
@@ -25,17 +25,17 @@ export default class DocenteNuevoProyecto extends Component {
         }
     }
 
-    newProject(name, methodologyId, classroomId,) {
-        axios.post(newProjectUrl, {
-            headers: {
-                'Authorization': cookies.get('token')
-            },
-            body: {
+    newProject(name, methodologyId) {
+        axios.post(newProjectUrl, 
+            {
                 methodologyId: methodologyId.toString(),
                 name: name,
                 challengeId: "0"
+            },
+            {
+                'Authorization': cookies.get('token')
             }
-        })
+        )
             .then(response => {
                 console.log(response);
                 alert('proyecto creado')

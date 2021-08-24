@@ -102,8 +102,7 @@ export default class DocenteClassroom extends Component {
 
     goNewProject(classroomId, teacherId) {
         window.location.href = "/menudocente/classroom/nuevo_proyecto";
-        cookies.set('classid', classroomId, { path: "/menudocente/classroom/nuevo_proyecto" });
-        cookies.set('teacherId', teacherId, { path: "/menudocente/classroom/nuevo_proyecto" });
+        cookies.set('teacherId', this.state.teacherId, { path: "/" });
     }
 
     render() {
