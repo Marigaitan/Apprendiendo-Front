@@ -91,9 +91,6 @@ export default class AlumnoClassroom extends Component {
             }
         })
             .then(response => {
-                console.log("AAAAAAAAAAAAAAAAAAAAA");
-                console.log(response);
-                console.log("AAAAAAAAAAAAAAAAAAAAA");
                 const projects = response.data.map(project => ({ id: project.id, name: project.name }));
                 this.setState({projects});
             })
