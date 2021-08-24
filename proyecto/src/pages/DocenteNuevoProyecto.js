@@ -45,7 +45,11 @@ export default class DocenteNuevoProyecto extends Component {
             .catch(error => {
                 console.log(error);
                 alert('error en la materia');
-            });
+            }).then(this.goClassroom(this.state.classroomId));
+    }
+
+    goClassroom(){
+        window.location.href = "/menudocente/classroom";
     }
 
     getMethodologies = async () => {
