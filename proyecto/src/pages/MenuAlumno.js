@@ -7,8 +7,6 @@ import '../css/MenuAlumno.css'
 import axios from 'axios' 
 
 
- 
-
 const cookies = new Cookies();
 let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classrooms";
 

@@ -54,8 +54,9 @@ export default class MenuDocente extends Component {
         
     } 
 
-    goClassroom(){
+    goClassroom(classroomId){
         window.location.href = "/menudocente/classroom";
+        cookies.set('classid', classroomId, { path: "/menudocente" });
     }
     
     classroomAssigned = async () => {
@@ -90,7 +91,7 @@ export default class MenuDocente extends Component {
                     <div className="barraUser">
                         <img 
                             src= {img}
-                            id="logoAvatar"
+                            id="logoAccount"
                             alt= "No se encuentra la imagen"
                         />
                         <h1 id="userName">{cookies.get('username')}</h1>
