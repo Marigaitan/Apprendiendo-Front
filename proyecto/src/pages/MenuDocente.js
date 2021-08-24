@@ -69,6 +69,7 @@ export default class MenuDocente extends Component {
                 console.log(classrooms);
                 var classrooms = response.data.map(classroom => ({key: classroom.id, id: classroom.id, subject: classroom.subject, yearDivision: classroom.year.toString() + classroom.division}));
                 classrooms = _(classrooms).groupBy('yearDivision').valueOf();
+                classrooms = Object.entries(classrooms);
                 this.setState({ classrooms});
             })
             .catch(error => {
@@ -95,7 +96,11 @@ export default class MenuDocente extends Component {
                             alt= "No se encuentra la imagen"
                         />
                         <h1 id="userName">{cookies.get('username')}</h1>
-                        { "{this.state.classrooms.map(classroom => [classroom.yearDivision, otro map con las clases])}" }    
+                        {this.state.classrooms.map( classroomGroup => [
+                            <h1><li>{classroomGroup[0]}</li></h1>, classroomGroup[1].map(classroom => 
+                                <li><button className="classButton" onClick={()=> this.goClassroom(classroom.id)}>{classroom.subject}</button></li>
+                            )
+                        ])}
                     </div>
                     <br />
                     <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
@@ -105,3 +110,4 @@ export default class MenuDocente extends Component {
     }
 }
 
+//classrooms.map(classroom => "as")
