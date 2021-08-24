@@ -35,7 +35,7 @@ export default class MenuAlumno extends Component {
 
     goClassroom(classroomId) {
         window.location.href = "/menualumno/classroom";
-        cookies.set('classid', classroomId, { path: "/menualumno/classroom" });
+        cookies.set('classid', classroomId, { path: "/" });
     }
 
     classroomAssigned = async () => {
