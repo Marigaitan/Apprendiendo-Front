@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import '../css/MenuAlumno.css'
 import axios from 'axios' 
+import * as _ from "lodash";
 
 
 const cookies = new Cookies();
@@ -13,7 +14,7 @@ let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classrooms"
 export default class MenuDocente extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = {dropdown: false};
+        this.state = {dropdown: false, classrooms: []};
       }
     componentDidMount(){    //para que lo redirija al login si no hay token
         if(!cookies.get('token') || cookies.get('role') !== "ROLE_TEACHER"){
@@ -64,11 +65,11 @@ export default class MenuDocente extends Component {
             }
           }) 
             .then(response => {
-                return response.data; 
+                console.log(classrooms);
+                var classrooms = response.data.map(classroom => ({key: classroom.id, id: classroom.id, subject: classroom.subject, yearDivision: classroom.year.toString() + classroom.division}));
+                classrooms = _(classrooms).groupBy('yearDivision').valueOf();
+                this.setState({ classrooms});
             })
-            .then(response => {  
-               console.log(response); 
-            })   
             .catch(error => {
                 console.log(error);
                 alert('Aun no tiene cursos asignados');
@@ -93,6 +94,7 @@ export default class MenuDocente extends Component {
                             alt= "No se encuentra la imagen"
                         />
                         <h1 id="userName">{cookies.get('username')}</h1>
+                        { "{this.state.classrooms.map(classroom => [classroom.yearDivision, otro map con las clases])}" }    
                     </div>
                     <br />
                     <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
