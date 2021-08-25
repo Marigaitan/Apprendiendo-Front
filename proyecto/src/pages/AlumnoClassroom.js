@@ -3,14 +3,15 @@ import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import img from '../Images/account.png'
-import '../css/AlumnoClassroom.css'
+import img from '../Images/account.png';
+import '../css/AlumnoClassroom.css';
+import {API_HOST} from "../constants";
 
 const cookies = new Cookies();
-let classparamUrl = "http://localhost:8080/classroom/" + cookies.get('classid');
-let getStudentsUrl = "http://localhost:8080/classroom/" + cookies.get('classid') + "/students";
-let getProjectsUrl = "http://localhost:8080/classroom/" + cookies.get('classid') + "/projects";
-let getTeacherUrl = "http://localhost:8080/user/";
+let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
+let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/students";
+let getProjectsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects";
+let getTeacherUrl = API_HOST + "user/";
 
 export default class AlumnoClassroom extends Component {
     constructor(props) {        //constructor de mi clase

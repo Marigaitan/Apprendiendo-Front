@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
-import im from '../Images/logo-verde.png'
-import '../css/Login.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import axios from 'axios' //para las peticiones a la API
+import React, { Component } from 'react';
+import im from '../Images/logo-verde.png';
+import '../css/Login.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios'; //para las peticiones a la API
 //import md5 from 'md5'
-import Cookies from 'universal-cookie/es6'
+import Cookies from 'universal-cookie/es6';
+import {API_HOST} from "../constants";
 
-const baseUrl = "http://localhost:8080/login";  //Url de la API
+
+const baseUrl = API_HOST + "login";  //Url de la API
 const cookies = new Cookies();
 
 export default class Login extends Component {

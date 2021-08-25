@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import Cookies from 'universal-cookie/es6'
-import img from '../Images/account.png'
+import React, { Component } from 'react';
+import Cookies from 'universal-cookie/es6';
+import img from '../Images/account.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/MenuAlumno.css'
-import axios from 'axios'
+import '../css/MenuAlumno.css';
+import axios from 'axios';
 // import Header from "./Header"
-
+import {API_HOST} from "../constants";
 
 const cookies = new Cookies();
-let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classrooms";
+let classUrl = API_HOST + "user/" + cookies.get('id') + "/classrooms";
 
 export default class MenuAlumno extends Component {
     constructor(props) {        //constructor de mi clase

@@ -3,13 +3,14 @@ import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import img from '../Images/account.png'
-import '../css/MenuAlumno.css'
+import img from '../Images/account.png';
+import '../css/MenuAlumno.css';
 import { get } from 'lodash';
+import {API_HOST} from "../constants";
 
 const cookies = new Cookies();
-let newProjectUrl = "http://localhost:8080/classroom/" + cookies.get('classid') + "/project";
-let getMethodologiesUrl = "http://localhost:8080/methodologies";
+let newProjectUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project";
+let getMethodologiesUrl = API_HOST + "methodologies";
 
 export default class DocenteNuevoProyecto extends Component {
     constructor(props) {        //constructor de mi clase
