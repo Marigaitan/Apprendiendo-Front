@@ -67,7 +67,7 @@ export default class MenuDocente extends Component {
           }) 
             .then(response => {
                 console.log(classrooms);
-                var classrooms = response.data.map(classroom => ({key: classroom.id, id: classroom.id, subject: classroom.subject, yearDivision: classroom.year.toString() + classroom.division}));
+                var classrooms = response.data.map(classroom => ({key: classroom.id, id: classroom.id, subject: classroom.subject, yearDivision: classroom.year.toString() + "°" + classroom.division}));
                 classrooms = _(classrooms).groupBy('yearDivision').valueOf();
                 classrooms = Object.entries(classrooms);
                 this.setState({ classrooms});

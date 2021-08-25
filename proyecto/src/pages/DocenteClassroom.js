@@ -46,9 +46,16 @@ export default class DocenteClassroom extends Component {
         cookies.remove('username', { path: "/" });
         cookies.remove('role', { path: "/" });
         cookies.remove('id', { path: "/" });
-        window.location.href = './' //to-do no funciona bien
+        window.location.href = window.location.origin; //to-do no funciona bien
     }
-
+    componentDidMount() {    //para que lo redirija al login si no hay token
+        if (!cookies.get('token') || cookies.get('role') !== "ROLE_TEACHER") {
+            window.location.href = window.location.origin;
+        }
+    }
+    irPerfil = () => {
+        alert("aca se ve el perfil de usuario");
+    }
     getStudents() {
         axios.get(getStudentsUrl, {
             headers: {
@@ -98,11 +105,6 @@ export default class DocenteClassroom extends Component {
                 console.log(error);
                 alert('error obteniendo usuarios');
             })
-    }   
-
-    goNewProject(classroomId, teacherId) {
-        window.location.href = "/menudocente/classroom/nuevo_proyecto";
-        cookies.set('teacherId', this.state.teacherId, { path: "/" });
     }
 
     render() {
@@ -114,31 +116,36 @@ export default class DocenteClassroom extends Component {
         }
         console.log(this.state);
         return (
-            <div className="containerPrin">
-                <Header />
-                <div className="containerSec">
+            <div className="mainContainer">
+                
+                <div className="secContainer">
                     <div className="barraUser">
                         <img src={img} id="logoAccount" alt="No se encuentra la imagen" />
+                        <div className="menuContent">
+                                <a onClick={()=>{this.irPerfil()}}>Ver Perfil</a>
+                                <a onClick={() => this.cerrarSesion()}>Cerrar sesión</a>
+                        </div>
                         <h1 id="userName">{cookies.get('username')}</h1>
-                        <button id='botonlogout' onClick={() => this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
                     </div>
-                    <div>
-                        <h1>{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
-                        <h1>{"Docente: " + this.state.teacherName}</h1>
-                    </div>
-                    <div>
-                        <h1>Estudiantes</h1>
-                        <div>
-                            {this.state.students.map(student => { return (<div id={student.id}><label >{student.username}</label></div>) })}
+                    <div className="mainContent">
+                        <div className="barraLateral">
+                            <h2>Estudiantes</h2>
+                            <div>
+                                {this.state.students.map(student => { return (<div key={student.id} id={student.id}><h3 >{student.username}</h3></div>) })}
+                            </div>
                         </div>
-                        <h1>Proyectos</h1>
-                        <div>
-                            {this.state.projects.map(project => { return (<div id={project.id}><label >{project.name}</label></div>) })}
+                        <div className="pro">
+                            <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
+                            <h2>{"Docente: " + this.state.teacherName}</h2>  
+                            <h2>Proyectos</h2>
+                            <div>
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><a href="/menudocente/classroom/proyecto" >{project.name}</a></div>) })}
+                            </div>
                         </div>
-                        <button id="botonUsuario" onClick={() => this.goNewProject()}>
-                            {"Nuevo Proyecto"}
-                        </button>
                     </div>
+                    
+                        
+                    
                 </div>
             </div>
         )
