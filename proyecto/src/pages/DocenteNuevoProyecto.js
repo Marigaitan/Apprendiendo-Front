@@ -14,22 +14,23 @@ let getMethodologiesUrl = "http://localhost:8080/methodologies";
 export default class DocenteNuevoProyecto extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = {name: "Nuevo Proyecto", teacherId: cookies.get('teacherId'), methodologies: [], methodologyId: -1};
-    }
-    
-    
-    //TODO: en lugar de username y password, seria nombre del proyecto y seleccionar una metodologia de la lista que devuelve this.getMethodologies()
-    state = {
-        form: {
-            name: ''
-        }
+        this.state = {teacherId: cookies.get('teacherId'), methodologies: [], methodologyId: -1, form: {name: 'Nuevo Proyecto'}};
     }
 
-    newProject(name, methodologyId) {
+    handleChange = async e => {   //con este metodo guardamos en el estado el valor del imput de acuerdo 
+        this.setState({
+            form: {
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+
+    newProject() {
         axios.post(newProjectUrl, 
             {
-                methodologyId: methodologyId.toString(),
-                name: name,
+                methodologyId: this.state.methodologyId.toString(),
+                name: this.state.form.name,
                 challengeId: "0"
             },
             {
@@ -69,14 +70,6 @@ export default class DocenteNuevoProyecto extends Component {
     }
     
 
-    handleChange = async e => {   //con este metodo guardamos en el estado el valor del imput de acuerdo 
-        this.setState({
-            form: {
-                ...this.state.form,
-                [e.target.name]: e.target.value
-            }
-        })
-    }
 
     render() {
         window.onload = this.getMethodologies;
@@ -94,16 +87,11 @@ export default class DocenteNuevoProyecto extends Component {
                     <br />
                     <div className="classcontainer">
                             {this.state.methodologies.map(methodology => { 
-                                return (<button className="classButton" id={methodology.id} onClick={() => {this.setState(state => state.methodologyId = methodology.id);
-                                console.log("BBBBBBBBBBBBBBBBBBBBBBBB");
-                                console.log(this.state);
-                                console.log("BBBBBBBBBBBBBBBBBBBBBBBB");
-                                }}>
-                                    {methodology.name}
-                                    </button>) 
-                                })};
+                                return (<button className="classButton" id={methodology.id} onClick={() => 
+                                    {this.setState(state => 
+                                        state.methodologyId = methodology.id);}}>{methodology.name}</button>)})};
                     </div>
-                    <button onClick={() => this.newProject(this.state.name, this.state.methodologyId, this.state.teacherId)} className="submit-button">{"Crear"}</button>
+                    <button onClick={() => this.newProject()} className="submit-button">{"Crear"}</button>
                 </div>
             </div>
         );

@@ -107,6 +107,11 @@ export default class DocenteClassroom extends Component {
             })
     }
 
+    goNewProject(classroomId, teacherId) {
+        window.location.href = "/menudocente/classroom/nuevo_proyecto";
+        cookies.set('teacherId', this.state.teacherId, { path: "/" });
+    }
+
     render() {
         console.log(cookies.get('classid'));
         window.onload = () => {
@@ -141,11 +146,9 @@ export default class DocenteClassroom extends Component {
                             <div>
                                 {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><a href="/menudocente/classroom/proyecto" >{project.name}</a></div>) })}
                             </div>
+                            <button id="botonUsuario" onClick={() => this.goNewProject()}>{"Nuevo Proyecto"}</button>
                         </div>
                     </div>
-                    
-                        
-                    
                 </div>
             </div>
         )
