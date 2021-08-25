@@ -4,7 +4,7 @@ import axios from 'axios';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/AlumnoClassroom.css'
-import img from '../Images/logoMini.png'
+import img from '../Images/account.png'
 
 const cookies = new Cookies();
 let classparamUrl = "http://localhost:8080/classroom/" + cookies.get('classid');

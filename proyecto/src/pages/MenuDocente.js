@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react'
 import Cookies from 'universal-cookie/es6'
-import img from '../Images/logoMini.png'
+import img from '../Images/account.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import '../css/MenuAlumno.css'
