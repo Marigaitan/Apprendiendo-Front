@@ -1,11 +1,10 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import Cookies from 'universal-cookie/es6'
 import img from '../Images/account.png'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import '../css/MenuAlumno.css'
 import axios from 'axios'
-import Header from "./Header"
+// import Header from "./Header"
 
 
 const cookies = new Cookies();
@@ -14,7 +13,7 @@ let classUrl = "http://localhost:8080/user/" + cookies.get('id') + "/classrooms"
 export default class MenuAlumno extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = { dropdown: true, classrooms: [] };
+        this.state = {  classrooms: [] };
     }
     componentDidMount() {    //para que lo redirija al login si no hay token
         if (!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT") {
@@ -27,6 +26,7 @@ export default class MenuAlumno extends Component {
         cookies.remove('role', { path: "/" });
         cookies.remove('id', { path: "/" });
         window.location.href = './' //lo redirijo al login
+
     }
     irPerfil = () => {
         alert("aca se ve el perfil de usuario");
@@ -54,30 +54,6 @@ export default class MenuAlumno extends Component {
             })
     }
 
-    Menu = () => {
-        const opencloseDropdown = () => {
-            this.setState({ dropdown: !this.state.dropdown });
-        }
-        const irPerfil = () => {
-            alert("aca se ve el perfil de usuario");
-        }
-
-        return (
-            <div className='DropMenu'>
-                <Dropdown isOpen={this.state.dropdown} toggle={opencloseDropdown}>
-                    <DropdownToggle caret>
-                        Dropdown Ejemplo
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem onClick={() => irPerfil}>Ver Perfil</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem onClick={() => this.cerrarSesion()}>Cerrar Sesión</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-            </div>
-        )
-
-    }
 
     render() {
         console.log('role: ' + cookies.get('role'));
@@ -90,22 +66,28 @@ export default class MenuAlumno extends Component {
         return (
             <div className="containerPrin">
                 {/* <Header /> */}
-                    <div className="containerSec">
-                        <div className="barraUser">
-                            <input type="image" src={img} id="logoAccount" alt="No se encuentra la imagen"/>
-                            <h1 id="userName">{cookies.get('username')}</h1>
-                            <button id='botonlogout' onClick={() => this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
-                        </div>
-                        <br />
-                        <div className="classcontainer">
-                            {this.state.classrooms.map(classroom => { 
-                                return (<button className="classButton" id={classroom.id} onClick={() => this.goClassroom(classroom.id)}>
-                                    {classroom.name}
-                                    </button>) 
-                                })};
-                        </div>
+                <div className="containerSec">
+                    <div className="barraUser">
+                        <img  src={img} alt="No se encuentra la imagen" id="logoAccount"/>
+                        <div className="menuContent">
+                                <a onClick={()=>{this.irPerfil()}}>Ver Perfil</a>
+                                <a onClick={() => this.cerrarSesion()}>Cerrar sesión</a>
+                            </div>
+                        <h1 id="userName">{cookies.get('username')}</h1>
+                    </div>
+                    <br />
+                    <div className="classcontainer">
+                        {this.state.classrooms.map(classroom => {
+                            //react necesita una key para identif elementos siblings
+                             return (<button key={classroom.id} className="classButton" id={classroom.id} onClick={() => this.goClassroom(classroom.id)}> 
+                                {classroom.name}
+                            </button>)
+                            
+                        })
+                        };
                     </div>
                 </div>
+            </div>
         )
     }
 }
