@@ -109,7 +109,7 @@ export default class DocenteClassroom extends Component {
     }
 
     goNewProject(classroomId, teacherId) {
-        window.location.href = "/menudocente/classroom/nuevo_proyecto";
+        window.location.href = "/menudocente_classroom_nuevo_proyecto";
         cookies.set('teacherId', this.state.teacherId, { path: "/" });
     }
 
@@ -145,7 +145,7 @@ export default class DocenteClassroom extends Component {
                             <h2>{"Docente: " + this.state.teacherName}</h2>  
                             <h2>Proyectos</h2>
                             <div>
-                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><a href="/menudocente/classroom/proyecto" >{project.name}</a></div>) })}
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><a href="/menudocente_classroom_proyecto" >{project.name}</a></div>) })}
                             </div>
                             <button id="botonUsuario" onClick={() => this.goNewProject()}>{"Nuevo Proyecto"}</button>
                         </div>

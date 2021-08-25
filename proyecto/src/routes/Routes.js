@@ -20,11 +20,11 @@ function Routes() {
       <Route exact path = "/menuadmin" component={MenuAdmin}/>
       <Route exact path = "/menualumno" component={MenuAlumno}/>
       <Route exact path = "/menudocente" component={MenuDocente}/>
-      <Route exact path = "/menualumno/classroom" component={AlumnoClassroom}/>
-      <Route exact path = "/classroom" component={DocenteClassroom}/>
-      <Route exact path = "/menudocente/classroom/nuevo_proyecto" component={DocenteNuevoProyecto}/>
-      <Route exact path = "/menualumno/classroom/proyecto" component={AlumnoProyecto}/>
-      <Route exact path = "/menudocente/classroom/proyecto" component={DocenteProyecto}/>
+      <Route exact path = "/menualumno_classroom" component={AlumnoClassroom}/>
+      <Route exact path = "/menudocente_classroom" component={DocenteClassroom}/>
+      <Route exact path = "/menudocente_classroom_nuevo_proyecto" component={DocenteNuevoProyecto}/>
+      <Route exact path = "/menualumno_classroom_proyecto" component={AlumnoProyecto}/>
+      <Route exact path = "/menudocente_classroom_proyecto" component={DocenteProyecto}/>
     </Switch>
    </BrowserRouter>
   );

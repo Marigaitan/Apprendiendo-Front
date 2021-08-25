@@ -34,7 +34,7 @@ export default class MenuAlumno extends Component {
 
 
     goClassroom(classroomId) {
-        window.location.href = "/menualumno/classroom";
+        window.location.href = "/menualumno_classroom";
         cookies.set('classid', classroomId, { path: "/" });
     }
 
