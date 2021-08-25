@@ -89,12 +89,10 @@ export default class MenuAlumno extends Component {
 
         return (
             <div className="containerPrin">
-                <Header />
+                {/* <Header /> */}
                     <div className="containerSec">
                         <div className="barraUser">
-                            <button id="botonUsuario" onClick={() => this.Menu()}>
-                                <input type="image" src={img} id="logoAccount" alt="No se encuentra la imagen"/>
-                            </button>
+                            <input type="image" src={img} id="logoAccount" alt="No se encuentra la imagen"/>
                             <h1 id="userName">{cookies.get('username')}</h1>
                             <button id='botonlogout' onClick={() => this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
                         </div>

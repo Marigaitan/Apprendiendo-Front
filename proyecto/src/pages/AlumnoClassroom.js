@@ -4,7 +4,7 @@ import axios from 'axios';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import img from '../Images/account.png'
-import '../css/MenuAlumno.css'
+import '../css/AlumnoClassroom.css'
 
 const cookies = new Cookies();
 let classparamUrl = "http://localhost:8080/classroom/" + cookies.get('classid');
@@ -109,16 +109,16 @@ export default class AlumnoClassroom extends Component {
         }
         console.log(this.state);
         return (
-            <div className="containerPrin">
-                <Header />
-                <div className="containerSec">
+            <div className="mainContainer">
+                
+                <div className="secContainer">
                     <div className="barraUser">
                         <input type="image" src={img} id="logoAccount" alt="No se encuentra la imagen" />
                         <h1 id="userName">{cookies.get('username')}</h1>
                         <button id='botonlogout' onClick={() => this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
                     </div>
                     <div>
-                        <h1>{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
+                        <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
                         <h1>{"Docente: " + this.state.teacherName}</h1>
                     </div>
                     <div>
@@ -128,7 +128,7 @@ export default class AlumnoClassroom extends Component {
                         </div>
                         <h1>Proyectos</h1>
                         <div>
-                            {this.state.projects.map(project => { return (<div id={project.id}><label >{project.name}</label></div>) })}
+                            {this.state.projects.map(project => { return (<div id={project.id}><a href="/menualumno/classroom/proyecto" >{project.name}</a></div>) })}
                         </div>
                     </div>
                 </div>

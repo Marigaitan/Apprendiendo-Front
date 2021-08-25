@@ -1,11 +1,11 @@
-.containerPrin{
+.mainContainer{
     margin: 0px;
     display: flex;
     justify-content: center;
     font-family: 'Indie Flower';
 }
-.containerSec{
-    background-color: rgb(8, 83, 245);
+.secContainer{
+    background-color: rgb(226, 206, 181);
     border-radius: 20px;
     flex: 1;
     max-width: 800px;
