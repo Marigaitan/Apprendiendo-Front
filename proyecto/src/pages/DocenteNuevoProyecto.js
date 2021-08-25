@@ -51,7 +51,7 @@ export default class DocenteNuevoProyecto extends Component {
     }
 
     goClassroom(){
-        window.location.href = "/menudocente/classroom";
+        window.location.href = "/menudocente_classroom";
     }
 
     getMethodologies = async () => {
