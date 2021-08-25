@@ -96,7 +96,6 @@ export default class MenuDocente extends Component {
                                 <a onClick={() => this.cerrarSesion()}>Cerrar sesión</a>
                             </div>
                         <h1 id="userName">{cookies.get('username')}</h1>
-                        <h1 id="userName">{cookies.get('username')}</h1>
                         {this.state.classrooms.map( classroomGroup => [
                             <h1><li>{classroomGroup[0]}</li></h1>, classroomGroup[1].map(classroom => 
                                 <li><button className="classButton" onClick={()=> this.goClassroom(classroom.id)}>{classroom.subject}</button></li>
