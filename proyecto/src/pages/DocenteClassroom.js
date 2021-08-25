@@ -3,8 +3,8 @@ import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import img from '../Images/account.png'
 import '../css/AlumnoClassroom.css'
+import img from '../Images/logoMini.png'
 
 const cookies = new Cookies();
 let classparamUrl = "http://localhost:8080/classroom/" + cookies.get('classid');
@@ -120,7 +120,7 @@ export default class DocenteClassroom extends Component {
                 
                 <div className="secContainer">
                     <div className="barraUser">
-                        <img src={img} id="logoAccount" alt="No se encuentra la imagen" />
+                    <img  src={img} alt="No se encuentra la imagen" id="logoAccount"/>
                         <div className="menuContent">
                                 <a onClick={()=>{this.irPerfil()}}>Ver Perfil</a>
                                 <a onClick={() => this.cerrarSesion()}>Cerrar sesión</a>

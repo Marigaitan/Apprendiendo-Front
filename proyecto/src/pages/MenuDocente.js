@@ -67,7 +67,7 @@ export default class MenuDocente extends Component {
           }) 
             .then(response => {
                 console.log(classrooms);
-                var classrooms = response.data.map(classroom => ({key: classroom.id, id: classroom.id, subject: classroom.subject, yearDivision: classroom.year.toString() + "°" + classroom.division}));
+                var classrooms = response.data.map(classroom => ({key: classroom.id, id: classroom.id, subject: classroom.subject, yearDivision: classroom.year.toString() + classroom.division}));
                 classrooms = _(classrooms).groupBy('yearDivision').valueOf();
                 classrooms = Object.entries(classrooms);
                 this.setState({ classrooms});
@@ -89,12 +89,13 @@ export default class MenuDocente extends Component {
         return (
             <div className="containerPrin">
                 <div className="containerSec">
-                    <div className="barraUser">
-                        <img 
-                            src= {img}
-                            id="logoAccount"
-                            alt= "No se encuentra la imagen"
-                        />
+                <div className="barraUser">
+                        <img  src={img} alt="No se encuentra la imagen" id="logoAccount"/>
+                        <div className="menuContent">
+                                <a onClick={()=>{this.irPerfil()}}>Ver Perfil</a>
+                                <a onClick={() => this.cerrarSesion()}>Cerrar sesión</a>
+                            </div>
+                        <h1 id="userName">{cookies.get('username')}</h1>
                         <h1 id="userName">{cookies.get('username')}</h1>
                         {this.state.classrooms.map( classroomGroup => [
                             <h1><li>{classroomGroup[0]}</li></h1>, classroomGroup[1].map(classroom => 
@@ -103,7 +104,6 @@ export default class MenuDocente extends Component {
                         ])}
                     </div>
                     <br />
-                    <button onClick={()=> this.cerrarSesion()}>cerrar sesión</button> {/* Provisorio hasta tener el menu desplegable */}
                 </div>
             </div>
         )
