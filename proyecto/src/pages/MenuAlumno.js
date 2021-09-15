@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie/es6';
 import img from '../Images/account.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/MenuAlumno.css';
+import '../css/DropDown.css';
 import axios from 'axios';
 // import Header from "./Header"
 import {API_HOST} from "../constants";

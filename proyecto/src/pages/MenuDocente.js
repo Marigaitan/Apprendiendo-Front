@@ -3,7 +3,8 @@ import Cookies from 'universal-cookie/es6';
 import img from '../Images/account.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
-import '../css/MenuAlumno.css';
+import '../css/MenuDocente.css';
+import '../css/DropDown.css';
 import axios from 'axios' ;
 import * as _ from "lodash";
 import Header from "./Header";
@@ -29,31 +30,6 @@ export default class MenuDocente extends Component {
         cookies.remove('id', { path: "/" });
         window.location.href='./' //lo redirijo al login
     }   
-    Menu=()=>{
-        const opencloseDropdown=()=>{
-            this.setState({dropdown:!this.state.dropdown});
-        } 
-        const irPerfil=()=>{
-            alert("aca se ve el perfil de usuario");
-        }
-        
-
-        return (
-            <div className = 'DropMenu'>
-                <Dropdown isOpen={this.state.dropdown} toggle={opencloseDropdown}>
-                    <DropdownToggle caret> 
-                     Dropdown Ejemplo  
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem onClick={()=>irPerfil}>Ver Perfil</DropdownItem>
-                        <DropdownItem divider/>
-                        <DropdownItem onClick={()=>this.cerrarSesion()}>Cerrar Sesión</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-            </div>
-        )
-        
-    } 
 
     goClassroom(classroomId){
         window.location.href = "/menudocente/classroom";
@@ -88,8 +64,8 @@ export default class MenuDocente extends Component {
         window.onload = this.classroomAssigned;
  
         return (
-            <div className="containerPrin">
-                <div className="containerSec">
+            <div className="mainContainer">
+                <div className="secContainer">
                 <div className="barraUser">
                         <img  src={img} alt="No se encuentra la imagen" id="logoAccount"/>
                         <div className="menuContent">
