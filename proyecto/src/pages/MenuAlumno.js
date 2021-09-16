@@ -76,8 +76,8 @@ export default class MenuAlumno extends Component {
                     <div className="barraUser">
                         <img  src={img} alt="No se encuentra la imagen" id="logoAccount"/>
                         <div className="menuContent">
-                                <span onClick={()=>{this.irPerfil()}}>Ver Perfil</span>
-                                <span onClick={() => this.cerrarSesion()}>Cerrar sesión</span>
+                                <button onClick={()=>{this.irPerfil()}}>Ver Perfil</button>
+                                <button onClick={() => this.cerrarSesion()}>Cerrar sesión</button>
                             </div>
                         <h1 id="userName">{cookies.get('username')}</h1>
                     </div>
