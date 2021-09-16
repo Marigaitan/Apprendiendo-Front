@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/AlumnoClassroom.css';
 import img from '../Images/account.png';
 import {API_HOST} from "../constants";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label,ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Link } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label,ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 const cookies = new Cookies();
 let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
