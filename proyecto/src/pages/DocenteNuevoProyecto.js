@@ -15,6 +15,22 @@ export default class DocenteNuevoProyecto extends Component {
         this.state = {teacherId: cookies.get('teacherId'), methodologies: [], methodologyId: -1, form: {name: 'Nuevo Proyecto'}};
     }
 
+    componentDidMount(){
+        axios.get(getMethodologiesUrl, {
+                headers: {
+                    'Authorization': cookies.get('token')
+                }
+            })
+                .then(response => {
+                    const methodologies = response.data.map(methodology => ({ name: methodology.name, id: methodology.id }));
+                    this.setState({ methodologies });
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert('error en las metodologias');
+                });
+    }
+
     handleChange = async e => {   //con este metodo guardamos en el estado el valor del imput de acuerdo 
         this.setState({
             form: {
@@ -48,24 +64,10 @@ export default class DocenteNuevoProyecto extends Component {
     }
 
     goClassroom(){
-        window.location.href = "/menudocente/classroom";
+        this.props.history.push("/menudocente/classroom");
     }
 
-    getMethodologies = async () => {
-        await axios.get(getMethodologiesUrl, {
-            headers: {
-                'Authorization': cookies.get('token')
-            }
-        })
-            .then(response => {
-                const methodologies = response.data.map(methodology => ({ name: methodology.name, id: methodology.id }));
-                this.setState({ methodologies });
-            })
-            .catch(error => {
-                console.log(error);
-                alert('error en las metodologias');
-            });
-    }
+
     
 
 

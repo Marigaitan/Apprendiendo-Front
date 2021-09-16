@@ -46,11 +46,11 @@ export default class Login extends Component {
                     cookies.set('token', response.token, { path: "/" });
                     
                     if (cookies.get('role') === "ROLE_STUDENT") {
-                        window.location.href = "./menualumno";
+                        this.props.history.push("/menualumno");
                     } else if (cookies.get('role') === "ROLE_TEACHER") {
-                        window.location.href = "./menudocente";
+                        this.props.history.push("/menudocente");
                     } else if (cookies.get('role') === "ROLE_ADMIN") {
-                        window.location.href = "./menuadmin";
+                        this.props.history.push("/menuadmin");
                     }
                 }
             )

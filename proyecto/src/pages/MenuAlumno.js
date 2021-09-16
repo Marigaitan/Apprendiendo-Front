@@ -17,16 +17,33 @@ export default class MenuAlumno extends Component {
         this.state = {  classrooms: [] };
     }
     componentDidMount() {    //para que lo redirija al login si no hay token
-        if (!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT") {
-            window.location.href = "./";
-        }
+        axios.get(classUrl, {
+                headers: {
+                    'Authorization': cookies.get('token')
+                }
+            })
+                .then(response => {
+                    const classrooms = response.data.map(classroom => ({ name: classroom.subject, id: classroom.id }));
+                    this.setState({ classrooms });
+                })
+                .catch(error => {
+                    console.log(error);
+                    alert('Aun no tiene cursos asignados');
+                })
     }
+
+        //para que lo redirija al login si no hay token
+        redirect = () => {
+            if (!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT") {
+                this.props.history.push("/");
+            }
+        }
     cerrarSesion = () => {
         cookies.remove('token', { path: "/" });
         cookies.remove('username', { path: "/" });
         cookies.remove('role', { path: "/" });
         cookies.remove('id', { path: "/" });
-        window.location.href = './' //lo redirijo al login
+        this.props.history.push('/'); //lo redirijo al login
 
     }
     irPerfil = () => {
@@ -35,25 +52,11 @@ export default class MenuAlumno extends Component {
 
 
     goClassroom(classroomId) {
-        window.location.href = "/menualumno/classroom";
+        this.props.history.push("/menualumno/classroom");
         cookies.set('classid', classroomId, { path: "/" });
     }
 
-    classroomAssigned = async () => {
-        await axios.get(classUrl, {
-            headers: {
-                'Authorization': cookies.get('token')
-            }
-        })
-            .then(response => {
-                const classrooms = response.data.map(classroom => ({ name: classroom.subject, id: classroom.id }));
-                this.setState({ classrooms });
-            })
-            .catch(error => {
-                console.log(error);
-                alert('Aun no tiene cursos asignados');
-            })
-    }
+    
 
 
     render() {
@@ -62,7 +65,9 @@ export default class MenuAlumno extends Component {
         console.log('id: ' + cookies.get('id'));
         console.log('token: ' + cookies.get('token'));
 
-        window.onload = this.classroomAssigned;
+        this.redirect();
+
+        // window.onload = this.classroomAssigned;
 
         return (
             <div className="containerPrin">
@@ -71,8 +76,8 @@ export default class MenuAlumno extends Component {
                     <div className="barraUser">
                         <img  src={img} alt="No se encuentra la imagen" id="logoAccount"/>
                         <div className="menuContent">
-                                <a onClick={()=>{this.irPerfil()}}>Ver Perfil</a>
-                                <a onClick={() => this.cerrarSesion()}>Cerrar sesión</a>
+                                <span onClick={()=>{this.irPerfil()}}>Ver Perfil</span>
+                                <span onClick={() => this.cerrarSesion()}>Cerrar sesión</span>
                             </div>
                         <h1 id="userName">{cookies.get('username')}</h1>
                     </div>
@@ -83,7 +88,6 @@ export default class MenuAlumno extends Component {
                              return (<button key={classroom.id} className="classButton" id={classroom.id} onClick={() => this.goClassroom(classroom.id)}> 
                                 {classroom.name}
                             </button>)
-                            
                         })
                         };
                     </div>
