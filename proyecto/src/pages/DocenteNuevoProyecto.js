@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
-import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import img from '../Images/account.png';
-import '../css/MenuAlumno.css';
-import { get } from 'lodash';
+
 import {API_HOST} from "../constants";
 
 const cookies = new Cookies();
@@ -44,7 +41,7 @@ export default class DocenteNuevoProyecto extends Component {
                 console.log(response);
                 alert('proyecto creado')
             })
-            .catch(error => {
+            .catch(error => {                           
                 console.log(error);
                 alert('error en la materia');
             }).then(this.goClassroom(this.state.classroomId));

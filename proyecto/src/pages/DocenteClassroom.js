@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
-import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/AlumnoClassroom.css';
 import img from '../Images/account.png';
 import {API_HOST} from "../constants";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Input, Label,ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 const cookies = new Cookies();
 let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
 let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/students";
 let getProjectsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects";
 let getTeacherUrl = API_HOST + "user/";
+let newProjectUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project";
+let getMethodologiesUrl = API_HOST + "methodologies";
 
 export default class DocenteClassroom extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "" };
+        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "", modalAbierto: false, togAbierto: false,
+        methodologyId: -1, form: {name: 'Nuevo Proyecto'}};
     }
 
-
+    
     classParam() {
         axios.get(classparamUrl, {
             headers: {
@@ -108,10 +111,71 @@ export default class DocenteClassroom extends Component {
             })
     }
 
-    goNewProject(classroomId, teacherId) {
-        window.location.href = "/menudocente/classroom/nuevo_proyecto";
-        cookies.set('teacherId', this.state.teacherId, { path: "/" });
+
+
+//Esta parte corresponde a la creación del nuevo proyecto 
+    abrirModal=()=>{
+        this.setState({modalAbierto: !this.state.modalAbierto});
     }
+    abrirToggle=()=>{
+        this.setState({togAbierto: !this.state.togAbierto});
+    }
+    handleChange = async e => {   //con este metodo guardamos en el estado el valor del imput
+        this.setState({
+            form: {
+                ...this.state.form,
+                [e.target.name]: e.target.value
+            }
+        })
+    }
+    newProject() {
+        axios.post(newProjectUrl, 
+            {
+                methodologyId: this.state.methodologyId.toString(),
+                name: this.state.form.name,
+                challengeId: "0"
+            },
+            {
+                headers: {
+                    'Authorization': cookies.get('token')
+                }
+            }
+        )
+            .then(response => {
+                console.log(response);
+                alert('proyecto creado')
+            })
+            .catch(error => {                           
+                console.log(error);
+            }).then(this.goClassroom());
+    }
+    goClassroom(){
+        window.location.href = "/menudocente/classroom";
+        alert('No se pudo crear el Proyecto. Verifique que todos los campos esten completos');
+    }
+    selectMethodologie = async (metodName) => {
+            await axios.get(getMethodologiesUrl, {
+            headers: {
+                'Authorization': cookies.get('token')
+            }
+        })
+            
+            .then(response => {
+                const methodologies = response.data.map(methodology => ({ name: methodology.name, id: methodology.id }));
+
+                /* if (metodName === 'PBL') this.state.methodologyId = this.methodologies.find(e => e.name === 'Basada en Proyectos').id;
+                if (metodName === 'Invertida') this.state.methodologyId = this.methodologies.find(e => e.name === 'Aula Invertida').id;
+                if (metodName === 'TBL') this.state.methodologyId = this.methodologies.find(e => e.name === 'Basada en el Pensamiento').id;
+                if (metodName === 'PEstandar') this.state.methodologyId = this.methodologies.find(e => e.name === 'Proyecto Estandar').id;  */
+                
+            }
+            )
+            .catch(error => {
+                console.log(error);
+                alert('error en las metodologias');
+            });
+    }
+    
 
     render() {
         console.log(cookies.get('classid'));
@@ -121,6 +185,14 @@ export default class DocenteClassroom extends Component {
             this.getProjects();
         }
         console.log(this.state);
+
+        const modalStyles={
+            position: "absolute",
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)'
+        }
+        
         return (
             <div className="mainContainer">
                 
@@ -128,7 +200,7 @@ export default class DocenteClassroom extends Component {
                     <div className="barraUser">
                     <img  src={img} alt="No se encuentra la imagen" id="logoAccount"/>
                         <div className="menuContent">
-                                <a onClick={()=>{this.irPerfil()}}>Ver Perfil</a>
+                                <a onClick={()=>this.irPerfil()}>Ver Perfil</a>
                                 <a onClick={() => this.cerrarSesion()}>Cerrar sesión</a>
                         </div>
                         <h1 id="userName">{cookies.get('username')}</h1>
@@ -147,7 +219,47 @@ export default class DocenteClassroom extends Component {
                             <div>
                                 {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><a href="/menudocente/classroom/proyecto" >{project.name}</a></div>) })}
                             </div>
-                            <button id="botonUsuario" onClick={() => this.goNewProject()}>{"Nuevo Proyecto"}</button>
+                            <Button color="success" onClick={this.abrirModal}>Crear Nuevo Proyecto</Button>
+                            <Modal isOpen={this.state.modalAbierto} style={modalStyles}>  
+                                <ModalHeader>
+                                    Nuevo Proyecto
+                                </ModalHeader>
+                                <ModalBody>
+                                    <FormGroup>
+                                        <Label for="newProject">Ingrese el nombre del nuevo Proyecto</Label>
+                                        <Input type="text" 
+                                            id="newProject" 
+                                            name="name"
+                                            placeholder="Nombre del Proyecto"
+                                            maxLength="20"
+                                            onChange={this.handleChange} />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Label for="selMetod">Seleccione la Metodología que desea utilizar</Label><br />
+                                        <ButtonDropdown isOpen={this.state.togAbierto} onClick={this.abrirToggle}>
+                                            <DropdownToggle caret>
+                                                Metodología
+                                            </DropdownToggle>
+                                            <DropdownMenu>
+                                                <DropdownItem onClick={() =>this.selectMethodologie("PBL")}>Basada en Proyectos</DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem disabled onClick={() =>this.selectMethodologie("Invertida")}>Aula Invertida</DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem disabled onClick={() =>this.selectMethodologie("TBL")}>Basada en el Pensamiento</DropdownItem>
+                                                <DropdownItem divider />
+                                                <DropdownItem onClick={() =>this.selectMethodologie("PEstandar")}>Proyecto Estándar</DropdownItem>
+                                            </DropdownMenu>
+                                            </ButtonDropdown>
+                                    </FormGroup>
+
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="primary" onClick={() => this.newProject()}>Crear Proyecto</Button>
+                                    <Button color="secondary" onClick={this.abrirModal}>Cancelar</Button>
+                                    
+                                </ModalFooter>
+                            </Modal>
+                            
                         </div>
                     </div>
                 </div>

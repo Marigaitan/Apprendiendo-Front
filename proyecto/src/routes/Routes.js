@@ -22,7 +22,6 @@ function Routes() {
       <Route exact path = "/menudocente" component={MenuDocente}/>
       <Route exact path = "/menualumno/classroom" component={AlumnoClassroom}/>
       <Route exact path = "/menudocente/classroom" component={DocenteClassroom}/>
-      <Route exact path = "/menudocente/classroom/nuevo_proyecto" component={DocenteNuevoProyecto}/>
       <Route exact path = "/menualumno/classroom/proyecto" component={AlumnoProyecto}/>
       <Route exact path = "/menudocente/classroom/proyecto" component={DocenteProyecto}/>
     </Switch>
