@@ -178,13 +178,15 @@ export default class DocenteClassroom extends Component {
     
 
     render() {
-        console.log(cookies.get('classid'));
+        
         window.onload = () => {
             this.classParam(); //llama a getTeacher adentro, tiene que haber forma de llamarlo desde aca con then, pero se ejecuta fuera de orden
             this.getStudents();
             this.getProjects();
+            console.log(cookies.get('classid'));
+            console.log(this.state);
         }
-        console.log(this.state);
+        
 
         const modalStyles={
             position: "absolute",
