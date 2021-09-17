@@ -8,7 +8,6 @@ import MenuAlumno from '../pages/MenuAlumno';
 import MenuDocente from '../pages/MenuDocente';
 import AlumnoClassroom from '../pages/AlumnoClassroom';
 import DocenteClassroom from '../pages/DocenteClassroom';
-import DocenteNuevoProyecto from '../pages/DocenteNuevoProyecto';
 import AlumnoProyecto from '../pages/AlumnoProyecto';
 import DocenteProyecto from '../pages/DocenteProyecto';
 
