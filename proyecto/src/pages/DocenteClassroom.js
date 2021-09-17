@@ -16,10 +16,11 @@ let getTeacherUrl = API_HOST + "user/";
 let newProjectUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project";
 let getMethodologiesUrl = API_HOST + "methodologies";
 
+
 export default class DocenteClassroom extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "", modalAbierto: false, togAbierto: false,
+        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "", modalAbierto: false, togAbierto: false, methodologies: [],
         methodologyId: -1, form: {name: 'Nuevo Proyecto'}};
     }
 
@@ -29,12 +30,14 @@ export default class DocenteClassroom extends Component {
         const requestOne = axios.get(classparamUrl, { headers: { 'Authorization': cookies.get('token') } });
         const requestTwo = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
         const requestThree = axios.get(getProjectsUrl, { headers: { 'Authorization': cookies.get('token') } });
+        const requestFour = axios.get(getMethodologiesUrl,{ headers: { 'Authorization': cookies.get('token') } });
 
         axios.all([requestOne,
             requestTwo,
-            requestThree])
-            .then(axios.spread((classData, studentsData, projectsData) => {
-                console.log(classData.data, studentsData.data, projectsData.data);
+            requestThree,
+            requestFour])
+            .then(axios.spread((classData, studentsData, projectsData, methodologiesData) => {
+                console.log(classData.data, studentsData.data, projectsData.data, methodologiesData.data);
                 //SET DATA
                 const subject = classData.data.subject;
                 const year = classData.data.year;
@@ -45,6 +48,8 @@ export default class DocenteClassroom extends Component {
 
                 const projects = projectsData.data.map(project => ({ id: project.id, name: project.name }));
 
+                const methodologies = methodologiesData.data.map(methodology => ({ id: methodology.id, name: methodology.name }));
+
                 //SET STATE
                 this.setState({
                     subject: subject,
@@ -52,7 +57,8 @@ export default class DocenteClassroom extends Component {
                     teacherId: teacherId,
                     division: division,
                     students: students,
-                    projects: projects
+                    projects: projects,
+                    methodologies: methodologies
                 })
                 return axios.get(getTeacherUrl + classData.data.teacherId, { headers: { 'Authorization': cookies.get('token') } });
             }))
@@ -93,7 +99,7 @@ export default class DocenteClassroom extends Component {
     abrirToggle=()=>{
         this.setState({togAbierto: !this.state.togAbierto});
     }
-    handleChange = async e => {   //con este metodo guardamos en el estado el valor del imput
+    handleChange = async e => {   //con este metodo guardamos en el estado el valor del input
         this.setState({
             form: {
                 ...this.state.form,
@@ -126,48 +132,14 @@ export default class DocenteClassroom extends Component {
         window.location.href = "/menudocente/classroom";
         alert('No se pudo crear el Proyecto. Verifique que todos los campos esten completos');
     }
-    selectMethodologie = async (metodName) => {
-            await axios.get(getMethodologiesUrl, {
-            headers: {
-                'Authorization': cookies.get('token')
-            }
-        })
-            
-            .then(response => {
-                const methodologies = response.data.map(methodology => ({ name: methodology.name, id: methodology.id }));
-
-                /* if (metodName === 'PBL') this.state.methodologyId = this.methodologies.find(e => e.name === 'Basada en Proyectos').id;
-                if (metodName === 'Invertida') this.state.methodologyId = this.methodologies.find(e => e.name === 'Aula Invertida').id;
-                if (metodName === 'TBL') this.state.methodologyId = this.methodologies.find(e => e.name === 'Basada en el Pensamiento').id;
-                if (metodName === 'PEstandar') this.state.methodologyId = this.methodologies.find(e => e.name === 'Proyecto Estandar').id;  */
-                
-            }
-            )
-            .catch(error => {
-                console.log(error);
-                alert('error en las metodologias');
-            });
-    }
-    
 
     render() {
-<<<<<<< HEAD
         
-        window.onload = () => {
-            this.classParam(); //llama a getTeacher adentro, tiene que haber forma de llamarlo desde aca con then, pero se ejecuta fuera de orden
-            this.getStudents();
-            this.getProjects();
-            console.log(cookies.get('classid'));
-            console.log(this.state);
-        }
-        
-=======
         console.log(cookies.get('classid'));
 
         this.redirect();
 
         console.log(this.state);
->>>>>>> bdf4a69feb91c811dcaf8de252f633b8ae07a033
 
         const modalStyles={
             position: "absolute",
@@ -224,13 +196,10 @@ export default class DocenteClassroom extends Component {
                                                 Metodología
                                             </DropdownToggle>
                                             <DropdownMenu>
-                                                <DropdownItem onClick={() =>this.selectMethodologie("PBL")}>Basada en Proyectos</DropdownItem>
-                                                <DropdownItem divider />
-                                                <DropdownItem disabled onClick={() =>this.selectMethodologie("Invertida")}>Aula Invertida</DropdownItem>
-                                                <DropdownItem divider />
-                                                <DropdownItem disabled onClick={() =>this.selectMethodologie("TBL")}>Basada en el Pensamiento</DropdownItem>
-                                                <DropdownItem divider />
-                                                <DropdownItem onClick={() =>this.selectMethodologie("PEstandar")}>Proyecto Estándar</DropdownItem>
+                                                {this.state.methodologies.map(methodology => { 
+                                                     return (<DropdownItem id={methodology.id} onClick={() => 
+                                                        {this.setState(state => 
+                                                            state.methodologyId = methodology.id)}}>{methodology.name}</DropdownItem>)})}
                                             </DropdownMenu>
                                             </ButtonDropdown>
                                     </FormGroup>
