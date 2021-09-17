@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import img from '../Images/account.png';
@@ -47,7 +48,7 @@ export default class AlumnoClassroom extends Component {
         cookies.remove('username', { path: "/" });
         cookies.remove('role', { path: "/" });
         cookies.remove('id', { path: "/" });
-        window.location.href = window.location.origin; //to-do no funciona bien
+        this.props.history.push("/"); //to-do no funciona bien
     }
     componentDidMount() {    //para que lo redirija al login si no hay token
         if (!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT") {
@@ -123,8 +124,8 @@ export default class AlumnoClassroom extends Component {
                     <div className="barraUser">
                         <img src={img} id="logoAccount" alt="No se encuentra la imagen" />
                         <div className="menuContent">
-                                <a onClick={()=>{this.irPerfil()}}>Ver Perfil</a>
-                                <a onClick={() => this.cerrarSesion()}>Cerrar sesión</a>
+                                <button onClick={()=>{this.irPerfil()}}>Ver Perfil</button>
+                                <button onClick={() => this.cerrarSesion()}>Cerrar sesión</button>
                         </div>
                         <h1 id="userName">{cookies.get('username')}</h1>
                     </div>
@@ -140,7 +141,7 @@ export default class AlumnoClassroom extends Component {
                             <h2>{"Docente: " + this.state.teacherName}</h2>  
                             <h2>Proyectos</h2>
                             <div>
-                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><a href="/menualumno/classroom/proyecto" >{project.name}</a></div>) })}
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><Link to="/menualumno/classroom/proyecto" >{project.name}</Link></div>) })}
                             </div>
                         </div>
                     </div>

@@ -9,12 +9,12 @@ export default class MenuAdmin extends Component {
         cookies.remove('username', {path: "/"});
         cookies.remove('role', {path: "/"});
         cookies.remove('id', { path: "/" });
-        window.location.href='./' //lo redirijo al login
+        this.props.history.push('/'); //lo redirijo al login
     }
 
     componentDidMount(){    //para que lo redirija al login si no hay token
         if(!cookies.get('token')|| cookies.get('role') !== "ROLE_ADMIN"){
-            window.location.href="./";
+            this.props.history.push("/");
         }
     }
     render() {
