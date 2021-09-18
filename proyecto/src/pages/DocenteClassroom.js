@@ -172,7 +172,7 @@ export default class DocenteClassroom extends Component {
                             <h2>{"Docente: " + this.state.teacherName}</h2>
                             <h2>Proyectos</h2>
                             <div>
-                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><Link to="/menudocente/classroom/proyecto" >{project.name}</Link></div>) })}
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><Link to="/menudocente/classroom/proyecto">{project.name}</Link></div>) })}
                             </div>
                             <Button color="success" onClick={this.abrirModal}>Crear Nuevo Proyecto</Button>
                             <Modal isOpen={this.state.modalAbierto} style={modalStyles}>  
