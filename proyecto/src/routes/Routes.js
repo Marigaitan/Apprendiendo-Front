@@ -8,7 +8,6 @@ import MenuAlumno from '../pages/MenuAlumno';
 import MenuDocente from '../pages/MenuDocente';
 import AlumnoClassroom from '../pages/AlumnoClassroom';
 import DocenteClassroom from '../pages/DocenteClassroom';
-import DocenteNuevoProyecto from '../pages/DocenteNuevoProyecto';
 import AlumnoProyecto from '../pages/AlumnoProyecto';
 import DocenteProyecto from '../pages/DocenteProyecto';
 import DocenteAbm from '../pages/DocenteAbm';
@@ -23,7 +22,6 @@ function Routes() {
       <Route exact path = "/menudocente" component={MenuDocente}/>
       <Route exact path = "/menualumno/classroom" component={AlumnoClassroom}/>
       <Route exact path = "/menudocente/classroom" component={DocenteClassroom}/>
-      <Route exact path = "/menudocente/classroom/nuevo_proyecto" component={DocenteNuevoProyecto}/>
       <Route exact path = "/menualumno/classroom/proyecto" component={AlumnoProyecto}/>
       <Route exact path = "/menudocente/classroom/proyecto" component={DocenteProyecto}/>
       <Route exact path = "/menuAdmin/docente/abm" component = {DocenteAbm}/>

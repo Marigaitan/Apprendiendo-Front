@@ -5,9 +5,14 @@ import Routes from './routes/Routes';//Llamamos a Routes para que al momento de 
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  /* El React.StrictMode traer problemas como Warning: Legacy context API has been detected within a strict-mode tree.
+
+The old API will be supported in all 16.x releases, but applications using it should migrate to the new version.
+
+Please update the following components: Transition. Todavia no parece haber solucion. Lo cambie por React.Fragment  hay que revisar si no trae problemas a futuro */
+  <React.Fragment>
     <Routes />
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
 

@@ -42,3 +42,26 @@
     display:block;
 }
 
+.menuContent:hover{
+    display:block;
+    
+}
+.menuContent button{
+    color:black;
+    padding: 10% 10% 10% 10%;
+    width: 100%;
+    text-decoration: none;
+    display: block;
+    border-bottom:.5px solid rgb(220, 220, 220);
+    cursor:pointer;
+    font-weight: 900;
+}
+.menuContent button:first-child{
+    border-radius:10px 10px 0px 0px
+}
+.menuContent button:last-child{
+    border-radius:0px 0px 10px 10px
+}
+.menuContent button:hover{
+    background-color: rgb(227, 235, 255);
+}
