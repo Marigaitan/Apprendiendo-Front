@@ -126,11 +126,11 @@ export default class DocenteClassroom extends Component {
             })
             .catch(error => {                           
                 console.log(error);
+                alert('No se pudo crear el Proyecto. Verifique que todos los campos esten completos')
             }).then(this.goClassroom());
     }
     goClassroom(){
         window.location.href = "/menudocente/classroom";
-        alert('No se pudo crear el Proyecto. Verifique que todos los campos esten completos');
     }
 
     render() {
