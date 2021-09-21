@@ -1,13 +1,11 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
-import img from '../Images/account.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import '../css/Global.css';
 import '../css/MenuDocente.css';
-import '../css/DropDown.css';
 import axios from 'axios' ;
 import * as _ from "lodash";
-import Header from "./Header";
+import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
@@ -45,15 +43,6 @@ export default class MenuDocente extends Component {
         }
     }
 
-    cerrarSesion = () => {
-        cookies.remove('token', { path: "/" });
-        cookies.remove('username', { path: "/" });
-        cookies.remove('role', { path: "/" });
-        cookies.remove('id', { path: "/" });
-        this.props.history.push('./'); //lo redirijo al login
-    }
-
-
     goClassroom(classroomId) {
         this.props.history.push("/menudocente/classroom");
         cookies.set('classid', classroomId, { path: "/" });
@@ -80,17 +69,12 @@ export default class MenuDocente extends Component {
                 <li><button className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button></li>
             )
         ]));
-
+        
         return (
-            <div className="containerPrin">
-                <div className="containerSec">
-                    <div className="barraUser">
-                        <img src={img} alt="No se encuentra la imagen" id="logoAccount" />
-                        <div className="menuContent">
-                            <button onClick={() => this.irPerfil()}>Ver Perfil</button>
-                            <button onClick={() => this.cerrarSesion()}>Cerrar sesión</button>
-                        </div>
-                        <h1 id="userName">{cookies.get('username')}</h1>
+            <div className="mainContainer">
+            <HeaderTeacher />
+                <div className="secContainer">                
+                    
                         <div>
                             {this.state.classrooms.map(classroomGroup => [
                                 <h1><li key={classroomGroup[0]}>{classroomGroup[0]}</li></h1>,
@@ -103,7 +87,7 @@ export default class MenuDocente extends Component {
                     </div>
                     <br />
                 </div>
-            </div>
+            
         )
     }
 }

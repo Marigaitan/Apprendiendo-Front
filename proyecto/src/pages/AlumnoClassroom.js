@@ -118,9 +118,9 @@ export default class AlumnoClassroom extends Component {
         }
         console.log(this.state);
         return (
-            <div className="mainContainer">
+            <div className="mContainer">
                 
-                <div className="secContainer">
+                <div className="seContainer">
                     <div className="barraUser">
                         <img src={img} id="logoAccount" alt="No se encuentra la imagen" />
                         <div className="menuContent">

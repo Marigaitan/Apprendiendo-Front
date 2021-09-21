@@ -1,10 +1,10 @@
-.mainContainer{
+.mContainer{
     margin: 0px;
     display: flex;
     justify-content: center;
     font-family: 'Indie Flower';
 }
-.secContainer{
+.seContainer{
     background-color: rgb(226, 206, 181);
     border-radius: 20px;
     flex: 1;

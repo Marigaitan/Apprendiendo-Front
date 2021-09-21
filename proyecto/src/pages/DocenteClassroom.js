@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/AlumnoClassroom.css';
+import '../css/Global.css';
+import HeaderTeacher from "./Header"
 import img from '../Images/account.png';
 import {API_HOST} from "../constants";
 import { Link } from 'react-router-dom';
@@ -147,19 +148,15 @@ export default class DocenteClassroom extends Component {
             left: '50%',
             transform: 'translate(-50%, -50%)'
         }
+
+        const BackgroundStyle={ //esto se puede hacer en caso que se quiera un color/fondo distinto al heredado de la clase
+            background: 'rgb(243, 181, 49)'    
+        }
         
         return (
             <div className="mainContainer">
-
-                <div className="secContainer">
-                    <div className="barraUser">
-                        <img src={img} alt="No se encuentra la imagen" id="logoAccount" />
-                        <div className="menuContent">
-                            <button onClick={() => { this.irPerfil() }}>Ver Perfil</button>
-                            <button onClick={() => this.cerrarSesion()}>Cerrar sesión</button>
-                        </div>
-                        <h1 id="userName">{cookies.get('username')}</h1>
-                    </div>
+                <HeaderTeacher />
+                <div className="secContainer" style={BackgroundStyle}>
                     <div className="mainContent">
                         <div className="barraLateral">
                             <h2>Estudiantes</h2>
