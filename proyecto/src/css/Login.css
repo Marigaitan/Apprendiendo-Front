@@ -10,7 +10,7 @@
     width: auto\9; /* ie8 */
 }
 .containerSecundario{
-    background-color: rgb(240, 126, 20);
+    /* background-color: rgb(240, 126, 20); */
     border-radius: 20px;
     flex: 1;
     max-width: 400px;
@@ -23,6 +23,13 @@
      animation-fill-mode: both;
      animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
      animation-duration: 2s; /* don't forget to set a duration! */
+
+     align-content: center;
+     border: 1px solid grey;
+     border-radius: 6px;
+     margin-bottom: 10px;
+     margin-right: 10px;
+     overflow: hidden;
 }
 #logo {
     width: 100%;
@@ -31,11 +38,12 @@
     outline: 0px;
     width: 80%;
     padding: 10px;
-    border: 0px;
+    border: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
     font-weight: 900;
     font-size: 1.25em;
+    background-color:lightskyblue;
 }
 
 .submit-button {
