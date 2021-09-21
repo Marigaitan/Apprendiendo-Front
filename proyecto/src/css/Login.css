@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     font-family: 'Indie Flower'; 
+    background-image: url(../Images/fondo.png);
 }
 .containerSecundario{
     background-color: rgb(240, 126, 20);
@@ -13,6 +14,12 @@
     margin-top: 50vh;
     transform: translateY(-50%);
     text-align: center;
+
+    /* display: inline-block;
+     margin: 0 0.5rem;  */
+     animation-fill-mode: both;
+     animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
+     animation-duration: 2s; /* don't forget to set a duration! */
 }
 #logo {
     width: 100%;

@@ -8,6 +8,9 @@ import Cookies from 'universal-cookie/es6';
 import {API_HOST} from "../constants";
 
 
+
+
+
 const baseUrl = API_HOST + "login";  //Url de la API
 const cookies = new Cookies();
 
@@ -62,32 +65,32 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div className="containerPrincipal">
-                <div className="containerSecundario">
-                    <img
-                        src={im}
-                        id="logo"
-                        alt="No se encuentra la imagen" />
-                    <br />
-                    <input
-                        type="user"
-                        className="inputs"
-                        name="username"
-                        placeholder="Usuario"
-                        maxLength="10"
-                        onChange={this.handleChange} />
-                    <br />
-                    <input
-                        type="password"
-                        className="inputs"
-                        name="password"
-                        placeholder="Contraseña"
-                        maxLength="10"
-                        onChange={this.handleChange} />
-                    <br />
-                    <button onClick={() => this.sendCredentials()} className="submit-button">Ingresar</button>
+                    <div className="containerPrincipal">
+                    <div className="containerSecundario">
+                        <img
+                            src={im}
+                            id="logo"
+                            alt="No se encuentra la imagen" />
+                        <br />
+                        <input
+                            type="user"
+                            className="inputs"
+                            name="username"
+                            placeholder="Usuario"
+                            maxLength="10"
+                            onChange={this.handleChange} />
+                        <br />
+                        <input
+                            type="password"
+                            className="inputs"
+                            name="password"
+                            placeholder="Contraseña"
+                            maxLength="10"
+                            onChange={this.handleChange} />
+                        <br />
+                        <button onClick={() => this.sendCredentials()} className="submit-button">Ingresar</button>
+                    </div>
                 </div>
-            </div>
         );
     }
 }
