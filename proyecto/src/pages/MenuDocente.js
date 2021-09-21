@@ -74,7 +74,7 @@ export default class MenuDocente extends Component {
             <div className="mainContainer">
             <HeaderTeacher />
                 <div className="secContainer">                
-                    
+                    <h1><b>Mis Cursos</b></h1>
                         <div>
                             {this.state.classrooms.map(classroomGroup => [
                                 <h1><li key={classroomGroup[0]}>{classroomGroup[0]}</li></h1>,

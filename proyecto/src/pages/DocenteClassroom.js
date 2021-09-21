@@ -146,16 +146,12 @@ export default class DocenteClassroom extends Component {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)'
-        }
-
-        const BackgroundStyle={ //esto se puede hacer en caso que se quiera un color/fondo distinto al heredado de la clase
-            background: 'rgb(243, 181, 49)'    
-        }
+        }   
         
         return (
             <div className="mainContainer">
                 <HeaderTeacher />
-                <div className="secContainer" style={BackgroundStyle}>
+                <div className="secContainer">
                     <div className="mainContent">
                         <div className="barraLateral">
                             <h2>Estudiantes</h2>

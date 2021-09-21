@@ -11,6 +11,7 @@ import DocenteClassroom from '../pages/DocenteClassroom';
 import AlumnoProyecto from '../pages/AlumnoProyecto';
 import DocenteProyecto from '../pages/DocenteProyecto';
 import DocenteAbm from '../pages/DocenteAbm';
+import Metodologias from '../pages/Metodologias';
 
 function Routes() {
   return (
@@ -20,6 +21,7 @@ function Routes() {
       <Route exact path = "/menuadmin" component={MenuAdmin}/>
       <Route exact path = "/menualumno" component={MenuAlumno}/>
       <Route exact path = "/menudocente" component={MenuDocente}/>
+      <Route exact path = "/menudocente/metodologias" component={Metodologias}/>
       <Route exact path = "/menualumno/classroom" component={AlumnoClassroom}/>
       <Route exact path = "/menudocente/classroom" component={DocenteClassroom}/>
       <Route exact path = "/menualumno/classroom/proyecto" component={AlumnoProyecto}/>
