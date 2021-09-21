@@ -4,11 +4,6 @@ import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 import Table from './Table';
 import '../css/DocenteAbm.css';
-import img from '../Images/account.png';
-
-
-
-
 
 function DocenteAbm() {
     // data state to store the TV Maze API data. Its initial value is an empty array

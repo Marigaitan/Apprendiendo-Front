@@ -1,20 +1,3 @@
-.containerPrin{
-    display: flex;
-    justify-content: center;
-    font-family: 'Indie Flower';
-}
-.containerSec{
-    background-color: rgb(8, 83, 245);
-    border-radius: 20px;
-    flex: 1;
-    max-width: 800px;
-    margin-top: 50vh;
-    transform: translateY(-50%);
-    text-align: center;  
-}
-.barraUser{
-    text-align: left;       
-}
 .classcontainer{   
     justify-content: center;
     width: 100%;
@@ -29,39 +12,4 @@
     font-weight: 900;
     font-size: 2em;
     flex:1;   
-}
-#userName{
-    font-variant: small-caps;
-    font-weight: 900;
-    font-size: 3em;
-    margin-left: 10px;
-    display: inline-block;
-}
-
-#logoAccount:hover + .menuContent{
-    display:block;
-}
-
-.menuContent:hover{
-    display:block;
-    
-}
-.menuContent button{
-    color:black;
-    padding: 10% 10% 10% 10%;
-    width: 100%;
-    text-decoration: none;
-    display: block;
-    border-bottom:.5px solid rgb(220, 220, 220);
-    cursor:pointer;
-    font-weight: 900;
-}
-.menuContent button:first-child{
-    border-radius:10px 10px 0px 0px
-}
-.menuContent button:last-child{
-    border-radius:0px 0px 10px 10px
-}
-.menuContent button:hover{
-    background-color: rgb(227, 235, 255);
 }

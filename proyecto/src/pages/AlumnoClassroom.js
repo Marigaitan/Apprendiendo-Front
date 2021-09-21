@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Header from './Header';
+import HeaderStudent from './HeaderAlumno';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import img from '../Images/account.png';
+import '../css/Global.css';
 import '../css/AlumnoClassroom.css';
 import {API_HOST} from "../constants";
 
@@ -43,21 +43,12 @@ export default class AlumnoClassroom extends Component {
             });
     }
 
-    cerrarSesion = () => {
-        cookies.remove('token', { path: "/" });
-        cookies.remove('username', { path: "/" });
-        cookies.remove('role', { path: "/" });
-        cookies.remove('id', { path: "/" });
-        this.props.history.push("/"); //to-do no funciona bien
-    }
     componentDidMount() {    //para que lo redirija al login si no hay token
         if (!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT") {
             window.location.href = window.location.origin;
         }
     }
-    irPerfil = () => {
-        alert("aca se ve el perfil de usuario");
-    }
+
     getStudents() {
         axios.get(getStudentsUrl, {
             headers: {
@@ -118,17 +109,9 @@ export default class AlumnoClassroom extends Component {
         }
         console.log(this.state);
         return (
-            <div className="mContainer">
-                
-                <div className="seContainer">
-                    <div className="barraUser">
-                        <img src={img} id="logoAccount" alt="No se encuentra la imagen" />
-                        <div className="menuContent">
-                                <button onClick={()=>{this.irPerfil()}}>Ver Perfil</button>
-                                <button onClick={() => this.cerrarSesion()}>Cerrar sesión</button>
-                        </div>
-                        <h1 id="userName">{cookies.get('username')}</h1>
-                    </div>
+            <div className="mainContainer">
+                <HeaderStudent/>
+                <div className="secContainer">
                     <div className="mainContent">
                         <div className="barraLateral">
                             <h2>Estudiantes</h2>
@@ -145,10 +128,7 @@ export default class AlumnoClassroom extends Component {
                             </div>
                         </div>
                     </div>
-                    
-                        
-                    
-                </div>
+               </div>
             </div>
         )
     }

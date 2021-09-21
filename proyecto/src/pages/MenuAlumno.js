@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
-import img from '../Images/account.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/MenuAlumno.css';
-import '../css/DropDown.css';
 import axios from 'axios';
-// import Header from "./Header"
+import HeaderStudent from "./HeaderAlumno";
 import {API_HOST} from "../constants";
 
 const cookies = new Cookies();
@@ -38,14 +36,7 @@ export default class MenuAlumno extends Component {
                 this.props.history.push("/");
             }
         }
-    cerrarSesion = () => {
-        cookies.remove('token', { path: "/" });
-        cookies.remove('username', { path: "/" });
-        cookies.remove('role', { path: "/" });
-        cookies.remove('id', { path: "/" });
-        this.props.history.push('/'); //lo redirijo al login
 
-    }
     irPerfil = () => {
         alert("aca se ve el perfil de usuario");
     }
@@ -55,9 +46,6 @@ export default class MenuAlumno extends Component {
         this.props.history.push("/menualumno/classroom");
         cookies.set('classid', classroomId, { path: "/" });
     }
-
-    
-
 
     render() {
         console.log('role: ' + cookies.get('role'));
@@ -70,17 +58,10 @@ export default class MenuAlumno extends Component {
         // window.onload = this.classroomAssigned;
 
         return (
-            <div className="containerPrin">
-                {/* <Header /> */}
-                <div className="containerSec">
-                    <div className="barraUser">
-                        <img  src={img} alt="No se encuentra la imagen" id="logoAccount"/>
-                        <div className="menuContent">
-                                <button onClick={()=>{this.irPerfil()}}>Ver Perfil</button>
-                                <button onClick={() => this.cerrarSesion()}>Cerrar sesión</button>
-                            </div>
-                        <h1 id="userName">{cookies.get('username')}</h1>
-                    </div>
+            <div className="mainContainer">
+                <HeaderStudent/>
+                <div className="secContainer">
+                    <h1>Mis Cursos</h1>
                     <br />
                     <div className="classcontainer">
                         {this.state.classrooms.map(classroom => {
