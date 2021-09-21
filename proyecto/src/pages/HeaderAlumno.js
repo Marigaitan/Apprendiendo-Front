@@ -24,7 +24,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 import "../css/Header.css";
 
 const cookies = new Cookies();
-const HeaderTeacher = () => {
+const HeaderStudent = () => {
   
     //create initial menuCollapse state using useState hook
     const [menuCollapse, setMenuCollapse] = useState(false)
@@ -58,11 +58,10 @@ const HeaderTeacher = () => {
             <Menu iconShape="square">
               <MenuItem active={true} icon={<FiHome />}>
                 Inicio
-                <Link to="/menudocente" />
+                <Link to="/menualumno" />
               </MenuItem>
               
               <MenuItem icon={<BiCog /> } >Mi Perfil</MenuItem>
-              <MenuItem icon={<BiBarChartAlt />}>Métricas</MenuItem>
             </Menu>
           </SidebarContent>
           <SidebarFooter>
@@ -76,4 +75,4 @@ const HeaderTeacher = () => {
   );
 };
 
-export default HeaderTeacher;
+export default HeaderStudent;
