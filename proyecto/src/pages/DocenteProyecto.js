@@ -7,7 +7,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import HeaderTeacher from "./Header"
 
 const cookies = new Cookies();
-let getActivitiessUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects"+ cookies.get('projectid') + "/lessons";
+let getLessonsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects"+ cookies.get('projectid') + "/lessons";
 
 export default class DocenteProyecto extends Component {
     
