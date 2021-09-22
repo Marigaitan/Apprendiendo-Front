@@ -88,7 +88,7 @@ export default class Login extends Component {
                             maxLength="10"
                             onChange={this.handleChange} />
                         <br />
-                        <button onClick={() => this.sendCredentials()} className="submit-button">Ingresar</button>
+                        <button onClick={() => this.sendCredentials()} className="submit-button btn btn-outline-primary btn-lg ">Ingresar</button>
                     </div>
                 </div>
         );
