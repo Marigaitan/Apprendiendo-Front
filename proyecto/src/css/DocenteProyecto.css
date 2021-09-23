@@ -1,0 +1,21 @@
+.center{
+  flex:2;
+  text-indent: 15%;
+  text-align: left;
+}
+.left{
+  flex:1;
+  text-indent: 10%;
+  text-align: left;
+}
+.mainFlex{
+  display: flex;
+}
+
+.left button{
+  min-width: 40%;
+}
+
+.center button{
+  min-width: 20%;
+}
