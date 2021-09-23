@@ -3,11 +3,12 @@ import Cookies from 'universal-cookie/es6';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
 import '../css/MenuDocente.css';
-import axios from 'axios' ;
+import axios from 'axios';
 import * as _ from "lodash";
 import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
 import Background from '../Images/fondoLetras.png';
+import { Container, Label } from 'reactstrap';
 
 const cookies = new Cookies();
 let classUrl = API_HOST + "user/" + cookies.get('id') + "/classrooms";
@@ -99,9 +100,7 @@ export default class MenuDocente extends Component {
                             }
                         </div>
                     </div>
-                    <br />
                 </div>
-            
         )
     }
 }

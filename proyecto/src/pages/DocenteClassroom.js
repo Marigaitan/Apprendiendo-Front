@@ -71,22 +71,10 @@ export default class DocenteClassroom extends Component {
     }
 
 
-    cerrarSesion = () => {
-        cookies.remove('token', { path: "/" });
-        cookies.remove('username', { path: "/" });
-        cookies.remove('role', { path: "/" });
-        cookies.remove('id', { path: "/" });
-        window.location.href = window.location.origin; //to-do no funciona bien
-    }
-
     redirect = () => {
         if (!cookies.get('token') || cookies.get('role') !== "ROLE_TEACHER") {
             window.location.href = window.location.origin;
         }
-    }
-
-    irPerfil = () => {
-        alert("aca se ve el perfil de usuario");
     }
 
 
@@ -149,7 +137,7 @@ export default class DocenteClassroom extends Component {
         }   
         
         return (
-            <div className="mainContainer">
+                <div className="mainContainer">
                 <HeaderTeacher />
                 <div className="secContainer">
                     <div className="mainContent">
