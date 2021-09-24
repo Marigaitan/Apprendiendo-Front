@@ -30,6 +30,10 @@ const cookies = new Cookies();
   
 //];
 
+//create api 
+//create table
+
+
 let teacherAbmUrl = API_HOST + "users/teachers";
 
 class DocenteAbm extends React.Component {

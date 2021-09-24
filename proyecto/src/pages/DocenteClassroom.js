@@ -71,22 +71,10 @@ export default class DocenteClassroom extends Component {
     }
 
 
-    cerrarSesion = () => {
-        cookies.remove('token', { path: "/" });
-        cookies.remove('username', { path: "/" });
-        cookies.remove('role', { path: "/" });
-        cookies.remove('id', { path: "/" });
-        window.location.href = window.location.origin; //to-do no funciona bien
-    }
-
     redirect = () => {
         if (!cookies.get('token') || cookies.get('role') !== "ROLE_TEACHER") {
             window.location.href = window.location.origin;
         }
-    }
-
-    irPerfil = () => {
-        alert("aca se ve el perfil de usuario");
     }
 
 
@@ -146,16 +134,12 @@ export default class DocenteClassroom extends Component {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)'
-        }
-
-        const BackgroundStyle={ //esto se puede hacer en caso que se quiera un color/fondo distinto al heredado de la clase
-            background: 'rgb(243, 181, 49)'    
-        }
+        }   
         
         return (
-            <div className="mainContainer">
+                <div className="mainContainer">
                 <HeaderTeacher />
-                <div className="secContainer" style={BackgroundStyle}>
+                <div className="secContainer">
                     <div className="mainContent">
                         <div className="barraLateral">
                             <h2>Estudiantes</h2>

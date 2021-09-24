@@ -15,7 +15,7 @@ import {
 
 //import icons from react-icons
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { BiCog, BiUser, BiBarChartAlt } from "react-icons/bi";
+import { BiCog, BiUser, BiBarChartAlt, BiBookBookmark } from "react-icons/bi";
 import { Link } from 'react-router-dom';
 
 
@@ -59,9 +59,12 @@ const HeaderTeacher = () => {
               <MenuItem active={true} icon={<FiHome />}>
                 Inicio
                 <Link to="/menudocente" />
-              </MenuItem>
-              
+              </MenuItem>              
               <MenuItem icon={<BiCog /> } >Mi Perfil</MenuItem>
+              <MenuItem icon={<BiBookBookmark />}>
+                Metodologías
+                <Link to="/menudocente/metodologias"/>
+              </MenuItem>
               <MenuItem icon={<BiBarChartAlt />}>Métricas</MenuItem>
             </Menu>
           </SidebarContent>

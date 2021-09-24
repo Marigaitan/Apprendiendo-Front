@@ -3,10 +3,12 @@ import Cookies from 'universal-cookie/es6';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
 import '../css/MenuDocente.css';
-import axios from 'axios' ;
+import axios from 'axios';
 import * as _ from "lodash";
 import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
+import Background from '../Images/fondoLetras.png';
+import { Container, Label } from 'reactstrap';
 
 const cookies = new Cookies();
 let classUrl = API_HOST + "user/" + cookies.get('id') + "/classrooms";
@@ -69,25 +71,36 @@ export default class MenuDocente extends Component {
                 <li><button className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button></li>
             )
         ]));
-        
+
+        const mainStyle = {
+            maxHeight: '100%',
+            backgroundImage: "url(" + Background + ")",
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            
+        };
+        const secStyle = {
+            background: 'none'
+            
+        };
+
         return (
-            <div className="mainContainer">
-            <HeaderTeacher />
-                <div className="secContainer">                
-                    
-                        <div>
+            <div className="mainContainer" style={mainStyle}>
+            <HeaderTeacher />            
+                <div className="secContainer" style={secStyle}>                
+                    <h1 id='Title'><b>Mis Cursos</b></h1>
+                        <div id='cursos'>
                             {this.state.classrooms.map(classroomGroup => [
-                                <h1><li key={classroomGroup[0]}>{classroomGroup[0]}</li></h1>,
+                                <h1 id='classroomName'><li key={classroomGroup[0]}>{classroomGroup[0]}</li></h1>,
                                 classroomGroup[1].map(classroom =>
-                                    <li key={classroom.id.toString()}><button className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button></li>
+                                    <button key={classroom.id.toString()} className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button>
                                 )
                             ])
                             }
                         </div>
                     </div>
-                    <br />
                 </div>
-            
         )
     }
 }
