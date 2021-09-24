@@ -36,11 +36,11 @@ const HeaderAdmin = () => {
   };
 
   return (
-    <>
+    
       <div id="header">
           {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar collapsed={menuCollapse}>
-          <SidebarHeader >
+          <SidebarHeader>
           <div className="logotext">
               {/* small and big change using menucollapse state */}
               <h3>{menuCollapse ? < BiUser /> : <p id="userName">{cookies.get('username')}</p>}</h3>
@@ -71,7 +71,7 @@ const HeaderAdmin = () => {
           </SidebarFooter>
         </ProSidebar>
       </div>
-    </>
+    
   );
 };
 
