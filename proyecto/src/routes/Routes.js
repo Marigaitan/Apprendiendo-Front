@@ -12,6 +12,7 @@ import AlumnoProyecto from '../pages/AlumnoProyecto';
 import DocenteProyecto from '../pages/DocenteProyecto';
 import DocenteAbm from '../pages/DocenteAbm';
 import Metodologias from '../pages/Metodologias';
+import AlumnoAbm from '../pages/AlumnoAbm';
 
 function Routes() {
   return (
@@ -27,6 +28,7 @@ function Routes() {
       <Route exact path = "/menualumno/classroom/proyecto" component={AlumnoProyecto}/>
       <Route exact path = "/menudocente/classroom/proyecto" component={DocenteProyecto}/>
       <Route exact path = "/menuAdmin/docente/abm" component = {DocenteAbm}/>
+      <Route exact path = "/menuAdmin/alumno/abm" component = {AlumnoAbm}/>
     
     
     

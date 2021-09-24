@@ -35,7 +35,7 @@ export default class MenuAdmin extends Component {
 
     }
     goAlumnosAbm(){
-        window.location.href = "/menuAdmin/alumnos_abm";
+        window.location.href = "/menuAdmin/alumno/abm";
     }
 
     goCursosAbm(){
