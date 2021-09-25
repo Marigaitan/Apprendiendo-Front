@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
-import "../css/Header.css";
+import "../css/HeaderAlumnoPerfil.css";
 
 const cookies = new Cookies();
 const HeaderStudentPerfil = ( {history} ) => {
@@ -43,7 +43,7 @@ const HeaderStudentPerfil = ( {history} ) => {
 
   return (
     
-      <div id="header">
+      <div id="headerAlumnoPerfil">
           {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader >

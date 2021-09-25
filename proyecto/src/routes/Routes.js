@@ -30,17 +30,10 @@ function Routes() {
       <Route path = "/menudocente/classroom/proyecto" component={DocenteProyecto}/>
       <Route path = "/menuAdmin/docente/abm" component = {DocenteAbm}/>
       <Route path = "/menuAdmin/alumno/abm" component = {AlumnoAbm}/>
-      <Route path = "/AlumnoPerfil" component = {AlumnoPerfil}/>
-    
-
-        
-    
-    
+      <Route path = "/AlumnoPerfil" component = {AlumnoPerfil}/>  
     
     </Switch>
    </BrowserRouter>
   );
 }
-
-
 export default Routes;
