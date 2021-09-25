@@ -63,11 +63,20 @@ export default class Login extends Component {
             })
     }
     
+    constructor() {
+        super();
+        this.userNameInput = React.createRef();
+      }
+
+      componentDidMount() {
+        this.userNameInput.current.focus();
+      }
     render() {
         const handleEnter = (e) => {
             e.preventDefault();
             this.sendCredentials();
         }
+       
         return (
                     <div className="containerPrincipal">
                     <div className="containerSecundario">
@@ -80,6 +89,7 @@ export default class Login extends Component {
                             <br />
 
                             <input
+                                ref={this.userNameInput} 
                                 type="user"
                                 className="inputs"
                                 name="username"
