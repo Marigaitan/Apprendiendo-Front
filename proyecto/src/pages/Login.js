@@ -81,7 +81,6 @@ export default class Login extends Component {
                     <div className="containerPrincipal">
                     <div className="containerSecundario">
                     <form onSubmit={ handleEnter }>
-
                             <img
                                 src={im}
                                 id="logo"
@@ -107,7 +106,7 @@ export default class Login extends Component {
                                 onChange={this.handleChange} />
                             <br />
                             <button 
-                                onClick={() => this.sendCredentials()} 
+                                type="submit"
                                 className="submit-button btn btn-outline-primary btn-lg "
                             >
                                 Ingresar                            
