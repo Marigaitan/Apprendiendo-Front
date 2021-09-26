@@ -1,7 +1,8 @@
 //import useState hook to create menu collapse state
 import React, { useState } from "react";
-import cerrarSesion from "./logout";
+
 import Cookies from 'universal-cookie/es6';
+
 
 //import react-pro-sidebar components
 import {
@@ -21,10 +22,15 @@ import { Link } from 'react-router-dom';
 
 //import sidebar css from react-pro-sidebar module and our custom css 
 import "react-pro-sidebar/dist/css/styles.css";
-import "../css/Header.css";
+import "../css/HeaderAlumnoPerfil.css";
 
 const cookies = new Cookies();
-const HeaderStudent = () => {
+const HeaderStudentPerfil = ( {history} ) => {
+
+   const volver = () => {
+    this.props.history.push("/menualumno");
+  }
+  
   
     //create initial menuCollapse state using useState hook
     const [menuCollapse, setMenuCollapse] = useState(false)
@@ -37,7 +43,7 @@ const HeaderStudent = () => {
 
   return (
     
-      <div id="header">
+      <div id="headerAlumnoPerfil">
           {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader >
@@ -57,20 +63,26 @@ const HeaderStudent = () => {
           <SidebarContent>
             <Menu iconShape="square">
               <MenuItem active={true} icon={<FiHome />}>
-                Inicio
-                <Link to="/menualumno" />
+                Datos personales
+                
               </MenuItem>
               
               <MenuItem active={true} icon={<BiCog /> }>
-                Mi Perfil
-                <Link to="/AlumnoPerfil" />
+                Editar Avatar
+                
               </MenuItem>
-              
+
+              <MenuItem active={true} icon={<BiCog /> }>
+                Cambiar foto de perfil                
+              </MenuItem>          
             </Menu>
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />} onClick={() => cerrarSesion()}>Cerrar Sesión</MenuItem>
+              <MenuItem icon={<FiLogOut />}>
+                Volver
+                <Link to="/menualumno" />
+              </MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>
@@ -79,4 +91,4 @@ const HeaderStudent = () => {
   );
 };
 
-export default HeaderStudent;
+export default HeaderStudentPerfil;

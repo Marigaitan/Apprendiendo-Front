@@ -15,6 +15,7 @@ import Metodologias from '../pages/Metodologias';
 import AlumnoAbm from '../pages/AlumnoAbm';
 import ListaAlumnos from '../pages/ListaAlumnos'
 import DocenteNuevoProyecto from '../pages/DocenteNuevoProyecto'
+import AlumnoPerfil from '../pages/AlumnoPerfil';
 
 function Routes() {
   return (
@@ -33,6 +34,7 @@ function Routes() {
       <Route exact path = "/menudocente/classroom/proyecto" component={DocenteProyecto}/>
       <Route exact path = "/menuAdmin/docente/abm" component = {DocenteAbm}/>
       <Route exact path = "/menuAdmin/alumno/abm" component = {AlumnoAbm}/>
+      <Route exact path = "/AlumnoPerfil" component = {AlumnoPerfil}/> 
     
     
     
@@ -40,6 +42,4 @@ function Routes() {
    </BrowserRouter>
   );
 }
-
-
 export default Routes;

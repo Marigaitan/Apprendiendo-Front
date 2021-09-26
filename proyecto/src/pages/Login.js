@@ -62,33 +62,58 @@ export default class Login extends Component {
                 alert('El usuario o la contraseña no son correctos');
             })
     }
+    
+    constructor() {
+        super();
+        this.userNameInput = React.createRef();
+      }
 
+      componentDidMount() {
+        this.userNameInput.current.focus();
+      }
     render() {
+        const handleEnter = (e) => {
+            e.preventDefault();
+            this.sendCredentials();
+        }
+       
         return (
                     <div className="containerPrincipal">
                     <div className="containerSecundario">
-                        <img
-                            src={im}
-                            id="logo"
-                            alt="No se encuentra la imagen" />
-                        <br />
-                        <input
-                            type="user"
-                            className="inputs"
-                            name="username"
-                            placeholder="Usuario"
-                            maxLength="10"
-                            onChange={this.handleChange} />
-                        <br />
-                        <input
-                            type="password"
-                            className="inputs"
-                            name="password"
-                            placeholder="Contraseña"
-                            maxLength="10"
-                            onChange={this.handleChange} />
-                        <br />
-                        <button onClick={() => this.sendCredentials()} className="submit-button btn btn-outline-primary btn-lg ">Ingresar</button>
+                    <form onSubmit={ handleEnter }>
+
+                            <img
+                                src={im}
+                                id="logo"
+                                alt="No se encuentra la imagen" />
+                            <br />
+
+                            <input
+                                ref={this.userNameInput} 
+                                type="user"
+                                className="inputs"
+                                name="username"
+                                placeholder="Usuario"
+                                maxLength="10"
+                                onChange={this.handleChange} />
+                            <br />
+
+                            <input
+                                type="password"
+                                className="inputs"
+                                name="password"
+                                placeholder="Contraseña"
+                                maxLength="10"
+                                onChange={this.handleChange} />
+                            <br />
+                            <button 
+                                onClick={() => this.sendCredentials()} 
+                                className="submit-button btn btn-outline-primary btn-lg "
+                            >
+                                Ingresar                            
+                            </button>
+                        </form>                    
+
                     </div>
                 </div>
         );
