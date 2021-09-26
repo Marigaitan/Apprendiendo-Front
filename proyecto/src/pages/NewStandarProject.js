@@ -14,7 +14,19 @@ export default class NewStandarProject extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
         this.state = { subject: "", year: 0, division: "", teacherId: -1, teacherName: "", methodologies: [],
-        methodologyId: -1, form: {name: '', fechaInicio: '', fechaFin:''}};
+        methodologyId: -1, form: {projectName: '', startDate: '', startTime: '', dueDate:'', dueTime:''}};
+    }
+
+    handleChange = async e => {   //con este metodo guardamos en el estado el valor del input
+        console.log(e.target.value);
+        
+        this.setState({
+            form: {
+                ...this.state.form,
+                [e.target.name]: e.target.value
+                
+            }
+        })
     }
 
     newStandarProject() {
@@ -22,9 +34,9 @@ export default class NewStandarProject extends Component {
             {
                 methodologyId: "0",
                 challengeId: "0",
-                name: this.state.form.name,
-                startDate: this.state.form.fechaInicio,
-                dueDate: this.state.form.fechaFin               
+                name: this.state.form.projectName,
+                startDate: new Date(this.state.form.startDate +" "+ this.state.form.startTime),
+                dueDate: new Date(this.state.form.dueDate +" "+ this.state.form.dueTime)              
             },
             {
                 headers: {
@@ -59,9 +71,11 @@ export default class NewStandarProject extends Component {
                             <Label for="projectName">Ingrese el nombre del nuevo proyecto:</Label>
                             <Input
                             type="projectName"
-                            name="projectName"
+                            name="projectName"//Lo que se asigna a name, es el nombre de las variables que seteamos y a las que queremos vincular
                             id="projectName"
                             placeholder="Nombre"
+                            maxLength="20"
+                            onChange={this.handleChange}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -71,6 +85,7 @@ export default class NewStandarProject extends Component {
                             name="startDate"
                             id="startDate"
                             placeholder="Fecha de Inicio"
+                            onChange={this.handleChange}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -80,6 +95,7 @@ export default class NewStandarProject extends Component {
                             name="startTime"
                             id="startTime"
                             placeholder="Hora de Inicio"
+                            onChange={this.handleChange}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -89,6 +105,7 @@ export default class NewStandarProject extends Component {
                             name="dueDate"
                             id="dueDate"
                             placeholder="Fecha de Finalización"
+                            onChange={this.handleChange}
                             />
                         </FormGroup>
                         <FormGroup>
@@ -98,13 +115,14 @@ export default class NewStandarProject extends Component {
                             name="dueTime"
                             id="dueTime"
                             placeholder="Hora de Finalización"
+                            onChange={this.handleChange}
                             />
                             <FormText color="muted">
                             ¡No te preocupes! Vas a poder modificar las Fechas de Inicio y Finalización del proyecto más adelante.
                             </FormText>
                         </FormGroup>
-                        <Button color="success" size="lg"> Crear Proyecto</Button>{' '}
-                        <Button color="secondary" size="lg">Cancelar</Button>
+                        <Button color="success" size="lg" onClick={()=> this.newStandarProject()}> Crear Proyecto</Button>{' '}
+                        <Button color="secondary" size="lg"onClick={() => this.goClassroom()}>Cancelar</Button>
                         
                         </Form>
                     </div>
