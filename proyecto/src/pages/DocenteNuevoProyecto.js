@@ -17,7 +17,7 @@ export default class DocenteNuevoProyecto extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
         this.state = { subject: "", year: 0, division: "", teacherId: -1, teacherName: "", methodologies: [],
-        methodologyId: -1};
+        methodologyId: -1, form: {name: 'Nuevo Proyecto'}};
     }
 
     async componentDidMount() {
@@ -56,7 +56,10 @@ export default class DocenteNuevoProyecto extends Component {
             })
             .catch(error => console.log(error));
     }
-    
+    goStandarProject() {
+        window.location.href = "/menudocente/classroom/nuevoproyecto/estandar";
+    }
+
     render() {
         return (
             <div className="mainContainer">
@@ -79,23 +82,19 @@ export default class DocenteNuevoProyecto extends Component {
                     <div className='newProjectContainer'>
                         <div className='newPBL'>
                             <h2>Metodología Basada en Proyecto</h2><br />
-                            <input placeholder='Nombre del Proyecto'></input><br />
                             <Button color="success">Crear Proyecto</Button>
                         </div>
                         <div className='newTBL'>
                             <h2>Metodología Basada en el Pensamiento</h2><br />
-                            <input placeholder='Nombre del Proyecto'></input><br />
                             <Button color="success">Crear Proyecto</Button>
                         </div>
                         <div className='newFlipped'>
                             <h2>Aula Invertida</h2><br />
-                            <input placeholder='Nombre del Proyecto'></input><br />
                             <Button color="success">Crear Proyecto</Button>
                         </div>
                         <div className='newStandar'>
                             <h2>Proyecto Estándar</h2><br />
-                            <input placeholder='Nombre del Proyecto'></input><br />
-                            <Button color="success">Crear Proyecto</Button>
+                            <Button color="success" onClick={() => this.goStandarProject()}>Crear Proyecto</Button>
                         </div>
                     </div>
                 </div>
