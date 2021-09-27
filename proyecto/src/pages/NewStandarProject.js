@@ -46,7 +46,8 @@ export default class NewStandarProject extends Component {
         )
             .then(response => {
                 console.log(response);
-                alert('proyecto creado')
+                cookies.set('projectid', response.data, { path: "/menudocente/classroom" });
+                window.location.href = "/menudocente/classroom/proyecto"
             })
             .catch(error => {                           
                 console.log(error);
