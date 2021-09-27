@@ -89,12 +89,12 @@ export default class DocenteClassroom extends Component {
                                     </NavItem>  
                                 </Nav>
                         </div><br />
-                            <div className="pro">
-                                <h2>Proyectos</h2>
-                                <div>
-                                    {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li><Link to="/menudocente/classroom/proyecto">{project.name}</Link></li></h3></div>) })}
-                                </div>                            
-                            </div>
+                        <div className="pro">
+                            <h2>Proyectos</h2>
+                            <div>
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li><Link to="/menudocente/classroom/proyecto">{project.name}</Link></li></h3></div>) })}
+                            </div>                            
+                        </div>
                     </div>
                 </div>
         )

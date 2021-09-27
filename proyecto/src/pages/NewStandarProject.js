@@ -35,8 +35,8 @@ export default class NewStandarProject extends Component {
                 methodologyId: "0",
                 challengeId: "0",
                 name: this.state.form.projectName,
-                startDate: new Date(this.state.form.startDate +" "+ this.state.form.startTime),
-                dueDate: new Date(this.state.form.dueDate +" "+ this.state.form.dueTime)              
+                startDate: new Date(this.state.form.startDate +" "+ this.state.form.startTime).toISOString(),
+                dueDate: new Date(this.state.form.dueDate +" "+ this.state.form.dueTime).toISOString()              
             },
             {
                 headers: {
