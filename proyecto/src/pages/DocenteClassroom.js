@@ -6,7 +6,7 @@ import '../css/Global.css';
 import HeaderTeacher from "./Header"
 import {API_HOST} from "../constants";
 import { Link } from 'react-router-dom';
-import {Nav, NavItem, NavLink} from 'reactstrap';
+import {Button,ButtonGroup, Nav, NavItem, NavLink} from 'reactstrap';
 
 const cookies = new Cookies();
 let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
@@ -62,6 +62,10 @@ export default class DocenteClassroom extends Component {
             window.location.href = window.location.origin;
         }
     }
+    goToProyecto=(id) =>{
+        cookies.set('projectid', id, { path: "/menudocente/classroom" });
+        window.location.href = "/menudocente/classroom/proyecto";
+    }
 
     render() {
         
@@ -92,7 +96,9 @@ export default class DocenteClassroom extends Component {
                         <div className="pro">
                             <h2>Proyectos</h2>
                             <div>
-                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li><Link to="/menudocente/classroom/proyecto">{project.name}</Link></li></h3></div>) })}
+                                <ButtonGroup vertical>
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li><Button onClick={(id)=> this.goToProyecto(id)} >{project.name}</Button></li></h3></div>) })}
+                                </ButtonGroup>
                             </div>                            
                         </div>
                     </div>
