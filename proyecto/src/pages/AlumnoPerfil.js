@@ -6,38 +6,38 @@ import "../css/PerfilAlumno.css";
 import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
 import { API_HOST } from "../constants";
-import NavBarAlumnoPerfil from "./NavBarAlumnoPerfil";
+import foto from "../avatars/0001.png";
+import { Link } from "react-router-dom";
+
+const cookies = new Cookies();
 
 const AlumnoPerfil = () => {
   return (
     <div className="mainContainer">
       <HeaderStudent />
       <div>
-        <div>
-          <NavBarAlumnoPerfil />
-        </div>
-        <div className="ml-4">
+        <div className="ml-2">
           <br />
           <h2> Informacion de perfil</h2>
           <br />
 
-          <div class="container ">
-            <div class="main-body ">
-              <div class="row gutters-sm">
-                <div class="col-md-4 mb-3">
-                  <div class="card align-items-center">
-                    <div class="card-body ">
-                      <div class="d-flex flex-column align-items-center text-center">
+          <div className="container ">
+            <div className="main-body ">
+              <div className="row gutters-sm">
+                <div className="col-md-4 mb-3">
+                  <div className="card align-items-center">
+                    <div className="card-body ">
+                      <div className="d-flex flex-column align-items-center text-center">
                         <img
                           src="https://bootdey.com/img/Content/avatar/avatar7.png"
                           alt="Admin"
-                          class="rounded-circle"
+                          className="rounded-circle"
                           width="150"
                         />
-                        <div class="mt-3">
-                          <h4>Pepito Gomez</h4>
-                          <p class="text-secondary mb-1">Alumno de 3</p>
-                          <p class="text-muted font-size-sm">
+                        <div className="mt-3">
+                          <h4>{cookies.get("username")}</h4>
+                          <p className="text-secondary mb-1">Alumno de 3</p>
+                          <p className="text-muted font-size-sm">
                             Caballito Capital Federal
                           </p>
                         </div>
@@ -45,43 +45,70 @@ const AlumnoPerfil = () => {
                     </div>
                   </div>
                 </div>
-                <div class="col-md-8">
-                  <div class="card mb-3">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <h6 class="mb-2">Nombre completo</h6>
+                <div className="col-md-8">
+                  <div className="card mb-3">
+                    <div className="card-body">
+                      <div className="row">
+                        <div className="col-sm-4">
+                          <h6 className="mb-2">Nombre completo</h6>
                         </div>
-                        <div class="col-sm text-secondary">Pepito Gomez</div>
+                        <div className="col-sm text-secondary">
+                          Pepito Gomez
+                        </div>
                       </div>
                       <hr />
-                      <div class="row"></div>
 
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <h6 class="mb-2">Telefono</h6>
+                      <div className="row">
+                        <div className="col-sm-4">
+                          <h6 className="mb-2">Telefono</h6>
                         </div>
-                        <div class="col-sm text-secondary">(011) 81629029</div>
+                        <div className="col-sm text-secondary">
+                          (011) 81629029
+                        </div>
                       </div>
                       <hr />
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <h6 class="mb-0">Mobile</h6>
+
+                      <div className="row">
+                        <div className="col-sm-4">
+                          <h6 className="mb-0">Mobile</h6>
                         </div>
-                        <div class="col-sm text-secondary">(011) 380-4539</div>
+                        <div className="col-sm text-secondary">
+                          (011) 380-4539
+                        </div>
                       </div>
                       <hr />
-                      <div class="row">
-                        <div class="col-sm-4">
-                          <h6 class="mb">Direccion</h6>
+
+                      <div className="row">
+                        <div className="col-sm-4">
+                          <h6 className="mb">Direccion</h6>
                         </div>
-                        <div class="col-sm text-secondary">
+                        <div className="col-sm text-secondary">
                           Del barco centenera 2345
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
 
-                      <div class="row">
-                        <div class="col-sm-12"></div>
+                <div className="ml">
+                  <div className="card mb-3">
+                    <div className="card-body">
+                      <div>
+                        <div>
+                          <h2 className="mb-2">Avatar</h2>
+                          <button class="btn btn-primary">Cambiar</button>
+                          <button class="btn btn-outline-primary ml-2">
+                            Editar
+                          </button>
+                        </div>
+                        <div className="d-flex flex-column align-items-center text-center">
+                          <img
+                            src={foto}
+                            alt="Avatar"
+                            className="rounded-circle"
+                            width="400"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
