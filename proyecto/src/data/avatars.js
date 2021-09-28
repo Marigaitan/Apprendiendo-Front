@@ -7,4 +7,12 @@ export const avatars = [
     id: "0002",
     nombre: "jack",
   },
+  {
+    id: "0003",
+    nombre: "Jesica",
+  },
+  {
+    id: "0004",
+    nombre: "Benja",
+  },
 ];

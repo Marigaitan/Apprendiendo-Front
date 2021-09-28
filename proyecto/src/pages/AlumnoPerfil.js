@@ -17,6 +17,10 @@ const AlumnoPerfil = () => {
     window.location.href = "http://localhost:3000/ListarAvatars";
   };
 
+  const handleEdit = () => {
+    window.location.href = "http://localhost:3000/ListarAccesorios";
+  };
+
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -107,7 +111,10 @@ const AlumnoPerfil = () => {
                           >
                             Cambiar
                           </button>
-                          <button className="btn btn-outline-primary ml-2">
+                          <button
+                            className="btn btn-outline-primary ml-2"
+                            onClick={handleEdit}
+                          >
                             Editar
                           </button>
                         </div>

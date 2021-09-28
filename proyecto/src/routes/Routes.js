@@ -19,6 +19,8 @@ import AlumnoPerfil from "../pages/AlumnoPerfil";
 import NewStandarProject from "../pages/NewStandarProject";
 import { ListarAvatars } from "../pages/ListarAvatars";
 import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
+import { ListarAccesorios } from "../pages/ListarAccesorios";
+import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 
 function Routes() {
   return (
@@ -70,6 +72,12 @@ function Routes() {
         <Route exact path="/AlumnoPerfil" component={AlumnoPerfil} />
         <Route exact path="/ListarAvatars" component={ListarAvatars} />
         <Route exact path="/SeleccionarAvatar" component={SeleccionarAvatar} />
+        <Route exact path="/ListarAccesorios" component={ListarAccesorios} />
+        <Route
+          exact
+          path="/SeleccionarAccesorios"
+          component={SeleccionarAccesorios}
+        />
       </Switch>
     </BrowserRouter>
   );
