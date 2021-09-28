@@ -17,7 +17,7 @@ const cookies = new Cookies();
 export default class DocenteClassroom extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "" };
+        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "" , projectID: "0"};
     }
 
     async componentDidMount() {
@@ -71,8 +71,8 @@ export default class DocenteClassroom extends Component {
             window.location.href = window.location.origin;
         }
     }
-    goToProyecto=(id) =>{
-        cookies.set('projectid', id, { path: "/menudocente/classroom" });
+    goToProyecto=(projectID) =>{
+        cookies.set('projectid', projectID, { path: "/menudocente/classroom" });
         window.location.href = "/menudocente/classroom/proyecto";
     }
 
@@ -106,7 +106,11 @@ export default class DocenteClassroom extends Component {
                             <h2>Proyectos</h2>
                             <div>
                                 <ButtonGroup vertical>
-                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li><Button onClick={(id)=> this.goToProyecto(id)} >{project.name}</Button></li></h3></div>) })}
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li>
+                                        <Button onClick={() => 
+                                        {this.setState(state => state.projectID = project.id); this.goToProyecto();}} >{project.name}
+                                        </Button>
+                                    </li></h3></div>) })}
                                 </ButtonGroup>
                             </div>                            
                         </div>
