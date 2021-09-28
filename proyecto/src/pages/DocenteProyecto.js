@@ -90,6 +90,9 @@ export default class DocenteProyecto extends Component {
         this.setState({aStudent: student})
         this.abrirModal();
     }
+    crearClase = () =>{
+        alert("aca se crea una clase");
+    }
  
     render() {
 
@@ -153,7 +156,7 @@ export default class DocenteProyecto extends Component {
                         </div>
                     </div>
                     <div>
-                        <Button color="success" size="lg">Crear Clase</Button>
+                        <Button color="success" size="lg" onClick={() => this.crearClase()}>Crear Clase</Button>
                     </div>
                 </div>
             </div>
