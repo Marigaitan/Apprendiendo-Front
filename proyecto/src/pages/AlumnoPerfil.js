@@ -7,6 +7,7 @@ import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
 import { API_HOST } from "../constants";
 import foto from "../avatars/0001.png";
+import { Link } from "react-router-dom";
 
 const cookies = new Cookies();
 
