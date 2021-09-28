@@ -6,12 +6,17 @@ import "../css/PerfilAlumno.css";
 import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
 import { API_HOST } from "../constants";
-import foto from "../avatars/0001.png";
 import { Link } from "react-router-dom";
+import { avatars } from "../data/avatars";
+import { useHistory } from "react-router-dom";
 
 const cookies = new Cookies();
 
 const AlumnoPerfil = () => {
+  const handleCambio = () => {
+    window.location.href = "http://localhost:3000/ListarAvatars";
+  };
+
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -96,14 +101,19 @@ const AlumnoPerfil = () => {
                       <div>
                         <div>
                           <h2 className="mb-2">Avatar</h2>
-                          <button class="btn btn-primary">Cambiar</button>
-                          <button class="btn btn-outline-primary ml-2">
+                          <button
+                            className="btn btn-primary"
+                            onClick={handleCambio}
+                          >
+                            Cambiar
+                          </button>
+                          <button className="btn btn-outline-primary ml-2">
                             Editar
                           </button>
                         </div>
                         <div className="d-flex flex-column align-items-center text-center">
                           <img
-                            src={foto}
+                            src={`./avatars/0001.png`}
                             alt="Avatar"
                             className="rounded-circle"
                             width="400"
