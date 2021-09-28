@@ -152,6 +152,9 @@ export default class DocenteProyecto extends Component {
                             }
                         </div>
                     </div>
+                    <div>
+                        <Button color="success" size="lg">Crear Clase</Button>
+                    </div>
                 </div>
             </div>
         )
