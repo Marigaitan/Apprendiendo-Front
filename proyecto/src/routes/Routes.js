@@ -17,6 +17,7 @@ import ListaAlumnos from '../pages/ListaAlumnos'
 import DocenteNuevoProyecto from '../pages/DocenteNuevoProyecto'
 import AlumnoPerfil from '../pages/AlumnoPerfil';
 import NewStandarProject from '../pages/NewStandarProject'
+import AulaInvertida from '../pages/AulaInvertida';
 
 function Routes() {
   return (
@@ -37,6 +38,8 @@ function Routes() {
       <Route exact path = "/menuAdmin/docente/abm" component = {DocenteAbm}/>
       <Route exact path = "/menuAdmin/alumno/abm" component = {AlumnoAbm}/>
       <Route exact path = "/AlumnoPerfil" component = {AlumnoPerfil}/> 
+      <Route exact path = "/menudocente/classroom/nuevoproyecto/aulainvertida" component={AulaInvertida}/>
+
     
     
     

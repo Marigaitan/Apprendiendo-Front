@@ -59,6 +59,9 @@ export default class DocenteNuevoProyecto extends Component {
     goStandarProject() {
         window.location.href = "/menudocente/classroom/nuevoproyecto/estandar";
     }
+    goFlippedProject(){
+        window.location.href = "/menudocente/classroom/nuevoproyecto/aulainvertida";
+    }
 
     render() {
         return (
@@ -90,7 +93,7 @@ export default class DocenteNuevoProyecto extends Component {
                         </div>
                         <div className='newFlipped'>
                             <h2>Aula Invertida</h2><br />
-                            <Button color="success">Crear Proyecto</Button>
+                            <Button color="success" onClick={() => this.goFlippedProject()}>Crear Proyecto</Button>
                         </div>
                         <div className='newStandar'>
                             <h2>Proyecto Estándar</h2><br />
