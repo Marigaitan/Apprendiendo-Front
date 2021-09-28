@@ -4,14 +4,14 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
 import HeaderTeacher from "./Header"
-import {API_HOST} from "../constants";
-import { Link } from 'react-router-dom';
-import {Nav, NavItem, NavLink} from 'reactstrap';
+import { API_HOST } from "../constants";
+
+
+import {Button,ButtonGroup, Nav, NavItem, NavLink} from 'reactstrap';
+
+
 
 const cookies = new Cookies();
-let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
-let getProjectsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects";
-let getTeacherUrl = API_HOST + "user/";
 
 
 export default class DocenteClassroom extends Component {
@@ -21,6 +21,10 @@ export default class DocenteClassroom extends Component {
     }
 
     async componentDidMount() {
+
+        let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
+        let getProjectsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects";
+        let getTeacherUrl = API_HOST + "user/";
 
         //AXIOS
         const requestOne = axios.get(classparamUrl, { headers: { 'Authorization': cookies.get('token') } });
@@ -56,6 +60,11 @@ export default class DocenteClassroom extends Component {
             .catch(error => console.log(error));
     }
 
+    goDocenteProyecto = (project) => {
+        cookies.set('projectid', project.id, { path: "/" });
+        this.props.history.push("/menudocente/classroom/proyecto");
+    }
+
 
     redirect = () => {
         if (!cookies.get('token') || cookies.get('role') !== "ROLE_TEACHER") {
@@ -64,13 +73,13 @@ export default class DocenteClassroom extends Component {
     }
 
     render() {
-        
+
         console.log(cookies.get('classid'));
 
         this.redirect();
 
-        console.log(this.state);   
-        
+        console.log(this.state);
+
         return (
                 <div className="mainContainer">
                     <HeaderTeacher />
@@ -89,14 +98,20 @@ export default class DocenteClassroom extends Component {
                                     </NavItem>  
                                 </Nav>
                         </div><br />
-                            <div className="pro">
-                                <h2>Proyectos</h2>
-                                <div>
-                                    {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li><Link to="/menudocente/classroom/proyecto">{project.name}</Link></li></h3></div>) })}
-                                </div>                            
-                            </div>
+                        <div className="pro">
+                            <h2>Proyectos</h2>
+                            <div>
+                                <ButtonGroup vertical>
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li>
+                                        <Button onClick={() => 
+                                        {this.goDocenteProyecto(project)}} >{project.name}
+                                        </Button>
+                                    </li></h3></div>) })}
+                                </ButtonGroup>
+                            </div>                            
+                        </div>
                     </div>
                 </div>
-        )
-    }
+            )
+        }
 }

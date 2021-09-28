@@ -4,64 +4,72 @@ import '../css/Global.css';
 import axios from 'axios';
 
 import { API_HOST } from "../constants";
-import { Button, Form, FormGroup, Label, Input, FormText, Container, Row, Col } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormText, Container, Row, Col, Progress, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import HeaderTeacher from "./Header"
 
 import "../css/DocenteProyecto.css";
 
 const cookies = new Cookies();
-let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects" + cookies.get('projectid') + "/students";
-let getLessonsUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/activities";
 
 export default class DocenteProyecto extends Component {
-
+    
     constructor(props) {
         super(props);
         this.state = {
-            students: [], lessons: []
+            students: [], lessons: [], modalAbierto: false, aStudent: ''
         };
     }
-
+    
     async componentDidMount() {
-
+        
+        let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/students/progress";
+        let getLessonsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/lessons";
+        
         //AXIOS
         const requestOne = axios.get(getLessonsUrl, { headers: { 'Authorization': cookies.get('token') } });
         const requestTwo = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
 
-        axios.all([requestOne,
+        await axios.all([requestOne,
             requestTwo])
-            .then(axios.spread((studentsData, classData) => {
-                console.log(classData.data, studentsData.data);
+            .then(axios.spread((students, lessons) => {
+                console.log(students.data, lessons.data);
                 //SET Activities of lesson
 
                 //const students = studentsData.data.map(student => ({ id: student.id, username: student.username }));
                 //SET STATE
-                this.setState({
-                    // subject: subject,
-                    // year: year,
-                    // teacherId: teacherId,
-                    // division: division,
-                    //students: students
-                })
-            }))
-            .then(response => {
-                console.log(response)
-
-            })
-            .catch(error => {
-                console.log(error)
-                const students = [{ id: 1, username: 'grupo 1' }, { id: 2, username: 'grupo 2' }]
-                const lessons = [{ id: 1, name: 'clase 1' }, { id: 2, name: 'clase 2' }]
+                // const students = [{ id: 1, username: 'grupo 1', progress: 10, lessons: [{}] }, { id: 2, username: 'grupo 2', progress: 30 }]
+                // const lessons = [{ id: 1, name: 'clase 1' }, { id: 2, name: 'clase 2' }]
                 //SET STATE
                 this.setState({
                     // subject: subject,
                     // year: year,
                     // teacherId: teacherId,
                     // division: division,
-                    students: students,
-                    lessons: lessons
+                    students: students.data,
+                    lessons: lessons.data
                 })
+            }))
+            .catch(error => {
+                console.log(error)
+                // const students = [{ id: 1, username: 'grupo 1', progress: 10 }, { id: 2, username: 'grupo 2', progress: 30 }]
+                // const lessons = [{ id: 1, name: 'clase 1' }, { id: 2, name: 'clase 2' }]
+                //SET STATE
+                // this.setState({
+                //     // subject: subject,
+                //     // year: year,
+                //     // teacherId: teacherId,
+                //     // division: division,
+                //     students: students,
+                //     lessons: lessons
+                // })
             });
+    }
+
+    abrirModal = () => {
+        {
+            this.setState({ modalAbierto: !this.state.modalAbierto });
+            return
+        }
     }
 
     redirect = () => {
@@ -70,9 +78,34 @@ export default class DocenteProyecto extends Component {
         }
     }
 
+    setStudent = (student) => {
+        // this.setState(prevState => {
+        //     let updatedStudent = { ...prevState, aStudent: student};  // cuando debemos actualizar un objeto con varios campos lo hacemos asi
+        //     // updatedStudent.username = student.username; 
+        //     // updatedStudent.id = student.id; 
+        //     // updatedStudent.progress = student.progress; 
+        //     console.log(updatedStudent)
+        //     return { updatedStudent };
+        //   })
+        this.setState({aStudent: student})
+        this.abrirModal();
+    }
+    crearClase = () =>{
+        alert("aca se crea una clase");
+    }
+ 
     render() {
 
-        console.log(this.state.students, this.state.lessons);
+        const modalStyles = {
+            position: "absolute",
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            minWidth: '200px',
+            minHeight: '200px',
+            backgroundColor: 'forestgreen'
+        }
+
         return (
             <div className="mainContainer">
                 <HeaderTeacher />
@@ -89,11 +122,23 @@ export default class DocenteProyecto extends Component {
                                 this.state.students.map(student => {
                                     return (
                                         <div>
-                                            <Button key={student.id}>{student.username}</Button>
+                                            <Button key={student.id} onClick={() => this.setStudent(student)}>{student.userId}</Button>
                                         </div>
                                     )
                                 })
                             }
+                            <Modal isOpen={this.state.modalAbierto} style={modalStyles}>
+                                <ModalHeader>
+                                    {this.state.aStudent.userId}
+                                </ModalHeader>
+                                <ModalBody>
+                                    <Label>Progreso</Label>
+                                    <Progress value={this.state.aStudent.percentageCompleted} />
+                                </ModalBody>
+                                <ModalFooter>
+                                    <Button color="secondary" onClick={this.abrirModal}>Cerrar</Button>
+                                </ModalFooter>
+                            </Modal>
                         </div>
                         <div className="center">
                             <div>
@@ -109,6 +154,9 @@ export default class DocenteProyecto extends Component {
                                 })
                             }
                         </div>
+                    </div>
+                    <div>
+                        <Button color="success" size="lg" onClick={() => this.crearClase()}>Crear Clase</Button>
                     </div>
                 </div>
             </div>
