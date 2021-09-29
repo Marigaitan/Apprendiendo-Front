@@ -9,10 +9,6 @@ import '../css/AlumnoClassroom.css';
 import {API_HOST} from "../constants";
 
 const cookies = new Cookies();
-let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
-let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/students";
-let getProjectsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects";
-let getTeacherUrl = API_HOST + "user/";
 
 export default class AlumnoClassroom extends Component {
     constructor(props) {        //constructor de mi clase
@@ -22,6 +18,7 @@ export default class AlumnoClassroom extends Component {
 
 
     classParam() {
+        let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
         axios.get(classparamUrl, {
             headers: {
                 'Authorization': cookies.get('token')
@@ -43,13 +40,17 @@ export default class AlumnoClassroom extends Component {
             });
     }
 
-    componentDidMount() {    //para que lo redirija al login si no hay token
+    async componentDidMount() {    //para que lo redirija al login si no hay token
         if (!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT") {
             window.location.href = window.location.origin;
         }
+        this.classParam(); //llama a getTeacher adentro, tiene que haber forma de llamarlo desde aca con then, pero se ejecuta fuera de orden
+        this.getStudents();
+        this.getProjects();
     }
 
     getStudents() {
+        let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/students";
         axios.get(getStudentsUrl, {
             headers: {
                 'Authorization': cookies.get('token')
@@ -68,6 +69,7 @@ export default class AlumnoClassroom extends Component {
     }
      getTeacher() {
         console.log("ESTO TIENE QUE PASAR SEGUNDO");
+        let getTeacherUrl = API_HOST + "user/";
         axios.get(getTeacherUrl + this.state.teacherId, {
             headers: {
                 'Authorization': cookies.get('token')
@@ -85,6 +87,7 @@ export default class AlumnoClassroom extends Component {
     }
 
     getProjects() {
+        let getProjectsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects";
         axios.get(getProjectsUrl, {
             headers: {
                 'Authorization': cookies.get('token')
@@ -102,11 +105,6 @@ export default class AlumnoClassroom extends Component {
 
     render() {
         console.log(cookies.get('classid'));
-        window.onload = () => {
-            this.classParam(); //llama a getTeacher adentro, tiene que haber forma de llamarlo desde aca con then, pero se ejecuta fuera de orden
-            this.getStudents();
-            this.getProjects();
-        }
         console.log(this.state);
         return (
             <div className="mainContainer">

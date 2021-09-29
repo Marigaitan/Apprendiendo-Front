@@ -33,9 +33,6 @@ const cookies = new Cookies();
 //create api 
 //create table
 
-
-let teacherAbmUrl = API_HOST + "users/teachers";
-
 class DocenteAbm extends React.Component {
 
   constructor(props) {        //constructor de mi clase
@@ -53,7 +50,7 @@ class DocenteAbm extends React.Component {
   }
 
   componentDidMount(){
-
+    let teacherAbmUrl = API_HOST + "users/teachers";
     axios.get(teacherAbmUrl, {
       headers: {
           'Authorization': cookies.get('token')

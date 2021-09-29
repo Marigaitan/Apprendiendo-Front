@@ -6,8 +6,6 @@ import {API_HOST} from "../constants";
 import HeaderStudent from "./HeaderAlumno"
 
 const cookies = new Cookies();
-let getLessonsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects"+ cookies.get('projectid') + "/lessons";
-
 
 export default class AlumnoProyecto extends Component {
     render() {

@@ -58,3 +58,10 @@
 .shadow-none {
   box-shadow: none !important;
 }
+.top {
+  position: absolute;
+  left: 370px;
+  top: 200px;
+
+  z-index: 1;
+}
