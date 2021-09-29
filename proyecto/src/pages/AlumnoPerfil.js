@@ -25,7 +25,7 @@ const AlumnoPerfil = () => {
     <div className="mainContainer">
       <HeaderStudent />
       <div>
-        <div className="ml-2">
+        <div className="ml-2 animate__animated animate__fadeInUp">
           <br />
           <h2> Informacion de perfil</h2>
           <br />
@@ -36,7 +36,7 @@ const AlumnoPerfil = () => {
                 <div className="col-md-4 mb-3">
                   <div className="card align-items-center">
                     <div className="card-body ">
-                      <div className="d-flex flex-column align-items-center text-center">
+                      <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
                         <img
                           src="https://bootdey.com/img/Content/avatar/avatar7.png"
                           alt="Admin"
@@ -62,7 +62,7 @@ const AlumnoPerfil = () => {
                           <h6 className="mb-2">Nombre completo</h6>
                         </div>
                         <div className="col-sm text-secondary">
-                          Pepito Gomez
+                          Nazareno Anselmi
                         </div>
                       </div>
                       <hr />
@@ -118,14 +118,15 @@ const AlumnoPerfil = () => {
                             Editar
                           </button>
                         </div>
-
-                        <div className="d-flex flex-column align-items-center text-center">
+                        <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
                           <img
                             src={`./avatars/0004.png`}
                             alt="Avatar"
                             className="rounded-circle"
                             width="400"
                           />
+                        </div>
+                        <div className="d-flex flex-column align-items-center">
                           <img
                             src={`./accesorios/l0001.png`}
                             alt="Avatar"
