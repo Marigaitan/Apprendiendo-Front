@@ -7,7 +7,6 @@ import HeaderStudent from "./HeaderAlumno";
 import {API_HOST} from "../constants";
 
 const cookies = new Cookies();
-let classUrl = API_HOST + "user/" + cookies.get('id') + "/classrooms";
 
 export default class MenuAlumno extends Component {
     constructor(props) {        //constructor de mi clase
@@ -15,6 +14,7 @@ export default class MenuAlumno extends Component {
         this.state = {  classrooms: [] };
     }
     componentDidMount() {    //para que lo redirija al login si no hay token
+        let classUrl = API_HOST + "user/" + cookies.get('id') + "/classrooms";
         axios.get(classUrl, {
                 headers: {
                     'Authorization': cookies.get('token')

@@ -11,7 +11,7 @@ import Background from '../Images/fondoLetras.png';
 import { Container, Label } from 'reactstrap';
 
 const cookies = new Cookies();
-let classUrl = API_HOST + "user/" + cookies.get('id') + "/classrooms";
+
 
 export default class MenuDocente extends Component {
     constructor(props) {        //constructor de mi clase
@@ -19,6 +19,7 @@ export default class MenuDocente extends Component {
         this.state = { dropdown: false, classrooms: [] };
     }
     componentDidMount() {
+        let classUrl = API_HOST + "user/" + cookies.get('id') + "/classrooms";
         axios.get(classUrl, {
             headers: {
                 'Authorization': cookies.get('token')

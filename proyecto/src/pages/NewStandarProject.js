@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 
 const cookies = new Cookies();
-let newProjectUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project";
+
 
 
 export default class NewStandarProject extends Component {
@@ -30,6 +30,7 @@ export default class NewStandarProject extends Component {
     }
 
     newStandarProject() {
+        let newProjectUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project";
         axios.post(newProjectUrl,
             {
                 methodologyId: "0",
