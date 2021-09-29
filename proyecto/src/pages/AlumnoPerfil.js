@@ -101,7 +101,7 @@ const AlumnoPerfil = () => {
 
                 <div className="ml">
                   <div className="card mb-3">
-                    <div className="card-body">
+                    <div className="fondo_avatar card-body">
                       <div>
                         <div>
                           <h2 className="mb-2">Avatar</h2>
@@ -120,7 +120,7 @@ const AlumnoPerfil = () => {
                         </div>
                         <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
                           <img
-                            src={`./avatars/0004.png`}
+                            src={`./avatars/0003.png`}
                             alt="Avatar"
                             className="rounded-circle"
                             width="400"
