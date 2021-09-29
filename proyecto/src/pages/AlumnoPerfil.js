@@ -118,12 +118,19 @@ const AlumnoPerfil = () => {
                             Editar
                           </button>
                         </div>
+
                         <div className="d-flex flex-column align-items-center text-center">
                           <img
-                            src={`./avatars/0001.png`}
+                            src={`./avatars/0004.png`}
                             alt="Avatar"
                             className="rounded-circle"
                             width="400"
+                          />
+                          <img
+                            src={`./accesorios/l0001.png`}
+                            alt="Avatar"
+                            className="top"
+                            width="200"
                           />
                         </div>
                       </div>
