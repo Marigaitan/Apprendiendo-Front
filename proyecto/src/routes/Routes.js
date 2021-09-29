@@ -22,6 +22,8 @@ import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
 import { ListarAccesorios } from "../pages/ListarAccesorios";
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 import NuevaClase from "../pages/NuevaClase";
+import AulaInvertida from "../pages/AulaInvertida";
+import Pbl from "../pages/Pbl";
 
 function Routes() {
   return (
@@ -84,6 +86,8 @@ function Routes() {
           path="/SeleccionarAccesorios"
           component={SeleccionarAccesorios}
         />
+        <Route exact path = "/menudocente/classroom/nuevoproyecto/aulainvertida" component={AulaInvertida}/>
+        <Route exact path = "/menudocente/classroom/nuevoproyecto/pbl" component={Pbl}/>
       </Switch>
     </BrowserRouter>
   );
