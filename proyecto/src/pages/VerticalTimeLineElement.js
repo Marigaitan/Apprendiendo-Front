@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { InView } from 'react-intersection-observer';
+import '../css/VerticalTimeLineElement.css';
 
 const VerticalTimelineElement = ({
   children,
@@ -87,7 +88,7 @@ VerticalTimelineElement.propTypes = {
     PropTypes.node,
   ]),
   className: PropTypes.string,
-  contentArrowStyle: PropTypes.shape({}),
+  contentArrowStyle: PropTypes.shape({ borderRight: '7px solid  rgb(33, 150, 243)' }),
   contentStyle: PropTypes.shape({}),
   date: PropTypes.node,
   dateClassName: PropTypes.string,

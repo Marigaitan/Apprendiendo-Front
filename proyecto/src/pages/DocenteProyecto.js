@@ -12,56 +12,40 @@ import "../css/DocenteProyecto.css";
 const cookies = new Cookies();
 
 export default class DocenteProyecto extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
-            students: [], lessons: [], modalAbierto: false, aStudent: ''
+            students: [], lessons: [], modalAbierto: false, aStudent: '', project: ''
         };
     }
-    
+
     async componentDidMount() {
-        
+
+        let getProjectDetailsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid')
         let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/students/progress";
         let getLessonsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/lessons";
-        
+
         //AXIOS
+        const requestZero = axios.get(getProjectDetailsUrl, { headers: { 'Authorization': cookies.get('token') } });
         const requestOne = axios.get(getLessonsUrl, { headers: { 'Authorization': cookies.get('token') } });
         const requestTwo = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
 
-        await axios.all([requestOne,
+        await axios.all([requestZero, requestOne,
             requestTwo])
-            .then(axios.spread((students, lessons) => {
-                console.log(students.data, lessons.data);
-                //SET Activities of lesson
+            .then(axios.spread((project, lessons, students) => {
+                console.log(project.data, students.data, lessons.data);
 
-                //const students = studentsData.data.map(student => ({ id: student.id, username: student.username }));
-                //SET STATE
-                // const students = [{ id: 1, username: 'grupo 1', progress: 10, lessons: [{}] }, { id: 2, username: 'grupo 2', progress: 30 }]
-                // const lessons = [{ id: 1, name: 'clase 1' }, { id: 2, name: 'clase 2' }]
                 //SET STATE
                 this.setState({
-                    // subject: subject,
-                    // year: year,
-                    // teacherId: teacherId,
-                    // division: division,
+                    project: project.data,
                     students: students.data,
                     lessons: lessons.data
                 })
             }))
             .catch(error => {
                 console.log(error)
-                // const students = [{ id: 1, username: 'grupo 1', progress: 10 }, { id: 2, username: 'grupo 2', progress: 30 }]
-                // const lessons = [{ id: 1, name: 'clase 1' }, { id: 2, name: 'clase 2' }]
-                //SET STATE
-                // this.setState({
-                //     // subject: subject,
-                //     // year: year,
-                //     // teacherId: teacherId,
-                //     // division: division,
-                //     students: students,
-                //     lessons: lessons
-                // })
+
             });
     }
 
@@ -87,13 +71,13 @@ export default class DocenteProyecto extends Component {
         //     console.log(updatedStudent)
         //     return { updatedStudent };
         //   })
-        this.setState({aStudent: student})
+        this.setState({ aStudent: student })
         this.abrirModal();
     }
-    crearClase = () =>{
+    crearClase = () => {
         alert("aca se crea una clase");
     }
- 
+
     render() {
 
         const modalStyles = {
@@ -109,10 +93,16 @@ export default class DocenteProyecto extends Component {
         return (
             <div className="mainContainer">
                 <HeaderTeacher />
-                <div className="secContainer">
+                <div>
                     <div>
-                        <h2>Nombre del proyecto</h2>
+                        <h2>{this.state.project.name}</h2>
                     </div>
+                    <div>
+                    <h3>{this.state.project.startDate}</h3>
+                    <h3>{this.state.project.dueDate}</h3>
+
+                    </div>
+
                     <div className="mainFlex">
                         <div className="left">
                             <div>
