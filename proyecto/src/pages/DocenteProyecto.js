@@ -4,7 +4,7 @@ import '../css/Global.css';
 import axios from 'axios';
 
 import { API_HOST } from "../constants";
-import { Button, Form, FormGroup, Label, Input, FormText, Container, Row, Col, Progress, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Form, FormGroup, Label,CustomInput, Input, FormText, Container, Row, Col, Progress, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import HeaderTeacher from "./Header"
 
 import "../css/DocenteProyecto.css";
@@ -75,7 +75,7 @@ export default class DocenteProyecto extends Component {
         this.abrirModal();
     }
     crearClase = () => {
-        alert("aca se crea una clase");
+        window.location.href = "/menudocente/classroom/proyecto/nuevaclase"
     }
 
     render() {
@@ -98,9 +98,13 @@ export default class DocenteProyecto extends Component {
                         <h2>{this.state.project.name}</h2>
                     </div>
                     <div>
-                    <h3>{this.state.project.startDate}</h3>
-                    <h3>{this.state.project.dueDate}</h3>
-
+                        <h3>{this.state.project.startDate}</h3>
+                        <h3>{this.state.project.dueDate}</h3>
+                        <FormGroup>
+                            <div>
+                            <CustomInput type ="switch" id="exampleCustomSwitch" name="customSwitch" label="Activar/Desactivar Clase" />
+                            </div>
+                        </FormGroup>
                     </div>
 
                     <div className="mainFlex">
