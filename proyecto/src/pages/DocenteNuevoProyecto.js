@@ -9,9 +9,6 @@ import axios from 'axios';
 import { Button } from 'reactstrap';
 
 const cookies = new Cookies();
-let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
-let getTeacherUrl = API_HOST + "user/";
-let getMethodologiesUrl = API_HOST + "methodologies";
 
 export default class DocenteNuevoProyecto extends Component {
     constructor(props) {        //constructor de mi clase
@@ -19,8 +16,12 @@ export default class DocenteNuevoProyecto extends Component {
         this.state = { subject: "", year: 0, division: "", teacherId: -1, teacherName: "", methodologies: [],
         methodologyId: -1, form: {name: 'Nuevo Proyecto'}};
     }
-
+    
     async componentDidMount() {
+        
+        let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
+        let getTeacherUrl = API_HOST + "user/";
+        let getMethodologiesUrl = API_HOST + "methodologies";
 
         //AXIOS
         const requestOne = axios.get(classparamUrl, { headers: { 'Authorization': cookies.get('token') } });

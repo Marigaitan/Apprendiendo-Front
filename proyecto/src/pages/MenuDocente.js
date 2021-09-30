@@ -12,15 +12,14 @@ import { Container, Label } from 'reactstrap';
 
 const cookies = new Cookies();
 
-
 export default class MenuDocente extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
         this.state = { dropdown: false, classrooms: [] };
     }
-    componentDidMount() {
+    async componentDidMount() {
         let classUrl = API_HOST + "user/" + cookies.get('id') + "/classrooms";
-        axios.get(classUrl, {
+        await axios.get(classUrl, {
             headers: {
                 'Authorization': cookies.get('token')
             }
@@ -79,29 +78,29 @@ export default class MenuDocente extends Component {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            
+
         };
         const secStyle = {
             background: 'none'
-            
+
         };
 
         return (
             <div className="mainContainer" style={mainStyle}>
-            <HeaderTeacher />            
-                <div className="secContainer" style={secStyle}>                
+                <HeaderTeacher />
+                <div className="secContainer" style={secStyle}>
                     <h1 id='Title'><b>Mis Cursos</b></h1>
-                        <div id='cursos'>
-                            {this.state.classrooms.map(classroomGroup => [
-                                <h1 id='classroomName'><li key={classroomGroup[0]}>{classroomGroup[0]}</li></h1>,
-                                classroomGroup[1].map(classroom =>
-                                    <button key={classroom.id.toString()} className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button>
-                                )
-                            ])
-                            }
-                        </div>
+                    <div id='cursos'>
+                        {this.state.classrooms.map(classroomGroup => [
+                            <h1 id='classroomName'><li key={classroomGroup[0]}>{classroomGroup[0]}</li></h1>,
+                            classroomGroup[1].map(classroom =>
+                                <button key={classroom.id.toString()} className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button>
+                            )
+                        ])
+                        }
                     </div>
                 </div>
+            </div>
         )
     }
 }

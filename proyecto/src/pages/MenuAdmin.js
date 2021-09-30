@@ -9,7 +9,7 @@ const cookies = new Cookies();
 
 export default class MenuAdmin extends Component {
 
-    componentDidMount(){    //para que lo redirija al login si no hay token
+    redirect(){    //para que lo redirija al login si no hay token
         if(!cookies.get('token')|| cookies.get('role') !== "ROLE_ADMIN"){
             this.props.history.push("/");
         }
@@ -18,6 +18,7 @@ export default class MenuAdmin extends Component {
     render() {
         console.log('role: ' + cookies.get('role'));
         console.log('username: ' + cookies.get('username'));
+        this.redirect();
         return (
             <div className="mainContainer">
                 <HeaderAdmin/>
@@ -31,14 +32,14 @@ export default class MenuAdmin extends Component {
         )
     }
     goDocenteAbm(){
-        window.location.href = "/menuAdmin/docente/abm";
+        this.props.history.push("/menuAdmin/docente/abm");
 
     }
     goAlumnosAbm(){
-        window.location.href = "/menuAdmin/alumno/abm";
+        this.props.history.push("/menuAdmin/alumno/abm");
     }
 
     goCursosAbm(){
-        window.location.href = "/menuAdmin/cursos_abm"; 
+        this.props.history.push("/menuAdmin/cursos_abm"); 
     }
 }

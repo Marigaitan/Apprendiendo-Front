@@ -6,7 +6,7 @@ import HeaderStudent from './HeaderAlumno';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
 import '../css/AlumnoClassroom.css';
-import {API_HOST} from "../constants";
+import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
@@ -16,99 +16,65 @@ export default class AlumnoClassroom extends Component {
         this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "" };
     }
 
-
-    classParam() {
+    async componentDidMount() {
         let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
-        axios.get(classparamUrl, {
-            headers: {
-                'Authorization': cookies.get('token')
-            }
-        })
-            .then(response => {
-                console.log(response);
-                const subject = response.data.subject;
-                const year = response.data.year;
-                const division = response.data.division;
-                const teacherId = response.data.teacherId;
-                this.setState({ subject: subject, year: year, teacherId: teacherId, division: division });
+        let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/students";
+        let getProjectsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects";
+        let getTeacherUrl = API_HOST + "user/";
+
+        //AXIOS
+        const requestOne = axios.get(classparamUrl, { headers: { 'Authorization': cookies.get('token') } });
+        const requestTwo = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
+        const requestThree = axios.get(getProjectsUrl, { headers: { 'Authorization': cookies.get('token') } });
+        const requestFour = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
+
+        await axios.all([requestOne, requestTwo, requestThree, requestFour])
+            .then(axios.spread((classData, studentsData, projectsData, teachersData) => {
+                console.log(classData.data, studentsData, projectsData.data, teachersData);
+
+                //SET DATA
+                const subject = classData.data.subject;
+                const year = classData.data.year;
+                const division = classData.data.division;
+                const teacherId = classData.data.teacherId;
                 console.log("ESTO TIENE QUE PASAR PRIMERO");
-                this.getTeacher(); //tiene que existir alguna forma de usar then para ordenar esto desde render, pero no encontre forma por ahora
+
+                const students = studentsData.data.map(student => ({ id: student.id, username: student.username }));
+
+                const projects = projectsData.data.map(project => ({ id: project.id, name: project.name }));
+
+                //SET STATE
+                this.setState({
+                    subject: subject,
+                    year: year,
+                    teacherId: teacherId,
+                    division: division,
+                    students: students,
+                    projects: projects,
+                })
+                return axios.get(getTeacherUrl + classData.data.teacherId, { headers: { 'Authorization': cookies.get('token') } });
+            }))
+            .then(response => {
+                const teacherName = response.data.username;
+                console.log(response)
+                this.setState({ teacherName: teacherName })
             })
-            .catch(error => {
-                console.log(error);
-                alert('error en la materia');
-            });
+            .catch(error => console.log(error));
     }
 
-    async componentDidMount() {    //para que lo redirija al login si no hay token
+    redirect() {
         if (!cookies.get('token') || cookies.get('role') !== "ROLE_STUDENT") {
             window.location.href = window.location.origin;
         }
-        this.classParam(); //llama a getTeacher adentro, tiene que haber forma de llamarlo desde aca con then, pero se ejecuta fuera de orden
-        this.getStudents();
-        this.getProjects();
-    }
-
-    getStudents() {
-        let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/students";
-        axios.get(getStudentsUrl, {
-            headers: {
-                'Authorization': cookies.get('token')
-            }
-        })
-            .then(response => {
-                console.log(response);
-                const students = response.data.map(student => ({ id: student.id, username: student.username }));
-                this.setState({ students: students });
-                console.log(students);
-            })
-            .catch(error => {
-                console.log(error);
-                alert('error obteniendo usuarios');
-            })
-    }
-     getTeacher() {
-        console.log("ESTO TIENE QUE PASAR SEGUNDO");
-        let getTeacherUrl = API_HOST + "user/";
-        axios.get(getTeacherUrl + this.state.teacherId, {
-            headers: {
-                'Authorization': cookies.get('token')
-            }
-        })
-            .then(response => {
-                const teacherName = response.data.username;
-                this.setState({ teacherName: teacherName });
-                console.log(teacherName);
-            })
-            .catch(error => {
-                console.log(error);
-                alert('error obteniendo usuarios');
-            })
-    }
-
-    getProjects() {
-        let getProjectsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/projects";
-        axios.get(getProjectsUrl, {
-            headers: {
-                'Authorization': cookies.get('token')
-            }
-        })
-            .then(response => {
-                const projects = response.data.map(project => ({ id: project.id, name: project.name }));
-                this.setState({projects});
-            })
-            .catch(error => {
-                console.log(error);
-                alert('error obteniendo usuarios');
-            })
     }
 
     render() {
         console.log(cookies.get('classid'));
+        this.redirect();
         console.log(this.state);
         return (
             <div className="mainContainer">
-                <HeaderStudent/>
+                <HeaderStudent />
                 <div className="secContainer">
                     <div className="mainContent">
                         <div className="barraLateral">
@@ -119,14 +85,14 @@ export default class AlumnoClassroom extends Component {
                         </div>
                         <div className="pro">
                             <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
-                            <h2>{"Docente: " + this.state.teacherName}</h2>  
+                            <h2>{"Docente: " + this.state.teacherName}</h2>
                             <h2>Proyectos</h2>
                             <div>
                                 {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><Link to="/menualumno/classroom/proyecto" >{project.name}</Link></div>) })}
                             </div>
                         </div>
                     </div>
-               </div>
+                </div>
             </div>
         )
     }

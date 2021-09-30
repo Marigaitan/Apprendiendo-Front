@@ -5,11 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
 import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
-
-
-import {Button,ButtonGroup, Nav, NavItem, NavLink} from 'reactstrap';
-
-
+import { Link } from 'react-router-dom';
+import { Button, Nav, NavItem, NavLink } from 'reactstrap';
 
 const cookies = new Cookies();
 
@@ -17,7 +14,7 @@ const cookies = new Cookies();
 export default class DocenteClassroom extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: ""};
+        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "" };
     }
 
     async componentDidMount() {
@@ -81,37 +78,39 @@ export default class DocenteClassroom extends Component {
         console.log(this.state);
 
         return (
-                <div className="mainContainer">
-                    <HeaderTeacher />
-                    <div>
-                        <div classname="navBar">
-                            <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
-                                <Nav tabs>
-                                    <NavItem>
-                                    <NavLink href="/menudocente/classroom" active>Proyectos</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                    <NavLink href="/menudocente/classroom/alumnos">Alumnos</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                    <NavLink href="/menudocente/classroom/nuevoproyecto">Nuevo Proyecto</NavLink>
-                                    </NavItem>  
-                                </Nav>
-                        </div><br />
-                        <div className="pro">
-                            <h2>Proyectos</h2>
-                            <div>
-                                <ButtonGroup vertical>
-                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><h3><li>
-                                        <Button onClick={() => 
-                                        {this.goDocenteProyecto(project)}} >{project.name}
-                                        </Button>
-                                    </li></h3></div>) })}
-                                </ButtonGroup>
-                            </div>                            
+            <div className="mainContainer">
+                <HeaderTeacher />
+                <div>
+                    <div className="navBar">
+                        <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
+                        <Nav tabs>
+                            <NavItem>
+                                <NavLink href="/menudocente/classroom" active>Proyectos</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/menudocente/classroom/alumnos">Alumnos</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/menudocente/classroom/nuevoproyecto">Nuevo Proyecto</NavLink>
+                            </NavItem>
+                        </Nav>
+                    </div><br />
+                    <div className="pro">
+                        <h2>Proyectos</h2>
+                        <div>
+                            {this.state.projects.map(project => {
+                                return (
+                                    <div key={project.id} id={project.id}>
+                                        <h3>
+                                            <li><Button onClick={() => this.goDocenteProyecto(project)}>{project.name}</Button></li>
+                                        </h3>
+                                    </div>)
+                            })}
                         </div>
                     </div>
+                    
                 </div>
-            )
-        }
+            </div>
+        )
+    }
 }

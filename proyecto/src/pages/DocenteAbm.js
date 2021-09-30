@@ -18,16 +18,16 @@ import {
 } from "reactstrap";
 import HeaderAdmin from './HeaderAdmin';
 import Cookies from 'universal-cookie/es6';
-import {API_HOST} from "../constants";
+import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 //const data = [
 
-  
-  // { NombreUsuario: "gsalem", password: "Gabriela",  rol: "docente", cursos: "2 A" },
-  // {NombreUsuario: "gsalem", password: "Gabriela",  rol: "docente", cursos: "2 A"},
-  // {NombreUsuario: "gsalem", password: "Gabriela",  rol: "docente", cursos: "2 A"},
-  
+
+// { NombreUsuario: "gsalem", password: "Gabriela",  rol: "docente", cursos: "2 A" },
+// {NombreUsuario: "gsalem", password: "Gabriela",  rol: "docente", cursos: "2 A"},
+// {NombreUsuario: "gsalem", password: "Gabriela",  rol: "docente", cursos: "2 A"},
+
 //];
 
 //create api 
@@ -37,14 +37,15 @@ class DocenteAbm extends React.Component {
 
   constructor(props) {        //constructor de mi clase
     super(props);
-    this.state = { data:[],
+    this.state = {
+      data: [],
       modalActualizar: false,
       modalInsertar: false,
       form: {
         NombreUsuario: "",
         password: "",
         rol: "",
-        cursos:"", 
+        cursos: "",
       }
     }
   }
@@ -53,16 +54,16 @@ class DocenteAbm extends React.Component {
     let teacherAbmUrl = API_HOST + "users/teachers";
     axios.get(teacherAbmUrl, {
       headers: {
-          'Authorization': cookies.get('token')
+        'Authorization': cookies.get('token')
       }
     })
-    .then(response => {
-      console.log(response);
-      const teachersAbm = 
-      response.data.map(teacher =>({NombreUsuario: teacher.username, password: teacher.password, rol:teacher.role, cursos: teacher.classrooms}))
-      this.setState({data: teachersAbm})
-  })
-}
+      .then(response => {
+        console.log(response);
+        const teachersAbm =
+          response.data.map(teacher => ({ NombreUsuario: teacher.username, password: teacher.password, rol: teacher.role, cursos: teacher.classrooms }))
+        this.setState({ data: teachersAbm })
+      })
+  }
 
 
   // state = {
@@ -111,7 +112,7 @@ class DocenteAbm extends React.Component {
   };
 
   eliminar = (dato) => {
-    var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento "+dato.id);
+    var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento " + dato.id);
     if (opcion == true) {
       var contador = 0;
       var arreglo = this.state.data;
@@ -125,10 +126,10 @@ class DocenteAbm extends React.Component {
     }
   };
 
-  insertar= ()=>{
-    var valorNuevo= {...this.state.form};
-    valorNuevo.id=this.state.data.length+1;
-    var lista= this.state.data;
+  insertar = () => {
+    var valorNuevo = { ...this.state.form };
+    valorNuevo.id = this.state.data.length + 1;
+    var lista = this.state.data;
     lista.push(valorNuevo);
     this.setState({ modalInsertar: false, data: lista });
   }
@@ -143,206 +144,206 @@ class DocenteAbm extends React.Component {
   };
 
   render() {
-    
+
     return (
       <div className="mainContainer">
         <HeaderAdmin />
-      <div className  = "secContainer">
-      <table>
-      
-        <Container> 
-        
-        <br />
-          <Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button>
-          <br />
-          <br />
-          <Table>
-            <thead>
-              <tr>
-                <th>Nombre de Usuario</th>
-                {/* <th>Password</th> */}
-                <th>Rol</th>
-                <th>Cursos Asignados</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
+        <div className="secContainer">
+          <table>
 
-            <tbody>
-              {this.state.data.map((dato) => (
-                <tr >
-                  <td>{dato.NombreUsuario}</td>
-                  {/* <td>{dato.password}</td> */}
-                  <td>{dato.rol}</td>
-                  <td>{dato.cursos}</td>
-                  
-                  <td>
-                    <Button
-                      color="primary"
-                      onClick={() => this.mostrarModalActualizar(dato)}
-                    >
-                      Editar
-                    </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            
-          </Table>
-        </Container>
-       
-        
+            <Container>
 
-        <Modal isOpen={this.state.modalActualizar}>
-          <ModalHeader>
-           <div><h3>Editar Registro</h3></div>
-          </ModalHeader>
+              <br />
+              <Button color="success" onClick={() => this.mostrarModalInsertar()}>Crear</Button>
+              <br />
+              <br />
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Nombre de Usuario</th>
+                    {/* <th>Password</th> */}
+                    <th>Rol</th>
+                    <th>Cursos Asignados</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
 
-          <ModalBody>
-            <FormGroup>
-              <label>
-               Nombre de Uusario
-              </label>
-            
-              <input
-                className="form-control"
-                name= "NombreUsuario"
-                type="text"
-                value={this.state.form.NombreUsuario}
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <label>
-                Password: 
-              </label>
-              <input
-                className="form-control"
-                name="password"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.password}
-              />
-            </FormGroup>
-            <FormGroup>
-              <label>
-                rol:
-              </label>
-              <input
-                className="form-control"
-                name="rol"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.rol}
-              />
-            </FormGroup>
-            <FormGroup>
-              <label>
-               Cursos Asignados
-              </label>
-              <input
-                className="form-control"
-                name="cursos"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.cursos}
-              />
-            </FormGroup>
-            
-          </ModalBody>
+                <tbody>
+                  {this.state.data.map((dato) => (
+                    <tr >
+                      <td>{dato.NombreUsuario}</td>
+                      {/* <td>{dato.password}</td> */}
+                      <td>{dato.rol}</td>
+                      <td>{dato.cursos}</td>
 
-          <ModalFooter>
-            <Button
-              color="primary"
-              onClick={() => this.editar(this.state.form)}
-            >
-              Editar
-            </Button>
-            <Button
-              color="danger"
-              onClick={() => this.cerrarModalActualizar()}
-            >
-              Cancelar
-            </Button>
-          </ModalFooter>
-        </Modal>
+                      <td>
+                        <Button
+                          color="primary"
+                          onClick={() => this.mostrarModalActualizar(dato)}
+                        >
+                          Editar
+                        </Button>{" "}
+                        <Button color="danger" onClick={() => this.eliminar(dato)}>Eliminar</Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+
+              </Table>
+            </Container>
 
 
 
-        <Modal isOpen={this.state.modalInsertar}>
-          <ModalHeader>
-           <div><h3>Crear Nuevo Usuario</h3></div>
-          </ModalHeader>
+            <Modal isOpen={this.state.modalActualizar}>
+              <ModalHeader>
+                <div><h3>Editar Registro</h3></div>
+              </ModalHeader>
 
-          <ModalBody>
-            <FormGroup>
-              <label>
-                Nombre de usuario 
-              </label>
-              
-              <input
-                className="form-control"
-                
-                type="text"
-                value={this.state.data.length+1}
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <label>
-                Password 
-              </label>
-              <input
-                className="form-control"
-                name="personaje"
-                type="text"
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            
-            <FormGroup>
-              <label>
-                Rol: 
-              </label>
-              <input
-                className="form-control"
-                name="anime"
-                type="text"
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-              
-            <FormGroup>
-              <label>
-                Cursos Asignados: 
-              </label>
-              <input
-                className="form-control"
-                name="anime"
-                type="text"
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-          </ModalBody>
+              <ModalBody>
+                <FormGroup>
+                  <label>
+                    Nombre de Uusario
+                  </label>
 
-          <ModalFooter>
-            <Button
-              color="primary"
-              onClick={() => this.insertar()}
-            >
-              Insertar
-            </Button>
-            <Button
-              className="btn btn-danger"
-              onClick={() => this.cerrarModalInsertar()}
-            >
-              Cancelar
-            </Button>
-          </ModalFooter>
-        </Modal>
-    </table>
-    </div>
-    </div>
+                  <input
+                    className="form-control"
+                    name="NombreUsuario"
+                    type="text"
+                    value={this.state.form.NombreUsuario}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <label>
+                    Password:
+                  </label>
+                  <input
+                    className="form-control"
+                    name="password"
+                    type="text"
+                    onChange={this.handleChange}
+                    value={this.state.form.password}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <label>
+                    rol:
+                  </label>
+                  <input
+                    className="form-control"
+                    name="rol"
+                    type="text"
+                    onChange={this.handleChange}
+                    value={this.state.form.rol}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <label>
+                    Cursos Asignados
+                  </label>
+                  <input
+                    className="form-control"
+                    name="cursos"
+                    type="text"
+                    onChange={this.handleChange}
+                    value={this.state.form.cursos}
+                  />
+                </FormGroup>
+
+              </ModalBody>
+
+              <ModalFooter>
+                <Button
+                  color="primary"
+                  onClick={() => this.editar(this.state.form)}
+                >
+                  Editar
+                </Button>
+                <Button
+                  color="danger"
+                  onClick={() => this.cerrarModalActualizar()}
+                >
+                  Cancelar
+                </Button>
+              </ModalFooter>
+            </Modal>
+
+
+
+            <Modal isOpen={this.state.modalInsertar}>
+              <ModalHeader>
+                <div><h3>Crear Nuevo Usuario</h3></div>
+              </ModalHeader>
+
+              <ModalBody>
+                <FormGroup>
+                  <label>
+                    Nombre de usuario
+                  </label>
+
+                  <input
+                    className="form-control"
+
+                    type="text"
+                    value={this.state.data.length + 1}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <label>
+                    Password
+                  </label>
+                  <input
+                    className="form-control"
+                    name="personaje"
+                    type="text"
+                    onChange={this.handleChange}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <label>
+                    Rol:
+                  </label>
+                  <input
+                    className="form-control"
+                    name="anime"
+                    type="text"
+                    onChange={this.handleChange}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <label>
+                    Cursos Asignados:
+                  </label>
+                  <input
+                    className="form-control"
+                    name="anime"
+                    type="text"
+                    onChange={this.handleChange}
+                  />
+                </FormGroup>
+              </ModalBody>
+
+              <ModalFooter>
+                <Button
+                  color="primary"
+                  onClick={() => this.insertar()}
+                >
+                  Insertar
+                </Button>
+                <Button
+                  className="btn btn-danger"
+                  onClick={() => this.cerrarModalInsertar()}
+                >
+                  Cancelar
+                </Button>
+              </ModalFooter>
+            </Modal>
+          </table>
+        </div>
+      </div>
     );
   }
 }
@@ -430,8 +431,8 @@ class DocenteAbm extends React.Component {
 
 export default DocenteAbm;
 
-   
-    
+
+
 
 
 

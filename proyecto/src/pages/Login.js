@@ -17,10 +17,14 @@ const cookies = new Cookies();
 export default class Login extends Component {
 
     //Necesitamos un estado y un metodo para capturar lo que el usuario ingrese
-    state = {
-        form: {
-            username: '',
-            password: ''
+    constructor(props) {
+        super(props);
+        this.userNameInput = React.createRef();
+        this.state = {
+            form: {
+                username: '',
+                password: ''
+            }
         }
     }
 
@@ -62,15 +66,12 @@ export default class Login extends Component {
                 alert('El usuario o la contraseña no son correctos');
             })
     }
-    
-    constructor() {
-        super();
-        this.userNameInput = React.createRef();
-      }
+
 
       componentDidMount() {
         this.userNameInput.current.focus();
       }
+
     render() {
         const handleEnter = (e) => {
             e.preventDefault();

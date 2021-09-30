@@ -24,7 +24,7 @@ export default class ListaAlumnos extends Component {
         const requestOne = axios.get(classparamUrl, { headers: { 'Authorization': cookies.get('token') } });
         const requestTwo = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
 
-        axios.all([requestOne,
+        await axios.all([requestOne,
             requestTwo])
             .then(axios.spread((classData, studentsData) => {
                 console.log(classData.data, studentsData.data);
