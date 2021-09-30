@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Label, FormGroup, Input, FormText } from 'reactstrap'
+import { ButtonGroup ,Button, Label, Form, FormGroup, Input, FormText, Col } from 'reactstrap'
 import HeaderTeacher from './Header'
 import Cookies from 'universal-cookie/es6';
 import '../css/Global.css';
@@ -30,50 +30,65 @@ export default class NuevaClase extends Component {
                                 En esta sección, puede adjuntar material de soporte que quiera dejar disponible al alumno al ingresar a esta clase.
                             </FormText>
                         </FormGroup>
-
                     </div>
                     <div className="boxFechas">
-                        <h4>Disponible desde:</h4><FormGroup>
-                            <Input
-                                type="date"
-                                name="startDate"
-                                id="startDate"
-                                placeholder="date placeholder"
-                            />
-                        </FormGroup>
-                        <FormGroup>
-                            <Input
-                                type="time"
-                                name="startTime"
-                                id="startTime"
-                                placeholder="time placeholder"
-                            />
-                        </FormGroup>  <h4>Hasta:</h4>
-                        <FormGroup>
-                            <Input
-                                type="date"
-                                name="dueDate"
-                                id="dueDate"
-                                placeholder="date placeholder"
-                            />
-                        </FormGroup>
-                        <FormGroup>
-                            <Input
-                                type="time"
-                                name="dueTime"
-                                id="dueTime"
-                                placeholder="time placeholder"
-                            />
-                        </FormGroup>
-                        <FormText color="muted">
-                               Más adelante podrá volver a la clase creada y editarla!
-                        </FormText>
-                    </div>
-                    <div className="boxActividades">
+                        <Form inline>
+                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
 
-                    </div>
+                                <Label className="mr-sm-2"><h4>Disponible desde:</h4></Label>
+                                <Input
+                                    type="date"
+                                    name="startDate"
+                                    id="startDate"
+                                    placeholder="date placeholder"
+                                />
+
+                            </FormGroup>
+                            <FormGroup>
+
+                                <Input
+                                    type="time"
+                                    name="startTime"
+                                    id="startTime"
+                                    placeholder="time placeholder"
+                                />
+
+                            </FormGroup>
+                            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+
+                                <Label className="mr-sm-2"><h4>Hasta:</h4></Label>
+                                <Input
+                                    type="date"
+                                    name="dueDate"
+                                    id="dueDate"
+                                    placeholder="date placeholder"
+                                />
+
+                            </FormGroup>
+                            <FormGroup>
+
+                                <Input
+                                    type="time"
+                                    name="dueTime"
+                                    id="dueTime"
+                                    placeholder="time placeholder"
+                                />
+
+                            </FormGroup>
+                        </Form>
+                        <FormText color="muted">
+                            Más adelante podrá volver a la clase creada y editarla!
+                        </FormText>
+                    </div><br/>
+                    <div className="boxActividades">
+                        <ButtonGroup vertical>
+                            <Button outline color="secondary">Agregar Cuestionario</Button>
+                            <Button outline color="secondary">Agregar Selección Múltiple</Button>
+                            <Button outline color="secondary">Cargar Video</Button>
+                        </ButtonGroup>
+                    </div><br/>
                     <div className="boxButtons">
-                        <Button color="primary">Crear</Button>
+                        <Button color="primary">Crear</Button>{' '}
                         <Button color="secondary">Cancelar</Button>
                     </div>
                 </div>
