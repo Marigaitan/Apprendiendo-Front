@@ -4,7 +4,7 @@
   text-align: left;
 }
 .left{
-  flex:1;
+  flex:3;
   text-indent: 10%;
   text-align: left;
 }
@@ -13,9 +13,16 @@
 }
 
 .left button{
-  min-width: 40%;
+  min-width: 100%;
 }
 
 .center button{
-  min-width: 20%;
+  min-width: 100%;
+}
+
+.modalStyle{
+    position: "absolute";
+    top: 30%;
+    min-width: 700px;
+    min-height: 200px;
 }
