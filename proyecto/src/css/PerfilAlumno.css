@@ -60,13 +60,19 @@
 }
 .top {
   position: absolute;
-  left: 370px;
-  top: 200px;
+  left: 274px;
+  top: 90px;
 
   z-index: 1;
 }
 .fondo_avatar {
   background-image: url("/backgrounds/patio.jpeg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.fondo_general {
+  background-image: url("/backgrounds/cuadrados.jpeg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

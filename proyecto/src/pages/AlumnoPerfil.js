@@ -131,7 +131,7 @@ const AlumnoPerfil = () => {
                             src={`./accesorios/l0001.png`}
                             alt="Avatar"
                             className="top"
-                            width="200"
+                            width="400"
                           />
                         </div>
                       </div>
