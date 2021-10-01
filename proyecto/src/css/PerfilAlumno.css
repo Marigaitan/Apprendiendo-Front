@@ -65,6 +65,13 @@
 
   z-index: 1;
 }
+.top-cabeza {
+  position: absolute;
+  left: 274px;
+  top: 86px;
+
+  z-index: 1;
+}
 .fondo_avatar {
   background-image: url("/backgrounds/patio.jpeg");
   background-position: center;

@@ -120,7 +120,7 @@ const AlumnoPerfil = () => {
                         </div>
                         <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
                           <img
-                            src={`./avatars/0003.png`}
+                            src={`./avatars/0005.png`}
                             alt="Avatar"
                             className="rounded-circle"
                             width="400"
@@ -131,6 +131,14 @@ const AlumnoPerfil = () => {
                             src={`./accesorios/l0001.png`}
                             alt="Avatar"
                             className="top"
+                            width="400"
+                          />
+                        </div>
+                        <div className="d-flex flex-column align-items-center">
+                          <img
+                            src={`./accesorios/o0003.png`}
+                            alt="accesorioTop"
+                            className="top-cabeza"
                             width="400"
                           />
                         </div>
