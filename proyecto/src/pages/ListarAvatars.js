@@ -4,7 +4,6 @@ import { SeleccionarAvatar } from "./SeleccionarAvatar";
 import HeaderStudent from "./HeaderAlumno";
 
 export const ListarAvatars = () => {
-  console.log(avatars);
   return (
     <div className="mainContainer">
       <HeaderStudent />

@@ -9,12 +9,12 @@ import { API_HOST } from "../constants";
 
 export const SeleccionarAccesorios = ({ id }) => {
   return (
-    <div className="card ms-3 mt-4" style={{ maxWidth: 540 }}>
-      <div className="row no-gutters">
-        <div className="col-md-4">
+    <div className="card ms-3 mt-4" style={{ maxWidth: 250 }}>
+      <div className="row no-gutters d-flex flex-row">
+        <div className="d-flex flex-column align-items-center text-center">
           <img
             src={`./accesorios/${id}.png`}
-            className="card-img ml-4"
+            className="card-img"
             alt="Avatar"
             width="200"
           />
