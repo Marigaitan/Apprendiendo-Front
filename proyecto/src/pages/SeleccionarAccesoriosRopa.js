@@ -7,17 +7,15 @@ import "../css/PerfilAlumno.css";
 import axios from "axios";
 import { API_HOST } from "../constants";
 
-export const SeleccionarAvatar = ({ id, tipo }) => {
-  console.log(id);
-  console.log(tipo);
+export const SeleccionarAccesoriosRopa = ({ id }) => {
   return (
-    <div className="fondo_tarjeta card ms-3 mt-4" style={{ maxWidth: 240 }}>
-      <div className="row no-gutters">
-        <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
+    <div className="fondo_tarjeta  card ms-3 mt-4" style={{ maxWidth: 250 }}>
+      <div className="row no-gutters d-flex flex-row">
+        <div className="d-flex flex-column align-items-center text-center">
           <img
-            src={`./${tipo}/${id}.png`}
-            alt="Avatar"
+            src={`./accesorios/${id}.png`}
             className="card-img"
+            alt="Avatar"
             width="200"
           />
         </div>
@@ -25,9 +23,7 @@ export const SeleccionarAvatar = ({ id, tipo }) => {
           <div className="card-body ml-4">
             {/* <h5 className="card-title"> {nombre} </h5> */}
 
-            <Link className="ml-4" to={``}>
-              Seleccionar.....
-            </Link>
+            <Link to={``}>Seleccionar.....</Link>
           </div>
         </div>
       </div>

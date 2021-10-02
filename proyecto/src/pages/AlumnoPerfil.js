@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/MenuAlumno.css";
@@ -20,6 +26,19 @@ const AlumnoPerfil = () => {
   const handleEdit = () => {
     window.location.href = "http://localhost:3000/ListarAccesorios";
   };
+  const handleEditOrejas = () => {
+    window.location.href = "http://localhost:3000/ListarAccesoriosOrejas";
+  };
+  const handleEditLentes = () => {
+    window.location.href = "http://localhost:3000/ListarAccesoriosLentes";
+  };
+  const handleEditRopa = () => {
+    window.location.href = "http://localhost:3000/ListarAccesoriosRopa";
+  };
+
+  const [dropdownOpen, setOpen] = useState(false);
+
+  const toggle = () => setOpen(!dropdownOpen);
 
   return (
     <div className="mainContainer">
@@ -111,35 +130,56 @@ const AlumnoPerfil = () => {
                           >
                             Cambiar
                           </button>
-                          <button
-                            className="btn btn-outline-primary ml-2"
-                            onClick={handleEdit}
+
+                          <ButtonDropdown
+                            className="ml-2"
+                            isOpen={dropdownOpen}
+                            toggle={toggle}
                           >
-                            Editar
-                          </button>
+                            <DropdownToggle caret>Editar</DropdownToggle>
+                            <DropdownMenu>
+                              <DropdownItem onClick={handleEditOrejas}>
+                                Orejas
+                              </DropdownItem>
+                              <DropdownItem onClick={handleEditLentes}>
+                                Lentes
+                              </DropdownItem>
+                              <DropdownItem onClick={handleEditRopa}>
+                                Ropa
+                              </DropdownItem>
+                            </DropdownMenu>
+                          </ButtonDropdown>
                         </div>
                         <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
                           <img
                             src={`./avatars/0005.png`}
                             alt="Avatar"
-                            className="rounded-circle"
+                            // className="rounded-circle"
                             width="400"
                           />
                         </div>
                         <div className="d-flex flex-column align-items-center">
                           <img
-                            src={`./accesorios/l0001.png`}
+                            src={`./accesorios/l0004.png`}
                             alt="Avatar"
                             className="top"
-                            width="400"
+                            width="250"
                           />
                         </div>
                         <div className="d-flex flex-column align-items-center">
                           <img
-                            src={`./accesorios/o0003.png`}
+                            src={`./accesorios/o0004.png`}
                             alt="accesorioTop"
                             className="top-cabeza"
-                            width="400"
+                            width="300"
+                          />
+                        </div>
+                        <div className="d-flex flex-column align-items-center">
+                          <img
+                            src={`./accesorios/r0005.png`}
+                            alt="accesorioTop"
+                            className="torso"
+                            width="290"
                           />
                         </div>
                       </div>
