@@ -54,4 +54,9 @@ export const avatars = [
     nombre: "elefante",
     tipo: "avatars",
   },
+  {
+    id: "0012",
+    nombre: "panda",
+    tipo: "avatars",
+  },
 ];

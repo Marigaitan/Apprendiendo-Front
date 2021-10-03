@@ -11,6 +11,7 @@ import AlumnoPerfil from "./AlumnoPerfil";
 
 export const SeleccionarAvatar = ({ history, id, tipo }) => {
   const handleSelection = () => {
+    window.location.href = "AlumnoPerfil";
     // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
     // e.target.setAttribute("alt", "dog");
   };

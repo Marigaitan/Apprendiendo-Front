@@ -8,11 +8,8 @@ import axios from "axios";
 import { API_HOST } from "../constants";
 
 export const SeleccionarAccesorios = ({ id }) => {
-  const handleSelection = (e) => {
-    console.log(e.target.id);
-    console.log(e.target.img);
-    console.log(e.target);
-    console.log(e.target.id);
+  const handleSelection = () => {
+    window.location.href = "AlumnoPerfil";
     // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
     // e.target.setAttribute("alt", "dog");
   };
