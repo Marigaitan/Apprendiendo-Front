@@ -94,7 +94,7 @@ export default class MenuDocente extends Component {
                         {this.state.classrooms.map(classroomGroup => [
                             <h1 id='classroomName'><li key={classroomGroup[0]}>{classroomGroup[0]}</li></h1>,
                             classroomGroup[1].map(classroom =>
-                                <button key={classroom.id.toString()} className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button>
+                                <button key={classroom.id} className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button>
                             )
                         ])
                         }
