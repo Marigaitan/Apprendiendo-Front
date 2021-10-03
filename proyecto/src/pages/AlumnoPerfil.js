@@ -12,10 +12,6 @@ import "../css/PerfilAlumno.css";
 import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
 import { Link } from "react-router-dom";
-import { avatars } from "../data/avatars";
-import { useHistory } from "react-router-dom";
-
-import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
@@ -23,7 +19,6 @@ const AlumnoPerfil = () => {
   const handleCambio = () => {
     window.location.href = "ListarAvatars";
   };
-
   const handleEditOrejas = () => {
     window.location.href = "ListarAccesorios?q=orejas";
   };
@@ -96,7 +91,7 @@ const AlumnoPerfil = () => {
 
                       <div className="row">
                         <div className="col-sm-4">
-                          <h6 className="mb-0">Mobile</h6>
+                          <h6 className="mb-0">Celular</h6>
                         </div>
                         <div className="col-sm text-secondary">
                           (011) 380-4539
@@ -192,5 +187,4 @@ const AlumnoPerfil = () => {
     </div>
   );
 };
-
 export default AlumnoPerfil;
