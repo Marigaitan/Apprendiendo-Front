@@ -39,4 +39,19 @@ export const avatars = [
     nombre: "Malfoy",
     tipo: "avatars",
   },
+  {
+    id: "0009",
+    nombre: "gato",
+    tipo: "avatars",
+  },
+  {
+    id: "0010",
+    nombre: "perro",
+    tipo: "avatars",
+  },
+  {
+    id: "0011",
+    nombre: "elefante",
+    tipo: "avatars",
+  },
 ];

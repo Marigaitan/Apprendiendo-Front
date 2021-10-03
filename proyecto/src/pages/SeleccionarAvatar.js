@@ -9,7 +9,7 @@ import axios from "axios";
 import { API_HOST } from "../constants";
 import AlumnoPerfil from "./AlumnoPerfil";
 
-export const SeleccionarAvatar = ({ id, tipo }) => {
+export const SeleccionarAvatar = ({ history, id, tipo }) => {
   const handleSelection = () => {
     // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
     // e.target.setAttribute("alt", "dog");
