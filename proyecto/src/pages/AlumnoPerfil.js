@@ -58,9 +58,6 @@ const AlumnoPerfil = () => {
                         <div className="mt-3">
                           <h4>{cookies.get("username")}</h4>
                           <p className="text-secondary mb-1">Alumno de 3</p>
-                          <p className="text-muted font-size-sm">
-                            Caballito Capital Federal
-                          </p>
                         </div>
                       </div>
                     </div>
@@ -74,7 +71,7 @@ const AlumnoPerfil = () => {
                           <h6 className="mb-2">Nombre completo</h6>
                         </div>
                         <div className="col-sm text-secondary">
-                          Nazareno Anselmi
+                          {cookies.get("firstName")} {cookies.get("lastName")}
                         </div>
                       </div>
                       <hr />
@@ -84,7 +81,7 @@ const AlumnoPerfil = () => {
                           <h6 className="mb-2">Telefono</h6>
                         </div>
                         <div className="col-sm text-secondary">
-                          (011) 81629029
+                          {cookies.get("homePhone")}
                         </div>
                       </div>
                       <hr />
@@ -94,7 +91,7 @@ const AlumnoPerfil = () => {
                           <h6 className="mb-0">Celular</h6>
                         </div>
                         <div className="col-sm text-secondary">
-                          (011) 380-4539
+                          {cookies.get("mobilePhone")}
                         </div>
                       </div>
                       <hr />
@@ -104,7 +101,7 @@ const AlumnoPerfil = () => {
                           <h6 className="mb">Direccion</h6>
                         </div>
                         <div className="col-sm text-secondary">
-                          Del barco centenera 2345
+                          {cookies.get("address")}
                         </div>
                       </div>
                     </div>
