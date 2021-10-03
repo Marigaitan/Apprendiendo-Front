@@ -108,8 +108,6 @@ export default class DocenteProyecto extends Component {
                         <h2>{this.state.project.name}</h2>
                     </div>
                     <div>
-                        <h3>{this.state.project.startDate}</h3>
-                        <h3>{this.state.project.dueDate}</h3>
                         <FormGroup>
                             <div>
                                 <CustomInput type="switch" id="exampleCustomSwitch" name="customSwitch" label="Activar/Desactivar Proyecto" />
