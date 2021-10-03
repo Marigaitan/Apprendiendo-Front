@@ -10,9 +10,12 @@ import { API_HOST } from "../constants";
 export const SeleccionarAvatar = ({ id, tipo }) => {
   console.log(id);
   console.log(tipo);
-  const handleSelection = () => {
-    return [];
+
+  const handleSelection = (e) => {
+    e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
+    e.target.setAttribute("alt", "dog");
   };
+
   return (
     <div className="fondo_tarjeta card ms-3 mt-4" style={{ maxWidth: 240 }}>
       <div className="row no-gutters">
@@ -20,9 +23,10 @@ export const SeleccionarAvatar = ({ id, tipo }) => {
           <img
             src={`./${tipo}/${id}.png`}
             alt="Avatar"
-            className="card-img"
+            className="card-img img"
             width="200"
             onClick={handleSelection}
+            style={{ "pointer-events": "all" }}
           />
         </div>
 

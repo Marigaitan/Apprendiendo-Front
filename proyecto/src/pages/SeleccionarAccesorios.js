@@ -8,15 +8,22 @@ import axios from "axios";
 import { API_HOST } from "../constants";
 
 export const SeleccionarAccesorios = ({ id }) => {
+  const handleSelection = (e) => {
+    e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
+    e.target.setAttribute("alt", "dog");
+  };
+
   return (
     <div className="fondo_tarjeta  card ms-3 mt-4" style={{ maxWidth: 200 }}>
       <div className="row no-gutters d-flex flex-row">
         <div className="d-flex flex-column align-items-center text-center">
           <img
             src={`./accesorios/${id}.png`}
-            className="card-img"
+            className="card-img img"
             alt="Avatar"
             width="200"
+            onClick={handleSelection}
+            style={{ "pointer-events": "all" }}
           />
         </div>
         <div className="col-md-8">
