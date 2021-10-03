@@ -13,7 +13,7 @@ export default class NuevaClase extends Component {
         return (
             <div className="mainContainer">
                 <HeaderTeacher />
-                <div>
+                <div className='formProyectoClase'>
                     <h2>Clase Nueva</h2>
                     <div className="boxEnunciado">
                         <FormGroup>
@@ -31,7 +31,7 @@ export default class NuevaClase extends Component {
                             </FormText>
                         </FormGroup>
                     </div>
-                    <div className="boxFechas">
+                    {/* <div className="boxFechas">
                         <Form inline>
                             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
 
@@ -75,11 +75,8 @@ export default class NuevaClase extends Component {
                                 />
 
                             </FormGroup>
-                        </Form>
-                        <FormText color="muted">
-                            Más adelante podrá volver a la clase creada y editarla!
-                        </FormText>
-                    </div><br/>
+                        </Form>                        
+                    </div>*/}
                     <div className="boxActividades">
                         <ButtonGroup vertical>
                             <Button outline color="secondary">Agregar Cuestionario</Button>
@@ -88,6 +85,9 @@ export default class NuevaClase extends Component {
                         </ButtonGroup>
                     </div><br/>
                     <div className="boxButtons">
+                        <FormText color="muted">
+                            Más adelante podrá volver a la clase creada y editarla!
+                        </FormText><br/>
                         <Button color="primary">Crear</Button>{' '}
                         <Button color="secondary">Cancelar</Button>
                     </div>

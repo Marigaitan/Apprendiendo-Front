@@ -63,13 +63,13 @@ export default class NewStandarProject extends Component {
         return (
             <div className='mainContainer'>
                 <HeaderTeacher />
-                <div className='formStandar'>
+                <div className='formProyectoClase'>
                     <Form>
                         <FormGroup>
-                            <Label>Proyecto Estándar</Label>    
+                            <h2><Label>Proyecto Estándar</Label></h2>    
                         </FormGroup>
                         <FormGroup>
-                            <Label for="projectName">Ingrese el nombre del nuevo proyecto:</Label>
+                            <Label for="projectName"><h4>Ingrese el nombre del nuevo proyecto:</h4></Label>
                             <Input
                             type="projectName"
                             name="projectName"//Lo que se asigna a name, es el nombre de las variables que seteamos y a las que queremos vincular
