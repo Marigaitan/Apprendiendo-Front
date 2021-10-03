@@ -21,9 +21,10 @@ export const SeleccionarAccesorios = ({ id }) => {
         </div>
         <div className="col-md-8">
           <div className="card-body ml-4">
-            {/* <h5 className="card-title"> {nombre} </h5> */}
-
-            <Link to={``}>Seleccionar.....</Link>
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              Puntaje para desbloquear:
+              <span style={{ color: "green", fontWeight: "bold" }}> 3000</span>
+            </p>
           </div>
         </div>
       </div>
