@@ -9,8 +9,12 @@ import { API_HOST } from "../constants";
 
 export const SeleccionarAccesorios = ({ id }) => {
   const handleSelection = (e) => {
-    e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
-    e.target.setAttribute("alt", "dog");
+    console.log(e.target.id);
+    console.log(e.target.img);
+    console.log(e.target);
+    console.log(e.target.id);
+    // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
+    // e.target.setAttribute("alt", "dog");
   };
 
   return (
@@ -20,17 +24,21 @@ export const SeleccionarAccesorios = ({ id }) => {
           <img
             src={`./accesorios/${id}.png`}
             className="card-img img"
-            alt="Avatar"
+            alt={id}
             width="200"
             onClick={handleSelection}
-            style={{ "pointer-events": "all" }}
           />
         </div>
         <div className="col-md-8">
           <div className="card-body ml-4">
             <p style={{ color: "red", fontWeight: "bold" }}>
               Puntaje para desbloquear:
-              <span style={{ color: "green", fontWeight: "bold" }}> 3000</span>
+              <span
+                style={{ color: "green", fontWeight: "bold", fontSize: "25px" }}
+              >
+                {" "}
+                3000
+              </span>
             </p>
           </div>
         </div>

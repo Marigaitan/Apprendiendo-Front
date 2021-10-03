@@ -16,7 +16,7 @@ export const ListarAccesorios = (tipo) => {
       <HeaderStudent />
       <div className="fondo_general card-columns">
         {filtro.map((acc) => (
-          <SeleccionarAccesorios {...acc} />
+          <SeleccionarAccesorios key={acc.id} {...acc} />
         ))}
       </div>
     </div>
