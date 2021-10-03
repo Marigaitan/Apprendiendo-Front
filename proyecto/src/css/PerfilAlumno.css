@@ -86,12 +86,12 @@
   background-size: cover;
 }
 .fondo_general {
-  background-image: url("/backgrounds/cuadrados.jpeg");
+  background-image: url("/backgrounds/confeti.jpeg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .fondo_tarjeta {
-  background-color: rgb(244, 245, 244);
+  background-color: rgb(255, 255, 255);
 }

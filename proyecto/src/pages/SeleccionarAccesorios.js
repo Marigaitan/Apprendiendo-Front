@@ -9,7 +9,7 @@ import { API_HOST } from "../constants";
 
 export const SeleccionarAccesorios = ({ id }) => {
   return (
-    <div className="fondo_tarjeta  card ms-3 mt-4" style={{ maxWidth: 250 }}>
+    <div className="fondo_tarjeta  card ms-3 mt-4" style={{ maxWidth: 200 }}>
       <div className="row no-gutters d-flex flex-row">
         <div className="d-flex flex-column align-items-center text-center">
           <img

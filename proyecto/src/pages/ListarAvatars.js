@@ -7,7 +7,7 @@ export const ListarAvatars = () => {
   return (
     <div className="mainContainer">
       <HeaderStudent />
-      <div className="card-columns">
+      <div className="fondo_general card-columns">
         {avatars.map((av) => (
           <SeleccionarAvatar {...av} />
         ))}

@@ -14,7 +14,7 @@ export const ListarAccesorios = (tipo) => {
   return (
     <div className="mainContainer">
       <HeaderStudent />
-      <div className="card-columns">
+      <div className="fondo_general card-columns">
         {filtro.map((acc) => (
           <SeleccionarAccesorios {...acc} />
         ))}

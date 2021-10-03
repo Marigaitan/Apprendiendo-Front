@@ -60,4 +60,9 @@ export const accesorios = [
     nombre: "camisa",
     tipo: "ropa",
   },
+  {
+    id: "r0005",
+    nombre: "camisa celeste",
+    tipo: "ropa",
+  },
 ];
