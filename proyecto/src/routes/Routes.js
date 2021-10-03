@@ -20,14 +20,9 @@ import NewStandarProject from "../pages/NewStandarProject";
 import { ListarAvatars } from "../pages/ListarAvatars";
 import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
 import { ListarAccesorios } from "../pages/ListarAccesorios";
-import { ListarAccesoriosOrejas } from "../pages/ListarAccesoriosOrejas";
-import { ListarAccesoriosLentes } from "../pages/ListarAccesoriosLentes";
-import { ListarAccesoriosRopa } from "../pages/ListarAccesoriosRopa";
 
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
-import { SeleccionarAccesoriosOrejas } from "../pages/SeleccionarAccesoriosOrejas";
-import { SeleccionarAccesoriosLentes } from "../pages/SeleccionarAccesoriosLentes";
-import { SeleccionarAccesoriosRopa } from "../pages/SeleccionarAccesoriosRopa";
+
 import NuevaClase from "../pages/NuevaClase";
 import AulaInvertida from "../pages/AulaInvertida";
 import Pbl from "../pages/Pbl";
@@ -90,38 +85,8 @@ function Routes() {
         <Route exact path="/ListarAccesorios" component={ListarAccesorios} />
         <Route
           exact
-          path="/ListarAccesoriosOrejas"
-          component={ListarAccesoriosOrejas}
-        />
-        <Route
-          exact
-          path="/ListarAccesoriosLentes"
-          component={ListarAccesoriosLentes}
-        />
-        <Route
-          exact
-          path="/ListarAccesoriosRopa"
-          component={ListarAccesoriosRopa}
-        />
-        <Route
-          exact
           path="/SeleccionarAccesorios"
           component={SeleccionarAccesorios}
-        />
-        <Route
-          exact
-          path="/SeleccionarAccesoriosOrejas"
-          component={SeleccionarAccesoriosOrejas}
-        />
-        <Route
-          exact
-          path="/SeleccionarAccesoriosLentes"
-          component={SeleccionarAccesoriosLentes}
-        />
-        <Route
-          exact
-          path="/SeleccionarAccesoriosRopa"
-          component={SeleccionarAccesoriosRopa}
         />
         <Route
           exact

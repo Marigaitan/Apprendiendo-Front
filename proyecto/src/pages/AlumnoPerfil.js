@@ -11,29 +11,27 @@ import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
 import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
-import { API_HOST } from "../constants";
 import { Link } from "react-router-dom";
 import { avatars } from "../data/avatars";
 import { useHistory } from "react-router-dom";
+
+import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
 const AlumnoPerfil = () => {
   const handleCambio = () => {
-    window.location.href = "http://localhost:3000/ListarAvatars";
+    window.location.href = "ListarAvatars";
   };
 
-  const handleEdit = () => {
-    window.location.href = "http://localhost:3000/ListarAccesorios";
-  };
   const handleEditOrejas = () => {
-    window.location.href = "http://localhost:3000/ListarAccesoriosOrejas";
+    window.location.href = "ListarAccesorios?q=orejas";
   };
   const handleEditLentes = () => {
-    window.location.href = "http://localhost:3000/ListarAccesoriosLentes";
+    window.location.href = "ListarAccesorios?q=lentes";
   };
   const handleEditRopa = () => {
-    window.location.href = "http://localhost:3000/ListarAccesoriosRopa";
+    window.location.href = "ListarAccesorios?q=ropa";
   };
 
   const [dropdownOpen, setOpen] = useState(false);
