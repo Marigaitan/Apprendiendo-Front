@@ -9,12 +9,6 @@ import { Form, FormGroup, Label, Input, FormText, Button } from 'reactstrap';
 const cookies = new Cookies();
 
 
-
-
-
-
-
-
 export default class NewStandarProject extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
@@ -41,8 +35,9 @@ export default class NewStandarProject extends Component {
                 methodologyId: "0",
                 challengeId: "0",
                 name: this.state.form.projectName,
-                startDate: new Date(this.state.form.startDate +" "+ this.state.form.startTime).toISOString(),
-                dueDate: new Date(this.state.form.dueDate +" "+ this.state.form.dueTime).toISOString()              
+                startDate: "0", /* new Date(this.state.form.startDate +" "+ this.state.form.startTime).toISOString(),*/
+                dueDate: "0", /*new Date(this.state.form.dueDate +" "+ this.state.form.dueTime).toISOString() */           
+                active: "false"
             },
             {
                 headers: {
@@ -71,8 +66,7 @@ export default class NewStandarProject extends Component {
                 <div className='formStandar'>
                     <Form>
                         <FormGroup>
-                            <Label>Proyecto Estándar</Label>
-                            
+                            <Label>Proyecto Estándar</Label>    
                         </FormGroup>
                         <FormGroup>
                             <Label for="projectName">Ingrese el nombre del nuevo proyecto:</Label>
@@ -85,7 +79,7 @@ export default class NewStandarProject extends Component {
                             onChange={this.handleChange}
                             />
                         </FormGroup>
-                        <FormGroup>
+                        {/* <FormGroup>
                             <Label for="startDate">Ingrese la fecha de Inicio del Proyecto:</Label>
                             <Input
                             type="date"
@@ -127,7 +121,7 @@ export default class NewStandarProject extends Component {
                             <FormText color="muted">
                             ¡No te preocupes! Vas a poder modificar las Fechas de Inicio y Finalización del proyecto más adelante.
                             </FormText>
-                        </FormGroup>
+                        </FormGroup> */}
                         <Button color="success" size="lg" onClick={()=> this.newStandarProject()}> Crear Proyecto</Button>{' '}
                         <Button color="secondary" size="lg"onClick={() => this.goClassroom()}>Cancelar</Button>
                         
