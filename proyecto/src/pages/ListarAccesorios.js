@@ -14,15 +14,10 @@ export const ListarAccesorios = (tipo) => {
   return (
     <div className="mainContainer">
       <HeaderStudent />
-      <div className="ml-2 animate__animated animate__fadeInUp align-items-center text-center">
-        <br />
-        <h2> Haga click en un accesorio para seleccionarlo</h2>
-
-        <div className="fondo_general card-columns">
-          {filtro.map((acc) => (
-            <SeleccionarAccesorios key={acc.id} {...acc} />
-          ))}
-        </div>
+      <div className="fondo_general card-columns">
+        {filtro.map((acc) => (
+          <SeleccionarAccesorios {...acc} />
+        ))}
       </div>
     </div>
   );

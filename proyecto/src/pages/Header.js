@@ -70,7 +70,7 @@ const HeaderTeacher = () => {
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />} onClick={() => cerrarSesion()}>Cerrar Sesión</MenuItem>
+              <MenuItem icon={<FiLogOut />} onClick={() => cerrarSesion(this.props)}>Cerrar Sesión</MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>

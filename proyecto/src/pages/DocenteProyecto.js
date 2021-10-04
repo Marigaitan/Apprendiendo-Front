@@ -4,7 +4,7 @@ import '../css/Global.css';
 import axios from 'axios';
 
 import { API_HOST } from "../constants";
-import { Button, Form, FormGroup, Label, CustomInput, Input, FormText, Container, Row, Col, Progress, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Badge } from 'reactstrap';
+import { Button, Form, FormGroup, Label, CustomInput, Input, FormText, Container, Row, Col, Progress, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Badge, Alert } from 'reactstrap';
 import HeaderTeacher from "./Header";
 
 import "../css/DocenteProyecto.css";
@@ -23,35 +23,35 @@ export default class DocenteProyecto extends Component {
     async componentDidMount() {
 
         let getProjectDetailsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid')
-        let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/students";
+        let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/students/progress";
         let getLessonsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/lessons";
 
         //AXIOS
         const requestZero = axios.get(getProjectDetailsUrl, { headers: { 'Authorization': cookies.get('token') } });
         const requestOne = axios.get(getLessonsUrl, { headers: { 'Authorization': cookies.get('token') } });
-        //const requestTwo = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
+        const requestTwo = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
 
         await axios.all([requestZero, requestOne
-            //,requestTwo
+            ,requestTwo
         ])
             .then(axios.spread((project, lessons
-                //, students
-            ) => {
+                , students
+                ) => {
                 console.log(project.data
-                    //, students.data
+                    , students.data
                     , lessons.data
                 );
 
                 //SET STATE
-                const students =
-                    [{ id: 1, userId: 'Grupo 1', percentageCompleted: 70, studentGroup: [{ id: 5, username: 'paola carrasco' }, { id: 6, username: 'agustin labarque' }] },
-                    { id: 2, userId: 'Grupo 2', percentageCompleted: 30, studentGroup: [{ id: 7, username: 'javier soto' }, { id: 8, username: 'mariel gaitan' }] },
-                    { id: 3, userId: 'Grupo 3', percentageCompleted: 100, studentGroup: [{ id: 5, username: 'nazareno anselmi' }, { id: 6, username: 'pepito perez' }] }]
+                // const students =
+                //     [{ id: 1, userId: 'Grupo 1', percentageCompleted: 70, studentGroup: [{ id: 5, username: 'paola carrasco' }, { id: 6, username: 'agustin labarque' }] },
+                //     { id: 2, userId: 'Grupo 2', percentageCompleted: 30, studentGroup: [{ id: 7, username: 'javier soto' }, { id: 8, username: 'mariel gaitan' }] },
+                //     { id: 3, userId: 'Grupo 3', percentageCompleted: 100, studentGroup: [{ id: 5, username: 'nazareno anselmi' }, { id: 6, username: 'pepito perez' }] }]
 
                 //SET STATE
                 this.setState({
                     project: project.data,
-                    students: students,
+                    students: students.data,
                     lessons: lessons.data
                 })
             }))
@@ -124,10 +124,10 @@ export default class DocenteProyecto extends Component {
                                 this.state.students.map(studentGroup => {
                                     return (
                                         <div>
-                                            <Button size="lg" key={studentGroup.id} onClick={() => this.openModal(studentGroup.id)}>{studentGroup.userId}</Button>
-                                            <Modal isOpen={this.state.openModal && this.state.modalId === studentGroup.id} className="modalStyle">
-                                                <ModalHeader className="modalHeader">
-                                                    <h1>{studentGroup.userId}</h1>
+                                            <Button size="lg" key={studentGroup.id} onClick={() => this.openModal(studentGroup.userId)}>{studentGroup.userId}</Button>
+                                            <Modal isOpen={this.state.openModal && this.state.modalId === studentGroup.userId} className="modalStyle">
+                                                <ModalHeader size='lg' className="modalHeader">
+                                                    {studentGroup.userId}
                                                 </ModalHeader>
                                                 <ModalBody>
                                                     <div>
@@ -138,12 +138,16 @@ export default class DocenteProyecto extends Component {
                                                     <div>
                                                         <h3>Integrantes:</h3>
                                                     </div>
-                                                    <ListGroup>
+                                                    <Alert color='warning'>
+                                                        {studentGroup.userId}
+                                                        {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
+                                                    </Alert>
+                                                    {/* <ListGroup>
                                                     {studentGroup.studentGroup.map(student => {
                                                         return (
                                                             <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
                                                     )})}
-                                                    </ListGroup>
+                                                    </ListGroup> */}
                                                 </ModalBody>
                                                 <ModalFooter className="modalFooter">
                                                     <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
