@@ -6,9 +6,45 @@ import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
 import axios from "axios";
 import { API_HOST } from "../constants";
+import { useLocation } from "react-router";
+import queryString from "query-string";
+
+const cookies = new Cookies();
 
 export const SeleccionarAccesorios = ({ id }) => {
-  const handleSelection = () => {
+  const location = useLocation();
+  const { q = "" } = queryString.parse(location.search);
+  console.log(q);
+
+  const handleSelection = async (e) => {
+    console.log(e.target);
+    console.log(e.target.alt);
+    // cookies.set("body", e.target.alt, { path: "/" });
+    const url = API_HOST + "avatar/";
+    cookies.set(q, e.target.alt, { path: "/" });
+    await axios
+      .put(
+        url,
+        {
+          id: cookies.get("avatarId"),
+          name: "lalala",
+          body: cookies.get("body"),
+          glasses: cookies.get("glasses"),
+          hat: cookies.get("hat"),
+          clothes: cookies.get("clothes"),
+        },
+        {
+          headers: {
+            Authorization: cookies.get("token"),
+          },
+        }
+      )
+
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR2");
+      });
+
     window.location.href = "AlumnoPerfil";
     // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
     // e.target.setAttribute("alt", "dog");

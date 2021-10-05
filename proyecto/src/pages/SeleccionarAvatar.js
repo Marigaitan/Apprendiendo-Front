@@ -5,16 +5,13 @@ import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
 import axios from "axios";
 import { API_HOST } from "../constants";
+import { BiSleepy } from "react-icons/bi";
 // import { Link } from "react-router-dom";
 // import AlumnoPerfil from "./AlumnoPerfil";
 
 const cookies = new Cookies();
 
 export const SeleccionarAvatar = ({ id, tipo }) => {
-  // useEffect(() => {
-  //   setAvatar();
-  // }, []);
-
   const handleSelection = async (e) => {
     console.log(e.target);
     console.log(e.target.alt);
@@ -31,13 +28,6 @@ export const SeleccionarAvatar = ({ id, tipo }) => {
           glasses: cookies.get("glasses"),
           hat: cookies.get("hat"),
           clothes: cookies.get("clothes"),
-
-          // id: 48,
-          // name: "lalala",
-          // body: "b0004",
-          // glasses: "",
-          // hat: "",
-          // clothes: "",
         },
         {
           headers: {
@@ -45,12 +35,12 @@ export const SeleccionarAvatar = ({ id, tipo }) => {
           },
         }
       )
-
       .catch((error) => {
         console.log(error);
         alert("ERRORRRR2");
       });
 
+    cookies.set("body", e.target.alt, { path: "/" });
     window.location.href = "AlumnoPerfil";
     // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
     // e.target.setAttribute("alt", "dog");

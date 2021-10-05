@@ -15,7 +15,6 @@ import { API_HOST } from "../constants";
 
 const baseUrl = API_HOST + "avatar";
 const cookies = new Cookies();
-
 const AlumnoPerfil = () => {
   useEffect(() => {
     getAvatar();
@@ -48,13 +47,44 @@ const AlumnoPerfil = () => {
     window.location.href = "ListarAvatars";
   };
   const handleEditOrejas = () => {
-    window.location.href = "ListarAccesorios?q=orejas";
+    window.location.href = "ListarAccesorios?q=hat";
   };
   const handleEditLentes = () => {
-    window.location.href = "ListarAccesorios?q=lentes";
+    window.location.href = "ListarAccesorios?q=glasses";
   };
   const handleEditRopa = () => {
-    window.location.href = "ListarAccesorios?q=ropa";
+    window.location.href = "ListarAccesorios?q=clothes";
+  };
+  const handleClean = async () => {
+    const url = API_HOST + "avatar/";
+
+    cookies.set("clothes", "", { path: "/" });
+    cookies.set("glasses", "", { path: "/" });
+    cookies.set("hat", "", { path: "/" });
+
+    await axios
+      .put(
+        url,
+        {
+          id: cookies.get("avatarId"),
+          name: "lalala",
+          body: cookies.get("body"),
+          glasses: cookies.get("glasses"),
+          hat: cookies.get("hat"),
+          clothes: cookies.get("clothes"),
+        },
+        {
+          headers: {
+            Authorization: cookies.get("token"),
+          },
+        }
+      )
+
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR3");
+      });
+    window.location.reload();
   };
 
   const [dropdownOpen, setOpen] = useState(false);
@@ -170,6 +200,12 @@ const AlumnoPerfil = () => {
                               </DropdownItem>
                             </DropdownMenu>
                           </ButtonDropdown>
+                          <button
+                            className="btn btn-primary ml-2"
+                            onClick={handleClean}
+                          >
+                            Limpiar
+                          </button>
                         </div>
                         <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
                           <img
