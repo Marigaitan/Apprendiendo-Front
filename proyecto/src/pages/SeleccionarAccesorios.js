@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Cookies from "universal-cookie/es6";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/MenuAlumno.css";

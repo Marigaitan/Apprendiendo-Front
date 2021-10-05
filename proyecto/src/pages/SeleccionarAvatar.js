@@ -5,9 +5,6 @@ import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
 import axios from "axios";
 import { API_HOST } from "../constants";
-import { BiSleepy } from "react-icons/bi";
-// import { Link } from "react-router-dom";
-// import AlumnoPerfil from "./AlumnoPerfil";
 
 const cookies = new Cookies();
 
