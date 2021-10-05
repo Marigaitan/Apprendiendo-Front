@@ -57,7 +57,10 @@ const AlumnoPerfil = () => {
                         />
                         <div className="mt-3">
                           <h4>{cookies.get("username")}</h4>
-                          <p className="text-secondary mb-1">Alumno de 3</p>
+                          <p className="text-secondary mb-1">
+                            `Alumno de {cookies.get("studentYear")}-
+                            {cookies.get("studentDivision")}`
+                          </p>
                         </div>
                       </div>
                     </div>

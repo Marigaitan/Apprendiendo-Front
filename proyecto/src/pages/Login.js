@@ -58,6 +58,10 @@ export default class Login extends Component {
         cookies.set("mobilePhone", response.mobilePhone, { path: "/" });
         cookies.set("address", response.address, { path: "/" });
 
+        cookies.set("avatarId", response.avatarId, { path: "/" });
+        cookies.set("studentYear", response.studentYear, { path: "/" });
+        cookies.set("studentDivision", response.studentDivision, { path: "/" });
+
         if (cookies.get("role") === "ROLE_STUDENT") {
           this.props.history.push("/menualumno");
         } else if (cookies.get("role") === "ROLE_TEACHER") {
