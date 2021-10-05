@@ -8,22 +8,34 @@ import axios from "axios";
 import { API_HOST } from "../constants";
 
 export const SeleccionarAccesorios = ({ id }) => {
+  const handleSelection = () => {
+    window.location.href = "AlumnoPerfil";
+    // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
+    // e.target.setAttribute("alt", "dog");
+  };
   return (
     <div className="fondo_tarjeta  card ms-3 mt-4" style={{ maxWidth: 200 }}>
       <div className="row no-gutters d-flex flex-row">
         <div className="d-flex flex-column align-items-center text-center">
           <img
             src={`./accesorios/${id}.png`}
-            className="card-img"
-            alt="Avatar"
+            className="card-img img"
+            alt={id}
             width="200"
+            onClick={handleSelection}
           />
         </div>
         <div className="col-md-8">
           <div className="card-body ml-4">
-            {/* <h5 className="card-title"> {nombre} </h5> */}
-
-            <Link to={``}>Seleccionar.....</Link>
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              Puntaje para desbloquear:
+              <span
+                style={{ color: "green", fontWeight: "bold", fontSize: "25px" }}
+              >
+                {" "}
+                3000
+              </span>
+            </p>
           </div>
         </div>
       </div>

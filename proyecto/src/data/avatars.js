@@ -1,61 +1,61 @@
 export const avatars = [
   {
-    id: "0001",
+    id: "b0001",
     nombre: "Colo",
     tipo: "avatars",
   },
   {
-    id: "0002",
+    id: "b0002",
     nombre: "Ramira",
     tipo: "avatars",
   },
   {
-    id: "0003",
+    id: "b0003",
     nombre: "Jesica",
     tipo: "avatars",
   },
   {
-    id: "0004",
+    id: "b0004",
     nombre: "Benja",
     tipo: "avatars",
   },
   {
-    id: "0005",
+    id: "b0005",
     nombre: "Stella",
     tipo: "avatars",
   },
   {
-    id: "0006",
+    id: "b0006",
     nombre: "Pelusa",
     tipo: "avatars",
   },
   {
-    id: "0007",
+    id: "b0007",
     nombre: "Ron",
     tipo: "avatars",
   },
   {
-    id: "0008",
+    id: "b0008",
     nombre: "Malfoy",
     tipo: "avatars",
   },
   {
-    id: "0009",
+    id: "b0009",
     nombre: "gato",
     tipo: "avatars",
   },
   {
-    id: "0010",
+    id: "b0010",
     nombre: "perro",
     tipo: "avatars",
   },
   {
-    id: "0011",
+    id: "b0011",
     nombre: "elefante",
     tipo: "avatars",
   },
   {
-    id: "0012",
+    id: "b0012",
     nombre: "panda",
     tipo: "avatars",
   },

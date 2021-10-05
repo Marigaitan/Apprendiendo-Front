@@ -6,28 +6,42 @@ import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
 import axios from "axios";
 import { API_HOST } from "../constants";
+import AlumnoPerfil from "./AlumnoPerfil";
 
 export const SeleccionarAvatar = ({ id, tipo }) => {
-  console.log(id);
-  console.log(tipo);
+  const handleSelection = () => {
+    window.location.href = "AlumnoPerfil";
+    // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
+    // e.target.setAttribute("alt", "dog");
+  };
+
   return (
     <div className="fondo_tarjeta card ms-3 mt-4" style={{ maxWidth: 240 }}>
       <div className="row no-gutters">
         <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
           <img
             src={`./${tipo}/${id}.png`}
-            alt="Avatar"
-            className="card-img"
+            alt={id}
+            className="card-img img"
             width="200"
+            onClick={handleSelection}
           />
         </div>
         <div className="col-md-8">
           <div className="card-body ml-4">
-            {/* <h5 className="card-title"> {nombre} </h5> */}
-
-            <Link className="ml-4" to={``}>
-              Seleccionar.....
-            </Link>
+            <p style={{ color: "red", fontWeight: "bold" }}>
+              Puntaje para desbloquear:
+              <span
+                style={{
+                  color: "green",
+                  fontWeight: "bold",
+                  fontSize: "25px",
+                }}
+              >
+                {" "}
+                3000
+              </span>
+            </p>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ButtonDropdown,
   DropdownToggle,
@@ -12,10 +12,39 @@ import "../css/PerfilAlumno.css";
 import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
 import { Link } from "react-router-dom";
+import { API_HOST } from "../constants";
 
+const baseUrl = API_HOST + "avatar";
 const cookies = new Cookies();
 
 const AlumnoPerfil = () => {
+  useEffect(() => {
+    getAvatar();
+  }, []);
+
+  const getAvatar = async () => {
+    const url = API_HOST + "avatar/" + cookies.get("avatarId");
+
+    await axios
+      .get(url, {
+        headers: {
+          Authorization: cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.body);
+        cookies.set("body", response.data.body, { path: "/" });
+        cookies.set("clothes", response.data.clothes, { path: "/" });
+        cookies.set("glasses", response.data.glasses, { path: "/" });
+        cookies.set("hat", response.data.hat, { path: "/" });
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR2");
+      });
+  };
+
   const handleCambio = () => {
     window.location.href = "ListarAvatars";
   };
@@ -32,7 +61,7 @@ const AlumnoPerfil = () => {
   const [dropdownOpen, setOpen] = useState(false);
 
   const toggle = () => setOpen(!dropdownOpen);
-
+  console.log(cookies);
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -145,35 +174,41 @@ const AlumnoPerfil = () => {
                         </div>
                         <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
                           <img
-                            src={`./avatars/0005.png`}
+                            src={`./avatars/${cookies.get("body")}.png`}
                             alt="Avatar"
                             // className="rounded-circle"
                             width="400"
                           />
                         </div>
                         <div className="d-flex flex-column align-items-center">
-                          <img
-                            src={`./accesorios/l0004.png`}
-                            alt="Avatar"
-                            className="top"
-                            width="250"
-                          />
+                          {cookies.get("glasses") !== "" && (
+                            <img
+                              src={`./accesorios/${cookies.get("glasses")}.png`}
+                              alt="Avatar"
+                              className="top"
+                              width="250"
+                            />
+                          )}
                         </div>
                         <div className="d-flex flex-column align-items-center">
-                          <img
-                            src={`./accesorios/o0004.png`}
-                            alt="accesorioTop"
-                            className="top-cabeza"
-                            width="300"
-                          />
+                          {cookies.get("hat") !== "" && (
+                            <img
+                              src={`./accesorios/${cookies.get("hat")}.png`}
+                              alt="accesorioTop"
+                              className="top-cabeza"
+                              width="300"
+                            />
+                          )}
                         </div>
                         <div className="d-flex flex-column align-items-center">
-                          <img
-                            src={`./accesorios/r0005.png`}
-                            alt="accesorioTop"
-                            className="torso"
-                            width="290"
-                          />
+                          {cookies.get("clothes") !== "" && (
+                            <img
+                              src={`./accesorios/${cookies.get("clothes")}.png`}
+                              alt="accesorioTop"
+                              className="torso"
+                              width="290"
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
