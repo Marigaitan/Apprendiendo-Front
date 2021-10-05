@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Cookies from "universal-cookie/es6";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,8 +8,48 @@ import axios from "axios";
 import { API_HOST } from "../constants";
 import AlumnoPerfil from "./AlumnoPerfil";
 
+const cookies = new Cookies();
+
 export const SeleccionarAvatar = ({ id, tipo }) => {
-  const handleSelection = () => {
+  // useEffect(() => {
+  //   setAvatar();
+  // }, []);
+
+  const handleSelection = async (e) => {
+    console.log(e.target);
+    console.log(e.target.alt);
+    // cookies.set("body", e.target.alt, { path: "/" });
+    const url = API_HOST + "avatar/" + cookies.get("avatarId");
+
+    await axios
+      .post(
+        url,
+        {
+          // id: cookies.get("avatarId"),
+          // name: "lalala",
+          // body: e.target.alt,
+          // glasses: cookies.get("glasses"),
+          // hat: cookies.get("hat"),
+          // clothes: cookies.get("clothes"),
+          id: 48,
+          name: "lalala",
+          body: "b0004",
+          glasses: "",
+          hat: "",
+          clothes: "",
+        },
+        {
+          headers: {
+            Authorization: cookies.get("token"),
+          },
+        }
+      )
+
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR2");
+      });
+
     window.location.href = "AlumnoPerfil";
     // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
     // e.target.setAttribute("alt", "dog");
