@@ -11,7 +11,6 @@ import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
 import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
-import { Link } from "react-router-dom";
 import { API_HOST } from "../constants";
 
 const baseUrl = API_HOST + "avatar";
