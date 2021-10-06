@@ -83,7 +83,6 @@ export default class MenuAlumno extends Component {
                 </button>
               );
             })}
-            ;
           </div>
         </div>
       </div>
