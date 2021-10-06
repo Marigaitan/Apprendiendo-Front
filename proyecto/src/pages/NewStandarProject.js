@@ -29,14 +29,13 @@ export default class NewStandarProject extends Component {
     }
 
     newStandarProject() {
-        let newProjectUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project";
+        let newProjectUrl = API_HOST + "project";
         axios.post(newProjectUrl,
             {
+                classroomId: cookies.get('classid'),
                 methodologyId: "0",
                 challengeId: "0",
-                name: this.state.form.projectName,
-                startDate: "0", /* new Date(this.state.form.startDate +" "+ this.state.form.startTime).toISOString(),*/
-                dueDate: "0", /*new Date(this.state.form.dueDate +" "+ this.state.form.dueTime).toISOString() */           
+                name: this.state.form.projectName,  
                 active: "false"
             },
             {
