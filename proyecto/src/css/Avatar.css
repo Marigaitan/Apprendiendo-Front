@@ -1,0 +1,15 @@
+.avatar-lente {
+    position: absolute;
+    z-index: 1;
+  }
+.avatar-gorra {
+    position: absolute;
+    z-index: 1;
+  }
+.avatar-torso {
+    position: absolute;
+    z-index: 1;
+  }
+.avatar-persona{
+    position: absolute;
+}

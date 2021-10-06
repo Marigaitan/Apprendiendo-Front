@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import cerrarSesion from "./logout";
 import Cookies from 'universal-cookie/es6';
 
+
 //import react-pro-sidebar components
 import {
   ProSidebar,

@@ -12,6 +12,7 @@ import "../css/PerfilAlumno.css";
 import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
 import { API_HOST } from "../constants";
+import Avatar from "./Avatar";
 
 const baseUrl = API_HOST + "avatar";
 const cookies = new Cookies();
@@ -168,17 +169,19 @@ const AlumnoPerfil = () => {
                     </div>
                   </div>
                 </div>
+                
 
                 <div className="ml">
                   <div className="card mb-3">
                     <div className="fondo_avatar card-body">
                       <div>
                         <div>
+                          <div>
                           <h2 className="mb-2">Avatar</h2>
                           <button
                             className="btn btn-primary"
                             onClick={handleCambio}
-                          >
+                            >
                             Cambiar
                           </button>
 
@@ -186,7 +189,7 @@ const AlumnoPerfil = () => {
                             className="ml-2"
                             isOpen={dropdownOpen}
                             toggle={toggle}
-                          >
+                            >
                             <DropdownToggle caret>Editar</DropdownToggle>
                             <DropdownMenu>
                               <DropdownItem onClick={handleEditOrejas}>
@@ -203,47 +206,14 @@ const AlumnoPerfil = () => {
                           <button
                             className="btn btn-primary ml-2"
                             onClick={handleClean}
-                          >
+                            >
                             Limpiar
                           </button>
-                        </div>
-                        <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
-                          <img
-                            src={`./avatars/${cookies.get("body")}.png`}
-                            alt="Avatar"
-                            // className="rounded-circle"
-                            width="400"
-                          />
-                        </div>
-                        <div className="d-flex flex-column align-items-center">
-                          {cookies.get("glasses") !== "" && (
-                            <img
-                              src={`./accesorios/${cookies.get("glasses")}.png`}
-                              alt="Avatar"
-                              className="top"
-                              width="250"
-                            />
-                          )}
-                        </div>
-                        <div className="d-flex flex-column align-items-center">
-                          {cookies.get("hat") !== "" && (
-                            <img
-                              src={`./accesorios/${cookies.get("hat")}.png`}
-                              alt="accesorioTop"
-                              className="top-cabeza"
-                              width="300"
-                            />
-                          )}
-                        </div>
-                        <div className="d-flex flex-column align-items-center">
-                          {cookies.get("clothes") !== "" && (
-                            <img
-                              src={`./accesorios/${cookies.get("clothes")}.png`}
-                              alt="accesorioTop"
-                              className="torso"
-                              width="290"
-                            />
-                          )}
+                            
+                                                      </div>
+                          <div className="relativeBlock">
+                            <Avatar size={7} />
+                          </div>
                         </div>
                       </div>
                     </div>
