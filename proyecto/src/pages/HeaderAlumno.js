@@ -1,19 +1,10 @@
+//import useState hook to create menu collapse state
 import React, { useState } from "react";
 import cerrarSesion from "./logout";
 import Cookies from 'universal-cookie/es6';
 
 //import react-pro-sidebar components
 import {
-
-    
-        
-          
-    
-
-        
-    
-    @@ -25,57 +26,63 @@ import "../css/Header.css";
-  
   ProSidebar,
   Menu,
   MenuItem,
@@ -84,3 +75,15 @@ const HeaderStudent = () => {
 
   );
 };
+
+
+    
+          
+            
+    
+
+          
+    
+    
+  
+export default HeaderStudent;
