@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { VerticalTimeline } from 'react-vertical-timeline-component';
 import  VerticalTimelineElement from './VerticalTimeLineElement';
-
+import { ButtonGroup,  Label, Form, FormGroup, Input, FormText, Col } from 'reactstrap'
 //import 'react-vertical-timeline-component/style.min.css';
 
 import VerticalTimeLineElement from '../css/VerticalTimeLineElement.css';
@@ -55,9 +55,11 @@ export default class AulaInvertida extends Component {
             <div className='mainContainer'>
                 <HeaderTeacher />
                 <div>
-                    Flipped Classroom
+                    <div className = "title">
+                   Aula Invertida
+                   </div>
                     <VerticalTimeline>
-                        <VerticalTimelineElement
+                    <VerticalTimelineElement
                             className="vertical-timeline-element--work"
                             contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                             contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
@@ -65,89 +67,72 @@ export default class AulaInvertida extends Component {
                             iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                             img={LogoMini}
                         >
-                            <h3 className="vertical-timeline-element-title">Formular Pregunta Disparadora</h3>
-                            <h4 className="vertical-timeline-element-subtitle">Clase 1 </h4>
+                            <h3 className="vertical-timeline-element-title">Configuración inicial</h3>
+                            <h4 className="vertical-timeline-element-subtitle"></h4>
+                            <div>
                             <p>
-                                Formular Pregunta Disparadora
-                            </p>
+                                
+                            </p></div>
+                            <Form>
+                            <FormGroup>
+                            <Label for="exampleText"><p>Para avanzar con la configuración ingresar un nombre con el que se identificará el proyecto y luego guardar.
+                                 
+                                 Finalmente se debe guardar la configuración.
+                                    con los alumnos:</p></Label>
+                            <Input type="textarea" name="text" id="exampleText" />
+                            </FormGroup>
+                            </Form>
+                            
+                            <div><Button color="success" >Guardar configuración.</Button></div>
                         </VerticalTimelineElement>
                         <VerticalTimelineElement
                             className="vertical-timeline-element--work"
-                            date="2010 - 2011"
+                            contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                            contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+                            //date="2011 - present"
+                            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                            img={LogoMini}
+                        >
+                            <h3 className="vertical-timeline-element-title">Lección inicial</h3>
+                            <h4 className="vertical-timeline-element-subtitle">Disponibilización de material </h4>
+                            <div>
+                            <p>
+                                Se debe introducir el o los temas a a aprender a los alumnos  disponibilizando material interactivo 
+                                para que los alumnos utilicen su tiempo de tarea en el hogar aprendiendo la parte teórica y el tiempo del aula sea utilizado para trabajar en la parte práctica 
+                                
+                            </p></div>
+                            <div><Button color="success" >Activar Clase</Button></div>
+                        </VerticalTimelineElement>
+                        <VerticalTimelineElement
+                            className="vertical-timeline-element--work"
+                            //date="2010 - 2011"
                             iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                             icon={LogoMini}
                         >
-                            <h3 className="vertical-timeline-element-title">Art Director</h3>
-                            <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
+                            <h3 className="vertical-timeline-element-title">Práctica Inicial</h3>
+                            <h4 className="vertical-timeline-element-subtitle"></h4>
                             <p>
-                                Creative Direction, User Experience, Visual Design, SEO, Online Marketing
+                                Se disponibiliza este espacio 
+                                para que los alumnos realicen una actividad con el fin de hacer una primera detección de las dificultades que tuvieron 
+                                con los distintos conceptos. Esta detección servira como guía tanto al docente como al alumno para entender sobre que temas se debe trabajar  
                             </p>
+                            <div><Button color="success" >Activar Clase</Button></div>
                         </VerticalTimelineElement>
                         <VerticalTimelineElement
     className="vertical-timeline-element--work"
-    date="2008 - 2010"
+    //date="2008 - 2010"
     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
     icon={LogoMini}
   >
-    <h3 className="vertical-timeline-element-title">Web Designer</h3>
-    <h4 className="vertical-timeline-element-subtitle">Los Angeles, CA</h4>
+    <h3 className="vertical-timeline-element-title">Práctica de Refuerzo </h3>
+    <h4 className="vertical-timeline-element-subtitle">Optativa</h4>
     <p>
-      User Experience, Visual Design
+      Esta clase podría activarse para solicitar algún entregable del alumno o alumna relacionado al tema 
+      o bien disponibilizar otra actividad cambiando el nivel de dificultad. 
     </p>
+    <div><Button color="success" >Activar Clase</Button></div>
   </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--work"
-    date="2006 - 2008"
-    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-    icon={LogoMini}
-  >
-    <h3 className="vertical-timeline-element-title">Web Designer</h3>
-    <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-    <p>
-      User Experience, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    date="April 2013"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={LogoMini}
-  >
-    <h3 className="vertical-timeline-element-title">Content Marketing for Web, Mobile and Social Media</h3>
-    <h4 className="vertical-timeline-element-subtitle">Online Course</h4>
-    <p>
-      Strategy, Social Media
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    date="November 2012"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={LogoMini}
-  >
-    <h3 className="vertical-timeline-element-title">Agile Development Scrum Master</h3>
-    <h4 className="vertical-timeline-element-subtitle">Certification</h4>
-    <p>
-      Creative Direction, User Experience, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    className="vertical-timeline-element--education"
-    date="2002 - 2006"
-    iconStyle={{ background: 'rgb(233, 30, 99)', color: '#fff' }}
-    icon={LogoMini}
-  >
-    <h3 className="vertical-timeline-element-title">Bachelor of Science in Interactive Digital Media Visual Imaging</h3>
-    <h4 className="vertical-timeline-element-subtitle">Bachelor Degree</h4>
-    <p>
-      Creative Direction, Visual Design
-    </p>
-  </VerticalTimelineElement>
-  <VerticalTimelineElement
-    iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
-    icon={LogoMini}
-  />
-</VerticalTimeline>
+    </VerticalTimeline>
                     
                 </div>
 

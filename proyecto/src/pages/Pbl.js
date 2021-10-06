@@ -17,6 +17,8 @@ import {VerticalTimelineElementcss} from '../css/VerticalTimeLineElement.css';
 import Flipped from '../Images/Flipped.png';
 import Campana from '../Images/campana.png';
 
+const cookies = new Cookies();
+
 export default class Pbl extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
@@ -25,6 +27,14 @@ export default class Pbl extends Component {
             methodologyId: -1, form: { name: '', fechaInicio: '', fechaFin: '' }
         };
     }
+
+    goClassOne(){
+    window.location.href = "/menudocente/classroom/nuevoproyecto/pbl/clase1";
+    
+    }
+
+
+
     render() {
         return (
             <div className='mainContainer'>
@@ -47,7 +57,7 @@ export default class Pbl extends Component {
                             <h4 className="vertical-timeline-element-subtitle">Clase 1 </h4>
                             <p>
                                 Formular pregunta disparadora
-                            <Button color="success" >Activar Clase</Button>
+                            <Button color="success"Activar Clase onClick={() => this.goClassOne()}></Button>
                             </p>
                         </VerticalTimelineElement>
                         <VerticalTimelineElement
