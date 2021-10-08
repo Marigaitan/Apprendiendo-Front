@@ -1,0 +1,36 @@
+.mi-flex{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 2%;
+}
+
+.radio-flex{
+    margin-left: 10%;
+}
+
+.center-alert{
+    margin-top: 3%;
+    margin-left: 5%;
+    width: 50%;
+}
+
+.center-button{
+    margin-top: 3%;
+    margin-left: 5%;
+    width: 50%;
+}
+
+.center-text{
+    margin-top: 3%;
+    margin-left: 10%;
+}
+
+.mi-form{
+    position: relative;
+    margin-top: 3%;
+    max-width: 60%;
+}
+
+.imagen{
+    max-width: 50px;
+}
