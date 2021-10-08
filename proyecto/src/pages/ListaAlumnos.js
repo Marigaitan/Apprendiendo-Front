@@ -6,6 +6,7 @@ import HeaderTeacher from "./Header";
 import Cookies from 'universal-cookie/es6';
 import {API_HOST} from "../constants";
 import axios from 'axios';
+import NavDocente from './NavDocente';
 
 const cookies = new Cookies();
 let classparamUrl = API_HOST + "classroom/" + cookies.get('classid');
@@ -54,17 +55,7 @@ export default class ListaAlumnos extends Component {
                 <div>
                     <div classname="navBar">
                         <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
-                            <Nav tabs>
-                                <NavItem>
-                                <NavLink href="/menudocente/classroom">Proyectos</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                <NavLink href="/menudocente/classroom/alumnos" active>Alumnos</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                <NavLink href="/menudocente/classroom/nuevoproyecto">Nuevo Proyecto</NavLink>
-                                </NavItem>  
-                            </Nav>
+                        <NavDocente activeBar='alumnos'/>
                     </div><br />
                         <div className='BloqueEstudiantes'>
                             <h2>Estudiantes</h2> 

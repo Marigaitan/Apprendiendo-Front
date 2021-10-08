@@ -7,6 +7,7 @@ import Cookies from 'universal-cookie/es6';
 import {API_HOST} from "../constants";
 import axios from 'axios';
 import { Button } from 'reactstrap';
+import NavDocente from './NavDocente';
 
 const cookies = new Cookies();
 
@@ -75,17 +76,7 @@ export default class DocenteNuevoProyecto extends Component {
                 <div>
                     <div classname="navBar">
                         <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
-                            <Nav tabs>
-                                <NavItem>
-                                <NavLink href="/menudocente/classroom">Proyectos</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                <NavLink href="/menudocente/classroom/alumnos">Alumnos</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                <NavLink href="/menudocente/classroom/nuevoproyecto" active >Nuevo Proyecto</NavLink>
-                                </NavItem>  
-                            </Nav>
+                        <NavDocente activeBar='nuevoProyecto'/>
                     </div><br />
                     <div className='newProjectContainer'>
                         <div className='newPBL'>

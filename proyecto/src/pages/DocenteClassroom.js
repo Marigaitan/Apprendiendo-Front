@@ -7,6 +7,7 @@ import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
 import { Link } from 'react-router-dom';
 import { Button, Nav, NavItem, NavLink } from 'reactstrap';
+import NavDocente from './NavDocente';
 
 const cookies = new Cookies();
 
@@ -83,17 +84,7 @@ export default class DocenteClassroom extends Component {
                 <div>
                     <div className="navBar">
                         <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
-                        <Nav tabs>
-                            <NavItem>
-                                <NavLink href="/menudocente/classroom" active>Proyectos</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/menudocente/classroom/alumnos">Alumnos</NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink href="/menudocente/classroom/nuevoproyecto">Nuevo Proyecto</NavLink>
-                            </NavItem>
-                        </Nav>
+                        <NavDocente activeBar='classroom'/>
                     </div><br />
                     <div className="pro">
                         <h2>Proyectos</h2>
