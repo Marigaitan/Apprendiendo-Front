@@ -22,9 +22,9 @@ export default class DocenteProyecto extends Component {
 
     async componentDidMount() {
 
-        let getProjectDetailsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid')
-        let getStudentsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/students/progress";
-        let getLessonsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/project/" + cookies.get('projectid') + "/lessons";
+        let getProjectDetailsUrl = API_HOST + "project/" + cookies.get('projectid')
+        let getStudentsUrl = API_HOST +"project/" + cookies.get('projectid') + "/students/progress";
+        let getLessonsUrl = API_HOST + "project/" + cookies.get('projectid') + "/lessons";
 
         //AXIOS
         const requestZero = axios.get(getProjectDetailsUrl, { headers: { 'Authorization': cookies.get('token') } });
