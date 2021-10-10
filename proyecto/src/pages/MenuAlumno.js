@@ -35,6 +35,21 @@ export default class MenuAlumno extends Component {
         console.log(error);
         alert("Aun no tiene cursos asignados");
       });
+
+    const url = API_HOST + "avatar/" + cookies.get("avatarId");
+
+    await axios
+      .get(url, {
+        headers: {
+          Authorization: cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        cookies.set("body", response.data.body, { path: "/" });
+        cookies.set("clothes", response.data.clothes, { path: "/" });
+        cookies.set("glasses", response.data.glasses, { path: "/" });
+        cookies.set("hat", response.data.hat, { path: "/" });
+      });
   }
 
   //para que lo redirija al login si no hay token
