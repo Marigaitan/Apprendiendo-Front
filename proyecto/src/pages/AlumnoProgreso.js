@@ -14,8 +14,8 @@ export const AlumnoProgreso = () => {
 
   const [clases, setClases] = useState([
     {
-      id: "1",
-      name: "name",
+      id: "",
+      name: "",
     },
   ]);
   const getClassrooms = async () => {
@@ -55,7 +55,7 @@ export const AlumnoProgreso = () => {
           return (
             <button
               key={classroom.id}
-              // className="Buttons"
+              className="mt-2 ml-2"
               id={classroom.id}
               // onClick=""
             >
