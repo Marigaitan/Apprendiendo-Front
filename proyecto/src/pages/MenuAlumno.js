@@ -25,6 +25,7 @@ export default class MenuAlumno extends Component {
         },
       })
       .then((response) => {
+        console.log(response);
         const classrooms = response.data.map((classroom) => ({
           name: classroom.subject,
           id: classroom.id,

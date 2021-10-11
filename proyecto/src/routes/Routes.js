@@ -26,6 +26,7 @@ import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 import NuevaClase from "../pages/NuevaClase";
 import AulaInvertida from "../pages/AulaInvertida";
 import Pbl from "../pages/Pbl";
+import { AlumnoProgreso } from "../pages/AlumnoProgreso";
 
 function Routes() {
   return (
@@ -83,6 +84,7 @@ function Routes() {
         <Route exact path="/ListarAvatars" component={ListarAvatars} />
         <Route exact path="/SeleccionarAvatar" component={SeleccionarAvatar} />
         <Route exact path="/ListarAccesorios" component={ListarAccesorios} />
+        <Route exact path="/AlumnoProgreso" component={AlumnoProgreso} />
         <Route
           exact
           path="/SeleccionarAccesorios"
