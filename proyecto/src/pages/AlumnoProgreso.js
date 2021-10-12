@@ -60,7 +60,7 @@ export const AlumnoProgreso = () => {
             <button
               name={classroom.name}
               key={classroom.id}
-              className="mt-2 ml-2"
+              className="mt-2 ml-2 btn btn-info"
               id={classroom.id}
               onClick={handleProgress}
             >
