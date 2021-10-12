@@ -13,7 +13,6 @@ import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
 import { API_HOST } from "../constants";
 
-const baseUrl = API_HOST + "avatar";
 const cookies = new Cookies();
 const AlumnoPerfil = () => {
   useEffect(() => {

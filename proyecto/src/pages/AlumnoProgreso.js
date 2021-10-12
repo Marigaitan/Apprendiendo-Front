@@ -37,6 +37,10 @@ export const AlumnoProgreso = () => {
   };
   console.log(clases);
 
+  const handleProgress = (e) => {
+    window.location.href = `ProgresoMateria?id=${e.target.id}&m=${e.target.name}`;
+  };
+
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -54,10 +58,11 @@ export const AlumnoProgreso = () => {
         {clases.map((classroom) => {
           return (
             <button
+              name={classroom.name}
               key={classroom.id}
               className="mt-2 ml-2"
               id={classroom.id}
-              // onClick=""
+              onClick={handleProgress}
             >
               {classroom.name}
             </button>
