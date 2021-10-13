@@ -2,7 +2,7 @@ import React from "react";
 import Cookies from "universal-cookie/es6";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/MenuAlumno.css";
-import "../css/PerfilAlumno.css";
+import "../css/ProgresoAlumno.css";
 import axios from "axios";
 import { API_HOST } from "../constants";
 
@@ -44,7 +44,7 @@ export const ListarLogros = ({ id, tipo }) => {
   //   };
 
   return (
-    <div className="card ms-3 mt-4" style={{ maxWidth: 120 }}>
+    <div className="card ms-3 mt-2" style={{ maxWidth: 120 }}>
       <div className="row no-gutters">
         <div className="d-flex flex-column align-items-center text-center">
           <img
@@ -54,23 +54,13 @@ export const ListarLogros = ({ id, tipo }) => {
             width="100"
           />
         </div>
-        {/* <div className="col-md-8">
-          <div className="card-body ml-4">
-            <p style={{ color: "red", fontWeight: "bold" }}>
-              Puntaje para desbloquear:
-              <span
-                style={{
-                  color: "green",
-                  fontWeight: "bold",
-                  fontSize: "25px",
-                }}
-              >
-                {" "}
-                3000
-              </span>
+        <div>
+          <div>
+            <p className="mt-2" style={{ color: "red", fontWeight: "bold" }}>
+              100 ejercicios resueltos
             </p>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
