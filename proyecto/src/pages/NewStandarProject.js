@@ -36,7 +36,7 @@ export default class NewStandarProject extends Component {
                 methodologyId: "0",
                 challengeId: "0",
                 name: this.state.form.projectName,  
-                active: "false"
+                active: "True" //Cambiarlo para que funcione con el switch y en default este en false
             },
             {
                 headers: {
@@ -70,7 +70,7 @@ export default class NewStandarProject extends Component {
                         <FormGroup>
                             <Label for="projectName"><h4>Ingrese el nombre del nuevo proyecto:</h4></Label>
                             <Input
-                            type="projectName"
+                            type="textarea"
                             name="projectName"//Lo que se asigna a name, es el nombre de las variables que seteamos y a las que queremos vincular
                             id="projectName"
                             placeholder="Nombre"
