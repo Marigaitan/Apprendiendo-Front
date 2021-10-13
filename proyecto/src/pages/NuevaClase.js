@@ -3,6 +3,7 @@ import { ButtonGroup, Button, ButtonDropdown, DropdownToggle, DropdownMenu, Drop
 import HeaderTeacher from './Header'
 import Cookies from 'universal-cookie/es6';
 import '../css/Global.css';
+import '../css/NuevaClase.css'
 import axios from 'axios';
 import { API_HOST } from "../constants";
 import QuizzSettings from './QuizzSettings';
@@ -22,6 +23,7 @@ export default class NuevaClase extends Component {
     }
     abrirModal1 = () => {
         this.setState({ modalAbierto1: !this.state.modalAbierto1 });
+        console.log(JSON.stringify(cookies.get("Cuestionario")));
     }
     abrirModal2 = () => {
         this.setState({ modalAbierto2: !this.state.modalAbierto2 });
@@ -51,7 +53,22 @@ export default class NuevaClase extends Component {
                 dueDate: "0",
                 startDate: "0",
                 active: "True", //Cambiarlo para que funcione con el switch y en default este en false
-                activities: "armar json"
+                activities: [
+                    {
+                      "name": "string",
+                      "position": 0,
+                      "dueDate": "2021-10-13T20:10:43.618Z",
+                      "startDate": "2021-10-13T20:10:43.618Z",
+                      "documents": [
+                        {
+                          "name": "string",
+                          "position": 0,
+                          "dataType": "string",
+                          "data": "string"
+                        }
+                      ]
+                    }
+                  ]
             },
             {
                 headers: {
@@ -189,11 +206,13 @@ export default class NuevaClase extends Component {
                                     </ModalHeader>
                                     <ModalBody>
 
-                                        <CuestionarioSettings />
+                                        <CuestionarioSettings/>
+                                         
 
                                     </ModalBody>
                                     <ModalFooter>
-                                        <Button color="secondary" onClick={this.abrirModal1}>Cancelar</Button>
+                                         
+                                        <Button color="secondary" onClick={this.abrirModal1}>Salir</Button>
 
                                     </ModalFooter>
                                 </Modal>
@@ -202,7 +221,7 @@ export default class NuevaClase extends Component {
 
                                 <Button outline color="secondary" onClick={this.abrirModal2}>Agregar Selección Múltiple</Button>
 
-                                <Modal isOpen={this.state.modalAbierto2} style={modalStyles}>
+                                <Modal className='modalActivity' isOpen={this.state.modalAbierto2} style={modalStyles}>
                                     <ModalHeader>
                                         Ejercico de Selección Múltiple
                                     </ModalHeader>
@@ -213,7 +232,7 @@ export default class NuevaClase extends Component {
                                     </ModalBody>
                                     <ModalFooter>
                                 
-                                        <Button color="secondary" onClick={this.abrirModal2}>Cancelar</Button>
+                                        <Button color="secondary" onClick={this.abrirModal2}>Salir</Button>
 
                                     </ModalFooter>
                                 </Modal>

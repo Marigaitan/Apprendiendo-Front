@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import '../css/QuizzSettings.css'
+import Cookies from "universal-cookie/es6";
+const cookies = new Cookies();
 
 const CuestionarioSettings = () => {
 
@@ -23,11 +25,12 @@ const CuestionarioSettings = () => {
 
   let handleSubmitC = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(formValuesCuest));
+    alert("Agregaste un nuevo cuestionario!");
+    cookies.set("Cuestionario",formValuesCuest,{ path: "/menudocente/classroom/proyecto/nuevaclase" });
   }
 
   return (
-    <div className='.mainQuizzSet'>
+    <div className='.modalActivity'>
       <form onSubmit={handleSubmitC}>
         {formValuesCuest.map((element, index) => (
           <div className="form-inline" key={index}>
