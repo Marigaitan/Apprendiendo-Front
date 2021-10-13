@@ -8,7 +8,6 @@ import * as _ from "lodash";
 import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
 import Background from '../Images/fondoLetras.png';
-import { Container, Label } from 'reactstrap';
 
 const cookies = new Cookies();
 

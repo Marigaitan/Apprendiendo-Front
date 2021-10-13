@@ -15,7 +15,7 @@ import {
 
 //import icons from react-icons
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { BiCog, BiUser, BiBarChartAlt } from "react-icons/bi";
+import { BiCog, BiUser} from "react-icons/bi";
 import { Link } from 'react-router-dom';
 
 

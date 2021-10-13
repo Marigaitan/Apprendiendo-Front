@@ -20,7 +20,7 @@ import {
   FiArrowLeftCircle,
   FiArrowRightCircle,
 } from "react-icons/fi";
-import { BiCog, BiUser, BiBarChartAlt } from "react-icons/bi";
+import { BiCog, BiUser} from "react-icons/bi";
 import { Link } from "react-router-dom";
 //import sidebar css from react-pro-sidebar module and our custom css
 import "react-pro-sidebar/dist/css/styles.css";
