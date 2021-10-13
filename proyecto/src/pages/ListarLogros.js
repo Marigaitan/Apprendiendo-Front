@@ -56,7 +56,7 @@ export const ListarLogros = ({ id, tipo }) => {
         </div>
         <div>
           <div>
-            <p className="mt-2" style={{ color: "red", fontWeight: "bold" }}>
+            <p style={{ color: "red", fontWeight: "bold" }}>
               100 ejercicios resueltos
             </p>
           </div>
