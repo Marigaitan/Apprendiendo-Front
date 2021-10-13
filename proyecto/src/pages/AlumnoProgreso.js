@@ -4,6 +4,8 @@ import "../css/ProgresoAlumno.css";
 import { API_HOST } from "../constants";
 import Cookies from "universal-cookie/es6";
 import axios from "axios";
+import { logros } from "../data/logros";
+import { ListarLogros } from "./ListarLogros";
 
 const cookies = new Cookies();
 
@@ -49,6 +51,11 @@ export const AlumnoProgreso = () => {
         <h2 className="align-items-center text-center">
           <br /> Logros obtenidos <br />
         </h2>
+        <div className="card-columns">
+          {logros.map((logro) => (
+            <ListarLogros key={logro.id} {...logro} />
+          ))}
+        </div>
       </div>
 
       <div className="containerLogrosCurso">

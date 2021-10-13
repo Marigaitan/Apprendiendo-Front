@@ -28,6 +28,7 @@ import AulaInvertida from "../pages/AulaInvertida";
 import Pbl from "../pages/Pbl";
 import { AlumnoProgreso } from "../pages/AlumnoProgreso";
 import { ProgresoMateria } from "../pages/ProgresoMateria";
+import { ListarLogros } from "../pages/ListarLogros";
 
 function Routes() {
   return (
@@ -87,6 +88,7 @@ function Routes() {
         <Route exact path="/ListarAccesorios" component={ListarAccesorios} />
         <Route exact path="/AlumnoProgreso" component={AlumnoProgreso} />
         <Route exact path="/ProgresoMateria" component={ProgresoMateria} />
+        <Route exact path="/ListarLogros" component={ListarLogros} />
         <Route
           exact
           path="/SeleccionarAccesorios"
