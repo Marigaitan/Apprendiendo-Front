@@ -1,7 +1,37 @@
-.modalActivity{
+.newClaseForm{
+    padding: 15px;
+}
+.boxActiv{
+    display: flex;
+    margin: 0px;
+     
+}
+.newFile{
     border-radius: 20px;
-    max-width: 400px;
-    margin-top: 50vh;
-    transform: translateY(-50%);
+    width: 33%;
     text-align: center;
+    flex: 1;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px ;
+    
+}
+
+.setCuestionario{
+    border-radius: 20px;
+    width: 33%;
+    text-align: center;
+    flex: 1;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px 
+}
+.setQuizz{
+    border-radius: 20px;
+    width: 33%;
+    text-align: center;
+    flex: 1;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px 
 }

@@ -23,7 +23,7 @@ import { ListarAccesorios } from "../pages/ListarAccesorios";
 
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 
-import NuevaClase from "../pages/NuevaClase";
+import NewClase from "../pages/NewClase";
 import AulaInvertida from "../pages/AulaInvertida";
 import Pbl from "../pages/Pbl";
 import { AlumnoProgreso } from "../pages/AlumnoProgreso";
@@ -78,7 +78,7 @@ function Routes() {
         <Route
           exact
           path="/menudocente/classroom/proyecto/nuevaclase"
-          component={NuevaClase}
+          component= {NewClase}
         />
         <Route exact path="/menuAdmin/docente/abm" component={DocenteAbm} />
         <Route exact path="/menuAdmin/alumno/abm" component={AlumnoAbm} />
