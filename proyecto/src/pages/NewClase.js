@@ -123,11 +123,11 @@ export default function NewClase() {
                 <h2>Clase Nueva</h2>
                 <div className='nameClase'>
                     <label><h4>Nombre de la Clase</h4></label><br />
-                    <input type="text" name="name" placeholder="Ingrese un nombre" maxLength="20" onChange={(v) => actName(v.target.value)} />
+                    <input type="text" name="name" className="col-md-8" placeholder="Ingrese un nombre" maxLength="20" onChange={(v) => actName(v.target.value)} />
                 </div>
                 <div className='boxEnunciado'>
                     <label><h4>Ingrese el enunciado de la clase que quiere compartir con los alumnos:</h4></label><br />
-                    <textarea className=".col-xs-12 .col-md-8" rows="4" name="name" placeholder="Ingrese un enunciado" onChange={(a) => actEnun(a.target.value)} />
+                    <textarea className="col-md-8" rows="4" name="name" placeholder="Ingrese un enunciado" onChange={(a) => actEnun(a.target.value)} />
                 </div>
                 {/* //-----------------------Files------------------------------------------------ */}
                 <div className='boxActiv'>
