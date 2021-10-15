@@ -13,6 +13,7 @@ export default function NewClase() {
     const [name, setName] = useState(null);
     const [Enun, setEnun] = useState(null);
     const [archivos, setArchivos] = useState(null);
+    let documents =[];
     const [formValuesCuest, setFormValuesCuest] = useState([{ question: "" }]);
     const [formValuesQuizz, setFormValuesQuizz] = useState([{ questionText: "", answerOptions: [] }])
 
@@ -31,12 +32,20 @@ export default function NewClase() {
         setArchivos(elem);
     }
     const insertarArchivos = async () => {
-        const f = new FormData();
+        // const f = new FormData();
 
         for (let index = 0; index < archivos.length; index++) {
-            f.append("documents", archivos[index]);
+
+            let documento = {
+                name: archivos[index].name,
+                position: index,
+                dataType: "FILE",
+                data: Buffer.from(toString(archivos[index]), 'base64')
+            }
+            documents.push(documento);
+            // f.append("documents", archivos[index]);
         }
-        console.log(f);
+        console.log(documents);
     }
 
 
@@ -170,10 +179,12 @@ export default function NewClase() {
                                     <div>
                                         <label><h5>Pregunta</h5></label>
                                         <input type="text" name="questionText" value={element.questionText || ""} onChange={e => handleChangeQ(index, e)} />
+                                        <label><h5>Opción Correcta</h5></label>
+                                        <input type="text" name="answerOptions" placeholder="Ingrese la Opción Correcta" value={element.answerOptions || ""} onChange={e => handleChangeQ(index, e)} />
                                     </div>
                                     <div>
                                         <label><h5>Opción</h5></label>
-                                        <input type="text" name="answerOptions" value={element.answerOptions || ""} onChange={e => handleChangeQ(index, e)} />
+                                        <input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions || ""} onChange={e => handleChangeQ(index, e)} />
                                         {
                                             index ?
                                                 <button type="button" className="btn btn-danger" onClick={() => removeFormFieldsQ(index)}>X</button>
