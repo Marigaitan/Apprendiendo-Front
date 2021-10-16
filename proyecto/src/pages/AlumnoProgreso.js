@@ -4,6 +4,7 @@ import "../css/ProgresoAlumno.css";
 import { API_HOST } from "../constants";
 import Cookies from "universal-cookie/es6";
 import axios from "axios";
+import { materias } from "../data/materias";
 import { logros } from "../data/logros";
 import { ListarLogros } from "./ListarLogros";
 
@@ -62,17 +63,25 @@ export const AlumnoProgreso = () => {
         <h2 className="align-items-center text-center">
           <br /> Logros por curso <br />
         </h2>
+
         {clases.map((classroom) => {
+          console.log(classroom.name);
           return (
-            <button
-              name={classroom.name}
-              key={classroom.id}
-              className="mt-2 ml-2 btn btn-info"
-              id={classroom.id}
-              onClick={handleProgress}
-            >
-              {classroom.name}
-            </button>
+            <div className="container">
+              <div className="row">
+                <div className="col-sm mt-2 mb-4">
+                  <img
+                    src={`./materias/${classroom.name}.jpg`}
+                    width="200"
+                    name={classroom.name}
+                    alt={classroom.id}
+                    id={classroom.id}
+                    key={classroom.id}
+                    onClick={handleProgress}
+                  />
+                </div>
+              </div>
+            </div>
           );
         })}
       </div>
