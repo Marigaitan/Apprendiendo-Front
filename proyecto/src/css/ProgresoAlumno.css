@@ -48,3 +48,41 @@
   font-size: 2em;
   flex: 1;
 }
+
+.containerLogrosDelCurso {
+  /* background-color: rgb(240, 126, 20); */
+  border-radius: 20px;
+  flex: 1;
+  border: 1px solid grey;
+  border-radius: 6px;
+
+  margin-top: 2vh;
+  margin-right: 10px;
+  margin-bottom: 2vh;
+  text-align: center;
+  /* max-width: 100%;
+  transform: translateY(-10%);
+
+  align-content: center;
+  overflow: hidden;
+  */
+}
+
+.containerAvancesDelCurso {
+  /* background-color: rgb(240, 126, 20); */
+  border-radius: 20px;
+  flex: 1;
+  border: 1px solid grey;
+  border-radius: 6px;
+
+  margin-top: 2vh;
+  margin-right: 10px;
+  margin-bottom: 2vh;
+  text-align: center;
+  /* max-width: 100%;
+  transform: translateY(-10%);
+
+  align-content: center;
+  overflow: hidden;
+  */
+}
