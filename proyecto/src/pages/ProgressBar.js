@@ -27,7 +27,9 @@ const ProgressBar = (props) => {
 
   return (
     <div>
-      <h4>{tarea}</h4>
+      <h4 className="ml-4" style={{ textAlign: "left" }}>
+        {tarea}
+      </h4>
       <div style={containerStyles}>
         <div style={fillerStyles}>
           <span style={labelStyles}>{`${completed}%`}</span>

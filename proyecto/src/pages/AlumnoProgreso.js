@@ -72,6 +72,7 @@ export const AlumnoProgreso = () => {
                 <div className="col-sm mt-2 mb-4">
                   <img
                     src={`./materias/${classroom.name}.jpg`}
+                    className="img"
                     width="200"
                     name={classroom.name}
                     alt={classroom.id}

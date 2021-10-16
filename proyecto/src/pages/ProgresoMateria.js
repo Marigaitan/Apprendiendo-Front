@@ -17,7 +17,7 @@ export const ProgresoMateria = () => {
   const testData = [
     { tarea: "Buscar algo", bgcolor: "#6a1b9a", completed: 60 },
     { tarea: "Traer algo", bgcolor: "#00695c", completed: 30 },
-    { tarea: "Romper algo", bgcolor: "#ef6c00", completed: 53 },
+    { tarea: "Romper algo", bgcolor: "#ef6c00", completed: 100 },
   ];
 
   return (
