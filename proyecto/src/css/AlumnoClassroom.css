@@ -10,7 +10,7 @@
 .classData{
     display: flex;
 }
-.pro{
+.proAlumno{
     border-radius: 20px;
     width: 33%;
     justify-content: center;
@@ -20,7 +20,7 @@
     margin:5px ;
     background-color: white;  
 }
-.barraLateral{
+.barraLateralAlumno{
     border-radius: 20px;
     width: 33%;
     justify-content: center;

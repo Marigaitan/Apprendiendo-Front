@@ -81,13 +81,13 @@ export default class AlumnoClassroom extends Component {
                         <h3>{"Docente: " + this.state.teacherName}</h3>
                     </div>
                     <div className="classData">
-                        <div className="pro">
+                        <div className="proAlumno">
                             <h2>Proyectos</h2>
                             <div>
                                 {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><Link to="/menualumno/classroom/proyecto" ><h3>{project.name}</h3></Link></div>) })}
                             </div>
                         </div>
-                        <div className="barraLateral">
+                        <div className="barraLateralAlumno">
                             <h2>Estudiantes</h2>
                             <div>
                                 {this.state.students.map(student => { return (<div key={student.id} id={student.id}><h3 >{student.username}</h3></div>) })}
