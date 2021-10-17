@@ -131,34 +131,13 @@ export default function NewClase() {
     // -------------------------POST-------------------------------------------------------
     const newClase = async () => {
         let newClaseUrl = API_HOST + "project/" + cookies.get('projectid') + "/lesson/template";
-       /* let claseParam ={
-            name: name,
-            description: enun,
-            position: "null",
-            dueDate: "null",
-            startDate: "null",
-            active: "True", //Cambiarlo para que funcione con el switch y en default este en false
-            activities: cuestionarios,
-            documents: documents
-        };
-        const header = {
-             headers:{'Authorization': cookies.get('token')}
-        }
-
-        await axios.post(newClaseUrl, claseParam, header)
-            .then(response => {
-                console.log(response);
-                cookies.set('claseid', response.data, { path: "/menudocente/classroom" });
-                window.location.href = "/menudocente/classroom/proyecto" + cookies.get('projectid');
-            }); */
-        
          await axios.post(newClaseUrl,
             {
                 name: name,
                 description: enun,
-                position: "null",
-                dueDate: "null",
-                startDate: "null",
+                position: null,
+                dueDate: null,
+                startDate: null,
                 active: "True", //Cambiarlo para que funcione con el switch y en default este en false
                 activities: JSON.stringify(cuestionarios),
                 documents: documents
