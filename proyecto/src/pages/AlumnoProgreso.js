@@ -7,6 +7,7 @@ import axios from "axios";
 import { materias } from "../data/materias";
 import { logros } from "../data/logros";
 import { ListarLogros } from "./ListarLogros";
+import "../css/PerfilAlumno.css";
 
 const cookies = new Cookies();
 
@@ -63,28 +64,29 @@ export const AlumnoProgreso = () => {
         <h2 className="align-items-center text-center">
           <br /> Logros por curso <br />
         </h2>
-
-        {clases.map((classroom) => {
-          console.log(classroom.name);
-          return (
-            <div className="container">
-              <div className="row">
-                <div className="col-sm mt-2 mb-4">
-                  <img
-                    src={`./materias/${classroom.name}.jpg`}
-                    className="img"
-                    width="200"
-                    name={classroom.name}
-                    alt={classroom.id}
-                    id={classroom.id}
-                    key={classroom.id}
-                    onClick={handleProgress}
-                  />
+        <div className="containerMaterias">
+          {clases.map((classroom) => {
+            console.log(classroom.name);
+            return (
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm mt-2 mb-4">
+                    <img
+                      src={`./materias/${classroom.name}.jpg`}
+                      className="img"
+                      width="200"
+                      name={classroom.name}
+                      alt={classroom.id}
+                      id={classroom.id}
+                      key={classroom.id}
+                      onClick={handleProgress}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

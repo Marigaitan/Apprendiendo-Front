@@ -26,7 +26,7 @@ export const ProgresoMateria = () => {
     <div className="mainContainer">
       <HeaderStudent />
       <div className="container">
-        <div className="container align-items-center text-center mt-2">
+        <div className="container align-items-center text-center mt-2 ">
           <img src={`./materias/${m}.jpg`} width="300" />
         </div>
         <div className="containerAvancesDelCurso">
