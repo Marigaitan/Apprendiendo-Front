@@ -29,6 +29,7 @@ import Pbl from "../pages/Pbl";
 import { AlumnoProgreso } from "../pages/AlumnoProgreso";
 import { ProgresoMateria } from "../pages/ProgresoMateria";
 import { ListarLogros } from "../pages/ListarLogros";
+import { ListarLogrosDelCurso } from "../pages/ListarLogrosDelCurso";
 
 function Routes() {
   return (
@@ -78,7 +79,7 @@ function Routes() {
         <Route
           exact
           path="/menudocente/classroom/proyecto/nuevaclase"
-          component= {NewClase}
+          component={NewClase}
         />
         <Route exact path="/menuAdmin/docente/abm" component={DocenteAbm} />
         <Route exact path="/menuAdmin/alumno/abm" component={AlumnoAbm} />
@@ -89,6 +90,11 @@ function Routes() {
         <Route exact path="/AlumnoProgreso" component={AlumnoProgreso} />
         <Route exact path="/ProgresoMateria" component={ProgresoMateria} />
         <Route exact path="/ListarLogros" component={ListarLogros} />
+        <Route
+          exact
+          path="/ListarLogrosDelCurso"
+          component={ListarLogrosDelCurso}
+        />
         <Route
           exact
           path="/SeleccionarAccesorios"

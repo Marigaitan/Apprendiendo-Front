@@ -6,6 +6,8 @@ import axios from "axios";
 import { API_HOST } from "../constants";
 import HeaderStudent from "./HeaderAlumno";
 import ProgressBar from "./ProgressBar";
+import { logros_cursos, logros_cursps } from "../data/logros_cursos";
+import { ListarLogrosDelCurso } from "./ListarLogrosDelCurso";
 
 const cookies = new Cookies();
 export const ProgresoMateria = () => {
@@ -42,7 +44,12 @@ export const ProgresoMateria = () => {
         </div>
         <div className="containerLogrosDelCurso">
           <div className="container">
-            <h2>Lista de logros obtenidos</h2>
+            <h2 className="mt-2">Lista de logros obtenidos</h2>
+            <div className="card-columns">
+              {logros_cursos.map((logro) => (
+                <ListarLogrosDelCurso key={logro.id} {...logro} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
