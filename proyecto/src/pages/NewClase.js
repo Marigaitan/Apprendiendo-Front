@@ -11,10 +11,14 @@ const cookies = new Cookies();
 
 export default function NewClase() {
     const [name, setName] = useState(null);
-    const [Enun, setEnun] = useState(null);
+    const [enun, setEnun] = useState(null);
     const [archivos, setArchivos] = useState(null);
     let documents =[];
+    const [nameCuest, setNameCuest] = useState(null);
+    let cuestionarios = [];
     const [formValuesCuest, setFormValuesCuest] = useState([{ question: "" }]);
+    const [nameQuizz,setNameQuizz] = useState(null);
+    let quizzList = [];
     const [formValuesQuizz, setFormValuesQuizz] = useState([{ questionText: "", answerOptions: [] }])
 
 
@@ -25,7 +29,7 @@ export default function NewClase() {
 
     const actEnun = a => {
         setEnun(a);
-        console.log(Enun);
+        console.log(enun);
     }
     //------------------------Files----------------------------------------------
     const subirArchivos = elem => {
@@ -37,8 +41,9 @@ export default function NewClase() {
         for (let index = 0; index < archivos.length; index++) {
 
             let documento = {
-                name: archivos[index].name,
+                id: "null",
                 position: index,
+                name: archivos[index].name,               
                 dataType: "FILE",
                 data: Buffer.from(toString(archivos[index]), 'base64')
             }
@@ -69,7 +74,22 @@ export default function NewClase() {
     let handleSubmitC = (event) => {
         event.preventDefault();
         alert("Agregaste un nuevo cuestionario!");
-        console.log(JSON.stringify(formValuesCuest));
+        let cuestionario = {
+            name: nameCuest,
+            description: "",
+            position: cuestionarios.length,
+            dueDate: "null",
+            startDate: "null",
+            rewards:"",
+            documents:[{
+                name: "null",
+                position: "",
+                dataType: "CUESTIONARIO",
+                data: JSON.stringify(formValuesCuest)
+            }]            
+        }
+        cuestionarios.push(cuestionario);
+        console.log(cuestionarios);
     }
     //------------------------Quizz-----------------------------------------------
     let handleChangeQ = (i, e) => {
@@ -91,19 +111,57 @@ export default function NewClase() {
     let handleSubmitQ = (event) => {
         event.preventDefault();
         alert("Agregaste un nuevo Quizz!");
-        console.log(JSON.stringify(formValuesQuizz));
+        let quizz = {
+            name: nameQuizz,
+            description: "",
+            position: "",
+            dueDate: "null",
+            startDate: "null",
+            rewards:"",
+            documents:[{
+                name: "null",
+                position: "",
+                dataType: "QUIZZ",
+                data: JSON.stringify(formValuesQuizz)
+            }]            
+        }
+        quizzList.push(quizz);
+        console.log(quizzList);
     }
     // -------------------------POST-------------------------------------------------------
     const newClase = async () => {
         let newClaseUrl = API_HOST + "project/" + cookies.get('projectid') + "/lesson/template";
-        await axios.post(newClaseUrl,
+       /* let claseParam ={
+            name: name,
+            description: enun,
+            position: "null",
+            dueDate: "null",
+            startDate: "null",
+            active: "True", //Cambiarlo para que funcione con el switch y en default este en false
+            activities: cuestionarios,
+            documents: documents
+        };
+        const header = {
+             headers:{'Authorization': cookies.get('token')}
+        }
+
+        await axios.post(newClaseUrl, claseParam, header)
+            .then(response => {
+                console.log(response);
+                cookies.set('claseid', response.data, { path: "/menudocente/classroom" });
+                window.location.href = "/menudocente/classroom/proyecto" + cookies.get('projectid');
+            }); */
+        
+         await axios.post(newClaseUrl,
             {
-                name: "String",
-                position: "0",
-                dueDate: "0",
-                startDate: "0",
+                name: name,
+                description: enun,
+                position: "null",
+                dueDate: "null",
+                startDate: "null",
                 active: "True", //Cambiarlo para que funcione con el switch y en default este en false
-                activities: "Armar JSON"
+                activities: JSON.stringify(cuestionarios),
+                documents: documents
             },
             {
                 headers: {
@@ -119,7 +177,7 @@ export default function NewClase() {
             .catch(error => {
                 console.log(error);
                 alert('No se pudo crear la Clase')
-            }).then(this.goProject());
+            }).then(()=>goProject());
     }
 
     let goProject = () => {
@@ -132,7 +190,7 @@ export default function NewClase() {
                 <h2>Clase Nueva</h2>
                 <div className='nameClase'>
                     <label><h4>Nombre de la Clase</h4></label><br />
-                    <input type="text" name="name" className="col-md-8" placeholder="Ingrese un nombre" maxLength="20" onChange={(v) => actName(v.target.value)} />
+                    <input type="text" name="name" className="col-md-8" placeholder="Ingrese un nombre" maxLength="30" onChange={(v) => actName(v.target.value)} />
                 </div>
                 <div className='boxEnunciado'>
                     <label><h4>Ingrese el enunciado de la clase que quiere compartir con los alumnos:</h4></label><br />
@@ -151,6 +209,8 @@ export default function NewClase() {
                     <div className='setCuestionario'>
                         <label><h4>Agregar Cuestionario</h4></label><br />
                         <form onSubmit={handleSubmitC}>
+                            <label><h4>Título</h4></label><br />
+                            <input type="text" name="nameCuest" className="col-md-8" placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => setNameCuest(n.target.value)} />
                             {formValuesCuest.map((element, index) => (
                                 <div className="form-inline" key={index}>
 
@@ -174,6 +234,8 @@ export default function NewClase() {
                     <div className='setQuizz'>
                         <label><h4>Agregar Ejercicio de Selección Múltiple</h4></label><br />
                         <form onSubmit={handleSubmitQ}>
+                            <label><h4>Título</h4></label><br />
+                            <input type="text" name="nameQuizz" className="col-md-8" placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => setNameQuizz(n.target.value)} />
                             {formValuesQuizz.map((element, index) => (
                                 <div className="form-inline" key={index}>
                                     <div>
