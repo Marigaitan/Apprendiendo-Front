@@ -41,7 +41,7 @@ export default function NewClase() {
         for (let index = 0; index < archivos.length; index++) {
 
             let documento = {
-                id: "null",
+                id: null,
                 position: index,
                 name: archivos[index].name,               
                 dataType: "FILE",
@@ -76,14 +76,14 @@ export default function NewClase() {
         alert("Agregaste un nuevo cuestionario!");
         let cuestionario = {
             name: nameCuest,
-            description: "",
+            description: null,
             position: cuestionarios.length,
-            dueDate: "null",
-            startDate: "null",
-            rewards:"",
+            dueDate: null,
+            startDate: null,
+            rewards:null,
             documents:[{
-                name: "null",
-                position: "",
+                name: null,
+                
                 dataType: "CUESTIONARIO",
                 data: JSON.stringify(formValuesCuest)
             }]            
@@ -113,14 +113,14 @@ export default function NewClase() {
         alert("Agregaste un nuevo Quizz!");
         let quizz = {
             name: nameQuizz,
-            description: "",
-            position: "",
-            dueDate: "null",
-            startDate: "null",
-            rewards:"",
+            description: null,
+            position: null,
+            dueDate: null,
+            startDate: null,
+            rewards:null,
             documents:[{
-                name: "null",
-                position: "",
+                name: null,
+                position: null,
                 dataType: "QUIZZ",
                 data: JSON.stringify(formValuesQuizz)
             }]            
