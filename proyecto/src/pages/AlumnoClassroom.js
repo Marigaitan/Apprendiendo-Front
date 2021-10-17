@@ -75,20 +75,22 @@ export default class AlumnoClassroom extends Component {
         return (
             <div className="mainContainer">
                 <HeaderStudent />
-                <div className="secContainer">
-                    <div className="mainContent">
+                <div className="ClassroomContent">
+                    <div>
+                        <h1>{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1><br />
+                        <h3>{"Docente: " + this.state.teacherName}</h3>
+                    </div>
+                    <div className="classData">
+                        <div className="pro">
+                            <h2>Proyectos</h2>
+                            <div>
+                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><Link to="/menualumno/classroom/proyecto" ><h3>{project.name}</h3></Link></div>) })}
+                            </div>
+                        </div>
                         <div className="barraLateral">
                             <h2>Estudiantes</h2>
                             <div>
                                 {this.state.students.map(student => { return (<div key={student.id} id={student.id}><h3 >{student.username}</h3></div>) })}
-                            </div>
-                        </div>
-                        <div className="pro">
-                            <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
-                            <h2>{"Docente: " + this.state.teacherName}</h2>
-                            <h2>Proyectos</h2>
-                            <div>
-                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><Link to="/menualumno/classroom/proyecto" >{project.name}</Link></div>) })}
                             </div>
                         </div>
                     </div>
