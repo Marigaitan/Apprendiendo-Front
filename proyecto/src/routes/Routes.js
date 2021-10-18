@@ -21,6 +21,7 @@ import NewStandarProject from "../pages/NewStandarProject";
 import { ListarAvatars } from "../pages/ListarAvatars";
 import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
 import { ListarAccesorios } from "../pages/ListarAccesorios";
+import DocenteLogros from "../pages/DocenteLogros";
 
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 
@@ -96,6 +97,7 @@ function Routes() {
         <Route exact path="/AlumnoProgreso" component={AlumnoProgreso} />
         <Route exact path="/ProgresoMateria" component={ProgresoMateria} />
         <Route exact path="/ListarLogros" component={ListarLogros} />
+        <Route exact path="/menudocente/classroom/logros" component={DocenteLogros} />
         <Route
           exact
           path="/ListarLogrosDelCurso"
