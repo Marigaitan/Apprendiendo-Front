@@ -13,12 +13,11 @@ export default function NewClase() {
     const [name, setName] = useState(null);
     const [enun, setEnun] = useState(null);
     const [archivos, setArchivos] = useState(null);
-    let documents =[];
+    const [actividades, setActividades] = useState([]);
+    const [documents, setDocuments] = useState([]);
     const [nameCuest, setNameCuest] = useState(null);
-    let cuestionarios = [];
     const [formValuesCuest, setFormValuesCuest] = useState([{ question: "" }]);
     const [nameQuizz,setNameQuizz] = useState(null);
-    let quizzList = [];
     const [formValuesQuizz, setFormValuesQuizz] = useState([{ questionText: "", answerOptions: [] }])
 
 
@@ -47,7 +46,7 @@ export default function NewClase() {
                 dataType: "FILE",
                 data: Buffer.from(toString(archivos[index]), 'base64')
             }
-            documents.push(documento);
+            setDocuments(documents.concat(documento));
             // f.append("documents", archivos[index]);
         }
         console.log(documents);
@@ -77,7 +76,7 @@ export default function NewClase() {
         let cuestionario = {
             name: nameCuest,
             description: null,
-            position: cuestionarios.length,
+            position: actividades.length,
             dueDate: null,
             startDate: null,
             rewards:null,
@@ -88,8 +87,8 @@ export default function NewClase() {
                 data: JSON.stringify(formValuesCuest)
             }]            
         }
-        cuestionarios.push(cuestionario);
-        console.log(cuestionarios);
+        setActividades(actividades.concat(cuestionario));
+        console.log(actividades);
     }
     //------------------------Quizz-----------------------------------------------
     let handleChangeQ = (i, e) => {
@@ -125,8 +124,8 @@ export default function NewClase() {
                 data: JSON.stringify(formValuesQuizz)
             }]            
         }
-        quizzList.push(quizz);
-        console.log(quizzList);
+        setActividades(actividades.concat(quizz));
+        console.log(actividades);
     }
     // -------------------------POST-------------------------------------------------------
     const newClase = async () => {
@@ -139,7 +138,7 @@ export default function NewClase() {
                 dueDate: null,
                 startDate: null,
                 active: "True", //Cambiarlo para que funcione con el switch y en default este en false
-                activities: cuestionarios,
+                activities: actividades,
                 documents: documents
             },
             {
