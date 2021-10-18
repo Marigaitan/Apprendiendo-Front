@@ -82,16 +82,17 @@ export default class MenuAlumno extends Component {
     return (
       <div className="mainContainer">
         <HeaderStudent />
-        <div className="ml-2 secContainer">
-          <h1>Mis Cursos</h1>
-          <br />
-          <div className="classcontainer">
+        <div className="mainMenuAlumno">
+          <div>
+            <h1>Mis Cursos</h1>
+          </div>
+          <div className="myProjectcontainer">
             {this.state.classrooms.map((classroom) => {
               //react necesita una key para identif elementos siblings
               return (
                 <button
                   key={classroom.id}
-                  className="classButton"
+                  className="projectButton"
                   id={classroom.id}
                   onClick={() => this.goClassroom(classroom.id)}
                 >

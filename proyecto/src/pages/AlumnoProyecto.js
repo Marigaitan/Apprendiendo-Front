@@ -108,6 +108,7 @@ export default class AlumnoProyecto extends Component {
                                     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                                     img={LogoMini}
                                     iconOnClick ={()=>this.goLesson(lessons.id)}
+                                    align = "alternate"
                                 >
                                    <h3 className="vertical-timeline-element-title">{lessons.name}</h3>
                                    <h4 className="vertical-timeline-element-subtitle">{lessons.description}</h4>
