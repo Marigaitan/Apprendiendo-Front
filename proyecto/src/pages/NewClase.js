@@ -129,7 +129,7 @@ export default function NewClase() {
     }
     // -------------------------POST-------------------------------------------------------
     const newClase = async () => {
-        let newClaseUrl = API_HOST + "project/" + cookies.get('projectid') + "/";
+        let newClaseUrl = API_HOST + "project/" + cookies.get('projectid') + "/lesson/template";
          await axios.post(newClaseUrl,
             {
                 name: name,
