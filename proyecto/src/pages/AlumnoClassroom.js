@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
+import { Button} from 'reactstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import HeaderStudent from './HeaderAlumno';
@@ -68,6 +69,12 @@ export default class AlumnoClassroom extends Component {
         }
     }
 
+    goAlumnoProyecto = (project) => {
+        cookies.set('projectid', project.id, { path: "/" });
+        this.props.history.push("/menualumno/classroom/proyecto");
+    }
+    
+
     render() {
         console.log(cookies.get('classid'));
         this.redirect();
@@ -84,7 +91,7 @@ export default class AlumnoClassroom extends Component {
                         <div className="proAlumno">
                             <h2>Proyectos</h2>
                             <div>
-                                {this.state.projects.map(project => { return (<div key={project.id} id={project.id}><Link to="/menualumno/classroom/proyecto" ><h3>{project.name}</h3></Link></div>) })}
+                                {this.state.projects.map(project => <li><Button onClick={() => this.goAlumnoProyecto(project)}>{project.name}</Button></li> )}
                             </div>
                         </div>
                         <div className="barraLateralAlumno">

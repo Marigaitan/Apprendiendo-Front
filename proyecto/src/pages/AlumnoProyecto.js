@@ -38,47 +38,32 @@ export default class AlumnoProyecto extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            grupo: '', integrantes:[], lessons: [], project: ''
+            grupo: '', 
+            integrantes:[], 
+            lessons: [], 
+            project: ''
         };
     }
 
+
+
+     async getGroupMembers(studentId, projectId) {
+        let grupo = (await axios.get("project/" + projectId + "/groups/student/" + studentId)).data;
+        if(typeof grupo !== "undefined"){
+            let miembros = (await axios.get("group/" + grupo.id + "/students")).data;
+            return Promise.all(miembros.map( miembro => {
+                return axios.get("user/" + miembro.studentId).then(response => ({name: response.data.username, role: miembro.groupRole}));
+            }));
+        }
+        else return [];
+    }
+
+
     async componentDidMount() {
-
-        let getProjectDetailsUrl = API_HOST + "project/" + cookies.get('projectid')
-        //let getGrupoUrl = API_HOST +"project/" + cookies.get('projectid') + "/groups/student/" + cookies.get('id');
-        //let getIntegrantes = API_HOST + "group/" + grupo.id + "students";
-        let getLessonsUrl = API_HOST + "project/" + cookies.get('projectid') + "/lessons";
-
-        //AXIOS
-        const requestOne = axios.get(getProjectDetailsUrl, { headers: { 'Authorization': cookies.get('token') } });
-        //const requestTwo = axios.get(getGrupoUrl, { headers: { 'Authorization': cookies.get('token') } });
-        //const requestThree = axios.get(getIntegrantes, {headers: { 'Authorization': cookies.get('token') } });
-        const requestFour = axios.get(getLessonsUrl, { headers: { 'Authorization': cookies.get('token') } });
-
-        await axios.all([requestOne
-            //, requestTwo, requestThree
-            ,requestFour
-        ])
-            .then(axios.spread((project
-                //, grupo, integrantes
-                , lessons
-            ) => {
-                console.log(project.data,
-                     //grupo.data,
-                     //integrantes.data,
-                     lessons.data
-                );
-
-                this.setState({
-                    project: project.data,
-                    //grupo: grupo.data,
-                    //integrantes: integrantes.data,
-                    lessons: lessons.data
-                })
-            }))
-            .catch(error => {
-                console.log(error)
-            });
+        axios.defaults.headers.common['Authorization'] = cookies.get('token');
+        axios.defaults.baseURL = API_HOST;
+        console.log((await axios.get("project/" + cookies.get('projectid'))).data);
+        console.log(await this.getGroupMembers(cookies.get('id'), cookies.get('projectid')));
     }
 
     goLesson=(id)=> {
