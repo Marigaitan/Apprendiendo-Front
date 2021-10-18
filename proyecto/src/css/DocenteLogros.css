@@ -1,11 +1,16 @@
 .mi-flex{
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     margin-top: 2%;
+    width: 50%;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 .radio-flex{
-    margin-left: 10%;
+    margin-left: 15%;
+    display: flex;
+    gap: 5px;
 }
 
 .center-alert{
@@ -21,8 +26,9 @@
 }
 
 .center-text{
-    margin-top: 3%;
+    /* margin-top: 3%; */
     margin-left: 10%;
+    width: 40%;
 }
 
 .mi-form{
@@ -33,4 +39,22 @@
 
 .imagen{
     max-width: 50px;
+}
+
+.mi-alert-flex{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    margin-left: 5%;
+    width: 50%;
+}
+
+.input-flex{
+    margin-left: 20%;
+    justify-content: center;
+    min-width: 70%;
+}
+
+.half-length{
+    width:50%;
 }

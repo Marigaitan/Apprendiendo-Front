@@ -14,7 +14,7 @@ const NavDocente = (props) => {
                 <NavLink href="/menudocente/classroom/nuevoproyecto" active={props.activeBar === 'nuevoProyecto'}>Nuevo Proyecto</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink href="/menudocente/classroom/logros" active={props.activeBar === 'logros'}>Logros</NavLink>
+                <NavLink href="/menudocente/classroom/logros" active={props.activeBar === 'logros'}>Logros de la clase</NavLink>
             </NavItem>
         </Nav>
     )
