@@ -7,6 +7,7 @@ import MenuAdmin from "../pages/MenuAdmin";
 import MenuAlumno from "../pages/MenuAlumno";
 import MenuDocente from "../pages/MenuDocente";
 import AlumnoClassroom from "../pages/AlumnoClassroom";
+import LessonAlumno from "../pages/LessonAlumno";
 import DocenteClassroom from "../pages/DocenteClassroom";
 import AlumnoProyecto from "../pages/AlumnoProyecto";
 import DocenteProyecto from "../pages/DocenteProyecto";
@@ -70,6 +71,11 @@ function Routes() {
           exact
           path="/menualumno/classroom/proyecto"
           component={AlumnoProyecto}
+        />
+        <Route
+          exact
+          path="/menualumno/classroom/proyecto/clase"
+          component={LessonAlumno}
         />
         <Route
           exact

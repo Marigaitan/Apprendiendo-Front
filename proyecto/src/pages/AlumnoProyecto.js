@@ -81,6 +81,12 @@ export default class AlumnoProyecto extends Component {
             });
     }
 
+    goLesson=(id)=> {
+        this.props.history.push("/menualumno/classroom/proyecto/clase");
+        cookies.set('lessonid', id, { path: "/" });
+    }
+
+
     render() {
         return (
             <div className="mainContainer">
@@ -93,6 +99,7 @@ export default class AlumnoProyecto extends Component {
                         <div className="availableLessons">
                             <h2>Clases</h2>
                             <VerticalTimeline>
+                            {this.state.lessons.map(lessons => { return (<div key={lessons.id} id={lessons.id}>
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
                                     contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
@@ -100,9 +107,13 @@ export default class AlumnoProyecto extends Component {
                                     date="2011 - present"
                                     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                                     img={LogoMini}
+                                    iconOnClick ={()=>this.goLesson(lessons.id)}
                                 >
-                                    <h3>Test</h3>
+                                   <h3 className="vertical-timeline-element-title">{lessons.name}</h3>
+                                   <h4 className="vertical-timeline-element-subtitle">{lessons.description}</h4>
+                                
                                 </VerticalTimelineElement>
+                            </div>) })}
                             </VerticalTimeline>
                         </div>
                         <div className="myTeam">
