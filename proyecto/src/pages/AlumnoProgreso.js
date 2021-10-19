@@ -5,7 +5,7 @@ import { API_HOST } from "../constants";
 import Cookies from "universal-cookie/es6";
 import axios from "axios";
 import { materias } from "../data/materias";
-import { logros } from "../data/logros";
+import { logros } from "../data/medallas";
 import { ListarLogros } from "./ListarLogros";
 import "../css/PerfilAlumno.css";
 

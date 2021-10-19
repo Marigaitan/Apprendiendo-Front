@@ -8,7 +8,7 @@ import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
-const ListarLogrosPorCurso = (props) => {
+const ListarLogrosPorCurso = ({ id, tipo }) => {
   //   const handleSelection = async (e) => {
   //     console.log(e.target);
   //     console.log(e.target.alt);
@@ -42,15 +42,14 @@ const ListarLogrosPorCurso = (props) => {
   //     // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
   //     // e.target.setAttribute("alt", "dog");
   //   };
-
   return (
     // <div className="card ms-3 mt-2" style={{ maxWidth: 120 }}>
     //   <div className="row no-gutters">
     //     <div className="d-flex flex-column align-items-center text-center">
     <div>
       <img
-        src={require(`../Images/medallas/${props.id}.png`)}
-        alt={props.id}
+        src={`/medallas_cursos/${id}.png`}
+        alt={id}
         // className="card-img img"
         width="50"
       />
