@@ -83,6 +83,7 @@ export const AlumnoProgreso = () => {
   };
 
   const filtro = logros.filter((imagen) => imagen.imageData);
+  console.log(filtro);
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -94,7 +95,12 @@ export const AlumnoProgreso = () => {
 
         <div className="card-columns">
           {filtro.map((logro) => (
-            <ListarLogros key={logro.id} medalla={logro.imageData} />
+            <ListarLogros
+              key={logro.id}
+              medalla={logro.imageData}
+              nombre={logro.name}
+              texto={logro.text}
+            />
           ))}
         </div>
       </div>

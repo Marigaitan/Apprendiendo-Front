@@ -8,7 +8,7 @@ import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
-export const ListarLogros = ({ id, medalla }) => {
+export const ListarLogros = ({ id, medalla, nombre, texto }) => {
   console.log("El logro", medalla);
   return (
     <div className="card ms-3 mt-2" style={{ maxWidth: 120 }}>
@@ -24,7 +24,7 @@ export const ListarLogros = ({ id, medalla }) => {
         <div>
           <div>
             <p style={{ color: "red", fontWeight: "bold" }}>
-              100 ejercicios resueltos
+              {nombre}: {texto}
             </p>
           </div>
         </div>
