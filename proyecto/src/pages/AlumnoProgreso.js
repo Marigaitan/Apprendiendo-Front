@@ -5,7 +5,7 @@ import { API_HOST } from "../constants";
 import Cookies from "universal-cookie/es6";
 import axios from "axios";
 import { materias } from "../data/materias";
-import { logros } from "../data/medallas";
+
 import { ListarLogros } from "./ListarLogros";
 import "../css/PerfilAlumno.css";
 
@@ -45,6 +45,44 @@ export const AlumnoProgreso = () => {
     window.location.href = `ProgresoMateria?id=${e.target.id}&m=${e.target.name}`;
   };
 
+  useEffect(() => {
+    getLogros();
+  }, []);
+
+  const [logros, setLogros] = useState([
+    {
+      id: "",
+      name: "",
+      conditionId: "",
+      text: "",
+      data: "",
+      targetType: "",
+      targetId: "",
+      imageData: "",
+      rewardType: "",
+    },
+  ]);
+
+  const getLogros = async () => {
+    const url = API_HOST + "user/" + cookies.get("id") + "/rewards/";
+    console.log(url);
+    await axios
+      .get(url, {
+        headers: {
+          Authorization: cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        setLogros(response.data);
+      })
+
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR2");
+      });
+  };
+
+  const filtro = logros.filter((imagen) => imagen.imageData);
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -53,9 +91,10 @@ export const AlumnoProgreso = () => {
         <h2 className="align-items-center text-center">
           <br /> Logros obtenidos <br />
         </h2>
+
         <div className="card-columns">
-          {logros.map((logro) => (
-            <ListarLogros key={logro.id} {...logro} />
+          {filtro.map((logro) => (
+            <ListarLogros key={logro.id} medalla={logro.imageData} />
           ))}
         </div>
       </div>

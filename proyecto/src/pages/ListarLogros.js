@@ -8,47 +8,14 @@ import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
-export const ListarLogros = ({ id, tipo }) => {
-  //   const handleSelection = async (e) => {
-  //     console.log(e.target);
-  //     console.log(e.target.alt);
-  //     // cookies.set("body", e.target.alt, { path: "/" });
-  //     const url = API_HOST + "avatar/";
-
-  //     await axios
-  //       .put(
-  //         url,
-  //         {
-  //           id: cookies.get("avatarId"),
-  //           name: "lalala",
-  //           body: e.target.alt,
-  //           glasses: cookies.get("glasses"),
-  //           hat: cookies.get("hat"),
-  //           clothes: cookies.get("clothes"),
-  //         },
-  //         {
-  //           headers: {
-  //             Authorization: cookies.get("token"),
-  //           },
-  //         }
-  //       )
-  //       .catch((error) => {
-  //         console.log(error);
-  //         alert("ERRORRRR2");
-  //       });
-
-  //     cookies.set("body", e.target.alt, { path: "/" });
-  //     window.location.href = "AlumnoPerfil";
-  //     // e.target.setAttribute("src", "https://source.unsplash.com/LYK3ksSQyeo");
-  //     // e.target.setAttribute("alt", "dog");
-  //   };
-
+export const ListarLogros = ({ id, medalla }) => {
+  console.log("El logro", medalla);
   return (
     <div className="card ms-3 mt-2" style={{ maxWidth: 120 }}>
       <div className="row no-gutters">
         <div className="d-flex flex-column align-items-center text-center">
           <img
-            src={`./medallas/${id}.png`}
+            src={`./medallas/${medalla}.png`}
             alt={id}
             // className="card-img img"
             width="100"
