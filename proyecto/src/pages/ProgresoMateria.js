@@ -67,6 +67,7 @@ export const ProgresoMateria = () => {
       .then((response) => {
         const proyectos = response.data;
         let url2;
+        console.log("Proyecto", response.data);
         proyectos.map(async (item) => {
           url2 =
             API_HOST +
