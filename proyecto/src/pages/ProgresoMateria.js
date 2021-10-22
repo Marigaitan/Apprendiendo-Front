@@ -1,4 +1,4 @@
-import React, { isValidElement } from "react";
+import React, { isValidElement, useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router";
 import Cookies from "universal-cookie/es6";
@@ -8,6 +8,7 @@ import HeaderStudent from "./HeaderAlumno";
 import ProgressBar from "./ProgressBar";
 import { logros_cursos, logrosPorCurso } from "../data/medallas";
 import { ListarLogrosDelCurso } from "./ListarLogrosDelCurso";
+import { GiHoleLadder } from "react-icons/gi";
 
 const cookies = new Cookies();
 export const ProgresoMateria = () => {
@@ -21,6 +22,120 @@ export const ProgresoMateria = () => {
     { tarea: "Traer algo", bgcolor: "#00695c", completed: 30 },
     { tarea: "Romper algo", bgcolor: "#ef6c00", completed: 100 },
   ];
+
+  useEffect(() => {
+    getLogros();
+    getLogrosproyecto();
+  }, []);
+
+  const [logros, setLogros] = useState([]);
+
+  const getLogros = async () => {
+    const url =
+      API_HOST + "user/" + cookies.get("id") + "/classroom/" + id + "/rewards";
+    console.log(url);
+    await axios
+      .get(url, {
+        headers: {
+          Authorization: cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        setLogros(response.data);
+      })
+
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR2");
+      });
+  };
+  console.log(logros);
+  // const filtro = logros.filter((imagen) => imagen.imageData);
+  // console.log(filtro);
+
+  const [logrosproyecto, setLogrosproyecto] = useState([]);
+
+  const getLogrosproyecto = async () => {
+    const url = API_HOST + "classroom/" + id + "/projects";
+
+    await axios
+      .get(url, {
+        headers: {
+          Authorization: cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        const proyectos = response.data;
+        let url2;
+        proyectos.map(async (item) => {
+          url2 =
+            API_HOST +
+            "user/" +
+            cookies.get("id") +
+            "/project/" +
+            item.id +
+            "/rewards";
+          console.log(url2);
+          await axios
+            .get(url2, {
+              headers: {
+                Authorization: cookies.get("token"),
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
+
+            .catch((error) => {
+              console.log(error);
+              alert("ERRORRRR2");
+            });
+        });
+      })
+
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR2");
+      });
+  };
+
+  // const getLogrosactividad = async () => {
+  //   const url = API_HOST + "classroom/" + id + "/projects";
+
+  //   await axios
+  //     .get(url, {
+  //       headers: {
+  //         Authorization: cookies.get("token"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const proyectos = response.data;
+  //       let url2;
+  //       proyectos.map(async (item) => {
+  //         url2 = API_HOST + "user/" + id + "/project/" + item.id + "/rewards";
+  //         console.log(url2);
+  //         await axios
+  //           .get(url2, {
+  //             headers: {
+  //               Authorization: cookies.get("token"),
+  //             },
+  //           })
+  //           .then((response) => {
+  //             console.log(response.data);
+  //           })
+
+  //           .catch((error) => {
+  //             console.log(error);
+  //             alert("ERRORRRR2");
+  //           });
+  //       });
+  //     })
+
+  //     .catch((error) => {
+  //       console.log(error);
+  //       alert("ERRORRRR2");
+  //     });
+  // };
 
   return (
     <div className="mainContainer">
