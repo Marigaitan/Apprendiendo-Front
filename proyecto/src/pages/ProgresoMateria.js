@@ -14,8 +14,8 @@ const cookies = new Cookies();
 export const ProgresoMateria = () => {
   const location = useLocation();
   const { id = "", m = "" } = queryString.parse(location.search);
-  console.log(id);
-  console.log(m);
+  console.log("Id de clase", id);
+  console.log("Nombre de la materia", m);
 
   const testData = [
     { tarea: "Buscar algo", bgcolor: "#6a1b9a", completed: 60 },
@@ -49,7 +49,7 @@ export const ProgresoMateria = () => {
         alert("ERRORRRR2");
       });
   };
-  console.log(logros);
+  console.log("Logros del curso", logros);
   // const filtro = logros.filter((imagen) => imagen.imageData);
   // console.log(filtro);
 
@@ -75,7 +75,6 @@ export const ProgresoMateria = () => {
             "/project/" +
             item.id +
             "/rewards";
-          console.log(url2);
           await axios
             .get(url2, {
               headers: {
@@ -83,7 +82,7 @@ export const ProgresoMateria = () => {
               },
             })
             .then((response) => {
-              console.log(response.data);
+              console.log("reward x proyecto", response.data);
             })
 
             .catch((error) => {
