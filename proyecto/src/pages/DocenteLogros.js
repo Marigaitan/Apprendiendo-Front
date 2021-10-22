@@ -43,6 +43,8 @@ class DocenteLogros extends Component {
       condiciones: [],
       condicionId: -1,
       realValue: "",
+      congrats: "",
+      rewardName: ""
     };
   }
 
@@ -147,23 +149,28 @@ class DocenteLogros extends Component {
     const optionC =
       this.state.selectedOptionC === "" ? "error" : this.state.selectedOptionC;
 
-    if (optionA === "error" || optionB === "error" || optionC === "error") {
+      const congrats = this.state.congrats === "" ? "error" : this.state.congrats;
+
+      const rewardName = this.state.rewardName === "" ? "error" : this.state.rewardName;
+
+    if (optionA === "error" || optionB === "error" || optionC === "error" || congrats === "error" || rewardName === "error") {
       alert("Completar todos los campos");
     } else {
       this.enviarLogro(optionA, optionB, optionC);
     }
   };
 
-  enviarLogro = (optionA, optionB, optionC) => {
+  async enviarLogro(optionA, optionB, optionC){
     let newAchievementUrl = API_HOST + "reward";
     let body = this.crearLogro(optionA, optionB, optionC);
-    axios
+    await axios
       .post(newAchievementUrl, body, {
         headers: { Authorization: cookies.get("token") },
       })
       .then((response) => {
         console.log(response.data);
         alert("Logro creado exitosamente");
+        this.props.history.push("/menudocente/classroom/logros");
       })
       .catch((error) => {
         console.log(error);
@@ -176,30 +183,26 @@ class DocenteLogros extends Component {
   //optionC es el icono del logro
   crearLogro = (optionA, optionB, optionC) => {
     let condition;
-    if (this.state.selectedOptionA === "Virtual") {
+    if (this.state.selectedOptionA === "Predefinida") {
       condition = optionA;
     } else {
       condition = 213;
     }
 
     let data;
-    if (this.state.selectedOptionB === "Virtual") {
-      data = optionB;
-    } else {
-      data = "recompensa real";
-    }
-
     let rewardType;
     if (this.state.selectedOptionB === "Virtual") {
+      data = optionB;
       rewardType = "AVATAR";
     } else {
+      data = "recompensa real";
       rewardType = "SOCIAL";
     }
 
     return {
-      name: "logro", // TODO ver como completar este campo
+      name: this.state.rewardName, // TODO ver como completar este campo
       conditionId: condition,
-      text: "Felicidades!", // TODO ver como completar este campo
+      text: this.state.congrats, 
       data: data,
       targetType: "CLASSROOM",
       targetId: cookies.get("classid"),
@@ -226,7 +229,7 @@ class DocenteLogros extends Component {
         <HeaderTeacher />
         <div className="navBar">
           <h1>
-            {this.state.subject +
+            Crear nuevo Logro para {this.state.subject +
               " " +
               this.state.year.toString() +
               "°" +
@@ -235,6 +238,38 @@ class DocenteLogros extends Component {
           <NavDocente activeBar="logros" />
           <div className="mi-form">
             <form onSubmit={this.formSubmit}>
+            <div className="center-alert">
+                <Alert color="info">
+                  Nombre del logro! Usa tu imaginación!
+                </Alert>
+              </div>
+              <div className="mi-flex">
+                    <div className="input-flex">
+                      <Input
+                        type="textarea"
+                        name="rewardName"
+                        placeholder="Ingresá acá el nombre del logro!"
+                        value={this.state.rewardName}
+                        onChange={this.handleChange}
+                      />
+                    </div>
+                  </div>
+            <div className="center-alert">
+                <Alert color="info">
+                  Dale una descripción interesante al logro!
+                </Alert>
+              </div>
+              <div className="mi-flex">
+                    <div className="input-flex">
+                      <Input
+                        type="textarea"
+                        name="congrats"
+                        placeholder="Dale una descripción interesante al logro!"
+                        value={this.state.congrats}
+                        onChange={this.handleChange}
+                      />
+                    </div>
+                  </div>
               <div className="center-alert">
                 <Alert color="info">
                   Seleccionar condición para obtener el logro

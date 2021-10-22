@@ -32,6 +32,7 @@ import { AlumnoProgreso } from "../pages/AlumnoProgreso";
 import { ProgresoMateria } from "../pages/ProgresoMateria";
 import { ListarLogros } from "../pages/ListarLogros";
 import { ListarLogrosDelCurso } from "../pages/ListarLogrosDelCurso";
+import MenuLogrosDocente from "../pages/MenuLogrosDocente";
 
 function Routes() {
   return (
@@ -97,7 +98,8 @@ function Routes() {
         <Route exact path="/AlumnoProgreso" component={AlumnoProgreso} />
         <Route exact path="/ProgresoMateria" component={ProgresoMateria} />
         <Route exact path="/ListarLogros" component={ListarLogros} />
-        <Route exact path="/menudocente/classroom/logros" component={DocenteLogros} />
+        <Route exact path="/menudocente/classroom/logros" component={MenuLogrosDocente} />
+        <Route exact path="/menudocente/classroom/logros/new" component={DocenteLogros} />
         <Route
           exact
           path="/ListarLogrosDelCurso"
