@@ -14,22 +14,22 @@ const cookies = new Cookies();
 export const ProgresoMateria = () => {
   const location = useLocation();
   const { id = "", m = "" } = queryString.parse(location.search);
-  console.log("Id de clase", id);
-  console.log("Nombre de la materia", m);
-
+  const [logrosproyecto, setLogrosproyecto] = useState([]);
+  const [logros, setLogros] = useState([]);
+  const filtro = logros.filter((imagen) => imagen.imageData);
   const testData = [
     { tarea: "Buscar algo", bgcolor: "#6a1b9a", completed: 60 },
     { tarea: "Traer algo", bgcolor: "#00695c", completed: 30 },
     { tarea: "Romper algo", bgcolor: "#ef6c00", completed: 100 },
   ];
-
+  //NO PONER INSTRUCCIONES ACA. SOLO PARA DEFINIR FUNCIONES/VARIABLES/CONSTANTES Y PARA EL RETURN
+  //CUALQUIER COSA QUE PONGAS ACA SE VA A EJECUTAR COMO PARTE DEL RENDER (VARIAS VECES, NO SABES CUANDO)
   useEffect(() => {
     getLogros();
-    //getLogrosproyecto();
+    getLogrosproyecto();
   }, []);
-
-  const [logros, setLogros] = useState([]);
-
+  //NO PONER INSTRUCCIONES ACA. SOLO PARA DEFINIR FUNCIONES/VARIABLES/CONSTANTES Y PARA EL RETURN
+  //CUALQUIER COSA QUE PONGAS ACA SE VA A EJECUTAR COMO PARTE DEL RENDER (VARIAS VECES, NO SABES CUANDO)
   const getLogros = async () => {
     const url =
       API_HOST + "user/" + cookies.get("id") + "/classroom/" + id + "/rewards";
@@ -49,96 +49,94 @@ export const ProgresoMateria = () => {
         alert("ERRORRRR2");
       });
   };
-  console.log("Logros del curso", logros);
-  // const filtro = logros.filter((imagen) => imagen.imageData);
+  //NO PONER INSTRUCCIONES ACA. SOLO PARA DEFINIR FUNCIONES/VARIABLES/CONSTANTES Y PARA EL RETURN
+  //CUALQUIER COSA QUE PONGAS ACA SE VA A EJECUTAR COMO PARTE DEL RENDER (VARIAS VECES, NO SABES CUANDO)
+  const getLogrosproyecto = async () => {
+    const url = API_HOST + "classroom/" + id + "/projects";
 
-  // console.log(filtro);
+    await axios
+      .get(url, {
+        headers: {
+          Authorization: cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        const proyectos = response.data;
+        let url2;
+        console.log("Proyecto", response.data);
+        proyectos.map(async (item) => {
+          url2 =
+            API_HOST +
+            "user/" +
+            cookies.get("id") +
+            "/project/" +
+            item.id +
+            "/rewards";
+          await axios
+            .get(url2, {
+              headers: {
+                Authorization: cookies.get("token"),
+              },
+            })
+            .then((response) => {
+              //console.log("reward x proyecto", response.data);
+              console.log("prueba", logrosproyecto);
+              setLogrosproyecto((prev) => prev.concat(response.data));
+            })
 
-  // const [logrosproyecto, setLogrosproyecto] = useState([]);
+            .catch((error) => {
+              console.log(error);
+              alert("ERRORRRR2");
+            });
+        });
+      })
 
-  // const getLogrosproyecto = async () => {
-  //   const url = API_HOST + "classroom/" + id + "/projects";
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR2");
+      });
+  };
+  //NO PONER INSTRUCCIONES ACA. SOLO PARA DEFINIR FUNCIONES/VARIABLES/CONSTANTES Y PARA EL RETURN
+  //CUALQUIER COSA QUE PONGAS ACA SE VA A EJECUTAR COMO PARTE DEL RENDER (VARIAS VECES, NO SABES CUANDO)
+  const getLogrosactividad = async () => {
+    const url = API_HOST + "classroom/" + id + "/projects";
 
-  //   await axios
-  //     .get(url, {
-  //       headers: {
-  //         Authorization: cookies.get("token"),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       const proyectos = response.data;
-  //       let url2;
-  //       console.log("Proyecto", response.data);
-  //       proyectos.map(async (item) => {
-  //         url2 =
-  //           API_HOST +
-  //           "user/" +
-  //           cookies.get("id") +
-  //           "/project/" +
-  //           item.id +
-  //           "/rewards";
-  //         await axios
-  //           .get(url2, {
-  //             headers: {
-  //               Authorization: cookies.get("token"),
-  //             },
-  //           })
-  //           .then((response) => {
-  //             //console.log("reward x proyecto", response.data);
-  //             console.log("prueba", logrosproyecto);
-  //             setLogrosproyecto(response.data);
-  //           })
+    await axios
+      .get(url, {
+        headers: {
+          Authorization: cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        const proyectos = response.data;
+        let url2;
+        proyectos.map(async (item) => {
+          url2 = API_HOST + "user/" + id + "/project/" + item.id + "/rewards";
+          console.log(url2);
+          await axios
+            .get(url2, {
+              headers: {
+                Authorization: cookies.get("token"),
+              },
+            })
+            .then((response) => {
+              console.log(response.data);
+            })
 
-  //           .catch((error) => {
-  //             console.log(error);
-  //             alert("ERRORRRR2");
-  //           });
-  //       });
-  //     })
+            .catch((error) => {
+              console.log(error);
+              alert("ERRORRRR2");
+            });
+        });
+      })
 
-  //     .catch((error) => {
-  //       console.log(error);
-  //       alert("ERRORRRR2");
-  //     });
-  // };
-
-  // const getLogrosactividad = async () => {
-  //   const url = API_HOST + "classroom/" + id + "/projects";
-
-  //   await axios
-  //     .get(url, {
-  //       headers: {
-  //         Authorization: cookies.get("token"),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       const proyectos = response.data;
-  //       let url2;
-  //       proyectos.map(async (item) => {
-  //         url2 = API_HOST + "user/" + id + "/project/" + item.id + "/rewards";
-  //         console.log(url2);
-  //         await axios
-  //           .get(url2, {
-  //             headers: {
-  //               Authorization: cookies.get("token"),
-  //             },
-  //           })
-  //           .then((response) => {
-  //             console.log(response.data);
-  //           })
-
-  //           .catch((error) => {
-  //             console.log(error);
-  //             alert("ERRORRRR2");
-  //           });
-  //       });
-  //     })
-
-  //     .catch((error) => {
-  //       console.log(error);
-  //       alert("ERRORRRR2");
-  //     });
-  // };
+      .catch((error) => {
+        console.log(error);
+        alert("ERRORRRR2");
+      });
+  };
+  //NO PONER INSTRUCCIONES ACA. SOLO PARA DEFINIR FUNCIONES/VARIABLES/CONSTANTES Y PARA EL RETURN
+  //CUALQUIER COSA QUE PONGAS ACA SE VA A EJECUTAR COMO PARTE DEL RENDER (VARIAS VECES, NO SABES CUANDO)
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -167,7 +165,7 @@ export const ProgresoMateria = () => {
           <div className="container">
             <h2 className="mt-2">Lista de logros obtenidos</h2>
             <div className="card-columns">
-              {logros.map((logro) => (
+              {(logros.concat(logrosproyecto)).map((logro) => (
                 <ListarLogrosDelCurso
                   key={logro.id}
                   reward={logro.imageData}
