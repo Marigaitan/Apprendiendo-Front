@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
-import { Button} from 'reactstrap';
+import { Button } from 'reactstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import HeaderStudent from './HeaderAlumno';
@@ -73,7 +73,28 @@ export default class AlumnoClassroom extends Component {
         cookies.set('projectid', project.id, { path: "/" });
         this.props.history.push("/menualumno/classroom/proyecto");
     }
-    
+
+    async alumnoDescargaFile(url, fileName, extension) {
+        await axios({
+            url: url, 
+            method: 'GET',
+            responseType: 'blob',
+            // esto esta comentado ahora porque el ejemplo usa una imagen de una pagina de wikipedia
+            // cuando se use contra nuestro proyecto usamos el authorization header
+            // headers: {
+            //     'Authorization': cookies.get('token')
+            // }
+        })
+            .then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', fileName + '.' + extension);
+                document.body.appendChild(link);
+                link.click();
+            });
+    }
+
 
     render() {
         console.log(cookies.get('classid'));
@@ -91,7 +112,7 @@ export default class AlumnoClassroom extends Component {
                         <div className="proAlumno">
                             <h2>Proyectos</h2>
                             <div>
-                                {this.state.projects.map(project => <li><Button onClick={() => this.goAlumnoProyecto(project)}>{project.name}</Button></li> )}
+                                {this.state.projects.map(project => <li><Button onClick={() => this.goAlumnoProyecto(project)}>{project.name}</Button></li>)}
                             </div>
                         </div>
                         <div className="barraLateralAlumno">
@@ -100,6 +121,9 @@ export default class AlumnoClassroom extends Component {
                                 {this.state.students.map(student => { return (<div key={student.id} id={student.id}><h3 >{student.username}</h3></div>) })}
                             </div>
                         </div>
+                    </div>
+                    <div className="classData">
+                        <Button onClick={() => this.alumnoDescargaFile('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/440px-Image_created_with_a_mobile_phone.png', 'sample', 'jpg')}>Descargame!</Button>
                     </div>
                 </div>
             </div>
