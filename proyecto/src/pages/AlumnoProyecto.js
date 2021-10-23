@@ -62,8 +62,36 @@ export default class AlumnoProyecto extends Component {
     async componentDidMount() {
         axios.defaults.headers.common['Authorization'] = cookies.get('token');
         axios.defaults.baseURL = API_HOST;
-        console.log((await axios.get("project/" + cookies.get('projectid'))).data);
-        console.log(await this.getGroupMembers(cookies.get('id'), cookies.get('projectid')));
+        await axios.get("project/" + cookies.get('projectid') +'/lessons')
+        .then((response) => {
+            console.log(response);
+            const lessons = response.data.map((lessons) => ({
+              name: lessons.name,
+              id: lessons.id,
+              description: lessons.description
+            }));
+            this.setState({ lessons });
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("Aun no hay clases");
+          });
+    
+        await this.getGroupMembers(cookies.get('id'), cookies.get('projectid')).then((response) => {
+            
+            const integrantes = response.map((integrantes) => ({
+              name: integrantes.name,
+              role: integrantes.role,
+              
+            }));
+            this.setState({ integrantes });
+            console.log(integrantes);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("Aun no hay alumnos en este grupo");
+          });
+        
     }
 
     goLesson=(id)=> {
@@ -105,7 +133,7 @@ export default class AlumnoProyecto extends Component {
                         <div className="myTeam">
                             <h2>Mi Equipo</h2>
                             <div>
-                                {/* {this.state.integrantes.map(grupo => { return (<div key={integrantes.id} id={integrantes.id}><h3><li>{grupo}</li></h3></div>) })} */}
+                                {this.state.integrantes.map(integrantes => { return (<div key={integrantes.id} id={integrantes.id}><h3><li>{integrantes.name}</li></h3></div>) })}
                             </div>
                         </div>
                     </div>
