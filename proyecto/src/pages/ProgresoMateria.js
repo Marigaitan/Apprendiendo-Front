@@ -25,7 +25,7 @@ export const ProgresoMateria = () => {
 
   useEffect(() => {
     getLogros();
-    getLogrosproyecto();
+    //getLogrosproyecto();
   }, []);
 
   const [logros, setLogros] = useState([]);
@@ -51,53 +51,56 @@ export const ProgresoMateria = () => {
   };
   console.log("Logros del curso", logros);
   // const filtro = logros.filter((imagen) => imagen.imageData);
+
   // console.log(filtro);
 
-  const [logrosproyecto, setLogrosproyecto] = useState([]);
+  // const [logrosproyecto, setLogrosproyecto] = useState([]);
 
-  const getLogrosproyecto = async () => {
-    const url = API_HOST + "classroom/" + id + "/projects";
+  // const getLogrosproyecto = async () => {
+  //   const url = API_HOST + "classroom/" + id + "/projects";
 
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: cookies.get("token"),
-        },
-      })
-      .then((response) => {
-        const proyectos = response.data;
-        let url2;
-        console.log("Proyecto", response.data);
-        proyectos.map(async (item) => {
-          url2 =
-            API_HOST +
-            "user/" +
-            cookies.get("id") +
-            "/project/" +
-            item.id +
-            "/rewards";
-          await axios
-            .get(url2, {
-              headers: {
-                Authorization: cookies.get("token"),
-              },
-            })
-            .then((response) => {
-              console.log("reward x proyecto", response.data);
-            })
+  //   await axios
+  //     .get(url, {
+  //       headers: {
+  //         Authorization: cookies.get("token"),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const proyectos = response.data;
+  //       let url2;
+  //       console.log("Proyecto", response.data);
+  //       proyectos.map(async (item) => {
+  //         url2 =
+  //           API_HOST +
+  //           "user/" +
+  //           cookies.get("id") +
+  //           "/project/" +
+  //           item.id +
+  //           "/rewards";
+  //         await axios
+  //           .get(url2, {
+  //             headers: {
+  //               Authorization: cookies.get("token"),
+  //             },
+  //           })
+  //           .then((response) => {
+  //             //console.log("reward x proyecto", response.data);
+  //             console.log("prueba", logrosproyecto);
+  //             setLogrosproyecto(response.data);
+  //           })
 
-            .catch((error) => {
-              console.log(error);
-              alert("ERRORRRR2");
-            });
-        });
-      })
+  //           .catch((error) => {
+  //             console.log(error);
+  //             alert("ERRORRRR2");
+  //           });
+  //       });
+  //     })
 
-      .catch((error) => {
-        console.log(error);
-        alert("ERRORRRR2");
-      });
-  };
+  //     .catch((error) => {
+  //       console.log(error);
+  //       alert("ERRORRRR2");
+  //     });
+  // };
 
   // const getLogrosactividad = async () => {
   //   const url = API_HOST + "classroom/" + id + "/projects";
@@ -136,7 +139,6 @@ export const ProgresoMateria = () => {
   //       alert("ERRORRRR2");
   //     });
   // };
-
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -165,8 +167,12 @@ export const ProgresoMateria = () => {
           <div className="container">
             <h2 className="mt-2">Lista de logros obtenidos</h2>
             <div className="card-columns">
-              {logrosPorCurso.map((logro) => (
-                <ListarLogrosDelCurso key={logro.id} {...logro} />
+              {logros.map((logro) => (
+                <ListarLogrosDelCurso
+                  key={logro.id}
+                  reward={logro.imageData}
+                  name={logro.name}
+                />
               ))}
             </div>
           </div>

@@ -82,8 +82,9 @@ export const AlumnoProgreso = () => {
       });
   };
 
-  const filtro = logros.filter((imagen) => imagen.imageData);
-  console.log(filtro);
+  const filtro1 = logros.filter((imagen) => imagen.imageData);
+  const filtro = filtro1.filter((imagen) => !imagen.targetId);
+  console.log("este fultro", filtro);
   return (
     <div className="mainContainer">
       <HeaderStudent />

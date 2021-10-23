@@ -8,7 +8,7 @@ import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
-export const ListarLogrosDelCurso = ({ id, tipo }) => {
+export const ListarLogrosDelCurso = ({ id, reward, name }) => {
   //   const handleSelection = async (e) => {
   //     console.log(e.target);
   //     console.log(e.target.alt);
@@ -48,7 +48,7 @@ export const ListarLogrosDelCurso = ({ id, tipo }) => {
       <div className="row no-gutters">
         <div className="d-flex flex-column align-items-center text-center">
           <img
-            src={`./medallas_cursos/${id}.png`}
+            src={`./medallas_cursos/${reward}.png`}
             alt={id}
             // className="card-img img"
             width="100"
@@ -56,9 +56,7 @@ export const ListarLogrosDelCurso = ({ id, tipo }) => {
         </div>
         <div>
           <div>
-            <p style={{ color: "red", fontWeight: "bold" }}>
-              100 ejercicios resueltos
-            </p>
+            <p style={{ color: "red", fontWeight: "bold" }}>{name}</p>
           </div>
         </div>
       </div>
