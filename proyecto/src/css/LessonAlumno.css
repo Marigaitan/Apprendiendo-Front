@@ -1,0 +1,40 @@
+.alumnoLesson {
+    flex: 4;
+    padding: 15px;
+    background-image: url(../Images/FondoNaranja.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed; /* Esto es para que ocupe todo el width y height */
+}
+.lessonActivities{
+    display: flex;
+}
+.quizzCuestionario{
+    flex: 3;
+    border-radius: 20px;
+    width: 33%;
+    justify-content: center;  
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px ;
+    background-color: white;
+}
+.materialDocente{
+    flex: 1;
+    border-radius: 20px;
+    width: 33%;
+    justify-content: center;  
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px ;
+    background-color: white;
+}
+.uploadDocStudent{
+    border-radius: 20px;
+    width: 33%;
+    justify-content: center;  
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px ;
+    background-color: white;
+}
