@@ -16,7 +16,7 @@ export default class MenuAlumno extends Component {
   }
 
   async componentDidMount() {
-    //para que lo redirija al login si no hay token
+
     let classUrl = API_HOST + "user/" + cookies.get("id") + "/classrooms";
     await axios
       .get(classUrl, {

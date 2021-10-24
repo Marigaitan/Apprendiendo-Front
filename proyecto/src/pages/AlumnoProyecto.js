@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Cookies from 'universal-cookie/es6';
 import '../css/Global.css';
 import '../css/AlumnoProyecto.css';
+import '../css/VerticalTimeLine.css';
+import '../css/VerticalTimeLineElement.css';
 import LogoMini from '../Images/logoMini.png';
 import axios from 'axios';
 import { API_HOST } from "../constants";
@@ -115,9 +117,9 @@ export default class AlumnoProyecto extends Component {
                             {this.state.lessons.map(lessons => { return (<div key={lessons.id} id={lessons.id}>
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                                    //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                                    date="2011 - present"
+                                    date="null"
                                     iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                                     img={LogoMini}
                                     iconOnClick ={()=>this.goLesson(lessons.id)}

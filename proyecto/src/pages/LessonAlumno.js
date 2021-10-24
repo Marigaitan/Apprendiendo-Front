@@ -17,7 +17,9 @@ export default class LessonAlumno extends Component {
             activities: [],
             files:[],
             archivos: [],
-            documents: []
+            documents: [],
+            lessonName:'',
+            lessonDescription:''
         };
     }
 
@@ -46,33 +48,36 @@ export default class LessonAlumno extends Component {
     }
     //---------------------------------------------------------------------------
     async componentDidMount() {
-        let getLessonUrl = API_HOST + "lesson/" + cookies.get('lessonid');
-        let getActivitiesUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/activities";
+        let getLessonUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/template";
         let getDocumentsUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/documents";
     
         const requestOne = axios.get(getLessonUrl, { headers: { 'Authorization': cookies.get('token') } });
-        const requestTwo = axios.get(getActivitiesUrl, { headers: { 'Authorization': cookies.get('token') } });
-        const requestThree = axios.get(getDocumentsUrl, { headers: { 'Authorization': cookies.get('token') } });
+        const requestTwo = axios.get(getDocumentsUrl, { headers: { 'Authorization': cookies.get('token') } });
     
-        await axios.all([requestOne, requestTwo, requestThree
+        await axios.all([requestOne, requestTwo
         ])
-            .then(axios.spread((lesson,activities, files
-            ) => {
+            .then(axios.spread((lesson, file) => {
                 console.log(
                      lesson.data,
-                     activities.data,
-                     files.data
+                     file.data
                 );
+                const lessonName = lesson.data.name;
+                const lessonDescription = lesson.data.description;
+                const activities = lesson.data.activities;
+                const files = file.data;
     
                 this.setState({
-                    lesson: lesson.data,
-                    activities: activities.data,
-                    files: files.data
+                    lessonName: lessonName,
+                    lessonDescription: lessonDescription,
+                    files: files,
+                    activities: activities,
                 })
+                               
             }))
             .catch(error => {
                 console.log(error)
             });
+        
     }
 //---------------------------Descargar Documentos -------------------------------
 
@@ -103,14 +108,22 @@ export default class LessonAlumno extends Component {
                 <HeaderStudent />
                 <div className="alumnoLesson">
                     <div>
-                        <h2>{this.state.lesson.name}</h2>
+                        <h2>{this.state.lessonName}</h2>
                     </div>
                     <div className="enunciado">
-                        <h4>{this.state.lesson.description}</h4>
+                        <h4>{this.state.lessonDescription}</h4> 
                     </div>
                     <div className="lessonActivities">
                         <div className="quizzCuestionario">
                             <h4>Actividades:</h4>
+                            {this.state.activities.map(activities => {
+                                return (
+                                    <div key={activities.id} id={activities.id}>
+                                        <h4>
+                                            <li><button>{activities.name}</button></li>
+                                        </h4>
+                                    </div>)
+                            })}
                         </div>
                         <div className="materialDocente">
                             <h4>Material:</h4>
