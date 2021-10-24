@@ -5,6 +5,7 @@ import { API_HOST } from "../constants";
 import HeaderStudent from "./HeaderAlumno"
 import '../css/Global.css';
 import '../css/LessonAlumno.css';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 const cookies = new Cookies();
 
@@ -13,13 +14,16 @@ export default class LessonAlumno extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lesson:'',
+            lesson: '',
             activities: [],
-            files:[],
+            files: [],
             archivos: [],
             documents: [],
-            lessonName:'',
-            lessonDescription:''
+            lessonName: '',
+            lessonDescription: '',
+            actDocuments: [],
+            openModal: false,
+            modalId: -1
         };
     }
 
@@ -36,13 +40,13 @@ export default class LessonAlumno extends Component {
             let documento = {
                 id: null,
                 position: index,
-                name: this.archivos[index].name,               
+                name: this.archivos[index].name,
                 dataType: "FILE",
                 data: Buffer.from(toString(this.archivos[index]), 'base64')
             }
-            let documents= documents.concat(documento);
+            let documents = documents.concat(documento);
             this.setState(documents);
-            
+
         }
         console.log(this.documents);
     }
@@ -50,40 +54,42 @@ export default class LessonAlumno extends Component {
     async componentDidMount() {
         let getLessonUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/template";
         let getDocumentsUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/documents";
-    
+
         const requestOne = axios.get(getLessonUrl, { headers: { 'Authorization': cookies.get('token') } });
         const requestTwo = axios.get(getDocumentsUrl, { headers: { 'Authorization': cookies.get('token') } });
-    
+
         await axios.all([requestOne, requestTwo
         ])
             .then(axios.spread((lesson, file) => {
                 console.log(
-                     lesson.data,
-                     file.data
+                    lesson.data,
+                    file.data
                 );
                 const lessonName = lesson.data.name;
                 const lessonDescription = lesson.data.description;
                 const activities = lesson.data.activities;
                 const files = file.data;
-    
+                const actDocuments = lesson.data.activities.documents;
+
                 this.setState({
                     lessonName: lessonName,
                     lessonDescription: lessonDescription,
                     files: files,
                     activities: activities,
+                    actDocuments: actDocuments,
                 })
-                               
+
             }))
             .catch(error => {
                 console.log(error)
             });
-        
+
     }
-//---------------------------Descargar Documentos -------------------------------
+    //---------------------------Descargar Documentos -------------------------------
 
     async alumnoDescargaFile(url, fileName, extension) {
         await axios({
-            url: url, 
+            url: url,
             method: 'GET',
             responseType: 'blob',
             // esto esta comentado ahora porque el ejemplo usa una imagen de una pagina de wikipedia
@@ -101,6 +107,14 @@ export default class LessonAlumno extends Component {
                 link.click();
             });
     }
+    //----------------------POPup-Actividades---------------------------------------
+    openModal = (id) => {
+        this.setState({ openModal: true, modalId: id });
+    }
+
+    closeModal() {
+        this.setState({ openModal: false, modalId: -1 });
+    }
 
     render() {
         return (
@@ -111,7 +125,7 @@ export default class LessonAlumno extends Component {
                         <h2>{this.state.lessonName}</h2>
                     </div>
                     <div className="enunciado">
-                        <h4>{this.state.lessonDescription}</h4> 
+                        <h4>{this.state.lessonDescription}</h4>
                     </div>
                     <div className="lessonActivities">
                         <div className="quizzCuestionario">
@@ -119,9 +133,18 @@ export default class LessonAlumno extends Component {
                             {this.state.activities.map(activities => {
                                 return (
                                     <div key={activities.id} id={activities.id}>
-                                        <h4>
-                                            <li><button>{activities.name}</button></li>
-                                        </h4>
+                                        <h4><Button color="success" onClick={() => this.openModal(activities.id)}>{activities.name}</Button></h4>
+                                        <Modal isOpen={this.state.openModal && this.state.modalId === activities.id} className="modalStyle">
+                                            <ModalHeader size='lg' >
+                                                <h4>{activities.name}</h4>
+                                            </ModalHeader>
+                                            <ModalBody>
+                                                <h4>{activities.documents.data}</h4>
+                                            </ModalBody>
+                                            <ModalFooter className="modalFooter">
+                                                <Button color="secondary" onClick={() => this.closeModal()}>Finalizar</Button>
+                                            </ModalFooter>
+                                        </Modal>
                                     </div>)
                             })}
                         </div>
