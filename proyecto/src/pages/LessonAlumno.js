@@ -74,6 +74,29 @@ export default class LessonAlumno extends Component {
                 console.log(error)
             });
     }
+//---------------------------Descargar Documentos -------------------------------
+
+    async alumnoDescargaFile(url, fileName, extension) {
+        await axios({
+            url: url, 
+            method: 'GET',
+            responseType: 'blob',
+            // esto esta comentado ahora porque el ejemplo usa una imagen de una pagina de wikipedia
+            // cuando se use contra nuestro proyecto usamos el authorization header
+            // headers: {
+            //     'Authorization': cookies.get('token')
+            // }
+        })
+            .then(response => {
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', fileName + '.' + extension);
+                document.body.appendChild(link);
+                link.click();
+            });
+    }
+
     render() {
         return (
             <div className="mainContainer">
@@ -95,7 +118,7 @@ export default class LessonAlumno extends Component {
                                 return (
                                     <div key={files.id} id={files.id}>
                                         <h3>
-                                            <li><button>{files.name}</button></li>
+                                            <li><button onClick={() => this.alumnoDescargaFile('url', files.name, 'extension')}>{files.name}</button></li>
                                         </h3>
                                     </div>)
                             })}
