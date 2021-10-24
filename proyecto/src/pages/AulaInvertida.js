@@ -117,17 +117,39 @@ export default class AulaInvertida extends Component {
                 }
             ]
         }
-
-        await axios.post(classparamUrl, body, { headers: { 'Authorization': cookies.get('token') } })
+            await axios.post(classparamUrl, body, { headers: { 'Authorization': cookies.get('token') } })
             .then(response => {
                 const projectId = response.data;
                 console.log(projectId)
                 this.setState({
                     projectId: projectId //TODO agregar state
                 })
+                return projectId;
+            }).then(projectId => {
+                let lessonsUrl = API_HOST + "project/" + projectId + "/lessons";
+                axios.get(lessonsUrl, { headers: { 'Authorization': cookies.get('token') } })
+                .then(response => {
+                    console.log(response.data)
+                    const ids = response.data.map(lesson => lesson.id);
+                    console.log(ids);
+                    this.setState({
+                        lessonIds: ids
+                    })
+                })
             })
 
     }
+
+    handleChange = (event) => {
+        const value = event.target.value;
+        const name = event.target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    
 
     render() {
         return (
