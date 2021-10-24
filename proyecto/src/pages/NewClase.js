@@ -17,7 +17,7 @@ export default function NewClase() {
     const [documents, setDocuments] = useState([]);
     const [nameCuest, setNameCuest] = useState(null);
     const [formValuesCuest, setFormValuesCuest] = useState([{ question: "" }]);
-    const [nameQuizz,setNameQuizz] = useState(null);
+    const [nameQuizz, setNameQuizz] = useState(null);
     const [formValuesQuizz, setFormValuesQuizz] = useState([{ questionText: "", answerOptions: [] }])
 
 
@@ -31,25 +31,74 @@ export default function NewClase() {
         console.log(enun);
     }
     //------------------------Files----------------------------------------------
-    const subirArchivos = elem => {
-        setArchivos(elem);
+    const subirArchivos = async elem => {
+        console.log('imprimiendo elem')
+        console.log(elem);
+        const base64 = await convertToBase64(elem[0]);
+        console.log('imprimiendo base64')
+        console.log(base64);
+        let archivo = {
+            name: elem.name,
+            dataType: elem.type,
+            data: base64
+        }
+        setArchivos(archivo);
     }
+
+    const convertToBase64 = async (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
+
     const insertarArchivos = async () => {
         // const f = new FormData();
 
-        for (let index = 0; index < archivos.length; index++) {
+        // for (let index = 0; index < archivos.length; index++) {
 
-            let documento = {
-                id: null,
-                position: index,
-                name: archivos[index].name,               
-                dataType: "FILE",
-                data: Buffer.from(toString(archivos[index]), 'base64')
-            }
-            setDocuments(documents.concat(documento));
-            // f.append("documents", archivos[index]);
+        //     let documento = {
+        //         id: null,
+        //         position: index,
+        //         name: archivos[index].name,               
+        //         dataType: "FILE",
+        //         data: archivos[index]
+        //     }
+        //     setDocuments(documents.concat(documento));
+        //     // f.append("documents", archivos[index]);
+        // 
+        console.log('archivos')
+        console.log(archivos)
+        let documento = {
+            position: 0,
+            name: archivos.name,
+            dataType: archivos.dataType,
+            data: archivos.data
         }
-        console.log(documents);
+        console.log('documento')
+        console.log(documento)
+
+        await axios.post(API_HOST + 'document', documento, { headers: { 'Authorization': cookies.get('token') } })
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error))
+
+        // setDocuments([documento]);
+        // console.log(documents);
+
+        // var documentsPost = [];
+        // documents.map(document => {
+        //     const request = axios.post(API_HOST + 'document', document, { headers: {'Authorization': cookies.get('token')} });
+        //     documentsPost.push(request);
+        // })
+        // console.log(documentsPost);
+        // axios.all(documentsPost);
     }
 
 
@@ -79,13 +128,13 @@ export default function NewClase() {
             position: actividades.length,
             dueDate: null,
             startDate: null,
-            rewards:null,
-            documents:[{
+            rewards: null,
+            documents: [{
                 name: null,
-                
+
                 dataType: "CUESTIONARIO",
                 data: JSON.stringify(formValuesCuest)
-            }]            
+            }]
         }
         setActividades(actividades.concat(cuestionario));
         console.log(actividades);
@@ -116,13 +165,13 @@ export default function NewClase() {
             position: null,
             dueDate: null,
             startDate: null,
-            rewards:null,
-            documents:[{
+            rewards: null,
+            documents: [{
                 name: null,
                 position: null,
                 dataType: "QUIZZ",
                 data: JSON.stringify(formValuesQuizz)
-            }]            
+            }]
         }
         setActividades(actividades.concat(quizz));
         console.log(actividades);
@@ -130,7 +179,7 @@ export default function NewClase() {
     // -------------------------POST-------------------------------------------------------
     const newClase = async () => {
         let newClaseUrl = API_HOST + "project/" + cookies.get('projectid') + "/lesson/template";
-         await axios.post(newClaseUrl,
+        await axios.post(newClaseUrl,
             {
                 name: name,
                 description: enun,
@@ -155,7 +204,7 @@ export default function NewClase() {
             .catch(error => {
                 console.log(error);
                 alert('No se pudo crear la Clase')
-            }).then(()=>goProject());
+            }).then(() => goProject());
     }
 
     let goProject = () => {
@@ -178,7 +227,7 @@ export default function NewClase() {
                 <div className='boxActiv'>
                     <div className='newFile'>
                         <label><h4>Cargar Material</h4></label><br />
-                        <input type="file" name="files" multiple onChange={(elem) => subirArchivos(elem.target.files)} />
+                        <input type="file" name="files" onChange={(elem) => subirArchivos(elem.target.files)} />
                         <br />
                         <button className="btn btn-primary btn-lg btn-block" onClick={() => insertarArchivos()}>Insertar Archivos</button>
                     </div>

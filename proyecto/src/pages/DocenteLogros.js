@@ -65,31 +65,21 @@ class DocenteLogros extends Component {
         });
       });
 
-    const requestOne = axios.get(API_HOST + "condition/209", {
-      headers: { Authorization: cookies.get("token") },
-    });
-    const requestTwo = axios.get(API_HOST + "condition/211", {
-      headers: { Authorization: cookies.get("token") },
-    });
-    const requestThree = axios.get(API_HOST + "condition/213", {
-      headers: { Authorization: cookies.get("token") },
-    });
+    
+      var ans = [];
+      for (let i = 209; i <= 225; i++) {
+        const request = axios.get(API_HOST + "condition/" + i, {
+          headers: { Authorization: cookies.get("token") },
+        });
+          ans.push(request);
+      }
 
     await axios
-      .all([requestOne, requestTwo, requestThree])
+      .all(ans)
       .then(
-        axios.spread((conditionOne, conditionTwo, conditionThree) => {
-          console.log(
-            conditionOne.data,
-            conditionTwo.data,
-            conditionThree.data
-          );
-          //SET DATA
-          const conditions = [
-            conditionOne.data,
-            conditionTwo.data,
-            conditionThree.data,
-          ];
+        axios.spread((...res) => {
+          
+          const conditions = res.map(response => response.data)
 
           //SET STATE
           this.setState({

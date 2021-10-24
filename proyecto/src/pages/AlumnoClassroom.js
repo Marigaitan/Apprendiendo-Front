@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Cookies from 'universal-cookie/es6';
 import { Button } from 'reactstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import HeaderStudent from './HeaderAlumno';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
@@ -38,7 +37,6 @@ export default class AlumnoClassroom extends Component {
                 const year = classData.data.year;
                 const division = classData.data.division;
                 const teacherId = classData.data.teacherId;
-                console.log("ESTO TIENE QUE PASAR PRIMERO");
 
                 const students = studentsData.data.map(student => ({ id: student.id, username: student.username }));
 
@@ -74,24 +72,26 @@ export default class AlumnoClassroom extends Component {
         this.props.history.push("/menualumno/classroom/proyecto");
     }
 
-    async alumnoDescargaFile(url, fileName, extension) {
-        await axios({
-            url: url, 
-            method: 'GET',
-            responseType: 'blob',
-            // esto esta comentado ahora porque el ejemplo usa una imagen de una pagina de wikipedia
-            // cuando se use contra nuestro proyecto usamos el authorization header
-            // headers: {
-            //     'Authorization': cookies.get('token')
-            // }
-        })
+    async alumnoDescargaFile(url, fileName) {
+        await axios.get(
+            url,
+            {
+                headers: {
+                    'Authorization': cookies.get('token')
+                }
+            }
+        )
             .then(response => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const buff = Buffer.from(response.data.data, 'base64')
+                const url = window.URL.createObjectURL(new Blob([buff]));
                 const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', fileName + '.' + extension);
+                link.href = response.data.data;
+                //link.href = url;
+                link.setAttribute('download', fileName);
                 document.body.appendChild(link);
                 link.click();
+                link.remove()
+      setTimeout(() => window.URL.revokeObjectURL(url), 100)
             });
     }
 
@@ -123,7 +123,8 @@ export default class AlumnoClassroom extends Component {
                         </div>
                     </div>
                     <div className="classData">
-                        <Button onClick={() => this.alumnoDescargaFile('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/440px-Image_created_with_a_mobile_phone.png', 'sample', 'jpg')}>Descargame!</Button>
+                        {/* este es un ejemplo hardcodeado, cargue un documento tipo imagen en el back con id 410 */}
+                        <Button onClick={() => this.alumnoDescargaFile(API_HOST + 'document/409', 'sample.png')}>Descargame!</Button> 
                     </div>
                 </div>
             </div>

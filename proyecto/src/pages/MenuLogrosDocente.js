@@ -111,7 +111,7 @@ export default class MenuLogrosDocente extends Component {
                                 :
                                 <div className="center-button">
                                     {this.state.rewards.map(reward =>
-                                        <div className="flex-center">
+                                        <div key={reward.id} className="flex-center">
                                             <div>
                                                 <img
                                                     src={`/medallas_cursos/${reward.imageData}.png`}

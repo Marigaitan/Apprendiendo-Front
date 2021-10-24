@@ -24,7 +24,6 @@ export default class Conditions extends Component {
 
     render() {
         const condiciones = this.props.condiciones;
-        console.log(condiciones);
         return (
             <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.abrirCerrarDropdown}>
                 <DropdownToggle caret>
