@@ -28,7 +28,33 @@ export default class Pbl extends Component {
       projectId: -1,
       projectName: '',
       openModal: false,
-      modalId: -1
+      modalId: -1,
+      description1: '',
+      description2: '',
+      description3: '',
+      description4: '',
+      description5: '',
+      description6: '',
+      description7: '',
+      duedateClass1: '',
+      duedateClass2: '',
+      duedateClass3: '',
+      duedateClass4: '',
+      duedateClass5: '',
+      duedateClass6: '',
+      duedateClass7: '',
+      textClass1:'',
+      textClass2:'',
+      textClass3:'',
+      textClass4:'',
+      textClass5:'',
+      textClass6:'',
+      textClass7:''
+
+
+
+
+      
     };
   }
 
@@ -112,13 +138,137 @@ export default class Pbl extends Component {
         this.setState({
           projectId: projectId //TODO agregar state
         })
+        return projectId;
+      }).then(projectId => {
+        let lessonsUrl = API_HOST + "project/" + projectId + "/lessons";
+        axios.get(lessonsUrl, { headers: { 'Authorization': cookies.get('token') } })
+          .then(response => {
+            console.log(response.data)
+            const ids = response.data.map(lesson => lesson.id);
+            console.log(ids);
+            this.setState({
+              lessonIds: ids
+            })
+          })
       })
 
   }
 
-  //goClassOne() {
-  //window.location.href = "/menudocente/classroom/nuevoproyecto/pbl/clase1";
-  //}
+  handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+  addLesson = (lesson) => {
+    let putParamUrl = API_HOST + "lesson";
+    axios.put(putParamUrl, lesson, { headers: { 'Authorization': cookies.get('token') } })
+      .then(response => console.log(response.data))
+    this.closeModal();
+  }
+
+  addFirstLesson = () => {
+    const lesson = {
+      name: this.state.textClass1,
+      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      position: 0,
+      description: this.state.description1,
+      projectId: this.state.projectId,
+      dueDate: this.state.duedateClass1,
+      startDate: new Date().toISOString(),
+      active: true
+    }
+    console.log(lesson);
+    this.addLesson(lesson);
+  }
+
+  addSecondLesson = () => {
+    const lesson = {
+      name: this.state.textClass2,
+      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      position: 0,
+      description: this.state.description2,
+      projectId: this.state.projectId,
+      dueDate: this.state.duedateClass2,
+      startDate: new Date().toISOString(),
+      active: true
+    }
+    console.log(lesson);
+    this.addLesson(lesson);
+  }
+  addThirdLesson = () => {
+    const lesson = {
+      name: this.state.textClass3,
+      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      position: 0,
+      description: this.state.description3,
+      projectId: this.state.projectId,
+      dueDate: this.state.duedateClass3,
+      startDate: new Date().toISOString(),
+      active: true
+    }
+    console.log(lesson);
+    this.addLesson(lesson);
+  }
+
+  addForthLesson = () => {
+    const lesson = {
+      name: this.state.textClass4,
+      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      position: 0,
+      description: this.state.description4,
+      projectId: this.state.projectId,
+      dueDate: this.state.duedateClass4,
+      startDate: new Date().toISOString(),
+      active: true
+    }
+    console.log(lesson);
+    this.addLesson(lesson);
+  }
+  addFifthLesson = () => {
+    const lesson = {
+      name: this.state.textClass5,
+      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      position: 0,
+      description: this.state.description5,
+      projectId: this.state.projectId,
+      dueDate: this.state.duedateClass5,
+      startDate: new Date().toISOString(),
+      active: true
+    }
+    console.log(lesson);
+    this.addLesson(lesson);
+  }
+  addSixthLesson = () => {
+    const lesson = {
+      name: this.state.textClass6,
+      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      position: 0,
+      description: this.state.description6,
+      projectId: this.state.projectId,
+      dueDate: this.state.duedateClass6,
+      startDate: new Date().toISOString(),
+      active: true
+    }
+    console.log(lesson);
+    this.addLesson(lesson);
+  }
+  addSeventhLesson = () => {
+    const lesson = {
+      name: this.state.textClass7,
+      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      position: 0,
+      description: this.state.description7,
+      projectId: this.state.projectId,
+      dueDate: this.state.duedateClass7,
+      startDate: new Date().toISOString(),
+      active: true
+    }
+    console.log(lesson);
+    this.addLesson(lesson);
+  }
 
   onValueChange = (event) => {
     this.setState({
@@ -171,7 +321,7 @@ export default class Pbl extends Component {
             </VerticalTimelineElement>
 
 
-{/* CLASE 1 */}
+            {/* CLASE 1 */}
             <VerticalTimelineElement
               className="vertical-timeline-element--work"
               //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
@@ -208,22 +358,38 @@ export default class Pbl extends Component {
                   <div>
                     ¿Qué pregunta desea plantear?:
                   </div>
+                  <Form>
+                    <FormGroup>
+                      <Label for="exampleText"><p>
+                      </p></Label>
+                      <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
+                    </FormGroup>
+                  </Form>
                   <br />
                   <div>
+                    <h3>Descripción acerca del tema (Opcional) </h3>
+                    <Form>
+                      <FormGroup>
+                        <Label for="exampleText"><p>
+                        </p></Label>
+                        <Input type="textarea" name="description1" id="exampleText" onChange={this.handleChange} />
+                      </FormGroup>
+                    </Form>
                     <h3>Adjuntar documentación </h3>
                   </div>
                   <div> Mediante la opción "Adjuntar Material" puede proporcionar
                     el material que crea conveniente a sus alumnos, tales como
                     documentos en formato word, excel, pdf</div>
                   <div className="center-alert">
-                   <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
+                    <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                     <FormGroup>
                       <Label for="dueDate"></Label>
                       <Input
                         type="date"
-                        name="duedate"
+                        name="duedateClass1"
                         id="date"
                         placeholder="Hora de Finalización"
+                        onChange={this.handleChange}
                       />
 
                     </FormGroup>
@@ -231,7 +397,7 @@ export default class Pbl extends Component {
                   </div>
                 </ModalBody>
                 <ModalFooter className="modalFooter">
-                  <Button color="secondary" onClick={() => this.closeModal()}>Guardar y Cerrar</Button>
+                  <Button color="secondary" onClick={() => this.addFirstLesson()}>Guardar y Cerrar</Button>
                 </ModalFooter>
               </Modal>
             </VerticalTimelineElement>
@@ -260,25 +426,25 @@ export default class Pbl extends Component {
                 </ModalHeader>
                 <ModalBody>
                   <div>
-                    
-                    
+
+
                     En base a las respuestas obtenidas en la clase
                     anterior, el docente deberá formar de equipos de 3 o 4
                     integrantes con diversidad de perfiles. Dándoles la
                     posibilidad de que cada uno desempeñe un rol.
 
                   </div>
-                  
+
                   <div>
-                  
-                  <h3>Adjuntar documentación </h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
+
+                    <h3>Adjuntar documentación </h3>
+                    <FormGroup>
+                      <Input type="textarea" name="text" id="exampleText" />
+                    </FormGroup>
                   </div>
 
                   <div className="center-alert">
-                   <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
+                    <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                     <FormGroup>
                       <Label for="dueDate"></Label>
                       <Input
@@ -286,6 +452,7 @@ export default class Pbl extends Component {
                         name="duedate"
                         id="date"
                         placeholder="Hora de Finalización"
+                        onChange={this.handleChange}
                       />
 
                     </FormGroup>
@@ -293,14 +460,14 @@ export default class Pbl extends Component {
                   </div>
                 </ModalBody>
                 <ModalFooter className="modalFooter">
-                  <Button color="secondary" onClick={() => this.closeModal()}>Guardar y Cerrar</Button>
+                  <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
                 </ModalFooter>
               </Modal>
 
             </VerticalTimelineElement>
 
 
-{/* clase 3 */}
+            {/* clase 3 */}
 
 
             <VerticalTimelineElement
@@ -318,56 +485,67 @@ export default class Pbl extends Component {
 
               </p>
               <div>  <Button color="success" onClick={() => this.openModal(3)}>Activar Clase</Button>
-              <Modal isOpen={this.state.openModal && this.state.modalId === 3}>
-                <ModalHeader className="title">
-                  <h3 className="title">Planificación </h3>
-                </ModalHeader>
-                <ModalBody>
-                  <div>
-                    
-                    
-                  En esta clase se les pide a los alumnos  que armen un 
-                  plan de trabajo, donde presenten las tareas previstas, 
-                  el encargado de realizarlas y las fechas de resolución 
-                  esperadas. 
-
-                  </div>
-                  <div>
-                  
-                  <h3>Adjuntar documentación con lineamientos</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
-                  </div>
+                <Modal isOpen={this.state.openModal && this.state.modalId === 3}>
+                  <ModalHeader className="title">
+                    <h3 className="title">Planificación </h3>
+                  </ModalHeader>
+                  <ModalBody>
+                    <div>
 
 
-                  <div className="center-alert">
-                   <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                    <FormGroup>
-                      <Label for="dueDate"></Label>
-                      <Input
-                        type="date"
-                        name="duedate"
-                        id="date"
-                        placeholder="Hora de Finalización"
-                      />
+                      En esta clase se les pide a los alumnos  que armen un
+                      plan de trabajo, donde presenten las tareas previstas,
+                      el encargado de realizarlas y las fechas de resolución
+                      esperadas.
 
-                    </FormGroup>
+                    </div>
+                    <div>
+                      <h3>Descripción</h3>
+                    </div>
+                    <div>
+                      <Form>
+                        <FormGroup>
+                          <Label for="exampleText"><p>
+                          </p></Label>
+                          <Input type="textarea" name="description1" id="exampleText" onChange={this.handleChange} />
+                        </FormGroup>
+                      </Form>
 
-                  </div>
-                </ModalBody>
-                <ModalFooter className="modalFooter">
-                  <Button color="secondary" onClick={() => this.closeModal()}>Guardar y Cerrar</Button>
-                </ModalFooter>
-              </Modal>
-                
+                      <h3>Adjuntar documentación con lineamientos</h3>
+                      <FormGroup>
+                        <Input type="textarea" name="text" id="exampleText" />
+                      </FormGroup>
+                    </div>
+
+
+                    <div className="center-alert">
+                      <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
+                      <FormGroup>
+                        <Label for="dueDate"></Label>
+                        <Input
+                          type="date"
+                          name="duedateClass3"
+                          id="date"
+                          placeholder="Hora de Finalización"
+                          onChange={this.handleChange}
+                        />
+
+                      </FormGroup>
+
+                    </div>
+                  </ModalBody>
+                  <ModalFooter className="modalFooter">
+                    <Button color="secondary" onClick={() => this.addThirdLesson()}>Guardar y Cerrar</Button>
+                  </ModalFooter>
+                </Modal>
+
               </div>
 
 
 
 
             </VerticalTimelineElement>
-{/* CLASE 4 */}
+            {/* CLASE 4 */}
             <VerticalTimelineElement
               className="vertical-timeline-element--work"
               date='25/4 - 5/5'
@@ -385,50 +563,51 @@ export default class Pbl extends Component {
               </p>
               <div>  <Button color="success" onClick={() => this.openModal(4)}>Activar Clase</Button>
               </div>
-  
+
               <Modal isOpen={this.state.openModal && this.state.modalId === 4}>
                 <ModalHeader className="title">
                   <h3 className="title">Investigación</h3>
                 </ModalHeader>
                 <ModalBody>
                   <div>
-                    
-                    
-                  En esta clase se les solicita a los grupos que comiencen a investigar a partir de un 
-                  escenario concreto dado por la pregunta disparadora. El docente no va a preparar la información 
-                  que deban preparar. La investigación es por cuenta de cada grupo y deben entregar los resultados 
-                  con las fuentes consultadas. 
+
+
+                    En esta clase se les solicita a los grupos que comiencen a investigar a partir de un
+                    escenario concreto dado por la pregunta disparadora. El docente no va a preparar la información
+                    que deban preparar. La investigación es por cuenta de cada grupo y deben entregar los resultados
+                    con las fuentes consultadas.
 
                   </div>
                   <div>
-                    
-                  
-                  <h3>Descripciones o notas para la visualización del alumno</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
-                  </div>
-                  <div>
-                  <div>
-                  </div>
 
-                  
-                  <h3>Adjuntar documentación con lineamientos</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
+
+                    <h3>Descripciones o notas para la visualización del alumno</h3>
+                    <FormGroup>
+                      <Input type="textarea" name="description4" id="exampleText" onChange={this.handleChange} />
+                    </FormGroup>
+                  </div>
+                  <div>
+                    <div>
+                    </div>
+
+
+                    <h3>Adjuntar documentación con lineamientos</h3>
+                    <FormGroup>
+                      <Input type="textarea" name="text" id="exampleText" />
+                    </FormGroup>
                   </div>
 
 
                   <div className="center-alert">
-                   <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
+                    <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                     <FormGroup>
                       <Label for="dueDate"></Label>
                       <Input
                         type="date"
-                        name="duedate"
+                        name="duedateClass4"
                         id="date"
                         placeholder="Fecha de presentación"
+                        onChange={this.handleChange}
                       />
 
                     </FormGroup>
@@ -436,11 +615,11 @@ export default class Pbl extends Component {
                   </div>
                 </ModalBody>
                 <ModalFooter className="modalFooter">
-                  <Button color="secondary" onClick={() => this.closeModal()}>Guardar y Cerrar</Button>
+                  <Button color="secondary" onClick={() => this.addForthLesson()}>Guardar y Cerrar</Button>
                 </ModalFooter>
               </Modal>
-                
-              
+
+
 
 
 
@@ -448,12 +627,12 @@ export default class Pbl extends Component {
 
 
             </VerticalTimelineElement>
-            
-            
-            
-            
+
+
+
+
             {/* CLASE 5 */}
-            
+
             <VerticalTimelineElement
               className="vertical-timeline-element--education"
               date="10/5 - 15/5"
@@ -469,46 +648,46 @@ export default class Pbl extends Component {
               </p>
               <div>  <Button color="success" color="success" onClick={() => this.openModal(5)}>Activar Clase</Button>
               </div>
-             
-  
+
+
               <Modal isOpen={this.state.openModal && this.state.modalId === 5}>
                 <ModalHeader className="title">
                   <h3 className="title">Puesta en común y debate</h3>
                 </ModalHeader>
                 <ModalBody>
                   <div>
-                    
-                    
-                  Luego de la investigación el docente debe determinar una fecha 
-                  en la cual los grupos expondrán los resultados de su investigación
-                  y debatirán con el resto de los alumnos acerca de los mismos. 
-                  Al finalizar la puesta en común con el resto de los alumnos 
-                  deberán en conjunto idear un producto final a elaborar con la investigación realizada
-                  (como un folleto, una presentación informativa para algún establecimiento, un trabajo de investigación cientifica).  
+
+
+                    Luego de la investigación el docente debe determinar una fecha
+                    en la cual los grupos expondrán los resultados de su investigación
+                    y debatirán con el resto de los alumnos acerca de los mismos.
+                    Al finalizar la puesta en común con el resto de los alumnos
+                    deberán en conjunto idear un producto final a elaborar con la investigación realizada
+                    (como un folleto, una presentación informativa para algún establecimiento, un trabajo de investigación cientifica).
 
                   </div>
                   <div>
-                    
-                  
-                  <h3>Descripciones o notas para la visualización del alumno</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
-                  </div>
-                  <div>
-                  <div>
-                  </div>
 
-                  
-                  <h3>Adjuntar documentación con lineamientos</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
+
+                    <h3>Descripciones o notas para la visualización del alumno</h3>
+                    <FormGroup>
+                      <Input type="textarea" name="description5" id="exampleText" onChange={this.handleChange}/>
+                    </FormGroup>
+                  </div>
+                  <div>
+                    <div>
+                    </div>
+
+
+                    <h3>Adjuntar documentación con lineamientos</h3>
+                    <FormGroup>
+                      <Input type="textarea" name="text" id="exampleText" />
+                    </FormGroup>
                   </div>
 
 
                   <div className="center-alert">
-                   <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
+                    <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                     <FormGroup>
                       <Label for="dueDate"></Label>
                       <Input
@@ -516,6 +695,7 @@ export default class Pbl extends Component {
                         name="duedate"
                         id="date"
                         placeholder="Fecha de presentación"
+                        onChange={this.handleChange}
                       />
 
                     </FormGroup>
@@ -523,7 +703,7 @@ export default class Pbl extends Component {
                   </div>
                 </ModalBody>
                 <ModalFooter className="modalFooter">
-                  <Button color="secondary" onClick={() => this.closeModal()}>Guardar y Cerrar</Button>
+                  <Button color="secondary" onClick={() => this.addFifthLesson()}>Guardar y Cerrar</Button>
                 </ModalFooter>
               </Modal>
 
@@ -562,51 +742,52 @@ export default class Pbl extends Component {
               <p>
                 Elaborar un producto  para la presentación que contemple la investigación y una posible solución al problema
               </p>
-             <div> <Button color="success" onClick ={() => this.openModal(6)}>Activar Clase</Button>
-            </div>
-            <Modal isOpen={this.state.openModal && this.state.modalId === 6}>
+              <div> <Button color="success" onClick={() => this.openModal(6)}>Activar Clase</Button>
+              </div>
+              <Modal isOpen={this.state.openModal && this.state.modalId === 6}>
                 <ModalHeader className="title">
                   <h3 className="title">Elaborar Producto</h3>
                 </ModalHeader>
                 <ModalBody>
                   <div>
-                   
-                  Luego del debate y la decisión en conjunto del producto a elaborar
-                  el docente debe proveer a los alumnos la fecha en la que se deberá finalizar
-                  con el producto y condiciones de la entrega en particular.
-                    
-                    
+
+                    Luego del debate y la decisión en conjunto del producto a elaborar
+                    el docente debe proveer a los alumnos la fecha en la que se deberá finalizar
+                    con el producto y condiciones de la entrega en particular.
+
+
 
                   </div>
                   <div>
-                    
-                  
-                  <h3>Descripciones o notas para la visualización del alumno</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
-                  </div>
-                  <div>
-                  <div>
-                  </div>
 
-                  
-                  <h3>Adjuntar documentación con lineamientos</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
+
+                    <h3>Descripciones o notas para la visualización del alumno</h3>
+                    <FormGroup>
+                      <Input type="textarea" name="description6" id="exampleText"  onChange={this.handleChange}/>
+                    </FormGroup>
+                  </div>
+                  <div>
+                    <div>
+                    </div>
+
+
+                    <h3>Adjuntar documentación con lineamientos</h3>
+                    <FormGroup>
+                      <Input type="textarea" name="text" id="exampleText" />
+                    </FormGroup>
                   </div>
 
 
                   <div className="center-alert">
-                   <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
+                    <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                     <FormGroup>
                       <Label for="dueDate"></Label>
                       <Input
                         type="date"
-                        name="duedate"
+                        name="duedateClass6"
                         id="date"
                         placeholder="Fecha de presentación"
+                        onChange={this.handleChange}
                       />
 
                     </FormGroup>
@@ -614,17 +795,17 @@ export default class Pbl extends Component {
                   </div>
                 </ModalBody>
                 <ModalFooter className="modalFooter">
-                  <Button color="secondary" onClick={() => this.closeModal()}>Guardar y Cerrar</Button>
+                  <Button color="secondary" onClick={() => this.addSixthLesson()}>Guardar y Cerrar</Button>
                 </ModalFooter>
               </Modal>
 
 
 
             </VerticalTimelineElement>
-            
-            
+
+
             {/* clase 7  */}
-            
+
             <VerticalTimelineElement
               className="vertical-timeline-element--education"
               //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
@@ -638,7 +819,7 @@ export default class Pbl extends Component {
               <p>
                 Entregar el producto final e incluir conclusiones. Preparar una presentación oral y realizar la evaluación
               </p>
-              <div>  <Button color="success" onClick ={() => this.openModal(7)}>Activar Clase</Button>
+              <div>  <Button color="success" onClick={() => this.openModal(7)}>Activar Clase</Button>
               </div>
               <Modal isOpen={this.state.openModal && this.state.modalId === 7}>
                 <ModalHeader className="title">
@@ -646,47 +827,48 @@ export default class Pbl extends Component {
                 </ModalHeader>
                 <ModalBody>
                   <div>
-                   
-                  Toda la clase se reúne para que cada equipo presente sus productos. La idea es que se cree un proceso iterativo 
-                  que convierte al proyecto en un espiral de aprendizaje que puede no tener fin dado que a lo largo de la investigación
-                  o en la etapa de conclusiones suelen surgir nuevas preguntas que pueden resultar en un nuevo proyecto. 
-                  
-                  El docente deberá dar lugar al debate disponibilizando una fecha en la que se realizará 
-                  esta etapa y solicitará los entregables finales a los alumnos. 
-                    
-                    
+
+                    Toda la clase se reúne para que cada equipo presente sus productos. La idea es que se cree un proceso iterativo
+                    que convierte al proyecto en un espiral de aprendizaje que puede no tener fin dado que a lo largo de la investigación
+                    o en la etapa de conclusiones suelen surgir nuevas preguntas que pueden resultar en un nuevo proyecto.
+
+                    El docente deberá dar lugar al debate disponibilizando una fecha en la que se realizará
+                    esta etapa y solicitará los entregables finales a los alumnos.
+
+
 
                   </div>
                   <div>
-                    
-                  
-                  <h3>Descripciones o notas para la visualización del alumno</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
+
+
+                    <h3>Descripciones o notas para la visualización del alumno</h3>
+                    <FormGroup>
+                      <Input type="textarea" name="description7" id="exampleText" onChange={this.handleChange}/>
+                    </FormGroup>
                   </div>
                   <div>
-                  <div>
+                    <div>
+                    </div>
+
+
+                    <h3>Adjuntar documentación con lineamientos</h3>
+                    <FormGroup>
+                      <Input type="textarea" name="text" id="exampleText" />
+                    </FormGroup>
                   </div>
 
-                  
-                  <h3>Adjuntar documentación con lineamientos</h3>
-                  <FormGroup>
-                  <Input type="textarea" name="text" id="exampleText" />
-                  </FormGroup>
-                  </div>
 
 
-                  
                   <div className="center-alert">
-                   <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
+                    <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                     <FormGroup>
                       <Label for="dueDate"></Label>
                       <Input
                         type="date"
-                        name="duedate"
+                        name="duedateClass7"
                         id="date"
                         placeholder="Fecha de presentación"
+                        onChange={this.handleChange}
                       />
 
                     </FormGroup>
@@ -694,7 +876,7 @@ export default class Pbl extends Component {
                   </div>
                 </ModalBody>
                 <ModalFooter className="modalFooter">
-                  <Button color="secondary" onClick={() => this.closeModal()}>Guardar y Cerrar</Button>
+                  <Button color="secondary" onClick={() => this.addSeventhLesson()}>Guardar y Cerrar</Button>
                 </ModalFooter>
               </Modal>
 
