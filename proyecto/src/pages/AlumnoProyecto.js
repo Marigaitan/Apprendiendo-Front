@@ -114,8 +114,8 @@ export default class AlumnoProyecto extends Component {
                         <div className="availableLessons">
                             <h2>Clases</h2>
                             <VerticalTimeline>
-                            {this.state.lessons.map(lessons => { return (<div key={lessons.id} id={lessons.id}>
-                                <VerticalTimelineElement
+                            {this.state.lessons.map(lessons => { return (
+                                <VerticalTimelineElement  key={lessons.id} id={lessons.id}
                                     className="vertical-timeline-element--work"
                                     //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
@@ -128,8 +128,7 @@ export default class AlumnoProyecto extends Component {
                                    <h3 className="vertical-timeline-element-title">{lessons.name}</h3>
                                    <h4 className="vertical-timeline-element-subtitle">{lessons.description}</h4>
                                 
-                                </VerticalTimelineElement>
-                            </div>) })}
+                                </VerticalTimelineElement> )})}
                             </VerticalTimeline>
                         </div>
                         <div className="myTeam">
