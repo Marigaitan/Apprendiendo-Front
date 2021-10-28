@@ -26,108 +26,40 @@ export default class DocenteProyecto extends Component {
         };
     }
 
-    async componentDidMount() {
-
-        let getProjectDetailsUrl = API_HOST + "project/" + cookies.get('projectid')
-        let getLessonsUrl = API_HOST + "project/" + cookies.get('projectid') + "/lessons";
-        let getStudentsUrl = API_HOST + "project/" + cookies.get('projectid') + "/groups";
-
-        //AXIOS
-        const requestZero = axios.get(getProjectDetailsUrl, { headers: { 'Authorization': cookies.get('token') } });
-        const requestOne = axios.get(getLessonsUrl, { headers: { 'Authorization': cookies.get('token') } });
-        const requestTwo = axios.get(getStudentsUrl, { headers: { 'Authorization': cookies.get('token') } });
-
-        await axios.all([requestZero, requestOne
-            , requestTwo
-        ])
-            .then(axios.spread((project, lessons, groups) => {
-
-                console.log(project.data
-                    , groups.data
-                    , lessons.data
-                );
-
-                //SET STATE
-                this.setState({
-                    project: project.data,
-                    groups: groups.data,
-                    lessons: lessons.data
-                })
-
-
-                var requests = []
-                groups.data.forEach(group => {
-                    //AXIOS
-                    let getStudentsGroupProgressUrl = API_HOST + "group/" + group.id + "/progress";
-                    let getStudentsIdUrl = API_HOST + "group/" + group.id + "/students";
-                    const requestZero = axios.get(getStudentsGroupProgressUrl, { headers: { 'Authorization': cookies.get('token') } });
-                    const requestOne = axios.get(getStudentsIdUrl, { headers: { 'Authorization': cookies.get('token') } });
-                    requests.push(requestZero);
-                    requests.push(requestOne);
-                })
-                
-                let groupsFull = []
-                groups.data.forEach(studentGroup => {
-
-                    
-                    var studentGroupFull = {
-                        progress: null,
-                        id: studentGroup.id,
-                        name: studentGroup.name,
-                        studentIds: null,
-                        studentNames: [],
-                    }
-                    
-                    console.log('studentGroupFull');
-                    console.log(studentGroupFull);
-                    //AXIOS
-                    let getStudentsGroupProgressUrl = API_HOST + "group/" + studentGroup.id + "/progress";
-                    let getStudentsIdUrl = API_HOST + "group/" + studentGroup.id + "/students";
-                    const requestZero = axios.get(getStudentsGroupProgressUrl, { headers: { 'Authorization': cookies.get('token') } });
-                    const requestOne = axios.get(getStudentsIdUrl, { headers: { 'Authorization': cookies.get('token') } });
-
-                    var aGroup = [];
-                    axios.all([requestZero, requestOne])
-                        .then(axios.spread((progress, students) => {
-
-                            // studentGroupFull.studentIds.forEach(async studentId => {
-                            //     const getStudentUrl = API_HOST + "student/" + studentId;
-                            //     await axios.get(getStudentUrl, { headers: { 'Authorization': cookies.get('token') } })
-                            //         .then(response => {
-                            //             studentGroupFull.studentNames.push(response.data.firstName + " " + response.data.lastName);
-                            //             console.log(studentGroupFull.studentNames)
-                            //         })
-                            // })
-                            studentGroupFull.progress = progress.data
-                            studentGroupFull.studentIds = students.data.map(student => student.studentId)
-                            aGroup.push(studentGroupFull);
-
-                            var ans = [];
-                            ans = studentGroupFull.studentIds.map(studentId => axios.get(API_HOST + "student/" + studentId, { headers: { Authorization: cookies.get("token") } }))
-
-                            return axios.all(ans)
-                        }))
-                        .then(
-                            axios.spread((...res) => {
-                                res.forEach(response => {
-                                    var aStudentGroup = aGroup.find(group => response.data.id === group.id)
-                                    aStudentGroup.studentNames.push(response.data.firstName + " " + response.data.lastName)
-                                }
-                                );
-                            }))
-                        .catch((error) => console.log(error));
-
-                    groupsFull.push(aGroup)
-                })
-                this.setState({
-                    groups: groupsFull
-                })
-            }))
-            .catch(error => {
-                console.log(error)
-            });
+    async getGroupMembers(groupId) {
+        let members = (await axios.get("group/" + groupId + "/students")).data;
+        return Promise.all(members.map( member => {
+            return axios.get("user/" + member.studentId).then(response => ({user: response.data, role: member.groupRole}));
+        }));
     }
 
+    async getFullGroups(projectId) {
+        let groups = (await (axios.get("project/" + projectId + "/groups"))).data;
+
+        return Promise.all(groups.map(async group => ({
+            group: group,
+            progress: (await axios.get("group/" + group.id + "/progress")).data,
+            members: await this.getGroupMembers(group.id)
+        })))
+    }
+
+    async componentDidMount() {
+        axios.defaults.headers.common['Authorization'] = cookies.get('token');
+        axios.defaults.baseURL = API_HOST;
+
+        let projectId = cookies.get('projectid'); 
+
+        this.setState({groups: await this.getFullGroups(projectId)});
+        this.setState({lessons: (await axios.get("project/" + projectId + "/lessons")).data});
+        this.setState({project: (await axios.get("project/" + projectId)).data});
+
+        console.log("Grupos:");
+        console.log(this.state.groups);
+        console.log("Projecto:");
+        console.log(this.state.project);
+        console.log("Lessons:");
+        console.log(this.state.lessons);
+    }
 
 
     redirect = () => {
@@ -136,15 +68,11 @@ export default class DocenteProyecto extends Component {
         }
     }
 
-
-
     crearClase = () => {
         window.location.href = "/menudocente/classroom/proyecto/nuevaclase"
     }
 
     render() {
-
-        console.log(this.state.groups)
         return (
             <div className="mainContainer">
                 <HeaderTeacher />
