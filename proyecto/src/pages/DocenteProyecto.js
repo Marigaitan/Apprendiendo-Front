@@ -29,7 +29,8 @@ export default class DocenteProyecto extends Component {
     async getGroupMembers(groupId) {
         let members = (await axios.get("group/" + groupId + "/students")).data;
         return Promise.all(members.map( member => {
-            return axios.get("user/" + member.studentId).then(response => ({user: response.data, role: member.groupRole}));
+            return axios.get("user/" + member.studentId)
+                        .then(response => ({user: response.data.firstName + " " + response.data.lastName, role: member.groupRole}));
         }));
     }
 
