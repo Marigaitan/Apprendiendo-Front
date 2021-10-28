@@ -17,6 +17,8 @@
   margin-top: 50vh;
   transform: translateY(-50%);
   text-align: center;
+  background-color: transparent;
+  backdrop-filter: blur(6px);
 
   /* display: inline-block;
      margin: 0 0.5rem;  */
