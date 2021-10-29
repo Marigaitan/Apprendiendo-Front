@@ -212,8 +212,7 @@ export default function NewClase() {
             .then(response => {
                 console.log(response);
                 cookies.set('claseid', response.data, { path: "/" });
-                // window.location.href = "/menudocente/classroom/proyecto" + cookies.get('projectid');
-                // goProject()
+                goProject()
             })
             .catch(error => {
                 console.log(error);
