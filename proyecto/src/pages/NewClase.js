@@ -12,7 +12,7 @@ const cookies = new Cookies();
 export default function NewClase() {
     const [name, setName] = useState(null);
     const [enun, setEnun] = useState(null);
-    const [archivos, setArchivos] = useState(null);
+    const [archivos, setArchivos] = useState([]);
     const [actividades, setActividades] = useState([]);
     //const [documents, setDocuments] = useState([]);
     const [nameCuest, setNameCuest] = useState(null);
@@ -39,10 +39,12 @@ export default function NewClase() {
         console.log(base64);
         let archivo = {
             name: elem[0].name,
-            dataType: elem[0].type,
-            data: base64
+            dataType: 'BLA',
+            data: base64,
+            documentSourceType: 'BLA',
+            sourceId: cookies.get('lessonid')
         }
-        setArchivos(archivo);
+        setArchivos(oldArray => [...oldArray, archivo]);
     }
 
     const convertToBase64 = async (file) => {
@@ -59,47 +61,47 @@ export default function NewClase() {
     };
 
 
-    const insertarArchivos = async () => {
-        // const f = new FormData();
+    // const insertarArchivos = async () => {
+    //     // const f = new FormData();
 
-        // for (let index = 0; index < archivos.length; index++) {
+    //     // for (let index = 0; index < archivos.length; index++) {
 
-        //     let documento = {
-        //         id: null,
-        //         position: index,
-        //         name: archivos[index].name,               
-        //         dataType: "FILE",
-        //         data: archivos[index]
-        //     }
-        //     setDocuments(documents.concat(documento));
-        //     // f.append("documents", archivos[index]);
-        // 
-        console.log('archivos')
-        console.log(archivos)
-        let documento = {
-            position: 0,
-            name: archivos.name,
-            dataType: archivos.dataType,
-            data: archivos.data
-        }
-        console.log('documento')
-        console.log(documento)
+    //     //     let documento = {
+    //     //         id: null,
+    //     //         position: index,
+    //     //         name: archivos[index].name,               
+    //     //         dataType: "FILE",
+    //     //         data: archivos[index]
+    //     //     }
+    //     //     setDocuments(documents.concat(documento));
+    //     //     // f.append("documents", archivos[index]);
+    //     // 
+    //     console.log('archivos')
+    //     console.log(archivos)
+    //     let documento = {
+    //         position: 0,
+    //         name: archivos.name,
+    //         dataType: archivos.dataType,
+    //         data: archivos.data
+    //     }
+    //     console.log('documento')
+    //     console.log(documento)
 
-        await axios.post(API_HOST + 'document', documento, { headers: { 'Authorization': cookies.get('token') } })
-            .then(response => console.log(response.data))
-            .catch(error => console.log(error))
+    //     await axios.post(API_HOST + 'document', documento, { headers: { 'Authorization': cookies.get('token') } })
+    //         .then(response => console.log(response.data))
+    //         .catch(error => console.log(error))
 
-        // setDocuments([documento]);
-        // console.log(documents);
+    //     // setDocuments([documento]);
+    //     // console.log(documents);
 
-        // var documentsPost = [];
-        // documents.map(document => {
-        //     const request = axios.post(API_HOST + 'document', document, { headers: {'Authorization': cookies.get('token')} });
-        //     documentsPost.push(request);
-        // })
-        // console.log(documentsPost);
-        // axios.all(documentsPost);
-    }
+    //     // var documentsPost = [];
+    //     // documents.map(document => {
+    //     //     const request = axios.post(API_HOST + 'document', document, { headers: {'Authorization': cookies.get('token')} });
+    //     //     documentsPost.push(request);
+    //     // })
+    //     // console.log(documentsPost);
+    //     // axios.all(documentsPost);
+    // }
 
 
     //---------------------Cuestionario------------------------------------------
@@ -197,7 +199,7 @@ export default function NewClase() {
                 position: null,
                 dueDate: null,
                 startDate: null,
-                active: "True", //Cambiarlo para que funcione con el switch y en default este en false
+                active: true, //Cambiarlo para que funcione con el switch y en default este en false
                 activities: actividades,
                 documents: archivos
             },
@@ -210,12 +212,13 @@ export default function NewClase() {
             .then(response => {
                 console.log(response);
                 cookies.set('claseid', response.data, { path: "/" });
-                window.location.href = "/menudocente/classroom/proyecto" + cookies.get('projectid');
+                // window.location.href = "/menudocente/classroom/proyecto" + cookies.get('projectid');
+                // goProject()
             })
             .catch(error => {
                 console.log(error);
                 alert('No se pudo crear la Clase')
-            }).then(() => goProject());
+            })
     }
 
     let goProject = () => {
@@ -240,7 +243,7 @@ export default function NewClase() {
                         <label><h4>Cargar Material</h4></label><br />
                         <input type="file" name="files" onChange={(elem) => subirArchivos(elem.target.files)} />
                         <br />
-                        <button className="btn btn-primary btn-lg btn-block" onClick={() => insertarArchivos()}>Insertar Archivos</button>
+                        {/* <button className="btn btn-primary btn-lg btn-block" onClick={() => insertarArchivos()}>Insertar Archivos</button> */}
                     </div>
                     <br />
                     {/* //---------------------Cuestionario------------------------------------------ */}
