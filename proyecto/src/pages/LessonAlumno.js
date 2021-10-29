@@ -108,6 +108,12 @@ export default class LessonAlumno extends Component {
                     return activityDoc;
                 });
 
+                const actQuizz = actDocuments.filter(actDocument => actDocument.dataType === 'QUIZZ')
+                const actCuestionario = actDocuments.filter(actDocument => actDocument.dataType === 'CUESTIONARIO')
+
+                console.log(actQuizz)
+                console.log(actCuestionario)
+
                 this.setState({
                     lessonName: lessonName,
                     lessonDescription: lessonDescription,
