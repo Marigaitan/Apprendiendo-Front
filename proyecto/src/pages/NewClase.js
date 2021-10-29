@@ -215,7 +215,7 @@ export default function NewClase() {
             .catch(error => {
                 console.log(error);
                 alert('No se pudo crear la Clase')
-            })//.then(() => goProject());
+            }).then(() => goProject());
     }
 
     let goProject = () => {
