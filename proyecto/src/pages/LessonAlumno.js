@@ -96,12 +96,22 @@ export default class LessonAlumno extends Component {
                 const lessonDescription = lesson.data.description;
                 const activities = lesson.data.activities;
                 const files = file.data;
-                const actDocuments = lesson.data.activities.documents;
+                const actDocuments = lesson.data.activities.map(activity => {
+                    let activityDoc = 
+                        {
+                            name: activity.documents[0].name,
+                            position: activity.documents[0].position,
+                            dataType: activity.documents[0].dataType,
+                            data: activity.documents[0].data,
+                            activityId: activity.id
+                        }
+                    return activityDoc;
+                });
 
                 this.setState({
                     lessonName: lessonName,
                     lessonDescription: lessonDescription,
-                    files: files,
+                    files: files, 
                     activities: activities,
                     actDocuments: actDocuments,
                 })
@@ -158,16 +168,16 @@ export default class LessonAlumno extends Component {
                     <div className="lessonActivities">
                         <div className="quizzCuestionario">
                             <h4>Actividades:</h4>
-                            {this.state.activities.map(activities => {
+                            {this.state.actDocuments.map(actDocument => {
                                 return (
-                                    <div key={activities.id} id={activities.id}>
-                                        <h4><Button color="success" onClick={() => this.openModal(activities.id)}>{activities.name}</Button></h4>
-                                        <Modal isOpen={this.state.openModal && this.state.modalId === activities.id} className="modalStyle">
+                                    <div key={actDocument.activityId} id={actDocument.activityId}>
+                                        <h4><Button color="success" onClick={() => this.openModal(actDocument.activityId)}>{actDocument.name}</Button></h4>
+                                        <Modal isOpen={this.state.openModal && this.state.modalId === actDocument.activityId} className="modalStyle">
                                             <ModalHeader size='lg' >
-                                                <h4>{activities.name}</h4>
+                                                {actDocument.name}
                                             </ModalHeader>
                                             <ModalBody>
-                                                <h4>{activities.documents.data}</h4>
+                                                <h4>{actDocument.data}</h4>
                                             </ModalBody>
                                             <ModalFooter className="modalFooter">
                                                 <Button color="secondary" onClick={() => this.closeModal()}>Finalizar</Button>

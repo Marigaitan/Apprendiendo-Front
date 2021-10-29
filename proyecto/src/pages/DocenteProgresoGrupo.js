@@ -25,70 +25,24 @@ export default class DocenteProgresoGrupo extends Component {
         };
     }
 
-    //TODO PASAR ESTO A DOCENTEPROYECTO PORQUE LLEGA NULO EN ESTE COMPONENTE EL PROP
-    // YA ESTA PASADO VERLO AHI
-    //async componentDidMount() {
-
-
-        // let groups = []
-
-        // this.props.studentGroups.forEach(studentGroup => {
-
-        //     let getStudentsGroupProgressUrl = API_HOST + "group/" + studentGroup.id + "/progress";
-        //     let getStudentsIdUrl = API_HOST + "group/" + studentGroup.id + "/students";
-
-        //     //AXIOS
-        //     const requestZero = axios.get(getStudentsGroupProgressUrl, { headers: { 'Authorization': cookies.get('token') } });
-        //     const requestOne = axios.get(getStudentsIdUrl, { headers: { 'Authorization': cookies.get('token') } });
-
-        //     var aGroup = axios.all([requestZero, requestOne])
-        //         .then(axios.spread((progress, students) => {
-        //             var aGroup = {
-        //                 progress: progress.data,
-        //                 id: studentGroup.id,
-        //                 name: studentGroup.name,
-        //                 studentIds: students.data.map(student => student.studentId),
-        //                 studentNames: [],
-        //             }
-        //             return aGroup
-        //         }))
-        //         .catch((error) => console.log(error));
-
-
-
-        //     aGroup.studentIds.forEach(studentId => {
-        //         const getStudentUrl = API_HOST + "student/" + studentId;
-        //         axios.get(getStudentUrl, { headers: { 'Authorization': cookies.get('token') } })
-        //             .then(response => {
-        //                 aGroup.studentNames.push(response.data.firstName + " " + response.data.lastName);
-        //                 console.log(aGroup.studentNames)
-        //             })
-        //         })
-        //     })
-        //     this.setState({
-        //         groups: groups
-        //     })
-            
-
-    //}
 
     render() {
         return (
             this.props.studentGroups.map(studentGroup => {
                 return (
                     <div key={studentGroup.id}>
-                        <Button size="lg" key={studentGroup.id} block onClick={() => this.openModalStudent(studentGroup.id)}>{studentGroup.name}</Button>
-                        <Modal isOpen={this.state.openModal && this.state.modalId === studentGroup.id}>
+                        <Button size="lg" key={studentGroup.group.id} block onClick={() => this.openModalStudent(studentGroup.group.id)}>{studentGroup.group.name}</Button>
+                        <Modal isOpen={this.state.openModal && this.state.modalId === studentGroup.group.id}>
                             <ModalHeader size='lg'>
-                                {studentGroup.id}
+                                {studentGroup.group.id}
                             </ModalHeader>
                             <ModalBody>
                                 <div>
                                     <h3>Progreso de la clase del grupo: </h3>
-                                    {this.state.groups.map(group => {
+                                    {studentGroup.members.map(member => {
                                         return (
-                                            group.id === studentGroup.id ?
-                                                <Progress value={group.progress}>{group.progress}%</Progress>
+                                            studentGroup.id === member.id ?
+                                                <Progress value={studentGroup.progress}>{studentGroup.progress}%</Progress>
                                                 : <div></div>
                                         )
                                     })}
