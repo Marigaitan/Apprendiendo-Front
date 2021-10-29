@@ -119,11 +119,12 @@ export default class AlumnoProyecto extends Component {
                                     className="vertical-timeline-element--work"
                                     //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
-                                    date="null"
-                                    iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-                                    img={LogoMini}
+                                    date=""
+                                    iconStyle={{ background: 'rgb(225, 206, 81)', color: '#000000' }}
+                                    icon={<img src={LogoMini} className="small-img" />}
                                     iconOnClick ={()=>this.goLesson(lessons.id)}
                                     align = "alternate"
+                                
                                 >
                                    <h3 className="vertical-timeline-element-title">{lessons.name}</h3>
                                    <h4 className="vertical-timeline-element-subtitle">{lessons.description}</h4>
