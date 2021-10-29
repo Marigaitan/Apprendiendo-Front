@@ -17,7 +17,7 @@ export default class LessonAlumno extends Component {
             lesson: '',
             activities: [],
             files: [],
-            archivos: [],
+            archivos: null,
             documents: [],
             lessonName: '',
             lessonDescription: '',
@@ -28,35 +28,62 @@ export default class LessonAlumno extends Component {
     }
 
     //------------------------Files----------------------------------------------
-    subirArchivos = elem => {
-        let archivos = elem;
+    subirArchivos = async elem => {
+        console.log('imprimiendo elem')
+        console.log(elem);
+        const base64 = await this.convertToBase64(elem[0]);
+        console.log('imprimiendo base64')
+        console.log(base64);
+        let archivos = {
+            name: elem.name,
+            dataType: elem.type,
+            data: base64
+        }
         this.setState(archivos);
     }
+
+    convertToBase64 = async (fileUpload) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(fileUpload);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
+
     insertarArchivos = async () => {
-        // const f = new FormData();
-
-        for (let index = 0; index < this.archivos.length; index++) {
-
-            let documento = {
-                id: null,
-                position: index,
-                name: this.archivos[index].name,
-                dataType: "FILE",
-                data: Buffer.from(toString(this.archivos[index]), 'base64')
-            }
-            let documents = documents.concat(documento);
-            this.setState(documents);
-
+       
+        console.log('archivos')
+        console.log(this.state.archivos)
+        let documento = {
+            position: 0,
+            name: this.state.archivos.name,
+            dataType: this.state.archivos.dataType,
+            data: this.state.archivos.data
         }
-        console.log(this.documents);
+        console.log('documento')
+        console.log(documento)
+
+        await axios.post(API_HOST + 'document', documento, { headers: { 'Authorization': cookies.get('token') } })
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error))
+
     }
+   
     //---------------------------------------------------------------------------
     async componentDidMount() {
         let getLessonUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/template";
-        let getDocumentsUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/documents";
-
+        let getDocumentsSummUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/documents/summary";
+        let getDocumentsSelUrl = API_HOST + "lesson/" + cookies.get('lessonid') + "/documents/selective";
+        
         const requestOne = axios.get(getLessonUrl, { headers: { 'Authorization': cookies.get('token') } });
-        const requestTwo = axios.get(getDocumentsUrl, { headers: { 'Authorization': cookies.get('token') } });
+        const requestTwo = axios.get(getDocumentsSummUrl, { headers: { 'Authorization': cookies.get('token') } });
+        const requestThree = axios.get(getDocumentsSelUrl, { headers: { 'Authorization': cookies.get('token') } });
 
         await axios.all([requestOne, requestTwo
         ])
@@ -87,24 +114,25 @@ export default class LessonAlumno extends Component {
     }
     //---------------------------Descargar Documentos -------------------------------
 
-    async alumnoDescargaFile(url, fileName, extension) {
-        await axios({
-            url: url,
-            method: 'GET',
-            responseType: 'blob',
-            // esto esta comentado ahora porque el ejemplo usa una imagen de una pagina de wikipedia
-            // cuando se use contra nuestro proyecto usamos el authorization header
-            // headers: {
-            //     'Authorization': cookies.get('token')
-            // }
-        })
+    async alumnoDescargaFile(url, fileName) {
+        await axios.get(
+            url,
+            {
+                headers: {
+                    'Authorization': cookies.get('token')
+                }
+            }
+        )
             .then(response => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const buff = Buffer.from(response.data.data, 'base64')
+                const url = window.URL.createObjectURL(new Blob([buff]));
                 const link = document.createElement('a');
-                link.href = url;
-                link.setAttribute('download', fileName + '.' + extension);
+                link.href = response.data.data;
+                link.setAttribute('download', fileName);
                 document.body.appendChild(link);
                 link.click();
+                link.remove()
+      setTimeout(() => window.URL.revokeObjectURL(url), 100)
             });
     }
     //----------------------POPup-Actividades---------------------------------------
@@ -154,7 +182,7 @@ export default class LessonAlumno extends Component {
                                 return (
                                     <div key={files.id} id={files.id}>
                                         <h3>
-                                            <li><button onClick={() => this.alumnoDescargaFile('url', files.name, 'extension')}>{files.name}</button></li>
+                                            <li><button onClick={() => this.alumnoDescargaFile(API_HOST + 'document/' + files.id , files.name)}>{files.name}</button></li>
                                         </h3>
                                     </div>)
                             })}

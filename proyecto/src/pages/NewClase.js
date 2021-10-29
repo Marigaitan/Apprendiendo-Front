@@ -14,7 +14,7 @@ export default function NewClase() {
     const [enun, setEnun] = useState(null);
     const [archivos, setArchivos] = useState(null);
     const [actividades, setActividades] = useState([]);
-    const [documents, setDocuments] = useState([]);
+    //const [documents, setDocuments] = useState([]);
     const [nameCuest, setNameCuest] = useState(null);
     const [formValuesCuest, setFormValuesCuest] = useState([{ question: "" }]);
     const [nameQuizz, setNameQuizz] = useState(null);
@@ -38,8 +38,8 @@ export default function NewClase() {
         console.log('imprimiendo base64')
         console.log(base64);
         let archivo = {
-            name: elem.name,
-            dataType: elem.type,
+            name: elem[0].name,
+            dataType: elem[0].type,
             data: base64
         }
         setArchivos(archivo);
@@ -123,15 +123,15 @@ export default function NewClase() {
         event.preventDefault();
         alert("Agregaste un nuevo cuestionario!");
         let cuestionario = {
-            name: nameCuest,
+            name: null,
             description: null,
-            position: actividades.length,
+            position: null,
             dueDate: null,
             startDate: null,
             rewards: null,
             documents: [{
-                name: null,
-
+                name: nameCuest,
+                position: actividades.length,
                 dataType: "CUESTIONARIO",
                 data: JSON.stringify(formValuesCuest)
             }]
@@ -160,15 +160,15 @@ export default function NewClase() {
         event.preventDefault();
         alert("Agregaste un nuevo Quizz!");
         let quizz = {
-            name: nameQuizz,
+            name: null,
             description: null,
             position: null,
             dueDate: null,
             startDate: null,
             rewards: null,
             documents: [{
-                name: null,
-                position: null,
+                name: nameQuizz,
+                position: actividades.length,
                 dataType: "QUIZZ",
                 data: JSON.stringify(formValuesQuizz)
             }]
@@ -179,6 +179,17 @@ export default function NewClase() {
     // -------------------------POST-------------------------------------------------------
     const newClase = async () => {
         let newClaseUrl = API_HOST + "project/" + cookies.get('projectid') + "/lesson/template";
+        let newClase = {
+            name: name,
+            description: enun,
+            position: null,
+            dueDate: null,
+            startDate: null,
+            active: true, //Cambiarlo para que funcione con el switch y en default este en false
+            activities: actividades,
+            documents: archivos
+        }
+        console.log(newClase);
         await axios.post(newClaseUrl,
             {
                 name: name,
@@ -188,7 +199,7 @@ export default function NewClase() {
                 startDate: null,
                 active: "True", //Cambiarlo para que funcione con el switch y en default este en false
                 activities: actividades,
-                documents: documents
+                documents: archivos
             },
             {
                 headers: {
@@ -204,7 +215,7 @@ export default function NewClase() {
             .catch(error => {
                 console.log(error);
                 alert('No se pudo crear la Clase')
-            }).then(() => goProject());
+            })//.then(() => goProject());
     }
 
     let goProject = () => {
