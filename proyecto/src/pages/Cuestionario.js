@@ -8,6 +8,7 @@ export default function Cuestionario() {
     const [answers, setAnswers] = useState([]);
     
     
+
     const answerCuest = n => {
         let answer = n;
         setAnswers(answers.concat(answer));

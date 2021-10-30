@@ -164,8 +164,10 @@ export default class LessonAlumno extends Component {
     closeModal() {
         this.setState({ openModal: false, modalId: -1 });
     }
+    
 
     render() {
+        
         return (
             <div className="mainContainer">
                 <HeaderStudent />
