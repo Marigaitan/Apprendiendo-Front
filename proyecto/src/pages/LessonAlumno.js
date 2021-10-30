@@ -6,6 +6,8 @@ import HeaderStudent from "./HeaderAlumno"
 import '../css/Global.css';
 import '../css/LessonAlumno.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
+import Cuestionario from './Cuestionario';
+import Quizz from './Quizz';
 
 const cookies = new Cookies();
 
@@ -186,7 +188,9 @@ export default class LessonAlumno extends Component {
                                                 {actCuestionario.name}
                                             </ModalHeader>
                                             <ModalBody>
-                                                <h4>{actCuestionario.data}</h4>
+                                               {/* <h4>{actCuestionario.data}</h4>  ver lo de usar JSON.parse() */}
+                                                
+                                                <Cuestionario /> 
                                             </ModalBody>
                                             <ModalFooter className="modalFooter">
                                                 <Button color="secondary" onClick={() => this.closeModal()}>Finalizar</Button>
@@ -203,7 +207,8 @@ export default class LessonAlumno extends Component {
                                                 {actQuizz.name}
                                             </ModalHeader>
                                             <ModalBody>
-                                                <h4>{actQuizz.data}</h4>
+                                                {/* <h4>{actQuizz.data}</h4> */}
+                                                <Quizz />
                                             </ModalBody>
                                             <ModalFooter className="modalFooter">
                                                 <Button color="secondary" onClick={() => this.closeModal()}>Finalizar</Button>
