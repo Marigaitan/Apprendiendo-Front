@@ -51,7 +51,7 @@ export default class AlumnoProyecto extends Component {
 
      async getGroupMembers(studentId, projectId) {
         let grupo = (await axios.get("project/" + projectId + "/groups/student/" + studentId)).data;
-        if(typeof grupo !== "undefined"){
+        if(grupo.id != undefined){
             let miembros = (await axios.get("group/" + grupo.id + "/students")).data;
             return Promise.all(miembros.map( miembro => {
                 return axios.get("user/" + miembro.studentId).then(response => ({name: response.data.username, role: miembro.groupRole}));
