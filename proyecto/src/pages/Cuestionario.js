@@ -6,23 +6,26 @@ export default function Cuestionario() {
 	const [showScore, setShowScore] = useState(false);
 	const [score, setScore] = useState(0);
     const [answers, setAnswers] = useState([]);
+	const [answer, setAnswer] = useState();
     
     
 
     const answerCuest = n => {
         let answer = n;
-        setAnswers(answers.concat(answer));
+		setAnswer(answer);    
         
     }
 	const handleAnswerButtonClick = () => {		
 		setScore(score + 1);		
 		const nextQuestion = currentQuestion + 1;
+		setAnswers(answers.concat(answer));
+		
 		if (nextQuestion < questions.length) {
 			setCurrentQuestion(nextQuestion);
 		} else {
 			setShowScore(true);
 		}
-        console.log(answers);
+        
 	};
 	const questions = [
 		{question: 'What is the capital of France?'},
@@ -31,6 +34,8 @@ export default function Cuestionario() {
         {question: 'How many Harry Potter books are there'},	
 	];
 
+	console.log(answers);
+	
 	return (
 		<div classname='quizzBack'>
 			<div className='appQuizz'>
@@ -46,7 +51,7 @@ export default function Cuestionario() {
 							<div className='question-text'>{questions[currentQuestion].question}</div>
 						</div>
 						<div className='answer-section'>
-                            <textarea className="col-md-10" rows="4" placeholder="Ingrese su respuesta" onChange={(a) => answerCuest(a.target.value)} />
+                            <textarea className="col-md-10" rows="4" name="answer" placeholder="Ingrese su respuesta" onChange={(a) => answerCuest(a.target.value)}/>
 							
 								<button classname='QuizzButton' onClick={() => handleAnswerButtonClick()}>Siguiente</button>
 							
