@@ -7,7 +7,6 @@ import { API_HOST } from "../constants";
 import HeaderStudent from "./HeaderAlumno";
 import ProgressBar from "./ProgressBar";
 import { ListarLogrosDelCurso } from "./ListarLogrosDelCurso";
-import { getProgresos } from "./getProgresos";
 
 const cookies = new Cookies();
 export const ProgresoMateria = () => {
@@ -26,6 +25,8 @@ export const ProgresoMateria = () => {
   }, []);
 
   const getClassroomProjectsProgress = async (classroomId, userId) => {
+    axios.defaults.headers.common['Authorization'] = cookies.get('token');
+    axios.defaults.baseURL = API_HOST;
     const url1 = "classroom/" + classroomId + "/projects";
     let projects = (await axios.get(url1)).data;
 
@@ -43,6 +44,8 @@ export const ProgresoMateria = () => {
 
   const prueba = getClassroomProjectsProgress(id, cookies.get("id"));
   prueba.then((rta) => {
+
+
     console.log(rta);
   });
 
