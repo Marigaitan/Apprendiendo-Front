@@ -7,6 +7,7 @@ import { API_HOST } from "../constants";
 import HeaderStudent from "./HeaderAlumno";
 import ProgressBar from "./ProgressBar";
 import { ListarLogrosDelCurso } from "./ListarLogrosDelCurso";
+import { getProgresos } from "./getProgresos";
 
 const cookies = new Cookies();
 export const ProgresoMateria = () => {
@@ -15,14 +16,35 @@ export const ProgresoMateria = () => {
   const [logros, setLogros] = useState([]);
 
   const testData = [
-    { tarea: "Buscar algo", bgcolor: "#6a1b9a", completed: 60 },
-    { tarea: "Traer algo", bgcolor: "#00695c", completed: 30 },
-    { tarea: "Romper algo", bgcolor: "#ef6c00", completed: 100 },
+    { tarea: "Proyecto de multiplicacion", bgcolor: "#6a1b9a", completed: 60 },
+    { tarea: "Investigando numeros", bgcolor: "#00695c", completed: 30 },
+    { tarea: "Rompecabeza numerico", bgcolor: "#ef6c00", completed: 100 },
   ];
 
   useEffect(() => {
     getLogros();
   }, []);
+
+  const getClassroomProjectsProgress = async (classroomId, userId) => {
+    const url1 = "classroom/" + classroomId + "/projects";
+    let projects = (await axios.get(url1)).data;
+
+    return Promise.all(
+      projects.map(async (project) => ({
+        name: project.name,
+        progress: (
+          await axios.get(
+            "user/" + userId + "/project/" + project.id + "/progress"
+          )
+        ).data.percentageCompleted,
+      }))
+    );
+  };
+
+  const prueba = getClassroomProjectsProgress(id, cookies.get("id"));
+  prueba.then((rta) => {
+    console.log(rta);
+  });
 
   const getLogros = async () => {
     const url =
@@ -45,9 +67,10 @@ export const ProgresoMateria = () => {
 
       .catch((error) => {
         console.log(error);
-        alert("ERRORRRR2");
+        alert("ERROR en get Logros");
       });
   };
+
   return (
     <div className="mainContainer">
       <HeaderStudent />
