@@ -89,7 +89,7 @@ export const AlumnoProgreso = () => {
     <div className="mainContainer">
       <HeaderStudent />
 
-      <div className="containerLogros">
+      <div className="containerLogros animate__animated animate__fadeIn">
         <h2 className="align-items-center text-center">
           <br /> Logros obtenidos <br />
         </h2>
@@ -106,7 +106,7 @@ export const AlumnoProgreso = () => {
         </div>
       </div>
 
-      <div className="containerLogrosCurso">
+      <div className="containerLogrosCurso animate__animated animate__fadeIn">
         <h2 className="align-items-center text-center">
           <br /> Logros por curso <br />
         </h2>
