@@ -16,7 +16,6 @@ export default class MenuAlumno extends Component {
   }
 
   async componentDidMount() {
-
     let classUrl = API_HOST + "user/" + cookies.get("id") + "/classrooms";
     await axios
       .get(classUrl, {
@@ -80,7 +79,7 @@ export default class MenuAlumno extends Component {
     // window.onload = this.classroomAssigned;
 
     return (
-      <div className="mainContainer">
+      <div className="mainContainer animate__animated animate__fadeIn">
         <HeaderStudent />
         <div className="mainMenuAlumno">
           <div>
