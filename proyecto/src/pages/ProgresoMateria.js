@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Profiler, useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router";
 import Cookies from "universal-cookie/es6";
@@ -13,19 +13,21 @@ export const ProgresoMateria = () => {
   const location = useLocation();
   const { id = "", m = "" } = queryString.parse(location.search);
   const [logros, setLogros] = useState([]);
+  const [progreso, setprogreso] = useState([]);
 
-  const testData = [
-    { tarea: "Proyecto de multiplicacion", bgcolor: "#6a1b9a", completed: 60 },
-    { tarea: "Investigando numeros", bgcolor: "#00695c", completed: 30 },
-    { tarea: "Rompecabeza numerico", bgcolor: "#ef6c00", completed: 100 },
-  ];
+  // const testData = [
+  //   { tarea: "Proyecto de multiplicacion", bgcolor: "#6a1b9a", completed: 60 },
+  //   { tarea: "Investigando numeros", bgcolor: "#00695c", completed: 30 },
+  //   { tarea: "Rompecabeza numerico", bgcolor: "#ef6c00", completed: 100 },
+  // ];
 
   useEffect(() => {
     getLogros();
+    getProgreso();
   }, []);
 
   const getClassroomProjectsProgress = async (classroomId, userId) => {
-    axios.defaults.headers.common['Authorization'] = cookies.get('token');
+    axios.defaults.headers.common["Authorization"] = cookies.get("token");
     axios.defaults.baseURL = API_HOST;
     const url1 = "classroom/" + classroomId + "/projects";
     let projects = (await axios.get(url1)).data;
@@ -42,12 +44,12 @@ export const ProgresoMateria = () => {
     );
   };
 
-  const prueba = getClassroomProjectsProgress(id, cookies.get("id"));
-  prueba.then((rta) => {
-
-
-    console.log(rta);
-  });
+  const getProgreso = () => {
+    const prueba = getClassroomProjectsProgress(id, cookies.get("id"));
+    prueba.then((rta) => {
+      setprogreso(rta);
+    });
+  };
 
   const getLogros = async () => {
     const url =
@@ -89,12 +91,12 @@ export const ProgresoMateria = () => {
           <div className="container mb-4">
             <h2>Progreso de las actividades</h2>
           </div>
-          {testData.map((item, idx) => (
+          {progreso.map((item, idx) => (
             <ProgressBar
               key={idx}
-              bgcolor={item.bgcolor}
-              completed={item.completed}
-              tarea={item.tarea}
+              bgcolor="#6a1b9a"
+              completed={item.progress}
+              tarea={item.name}
             />
           ))}
         </div>
