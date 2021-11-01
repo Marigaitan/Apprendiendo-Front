@@ -21,50 +21,44 @@ export default class DocenteProgresoGrupo extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openModal: false, modalId: -1, groups: []
+            openModal: false, modalId: -1
         };
     }
 
 
     render() {
+
+
+        const styleButton = {
+            width: '50%',
+            
+        }
+        
+        const flexDivStyle = {
+            display: 'flex',
+            justifyContent: 'center',
+        }
+
         return (
             this.props.studentGroups.map(studentGroup => {
                 return (
-                    <div key={studentGroup.id}>
-                        <Button size="lg" key={studentGroup.group.id} block onClick={() => this.openModalStudent(studentGroup.group.id)}>{studentGroup.group.name}</Button>
+                    <div key={studentGroup.group.id} style={flexDivStyle}>
+                        <Button key={studentGroup.group.id} style={styleButton} onClick={() => this.openModalStudent(studentGroup.group.id)}>{studentGroup.group.name}</Button>
                         <Modal isOpen={this.state.openModal && this.state.modalId === studentGroup.group.id}>
                             <ModalHeader size='lg'>
-                                {studentGroup.group.id}
+                                {studentGroup.group.name}
                             </ModalHeader>
                             <ModalBody>
                                 <div>
                                     <h3>Progreso de la clase del grupo: </h3>
-                                    {studentGroup.members.map(member => {
-                                        return (
-                                            studentGroup.id === member.id ?
-                                                <Progress value={studentGroup.progress}>{studentGroup.progress}%</Progress>
-                                                : <div></div>
-                                        )
-                                    })}
+                                    <Progress value={studentGroup.progress}>{studentGroup.progress}%</Progress>
                                 </div>
                                 <br />
                                 <div>
                                     <h3>Integrantes:</h3>
                                 </div>
-                                {/* <Alert color='warning'>
-                                    {studentGroup.name}
-                                     La idea es que haya grupos pero por el momento tengo solo ids de estudiantes
-                                </Alert> */}
                                 <ListGroup>
-                                    {this.state.groups.map(group => {
-                                        return (
-                                            group.id === studentGroup.id ?
-                                                group.studentNames.map(name =>
-                                                    <ListGroupItem color="warning" key={name}>{name}</ListGroupItem>
-                                                )
-                                                : <div></div>
-                                        )
-                                    })}
+                                    {studentGroup.members.map(member => <ListGroupItem color="warning" key={member.user}>{member.user}</ListGroupItem>)}
                                 </ListGroup>
                             </ModalBody>
                             <ModalFooter className="modalFooter">
