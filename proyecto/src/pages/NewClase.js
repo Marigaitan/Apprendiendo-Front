@@ -6,6 +6,7 @@ import Cookies from "universal-cookie/es6";
 import HeaderTeacher from './Header';
 import axios from 'axios';
 import { API_HOST } from "../constants";
+import { Alert, Button, Label } from "reactstrap";
 
 const cookies = new Cookies();
 
@@ -39,10 +40,9 @@ export default function NewClase() {
         console.log(base64);
         let archivo = {
             name: elem[0].name,
-            dataType: 'BLA',
+            dataType: 'FILE',
             data: base64,
-            documentSourceType: 'BLA',
-            sourceId: cookies.get('lessonid')
+            documentSourceType: 'LESSON'
         }
         setArchivos(oldArray => [...oldArray, archivo]);
     }
@@ -60,6 +60,10 @@ export default function NewClase() {
         });
     };
 
+    //----------------------Lista Files----------------------------------------
+    const borrarArchivo = (e) => {
+        setArchivos(oldArray => oldArray.filter(archivo => archivo.name !== e.name));
+    }
 
     // const insertarArchivos = async () => {
     //     // const f = new FormData();
@@ -243,6 +247,14 @@ export default function NewClase() {
                         <input type="file" name="files" onChange={(elem) => subirArchivos(elem.target.files)} />
                         <br />
                         {/* <button className="btn btn-primary btn-lg btn-block" onClick={() => insertarArchivos()}>Insertar Archivos</button> */}
+                    {archivos.map(archivo =>
+                        <div key={archivo.name} >
+                            <Alert className="flexSpaceBetween">
+                                <Label>{archivo.name}</Label>
+                                <Button name={archivo.name} onClick={() => borrarArchivo(archivo)}>Borrar</Button>
+                            </Alert>
+                        </div>
+                    )}
                     </div>
                     <br />
                     {/* //---------------------Cuestionario------------------------------------------ */}

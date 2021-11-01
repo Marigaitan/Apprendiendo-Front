@@ -70,7 +70,12 @@ export default class DocenteProyecto extends Component {
     }
 
     crearClase = () => {
-        window.location.href = "/menudocente/classroom/proyecto/nuevaclase"
+        this.props.history.push("/menudocente/classroom/proyecto/nuevaclase");
+    }
+
+    goClase = (lessonId) => {
+        cookies.set('lessonid', lessonId, { path: "/" });
+        this.props.history.push("/menudocente/classroom/proyecto/clase")
     }
 
     render() {
@@ -114,7 +119,7 @@ export default class DocenteProyecto extends Component {
                                                 icon={<img src={logo} className="small-img" />}
                                             >
 
-                                                <Button key={lesson.id} size="lg" block>{lesson.name}</Button>
+                                                <Button key={lesson.id} size="lg" block onClick={() => this.goClase(lesson.id)}>{lesson.name}</Button>
                                             </VerticalTimelineElement>
                                         )
                                     })

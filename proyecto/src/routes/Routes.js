@@ -26,6 +26,7 @@ import DocenteLogros from "../pages/DocenteLogros";
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 
 import NewClase from "../pages/NewClase";
+import DocenteLesson from "../pages/DocenteLesson";
 import AulaInvertida from "../pages/AulaInvertida";
 import Pbl from "../pages/Pbl";
 import { AlumnoProgreso } from "../pages/AlumnoProgreso";
@@ -88,6 +89,11 @@ function Routes() {
           exact
           path="/menudocente/classroom/proyecto/nuevaclase"
           component={NewClase}
+        />
+        <Route
+          exact
+          path="/menudocente/classroom/proyecto/clase"
+          component={DocenteLesson}
         />
         <Route exact path="/menuAdmin/docente/abm" component={DocenteAbm} />
         <Route exact path="/menuAdmin/alumno/abm" component={AlumnoAbm} />
