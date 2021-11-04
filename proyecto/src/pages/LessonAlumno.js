@@ -27,9 +27,9 @@ export default class LessonAlumno extends Component {
       modalId: -1,
       actQuizz: [],
       actCuestionario: [],
+      answersQ: [],
     };
   }
-
   //------------------------Files----------------------------------------------
   subirArchivos = async (elem) => {
     console.log("imprimiendo elem");
@@ -43,6 +43,10 @@ export default class LessonAlumno extends Component {
       data: base64,
     };
     this.setState(archivos);
+  };
+
+  handleCallbackCondition = (answers) => {
+    this.setState({ answersQ: answers });
   };
 
   convertToBase64 = async (fileUpload) => {
@@ -166,6 +170,7 @@ export default class LessonAlumno extends Component {
 
   closeModal() {
     this.setState({ openModal: false, modalId: -1 });
+    console.log("RESPUESTAS:", this.state.answersQ);
   }
 
   render() {
@@ -211,7 +216,10 @@ export default class LessonAlumno extends Component {
                       <ModalBody>
                         {/* <h4>{actCuestionario.data}</h4>  ver lo de usar JSON.parse() */}
 
-                        <Cuestionario {...actCuestionario} />
+                        <Cuestionario
+                          handleAnswers={this.handleCallbackCondition}
+                          work={actCuestionario}
+                        />
                       </ModalBody>
                       <ModalFooter className="modalFooter">
                         <Button

@@ -3,25 +3,25 @@ import "../css/Quizz.css";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
-export default function Cuestionario(valor) {
+const Cuestionario = React.memo(({ handleAnswers, work }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [answer, setAnswer] = useState();
 
-  const submit = () => {
-    confirmAlert({
-      title: "Error",
-      message: "La respuesta no puede estar vacia",
-      buttons: [
-        {
-          label: "OK",
-          onClick: () => alert("Click Yes"),
-        },
-      ],
-    });
-  };
+  // const submit = () => {
+  //   confirmAlert({
+  //     title: "Error",
+  //     message: "La respuesta no puede estar vacia",
+  //     buttons: [
+  //       {
+  //         label: "OK",
+  //         onClick: () => alert("Click Yes"),
+  //       },
+  //     ],
+  //   });
+  // };
 
   const answerCuest = (n) => setAnswer(n);
 
@@ -39,16 +39,16 @@ export default function Cuestionario(valor) {
       setAnswer("");
     } else alert("La respuesta no puede estar vacia");
   };
-  //   const questions = [
-  //     { question: "What is the capital of France?" },
-  //     { question: "Who is CEO of Tesla?" },
-  //     { question: "The iPhone was created by which company" },
-  //     { question: "How many Harry Potter books are there" },
-  //   ];
 
-  const questions = JSON.parse(valor.data);
+  // const questions = [
+  //   { question: "What is the capital of France?" },
+  //   { question: "Who is CEO of Tesla?" },
+  //   { question: "The iPhone was created by which company" },
+  //   { question: "How many Harry Potter books are there" },
+  // ];
 
-  console.log(answers);
+  const questions = JSON.parse(work.data);
+  handleAnswers(answers);
   return (
     <div classname="quizzBack">
       <div className="appQuizz">
@@ -88,4 +88,6 @@ export default function Cuestionario(valor) {
       </div>
     </div>
   );
-}
+});
+
+export default Cuestionario;
