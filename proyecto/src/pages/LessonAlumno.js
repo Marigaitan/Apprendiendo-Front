@@ -8,6 +8,8 @@ import "../css/LessonAlumno.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import Cuestionario from "./Cuestionario";
 import Quizz from "./Quizz";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 const cookies = new Cookies();
 
@@ -222,12 +224,15 @@ export default class LessonAlumno extends Component {
                         />
                       </ModalBody>
                       <ModalFooter className="modalFooter">
-                        <Button
-                          color="secondary"
-                          onClick={() => this.closeModal()}
-                        >
-                          Finalizar
-                        </Button>
+                        {this.state.answersQ.length ===
+                          JSON.parse(actCuestionario.data).length && (
+                          <Button
+                            color="secondary"
+                            onClick={() => this.closeModal()}
+                          >
+                            Finalizar
+                          </Button>
+                        )}
                       </ModalFooter>
                     </Modal>
                   </div>
