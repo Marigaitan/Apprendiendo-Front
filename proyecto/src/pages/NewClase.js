@@ -20,7 +20,14 @@ export default function NewClase() {
   const [formValuesCuest, setFormValuesCuest] = useState([{ question: "" }]);
   const [nameQuizz, setNameQuizz] = useState(null);
   const [formValuesQuizz, setFormValuesQuizz] = useState([
-    { questionText: "", answerOptions: [] },
+    {
+      questionText: "",
+      answerOptions: [
+        { answerText: "", isCorrect: true },
+        { answerText: "", isCorrect: false },
+        { answerText: "", isCorrect: false },
+      ],
+    },
   ]);
 
   const actName = (v) => {
@@ -155,11 +162,33 @@ export default function NewClase() {
     newFormValuesQ[i][e.target.name] = e.target.value;
     setFormValuesQuizz(newFormValuesQ);
   };
+  let handleChangeQ1 = (i, e) => {
+    let newFormValuesQ = [...formValuesQuizz];
+    newFormValuesQ[i][e.target.name][0].answerText = e.target.value;
+    setFormValuesQuizz(newFormValuesQ);
+  };
+  let handleChangeQ2 = (i, e) => {
+    let newFormValuesQ = [...formValuesQuizz];
+    newFormValuesQ[i][e.target.name][1].answerText = e.target.value;
+    setFormValuesQuizz(newFormValuesQ);
+  };
+  let handleChangeQ3 = (i, e) => {
+    let newFormValuesQ = [...formValuesQuizz];
+    newFormValuesQ[i][e.target.name][2].answerText = e.target.value;
+    setFormValuesQuizz(newFormValuesQ);
+  };
 
   let addFormFieldsQ = () => {
     setFormValuesQuizz([
       ...formValuesQuizz,
-      { questionText: "", answerOptions: [] },
+      {
+        questionText: "",
+        answerOptions: [
+          { answerText: "", isCorrect: true },
+          { answerText: "", isCorrect: false },
+          { answerText: "", isCorrect: false },
+        ],
+      },
     ]);
   };
 
@@ -189,7 +218,6 @@ export default function NewClase() {
       ],
     };
     setActividades(actividades.concat(quizz));
-    console.log(actividades);
   };
   // -------------------------POST-------------------------------------------------------
   const newClase = async () => {
@@ -407,20 +435,31 @@ export default function NewClase() {
                       type="text"
                       name="answerOptions"
                       placeholder="Ingrese la Opción Correcta"
-                      value={element.answerOptions || ""}
-                      onChange={(e) => handleChangeQ(index, e)}
+                      value={element.answerOptions[0].answerText || ""}
+                      onChange={(e) => handleChangeQ1(index, e)}
+                      style={{ backgroundColor: "lightskyblue" }}
                     />
                   </div>
                   <div>
                     <label>
-                      <h5>Opción</h5>
+                      <h5>Opción Incorrecta 1</h5>
                     </label>
                     <input
                       type="text"
                       name="answerOptions"
                       placeholder="Ingrese otra Opción"
-                      value={element.answerOptions || ""}
-                      onChange={(e) => handleChangeQ(index, e)}
+                      value={element.answerOptions[1].answerText || ""}
+                      onChange={(e) => handleChangeQ2(index, e)}
+                    />
+                    <label>
+                      <h5>Opción Incorrecta 2</h5>
+                    </label>
+                    <input
+                      type="text"
+                      name="answerOptions"
+                      placeholder="Ingrese otra Opción"
+                      value={element.answerOptions[2].answerText || ""}
+                      onChange={(e) => handleChangeQ3(index, e)}
                     />
                     {index ? (
                       <button
