@@ -14,6 +14,7 @@ import VerticalTimeline from './VerticalTimeline';
 import 'react-vertical-timeline-component/style.min.css';
 
 import logo from "../Images/logoMini.png";
+import Switch from './Switch';
 
 const cookies = new Cookies();
 
@@ -87,11 +88,7 @@ export default class DocenteProyecto extends Component {
                         <h2>{this.state.project.name}</h2>
                     </div>
                     <div>
-                        <FormGroup>
-                            <div>
-                                <CustomInput type="switch" id="exampleCustomSwitch" name="customSwitch" label="Activar/Desactivar Proyecto" />
-                            </div>
-                        </FormGroup>
+                        <Switch/>
                     </div>
 
                     <div className="mainFlex">

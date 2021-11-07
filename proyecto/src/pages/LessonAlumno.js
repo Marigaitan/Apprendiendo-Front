@@ -47,10 +47,6 @@ export default class LessonAlumno extends Component {
     this.setState(archivos);
   };
 
-  handleCallbackCondition = (answers) => {
-    this.setState({ answersQ: answers });
-  };
-
   convertToBase64 = async (fileUpload) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -144,6 +140,11 @@ export default class LessonAlumno extends Component {
         console.log(error);
       });
   }
+
+  //-------------------------Respuestas Alumno--------------------------------------
+  handleCallbackCondition = (answers) => {
+    this.setState({ answersQ: answers });
+  };
   //---------------------------Descargar Documentos -------------------------------
 
   async alumnoDescargaFile(url, fileName) {
@@ -226,13 +227,13 @@ export default class LessonAlumno extends Component {
                       <ModalFooter className="modalFooter">
                         {this.state.answersQ.length ===
                           JSON.parse(actCuestionario.data).length && (
-                          <Button
-                            color="secondary"
-                            onClick={() => this.closeModal()}
-                          >
-                            Finalizar
-                          </Button>
-                        )}
+                            <Button
+                              color="secondary"
+                              onClick={() => this.closeModal()}
+                            >
+                              Finalizar
+                            </Button>
+                          )}
                       </ModalFooter>
                     </Modal>
                   </div>
