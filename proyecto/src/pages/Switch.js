@@ -10,14 +10,14 @@ export default function Switch() {
 
     console.log("estatusProyecto:");
     console.log(statusSwitch)
-    
+
     return (
         <div className="toggle-switch">
           <CustomInput 
             type="switch" 
             id="exampleCustomSwitch" 
             name="customSwitch" 
-            label="Activar/Desactivar Proyecto"
+            label="Activar/Desactivar"
             onChange={()=>changeStatusSwitch()} />
       </div>
     );
