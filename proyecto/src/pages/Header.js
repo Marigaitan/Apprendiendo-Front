@@ -16,7 +16,7 @@ import {
 
 //import icons from react-icons
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { BiCog, BiUser, BiBarChartAlt, BiBookBookmark } from "react-icons/bi";
+import { BiCog, BiUser, BiBarChartAlt, BiBookBookmark, BiBook } from "react-icons/bi";
 import { Link } from 'react-router-dom';
 
 
@@ -55,20 +55,36 @@ const HeaderTeacher = () => {
               )}
             </div>
           </SidebarHeader>
+
+
           <SidebarContent>
             <Menu iconShape="square">
+              
               <MenuItem active={true} icon={<FiHome />}>
                 Inicio
                 <Link to="/menudocente" />
               </MenuItem>              
+              
               <MenuItem icon={<BiCog /> } >Mi Perfil</MenuItem>
+              
+              <MenuItem icon={<BiBook />}>
+                Repositorio
+                <Link to="/menudocente/repositorio"/>
+              </MenuItem>
+
               <MenuItem icon={<BiBookBookmark />}>
                 Metodologías
                 <Link to="/menudocente/metodologias"/>
               </MenuItem>
+              
               <MenuItem icon={<BiBarChartAlt />}>Métricas</MenuItem>
+            
+            
             </Menu>
           </SidebarContent>
+
+
+
           <SidebarFooter>
             <Menu iconShape="square">
               <MenuItem icon={<FiLogOut />} onClick={() => cerrarSesion(this.props)}>Cerrar Sesión</MenuItem>
