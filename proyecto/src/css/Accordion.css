@@ -1,0 +1,25 @@
+.accordion-title{
+    width: 100%;
+    padding: 10px;
+    border: 10px;
+    border-radius: 5px;
+    
+    font-weight: 400;
+    font-size: 1.25em;
+    background-color: rgb(197, 98, 16) ;
+    color: white;
+}
+.plus:hover {
+    cursor: pointer;
+  }
+.accordion-content{
+    width: 100%;
+    padding: 10px;
+    border: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-size: 1.25em;
+    background-color: rgb(233, 154, 89) ;
+    color: white;
+}

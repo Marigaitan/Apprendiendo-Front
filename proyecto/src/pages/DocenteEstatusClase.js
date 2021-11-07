@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../css/Global.css';
-import '../css/DocenteEstatusClase.css';
 import HeaderTeacher from "./Header";
 import Cookies from 'universal-cookie/es6';
 import { API_HOST } from "../constants";
