@@ -282,6 +282,7 @@ export default class LessonAlumno extends Component {
                     <h3>
                       <li>
                         <button
+                          class="btn btn-link"
                           onClick={() =>
                             this.alumnoDescargaFile(
                               API_HOST + "document/" + files.id,
@@ -289,7 +290,7 @@ export default class LessonAlumno extends Component {
                             )
                           }
                         >
-                          {files.name}
+                          <h5>{files.name}</h5>
                         </button>
                       </li>
                     </h3>
