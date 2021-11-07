@@ -24,6 +24,7 @@ export default class DocenteProyecto extends Component {
         super(props);
         this.state = {
             groups: [], lessons: [], project: ''
+            
         };
     }
 

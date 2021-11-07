@@ -3,14 +3,14 @@ import {CustomInput} from 'reactstrap';
 
 export default function Switch() {
     const [statusSwitch, setStatusSwitch] = useState(false);
-    console.log("estatusProyecto:");
-    console.log(statusSwitch);
 
-    const changeStatusSwitch = () =>{
-        
-        setStatusSwitch(!statusSwitch);
-        console.log(statusSwitch)
+    const changeStatusSwitch = () =>{       
+        setStatusSwitch(!statusSwitch);   
     }
+
+    console.log("estatusProyecto:");
+    console.log(statusSwitch)
+    
     return (
         <div className="toggle-switch">
           <CustomInput 
