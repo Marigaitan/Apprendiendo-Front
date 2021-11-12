@@ -168,6 +168,9 @@ export default class LessonAlumno extends Component {
   }
   //----------------------POPup-Actividades---------------------------------------
   openModal = (id) => {
+    console.log("LOS CUESTIONARIOS", this.state.actCuestionario);
+    console.log("LOS QUIZZ", this.state.actQuizz);
+
     this.setState({ openModal: true, modalId: id });
   };
 
@@ -227,13 +230,13 @@ export default class LessonAlumno extends Component {
                       <ModalFooter className="modalFooter">
                         {this.state.answersQ.length ===
                           JSON.parse(actCuestionario.data).length && (
-                            <Button
-                              color="secondary"
-                              onClick={() => this.closeModal()}
-                            >
-                              Finalizar
-                            </Button>
-                          )}
+                          <Button
+                            color="secondary"
+                            onClick={() => this.closeModal()}
+                          >
+                            Finalizar
+                          </Button>
+                        )}
                       </ModalFooter>
                     </Modal>
                   </div>
