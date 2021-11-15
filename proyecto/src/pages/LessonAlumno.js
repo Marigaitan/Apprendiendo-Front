@@ -24,11 +24,12 @@ export default class LessonAlumno extends Component {
       documents: [],
       lessonName: "",
       lessonDescription: "",
-      actDocuments: [],
       openModal: false,
       modalId: -1,
+      actDocuments: [],
       actQuizz: [],
       actCuestionario: [],
+      actFiles: [],
       answersQ: [],
     };
   }
@@ -82,8 +83,11 @@ export default class LessonAlumno extends Component {
 
   //---------------------------------------------------------------------------
   async componentDidMount() {
+    axios.defaults.headers.common["Authorization"] = cookies.get("token");
+    axios.defaults.baseURL = API_HOST;
+
     let getLessonUrl =
-      API_HOST + "lesson/" + cookies.get("lessonid") + "/template";
+      API_HOST + "lesson/" + cookies.get("lessonid"); //+ "/template";
     let getDocumentsSummUrl =
       API_HOST + "lesson/" + cookies.get("lessonid") + "/documents/summary";
     let getDocumentsSelUrl =
@@ -96,49 +100,52 @@ export default class LessonAlumno extends Component {
       headers: { Authorization: cookies.get("token") },
     });
 
-    await axios
-      .all([requestOne, requestTwo])
-      .then(
-        axios.spread((lesson, file) => {
-          console.log(lesson.data, file.data);
-          const lessonName = lesson.data.name;
-          const lessonDescription = lesson.data.description;
-          const activities = lesson.data.activities;
-          const files = file.data;
-          const actDocuments = lesson.data.activities.map((activity) => {
-            let activityDoc = {
-              name: activity.documents[0].name,
-              position: activity.documents[0].position,
-              dataType: activity.documents[0].dataType,
-              data: activity.documents[0].data,
-              activityId: activity.id,
-            };
-            return activityDoc;
-          });
+    await axios.all([requestOne, requestTwo])
+      .then(axios.spread(async (lesson, file) => {
+        console.log(lesson.data, file.data);
+        const lessonName = lesson.data.name;
+        const lessonDescription = lesson.data.description;
+        const activities = lesson.data.activities;
+        const files = file.data;
+        let actDocuments = await this.getActivityDocs(activities);
+        console.log('actDocuments');
+        console.log(actDocuments);
 
-          const actQuizz = actDocuments.filter(
-            (actDocument) => actDocument.dataType === "QUIZZ"
-          );
-          const actCuestionario = actDocuments.filter(
-            (actDocument) => actDocument.dataType === "CUESTIONARIO"
-          );
+        const actQuizz = actDocuments.filter(
+          (actDocument) => actDocument.dataType === "QUIZZ"
+        );
+        const actCuestionario = actDocuments.filter(
+          (actDocument) => actDocument.dataType === "CUESTIONARIO"
+        );
 
-          console.log(actQuizz);
-          console.log(actCuestionario);
+        console.log(actQuizz);
+        console.log(actCuestionario);
 
-          this.setState({
-            lessonName: lessonName,
-            lessonDescription: lessonDescription,
-            files: files,
-            activities: activities,
-            actQuizz: actQuizz,
-            actCuestionario: actCuestionario,
-          });
-        })
-      )
-      .catch((error) => {
-        console.log(error);
-      });
+        this.setState({
+          lessonName: lessonName,
+          lessonDescription: lessonDescription,
+          files: files,
+          activities: activities,
+          actQuizz: actQuizz,
+          actCuestionario: actCuestionario,
+        });
+      },(error) => {
+          console.log(error);
+        }
+      ))
+  }
+
+  async getActivityDocs(activities) {
+    return Promise.all(activities.map(async activity => {
+      const activityData = (await axios.get("activity/" + activity.id)).data
+      return {
+          name: activityData.documents[0].name,
+          position: activityData.documents[0].position,
+          dataType: activityData.documents[0].dataType,
+          data: activityData.documents[0].data,
+          activityId: activity.id,
+        };
+    }))
   }
 
   //-------------------------Respuestas Alumno--------------------------------------
@@ -230,13 +237,13 @@ export default class LessonAlumno extends Component {
                       <ModalFooter className="modalFooter">
                         {this.state.answersQ.length ===
                           JSON.parse(actCuestionario.data).length && (
-                          <Button
-                            color="secondary"
-                            onClick={() => this.closeModal()}
-                          >
-                            Finalizar
-                          </Button>
-                        )}
+                            <Button
+                              color="secondary"
+                              onClick={() => this.closeModal()}
+                            >
+                              Finalizar
+                            </Button>
+                          )}
                       </ModalFooter>
                     </Modal>
                   </div>
