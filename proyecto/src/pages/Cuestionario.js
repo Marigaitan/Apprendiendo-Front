@@ -54,7 +54,7 @@ const Cuestionario = React.memo(({ handleAnswers, work }) => {
       <div className="appQuizz">
         {showScore ? (
           <div className="score-section">
-            Contestaste {score} de {questions.length} preguntas
+            ¡Muy Bien! ¡Contestaste {score} de {questions.length} preguntas!
           </div>
         ) : (
           <div>
