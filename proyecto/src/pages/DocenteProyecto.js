@@ -75,6 +75,22 @@ export default class DocenteProyecto extends Component {
         this.props.history.push("/menudocente/classroom/proyecto/nuevaclase");
     }
 
+    exportar = async (projectId) => {
+        let template = (await axios.get("project/" + projectId + "/template")).data;
+        let project = (await axios.get("project/" + projectId)).data;
+        
+        let storedTemplateDTO = {
+            name: project.name,
+            templateType: "PROJECT",
+            ownerId: cookies.get("id"),
+            template: JSON.stringify(template)
+        };
+
+        await axios.post("template", storedTemplateDTO);
+        alert("Proyecto exportado!");
+    }
+
+
     goClase = (lessonId) => {
         cookies.set('lessonid', lessonId, { path: "/" });
         this.props.history.push("/menudocente/classroom/proyecto/clase")
@@ -125,6 +141,7 @@ export default class DocenteProyecto extends Component {
                             </VerticalTimeline>
                             <div className="center-div">
                                 <Button color="success" size="lg" onClick={() => this.crearClase()}>Crear Clase</Button>
+                                <Button color="success" size="lg" onClick={() => this.exportar(cookies.get("projectid"))}>Exportar</Button>
                             </div>
                         </div>
                     </div>
