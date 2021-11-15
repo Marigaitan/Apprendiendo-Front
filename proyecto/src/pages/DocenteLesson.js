@@ -14,7 +14,7 @@ export default class DocenteLesson extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            archivos: [], nameCuest: '', formValuesCuest: [], lesson: null, actividades: []
+            archivos: [], nameCuest: '', formValuesCuest: [], lesson: null, actividades: [], cuestionarios: [],
         };
     }
 
@@ -22,16 +22,39 @@ export default class DocenteLesson extends Component {
 
     async componentDidMount() {
         await axios.get(API_HOST + "lesson/" + cookies.get('lessonid'), { headers: { 'Authorization': cookies.get('token') } })
-            .then(response => {
+            .then(async response => {
                 console.log(response.data);
                 const archivos = response.data.documents === null ? [] : response.data.documents.filter(document => document.dataType === 'FILE')
-                const actividades = response.data.actividades === null ? [] : response.data.actividades
-                this.setState({ 
+                const actividades = response.data.activities === null ? [] : response.data.activities
+                const actDocuments = await this.getActivityDocs(actividades);
+                console.log(actDocuments);
+                const cuestionarios = actDocuments.filter(
+                    actDocument => actDocument !== undefined && actDocument && actDocument.dataType === "CUESTIONARIO"
+                );
+                this.setState({
                     lesson: response.data,
                     archivos: archivos,
                     actividades: actividades,
-                 });
+                    cuestionarios: cuestionarios,
+                });
             })
+    }
+
+    async getActivityDocs(activities) {
+        return Promise.all(activities.map(async activity => {
+            const activityData = (await axios.get("activity/" + activity.id)).data
+            console.log(activityData);
+            return (activityData.documents === null || activityData.documents === undefined || activityData.documents.length === 0)
+                ? undefined
+                :
+                {
+                    name: activityData.documents[0].name,
+                    position: activityData.documents[0].position,
+                    dataType: activityData.documents[0].dataType,
+                    data: activityData.documents[0].data,
+                    activityId: activity.id,
+                }
+        }))
     }
 
     //--------------------------------------------------------------------------------------------- PROYECTO
@@ -121,39 +144,53 @@ export default class DocenteLesson extends Component {
     handleChangeC = (i, e) => {
         let newFormValuesCuest = [...this.state.formValuesCuest];
         newFormValuesCuest[i][e.target.name] = e.target.value;
-        this.setState({newFormValuesCuest: newFormValuesCuest});
+        this.setState({ newFormValuesCuest: newFormValuesCuest });
     }
 
     addFormFieldsC = () => {
-        this.setState(prevState => ({ formValuesCuest: [...prevState.formValuesCuest, { question: "" }]}))
+        this.setState(prevState => ({ formValuesCuest: [...prevState.formValuesCuest, { question: "" }] }))
         console.log(this.state.formValuesCuest)
     }
 
     removeFormFieldsC = (i) => {
         let newFormValuesCuest = [...this.state.formValuesCuest];
         newFormValuesCuest.splice(i, 1);
-        this.setState({newFormValuesCuest: newFormValuesCuest});
+        this.setState({ newFormValuesCuest: newFormValuesCuest });
     }
 
-    handleSubmitC = (event) => {
+    handleSubmitC = async (event) => {
         event.preventDefault();
         alert("Agregaste un nuevo cuestionario!");
         let cuestionario = {
+            id: null,
             name: null,
             description: null,
             position: null,
             dueDate: null,
             startDate: null,
             rewards: null,
+            lessonId: parseInt(cookies.get('lessonid'), 10),
             documents: [{
                 name: this.state.nameCuest,
-                position: this.state.actividades.length,
+                position: this.state.cuestionarios.length,
                 dataType: "CUESTIONARIO",
-                data: JSON.stringify(this.state.formValuesCuest)
+                data: JSON.stringify(this.state.formValuesCuest),
+                activityId: null,
             }]
         }
-        this.setState(prevState => ({ actividades: prevState.actividades.concat(cuestionario) }));
+        await axios.post(API_HOST + "activity/", cuestionario, { headers: { Authorization: cookies.get("token"), }, })
+            .then(response => {
+                cuestionario.id = parseInt(response.data, 10)
+                cuestionario.documents[0].activityId = parseInt(response.data, 10)
+                this.setState(prevState => (
+                    {
+                        actividades: prevState.actividades.concat(cuestionario),
+                        cuestionarios: prevState.cuestionarios.concat(cuestionario.documents[0]),
+                    }
+                ));
+            })
         console.log(this.state.actividades);
+        console.log(this.state.cuestionarios);
     }
 
     //--------------------------------------------------------------------------------------------- RENDER
@@ -195,30 +232,41 @@ export default class DocenteLesson extends Component {
                         {/* aca se deben ver los cuestionarios cargados */}
                         {/* luego dar la opcion de cargar uno */}
 
-
                         <div className='setCuestionario'>
-                            <label><h4>Agregar Cuestionario</h4></label><br />
-                            <form onSubmit={this.handleSubmitC}>
-                                <label><h4>Título</h4></label><br />
-                                <input type="text" name="nameCuest" className="col-md-8" placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => {this.setState({nameCuest: n.target.value})}} />
-                                {this.state.formValuesCuest.map((element, index) => (
-                                    <div className="form-inline" key={index}>
-
-                                        <label><h5>Pregunta: </h5></label>
-                                        <input type="text" name="question" value={element.question || ""} onChange={e => this.handleChangeC(index, e)} />
-                                        {
-                                            index ?
-                                                <button type="button" className="btn btn-danger" onClick={() => this.removeFormFieldsC(index)}>X</button>
-                                                : null
-                                        }
-
+                            <div>
+                                <Label><h4>Cuestionarios</h4></Label>
+                                {
+                                    this.state.cuestionarios.map(cuestionario => {
+                                        return (
+                                            <div>
+                                                {JSON.parse(cuestionario.data).map(pregunta => <div><Label>{pregunta.question}</Label></div>)}
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            <div>
+                                <label><h4>Agregar Cuestionario</h4></label><br />
+                                <form onSubmit={this.handleSubmitC}>
+                                    <label><h4>Título</h4></label><br />
+                                    <input type="text" name="nameCuest" className="col-md-8" placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => { this.setState({ nameCuest: n.target.value }) }} />
+                                    {this.state.formValuesCuest.map((element, index) => (
+                                        <div className="form-inline" key={index}>
+                                            <label><h5>Pregunta: </h5></label>
+                                            <input type="text" name="question" value={element.question || ""} onChange={e => this.handleChangeC(index, e)} />
+                                            {
+                                                index ?
+                                                    <button type="button" className="btn btn-danger" onClick={() => this.removeFormFieldsC(index)}>X</button>
+                                                    : null
+                                            }
+                                        </div>
+                                    ))}
+                                    <div className="button-section">
+                                        <button className="btn btn-warning" type="button" onClick={() => this.addFormFieldsC()}>+ Pregunta</button><br />
+                                        <button className="btn btn-primary btn-lg btn-block" type="submit">Crear Actividad</button><br /><br />
                                     </div>
-                                ))}
-                                <div className="button-section">
-                                    <button className="btn btn-warning" type="button" onClick={() => this.addFormFieldsC()}>+ Pregunta</button><br />
-                                    <button className="btn btn-primary btn-lg btn-block" type="submit">Crear Actividad</button><br /><br />
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
 
 
