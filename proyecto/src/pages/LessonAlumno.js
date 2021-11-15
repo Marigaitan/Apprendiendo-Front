@@ -100,7 +100,7 @@ export default class LessonAlumno extends Component {
     console.log(base64);
     let archivo = {
       name: elem[0].name,
-      dataType: 'FILE',
+      dataType: 'STUDENT',
       data: base64,
       documentSourceType: 'LESSON',
       sourceId: cookies.get('lessonid')
@@ -182,14 +182,18 @@ export default class LessonAlumno extends Component {
   async getActivityDocs(activities) {
     return Promise.all(activities.map(async activity => {
       const activityData = (await axios.get("activity/" + activity.id)).data
-      return {
-        name: activityData.documents[0].name,
-        position: activityData.documents[0].position,
-        dataType: activityData.documents[0].dataType,
-        data: activityData.documents[0].data,
-        activityId: activity.id,
-      };
-    }))
+      let documents = activityData.documents.map(document => 
+        {
+          return {
+          name: document.name,
+          position: document.position,
+          dataType: document.dataType,
+          data: document.data,
+          activityId: activity.id,
+          }
+        })
+      return (documents === undefined || documents.size === 0) ? [] : documents;
+      }))
   }
 
   //-------------------------Respuestas Alumno--------------------------------------
