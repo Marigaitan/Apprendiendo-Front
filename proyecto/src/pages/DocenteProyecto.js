@@ -123,7 +123,7 @@ export default class DocenteProyecto extends Component {
           <div>
             <Switch
               id={cookies.get("projectid")}
-              status={this.state.status}
+              //status={this.state.status}
               type={"project"}
             />
           </div>

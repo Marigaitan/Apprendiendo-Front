@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { CustomInput } from "reactstrap";
 import { API_HOST } from "../constants";
 import axios from "axios";
@@ -8,28 +8,37 @@ const cookies = new Cookies();
 axios.defaults.headers.common["Authorization"] = cookies.get("token");
 axios.defaults.baseURL = API_HOST;
 
-const Switch = ({ id, status, type }) => {
+const Switch = ({ id, type }) => {
   console.log("ID", id);
-  console.log("status", status);
+  //console.log("status", status);
   console.log("type", type);
+  const [statusSwitch, setStatusSwitch] = useState();
 
-  const [statusSwitch, setStatusSwitch] = useState(status);
+  useEffect(() => {
+    setInitialStatus();
+    console.log("AAAA");
+  }, []);
 
-  // const changeStatusSwitch = () => {
-  //   setStatusSwitch(!statusSwitch);
-  //   setActive(id, statusSwitch);
-  // };
+  const setInitialStatus = async () => {
+    const estado = (await axios.get("project/" + cookies.get("projectid"))).data
+      .active;
+    setStatusSwitch(estado);
+  };
 
-  // const setActive = async (id, estaActivo) => {
-  //   let proyecto = (await axios.get("project/" + id)).data;
-  //   proyecto.active = estaActivo;
-  //   const url = API_HOST + type + "/";
-  //   console.log("ESTA ES LA URL", url);
-  //   await axios.put(url, proyecto);
-  // };
+  const changeStatusSwitch = () => {
+    setStatusSwitch(!statusSwitch);
+    setActive(id, statusSwitch);
+  };
 
-  console.log("estatusProyecto:");
-  console.log(statusSwitch);
+  const setActive = async (id, statusSwitch) => {
+    let proyecto = (await axios.get("project/" + id)).data;
+
+    proyecto.active = !statusSwitch;
+
+    await axios.put("project/", proyecto);
+  };
+
+  console.log("estatusProyectoooooooo:", statusSwitch);
 
   return (
     <div className="toggle-switch">
@@ -38,8 +47,8 @@ const Switch = ({ id, status, type }) => {
         id="exampleCustomSwitch"
         name="customSwitch"
         label="Activar/Desactivar"
-        checked={status}
-        //onChange={() => changeStatusSwitch()}
+        checked={statusSwitch}
+        onChange={() => changeStatusSwitch()}
       />
     </div>
   );
