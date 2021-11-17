@@ -174,11 +174,10 @@ export default class DocenteLesson extends Component {
                 name: this.state.nameCuest,
                 position: this.state.cuestionarios.length,
                 dataType: "CUESTIONARIO",
-                data: JSON.stringify(this.state.formValuesCuest),
-                activityId: null,
+                data: JSON.stringify(this.state.formValuesCuest)
             }]
         }
-        await axios.post(API_HOST + "activity/", cuestionario, { headers: { Authorization: cookies.get("token"), }, })
+        await axios.post(API_HOST + "lesson/" + cookies.get('lessonid') + "/activity/template", cuestionario, { headers: { Authorization: cookies.get("token"), }, })
             .then(response => {
                 cuestionario.id = parseInt(response.data, 10)
                 cuestionario.documents[0].activityId = parseInt(response.data, 10)

@@ -203,7 +203,9 @@ export default class LessonAlumno extends Component {
       activities.map(async (activity) => {
         const activityData = (await axios.get("activity/" + activity.id)).data;
         let documents = activityData.documents.map((document) => {
+          console.log(document)
           return {
+            id: document.id,
             name: document.name,
             position: document.position,
             dataType: document.dataType,
@@ -211,7 +213,7 @@ export default class LessonAlumno extends Component {
             activityId: activity.id,
           };
         });
-        return documents === undefined || documents.size === 0 ? [] : documents;
+        return documents === undefined || documents.size === 0 ? [] : documents[0];
       })
     );
   }
