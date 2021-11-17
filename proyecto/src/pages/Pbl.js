@@ -295,7 +295,7 @@ export default class Pbl extends Component {
           <div className="title">
             Aprendizaje Basado en Proyectos
           </div>
-          <VerticalTimeline>
+          <VerticalTimeline lineColor={'rgb(33, 150, 243)'}>
             <VerticalTimelineElement
               className="vertical-timeline-element--work"
               //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
