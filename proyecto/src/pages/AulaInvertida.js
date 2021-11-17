@@ -226,7 +226,7 @@ export default class AulaInvertida extends Component {
                     <div className="title">
                         Aula Invertida
                     </div>
-                    <VerticalTimeline>
+                    <VerticalTimeline lineColor='rgb(33, 150, 243)'>
                         <VerticalTimelineElement
                             className="vertical-timeline-element--work"
                             contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
