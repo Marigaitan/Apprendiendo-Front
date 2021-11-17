@@ -36,7 +36,7 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
   };
 
   const questions = JSON.parse(workquizz.data);
-  handleQuizz(respuestas);
+  handleQuizz(respuestas, score);
 
   //console.log("ESTRUCTURA:", respuestas);
   return (
