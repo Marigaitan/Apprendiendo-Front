@@ -39,6 +39,7 @@ export default class LessonAlumno extends Component {
       actCuestionario: [],
       actFiles: [],
       answersQ: [],
+      answersQizz: [],
     };
   }
   //------------------------Files----------------------------------------------
@@ -203,7 +204,7 @@ export default class LessonAlumno extends Component {
       activities.map(async (activity) => {
         const activityData = (await axios.get("activity/" + activity.id)).data;
         let documents = activityData.documents.map((document) => {
-          console.log(document)
+          console.log(document);
           return {
             id: document.id,
             name: document.name,
@@ -213,7 +214,9 @@ export default class LessonAlumno extends Component {
             activityId: activity.id,
           };
         });
-        return documents === undefined || documents.size === 0 ? [] : documents[0];
+        return documents === undefined || documents.size === 0
+          ? []
+          : documents[0];
       })
     );
   }
@@ -222,6 +225,11 @@ export default class LessonAlumno extends Component {
   handleCallbackCondition = (answers) => {
     this.setState({ answersQ: answers });
   };
+
+  handleCallbackQuizz = (answers) => {
+    this.setState({ answersQizz: answers });
+  };
+
   //---------------------------Descargar Documentos -------------------------------
 
   async alumnoDescargaFile(url, fileName) {
@@ -341,7 +349,10 @@ export default class LessonAlumno extends Component {
                       <ModalHeader size="lg">{actQuizz.name}</ModalHeader>
                       <ModalBody>
                         {/* <h4>{actQuizz.data}</h4> */}
-                        <Quizz />
+                        <Quizz
+                          handleQuizz={this.handleCallbackQuizz}
+                          workquizz={actQuizz}
+                        />
                       </ModalBody>
                       <ModalFooter className="modalFooter">
                         <Button
