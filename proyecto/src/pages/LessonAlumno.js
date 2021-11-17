@@ -262,7 +262,8 @@ export default class LessonAlumno extends Component {
 
   closeModal() {
     this.setState({ openModal: false, modalId: -1 });
-    console.log("RESPUESTAS:", this.state.answersQ);
+    console.log("RESPUESTAS CUESTIONARIO:", this.state.answersQ);
+    console.log("RESPUESTAS QUIZZ:", this.state.answersQizz);
   }
 
   render() {

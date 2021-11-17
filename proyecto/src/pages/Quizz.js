@@ -1,14 +1,32 @@
 import React, { useState } from "react";
+import { isCompositeComponent } from "react-dom/test-utils";
 import "../css/Quizz.css";
 
 const Quizz = React.memo(({ handleQuizz, workquizz }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
-  const handleAnswerButtonClick = (isCorrect) => {
+  const [respuestas, setrespuestas] = useState({
+    puntaje: 0,
+    resultados: [],
+  });
+  const { puntaje, resultados } = respuestas;
+
+  const handleAnswerButtonClick = (isCorrect, questionText, answerText) => {
+    let aux = {
+      pregunta: questionText,
+      respuesta: answerText,
+    };
+
     if (isCorrect) {
-      setScore(score + 1);
+      setScore((e) => e + 1);
+      //setrespuestas({ ...respuestas, puntaje: puntaje + 1 });
     }
+    setrespuestas({
+      ...respuestas,
+      puntaje: puntaje + score,
+      resultados: resultados.concat(aux),
+    });
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < questions.length) {
       setCurrentQuestion(nextQuestion);
@@ -18,8 +36,9 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
   };
 
   const questions = JSON.parse(workquizz.data);
-  //handleQuizz();
+  handleQuizz(respuestas);
 
+  //console.log("ESTRUCTURA:", respuestas);
   return (
     <div classname="quizzBack">
       <div className="appQuizz">
@@ -43,7 +62,11 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
                   <button
                     classname="QuizzButton"
                     onClick={() =>
-                      handleAnswerButtonClick(answerOption.isCorrect)
+                      handleAnswerButtonClick(
+                        answerOption.isCorrect,
+                        questions[currentQuestion].questionText,
+                        answerOption.answerText
+                      )
                     }
                   >
                     {answerOption.answerText}
