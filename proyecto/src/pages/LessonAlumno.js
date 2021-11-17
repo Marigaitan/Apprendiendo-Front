@@ -40,7 +40,6 @@ export default class LessonAlumno extends Component {
       actFiles: [],
       answersQ: [],
       answersQizz: [],
-      puntajeQuizz: "",
     };
   }
   //------------------------Files----------------------------------------------
@@ -228,8 +227,11 @@ export default class LessonAlumno extends Component {
   };
 
   handleCallbackQuizz = (answers, puntaje) => {
-    this.setState({ answersQizz: answers });
-    this.setState({ puntajeQuizz: puntaje });
+    const temporal = {
+      puntaje: puntaje,
+      resultados: answers.resultados,
+    };
+    this.setState({ answersQizz: temporal });
   };
 
   //---------------------------Descargar Documentos -------------------------------
@@ -266,7 +268,6 @@ export default class LessonAlumno extends Component {
     this.setState({ openModal: false, modalId: -1 });
     console.log("RESPUESTAS CUESTIONARIO:", this.state.answersQ);
     console.log("RESPUESTAS QUIZZ:", this.state.answersQizz);
-    console.log("PUNTAJE QUIZZ:", this.state.puntajeQuizz);
   }
 
   render() {
