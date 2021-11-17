@@ -51,12 +51,15 @@ export default class AulaInvertida extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
         this.state = {
-
-
             projectId: -1,
             projectName: '',
             openModal: false,
-            modalId: -1
+            modalId: -1,
+            lessonIds: [],
+            archivosClase1: [],
+            textClass1: '',
+            description1: '',
+            duedateClass1: '',
         };
     }
 
@@ -68,6 +71,34 @@ export default class AulaInvertida extends Component {
         this.setState({ openModal: false, modalId: -1 });
     }
 
+
+    // ---------------------------------------------------------------------------------- add lessons
+
+    addLesson = (lesson) => {
+        let putParamUrl = API_HOST + "lesson";
+        axios.put(putParamUrl, lesson, { headers: { 'Authorization': cookies.get('token') } })
+          .then(response => console.log(response.data))
+        this.closeModal();
+      }
+    
+      addFirstLesson = () => {
+        const lesson = {
+          name: this.state.textClass1,
+          id: this.state.lessonIds[0], //falta obtener el id de la lesson
+          position: 0,
+          description: this.state.description1,
+          projectId: this.state.projectId,
+          dueDate: this.state.duedateClass1,
+          startDate: new Date().toISOString(),
+          active: true,
+          documents: this.state.archivosClase1,
+        }
+        console.log(lesson);
+        this.addLesson(lesson);
+      }
+
+
+    // ---------------------------------------------------------------------------------- create project
 
     async createProject() {
 
@@ -117,7 +148,7 @@ export default class AulaInvertida extends Component {
                 }
             ]
         }
-            await axios.post(classparamUrl, body, { headers: { 'Authorization': cookies.get('token') } })
+        await axios.post(classparamUrl, body, { headers: { 'Authorization': cookies.get('token') } })
             .then(response => {
                 const projectId = response.data;
                 console.log(projectId)
@@ -128,15 +159,15 @@ export default class AulaInvertida extends Component {
             }).then(projectId => {
                 let lessonsUrl = API_HOST + "project/" + projectId + "/lessons";
                 axios.get(lessonsUrl, { headers: { 'Authorization': cookies.get('token') } })
-                .then(response => {
-                    console.log(response.data)
-                    const ids = response.data.map(lesson => lesson.id);
-                    console.log(ids);
-                    this.setState({
-                        lessonIds: ids
+                    .then(response => {
+                        console.log(response.data)
+                        const ids = response.data.map(lesson => lesson.id);
+                        console.log(ids);
+                        this.setState({
+                            lessonIds: ids
+                        })
                     })
-                })
-            })
+            }).catch(err => console.log(err))
 
     }
 
@@ -149,7 +180,43 @@ export default class AulaInvertida extends Component {
         });
     }
 
-    
+
+    //--------------------------------------------------------------------------------------------- FILE
+
+    subirArchivos = async (elem, archivosLesson, lessonId) => {
+        console.log('imprimiendo elem')
+        console.log(elem);
+        const base64 = await this.convertToBase64(elem[0]);
+        console.log('imprimiendo base64')
+        console.log(base64);
+        let archivo = {
+            name: elem[0].name,
+            dataType: 'FILE',
+            data: base64,
+            documentSourceType: 'LESSON',
+            sourceId: lessonId
+        }
+        this.setState(prevState => ({ ...prevState, [archivosLesson]: prevState[archivosLesson].concat(archivo) }));
+    }
+
+    convertToBase64 = async (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
+    borrarArchivo = (e, archivosLesson) => {
+        this.setState(prevState => ({ ...prevState, [archivosLesson]: prevState[archivosLesson].filter(archivo => archivo.name !== e.name) }))
+    }
+
+
 
     render() {
         return (
@@ -159,7 +226,7 @@ export default class AulaInvertida extends Component {
                     <div className="title">
                         Aula Invertida
                     </div>
-                    <VerticalTimeline lineColor='rgb(33, 150, 243)'>
+                    <VerticalTimeline>
                         <VerticalTimelineElement
                             className="vertical-timeline-element--work"
                             contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
@@ -236,7 +303,7 @@ export default class AulaInvertida extends Component {
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
-                                                    <Input type="textarea" name="text" id="exampleText" />
+                                                    <Input type="textarea" name="textClass1" id="exampleText" />
                                                 </FormGroup>
                                             </Form>
                                         </div>
@@ -246,15 +313,22 @@ export default class AulaInvertida extends Component {
                                             <FormGroup>
                                                 <Label for="exampleText"><p>
                                                 </p></Label>
-                                                <Input type="textarea" name="text" id="exampleText" />
+                                                <Input type="textarea" name="description1" id="exampleText" />
                                             </FormGroup>
                                         </div>
                                         <div>
                                             <h3>Disponibilizar material</h3>
                                             <FormGroup>
-                                                <Label for="exampleText"><p>
-                                                </p></Label>
-                                                <Input type="textarea" name="text" id="exampleText" />
+                                                <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase1', this.state.lessonIds[0])} />
+                                                <br />
+                                                {this.state.archivosClase1 && this.state.archivosClase1.map(document =>
+                                                    <div key={document.name} >
+                                                        <Alert className="flexSpaceBetween">
+                                                            <Label>{document.name}</Label>
+                                                            <Button name={document.name} onClick={() => this.borrarArchivo(document, 'archivosClase1')}>Borrar</Button>
+                                                        </Alert>
+                                                    </div>
+                                                )}
                                             </FormGroup>
                                         </div>
 
@@ -275,7 +349,7 @@ export default class AulaInvertida extends Component {
                                                 <Label for="dueDate"></Label>
                                                 <Input
                                                     type="date"
-                                                    name="duedate"
+                                                    name="duedateClass1"
                                                     id="date"
                                                     placeholder="Hora de Finalización"
                                                 />
@@ -284,7 +358,7 @@ export default class AulaInvertida extends Component {
 
                                     </ModalBody>
                                     <ModalFooter className="modalFooter">
-                                        <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
+                                        <Button color="secondary" onClick={() => this.addFirstLesson()}>Cerrar</Button>
                                     </ModalFooter>
                                 </ModalBody>
                             </Modal>
