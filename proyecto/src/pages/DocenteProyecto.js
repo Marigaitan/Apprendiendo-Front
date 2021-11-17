@@ -140,7 +140,7 @@ export default class DocenteProyecto extends Component {
               <div className="center-div">
                 <h3>Clases</h3>
               </div>
-              <VerticalTimeline layout="2-columns">
+              <VerticalTimeline layout="2-columns" lineColor={'yellow'}>
                 {this.state.lessons.map((lesson) => {
                   return (
                     <VerticalTimelineElement
