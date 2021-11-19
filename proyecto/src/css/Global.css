@@ -2,18 +2,21 @@
     margin: 0px;
     display: flex;
     font-family: 'Indie Flower';
+
 }
 
 .secContainer{   
+    display: flex;
     justify-content: center;   
+    align-items: center;
+    /* align-content:space-around; */
     text-align: center;
+    flex-direction: column;
     border-radius: 20px;
-    flex: 1;
-    max-width: 80%;
-    margin-top: 50vh;
-    transform: translateY(-50%);
+    width: 100%;
+    /* margin-top: 50vh; */
+    /* transform: translateY(-50%); */
     padding: 15px;  
-    background-color: rgb(255, 209, 109);  
 }
 
 .title{

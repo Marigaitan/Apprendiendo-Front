@@ -1,16 +1,21 @@
 .secContainer #Title{
-    background-color: rgb(255, 255, 255);
-    opacity: 0.9;
+    background-color: rgb(255, 255, 255, 0.9);
+    border-radius: 20px;
+    border: 1px solid grey;
+    /* padding: 10px; */
+    /* margin:5px; */
     text-decoration: solid;
-    text-align: left;
     border: 1px solid grey;
 }
 .secContainer #cursos{
-    background-color: rgb(255, 255, 255);
-    opacity: 0.9;
+    background-color: rgb(255, 255, 255, 0.9);
+    border-radius: 20px;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px;
     text-decoration: solid;
     text-align: left;
-    border: 1px solid grey;
+    min-width: 70%;
 }
 /* .secContainer #classroomName{
     background-color: rgb(255, 255, 255);
@@ -19,13 +24,12 @@
     text-align: left;
     border: 1px solid grey;
 } */
-.classcontainer{   
-    justify-content: center;
-    width: 100%;
+.misCursos{   
+    /* justify-content: center; */
+    min-width: 70%;
 }
 .classButton{
     background-color: cadetblue;
-    opacity: 100%;
     margin: 20px;
     margin-bottom: 30px;
     border: 1px solid grey;
@@ -35,7 +39,6 @@
     font-weight: 900;
     font-size: 2em;
     flex:3; 
-     
-    
+    color: rgb(54, 54, 54);
 }
 

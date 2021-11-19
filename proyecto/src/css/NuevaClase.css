@@ -6,6 +6,26 @@
     background-size: cover;
     background-attachment: fixed; /* Esto es para que ocupe todo el width y height */
 }
+.nameClase{
+    border-radius: 20px;
+    justify-content: center;
+    flex: 1;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px;
+    background-color: rgb(255, 255, 255, 0.8);
+    backdrop-filter: blur(6px);
+}
+.boxEnunciado{
+    border-radius: 20px;
+    justify-content: center;
+    flex: 1;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px;
+    background-color: rgb(255, 255, 255, 0.8);
+    backdrop-filter: blur(6px);
+}
 .boxActiv{
     display: flex;
     margin: 0px;

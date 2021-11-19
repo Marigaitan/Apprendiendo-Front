@@ -276,8 +276,8 @@ export default function NewClase() {
     <div className="mainContainer">
       <HeaderTeacher />
       <div className="newClaseForm">
-        <h2>Clase Nueva</h2>
         <div className="nameClase">
+        <h2>Clase Nueva</h2>
           <label>
             <h4>Nombre de la Clase</h4>
           </label>

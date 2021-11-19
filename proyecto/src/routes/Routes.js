@@ -27,7 +27,7 @@ import  DocenteEstatusClase from "../pages/DocenteEstatusClase";
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 
 import NewClase from "../pages/NewClase";
-import DocenteLesson from "../pages/DocenteLesson";
+import DocenteEditLesson from "../pages/DocenteEditLesson";
 import AulaInvertida from "../pages/AulaInvertida";
 import Pbl from "../pages/Pbl";
 import { AlumnoProgreso } from "../pages/AlumnoProgreso";
@@ -35,6 +35,8 @@ import { ProgresoMateria } from "../pages/ProgresoMateria";
 import { ListarLogros } from "../pages/ListarLogros";
 import { ListarLogrosDelCurso } from "../pages/ListarLogrosDelCurso";
 import MenuLogrosDocente from "../pages/MenuLogrosDocente";
+import DocenteLesson from "../pages/DocenteLesson";
+import CorregirActividades from "../pages/CorregirActividades";
 
 function Routes() {
   return (
@@ -104,8 +106,19 @@ function Routes() {
         />
         <Route
           exact
+          path="/menudocente/classroom/proyecto/clase/edit"
+          component={DocenteEditLesson}
+        />
+        <Route
+          exact
           path="/menudocente/classroom/proyecto/clase"
           component={DocenteLesson}
+        />
+        
+        <Route
+          exact
+          path="/menudocente/classroom/proyecto/clase/corregir"
+          component={CorregirActividades}
         />
         <Route exact path="/menuAdmin/docente/abm" component={DocenteAbm} />
         <Route exact path="/menuAdmin/alumno/abm" component={AlumnoAbm} />

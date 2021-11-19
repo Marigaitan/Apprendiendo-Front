@@ -8,6 +8,7 @@ import * as _ from "lodash";
 import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
 import Background from '../Images/fondoLetras.png';
+import { Button } from 'reactstrap';
 
 const cookies = new Cookies();
 
@@ -72,28 +73,27 @@ export default class MenuDocente extends Component {
         ]));
 
         const mainStyle = {
-            maxHeight: '100%',
             backgroundImage: "url(" + Background + ")",
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
 
         };
-        const secStyle = {
-            background: 'none'
-
-        };
 
         return (
-            <div className="mainContainer" style={mainStyle}>
+            <div className="mainContainer" 
+            style={mainStyle}
+            >
                 <HeaderTeacher />
-                <div className="secContainer" style={secStyle}>
-                    <h1 id='Title'><b>Mis Cursos</b></h1>
+                <div className="secContainer" >
+                    <div className='misCursos'>
+                        <h1 id='Title'><b>Mis Cursos</b></h1>
+                    </div>
                     <div id='cursos'>
                         {this.state.classrooms.map(classroomGroup => [
                             <h1 id='classroomName'><li key={classroomGroup[0]}>{classroomGroup[0]}</li></h1>,
                             classroomGroup[1].map(classroom =>
-                                <button key={classroom.id} className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</button>
+                                <Button key={classroom.id} className="classButton" onClick={() => this.goClassroom(classroom.id)}>{classroom.subject}</Button>
                             )
                         ])
                         }

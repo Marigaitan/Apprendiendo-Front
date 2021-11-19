@@ -117,10 +117,10 @@ export default class DocenteProyecto extends Component {
       <div className="mainContainer">
         <HeaderTeacher />
         <div className="mainProyecto">
-          <div>
+          <div className="whitebox">
             <h2>{this.state.project.name}</h2>
           </div>
-          <div>
+          <div className="whitebox">
             <Switch
               id={cookies.get("projectid")}
               //status={this.state.status}
@@ -140,7 +140,7 @@ export default class DocenteProyecto extends Component {
               <div className="center-div">
                 <h3>Clases</h3>
               </div>
-              <VerticalTimeline layout="2-columns" lineColor={'yellow'}>
+              <VerticalTimeline layout="2-columns" lineColor={"rgb(225, 206, 81)"}>
                 {this.state.lessons.map((lesson) => {
                   return (
                     <VerticalTimelineElement

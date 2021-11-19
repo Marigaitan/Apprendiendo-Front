@@ -1,15 +1,14 @@
+import axios from "axios";
 import React, { Component } from "react";
-import { Button, Label } from "reactstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/Global.css';
-import '../css/DocenteEditLesson.css';
+import { Alert, Label } from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import axios from "axios";
 import HeaderTeacher from "./Header";
+import '../css/DocenteEditLesson.css';
+
 const cookies = new Cookies();
 
-export default class DocenteLesson extends Component {
+export default class CorregirActividades extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,14 +26,6 @@ export default class DocenteLesson extends Component {
             })
     }
 
-    corregirActividadesClase = () => {
-        this.props.history.push("/menudocente/classroom/proyecto/clase/corregir");
-    };
-
-    editClase = () => {
-        this.props.history.push("/menudocente/classroom/proyecto/clase/edit");
-    };
-
     render() {
         return (
             <div className='mainContainer'>
@@ -50,9 +41,9 @@ export default class DocenteLesson extends Component {
                             {this.state.lesson && <h1><Label>{this.state.lesson.description}</Label></h1>}
                         </div>
                     </div>
-                    <div className='whitebox'>
-                        <Button className='buttonStyle' onClick={this.corregirActividadesClase}>Corregir actividades</Button>
-                        <Button className='buttonStyle' onClick={this.editClase}>Editar clase</Button>
+                    <div>
+                        <Alert>Aca seria el lugar donde se listarian las actividades que el profesor pueda corregir</Alert>
+                        <Alert>Como quizzes y cuestionarios</Alert>
                     </div>
                 </div>
             </div>

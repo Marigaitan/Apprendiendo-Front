@@ -26,73 +26,73 @@ import "../css/Header.css";
 
 const cookies = new Cookies();
 const HeaderTeacher = () => {
-  
-    //create initial menuCollapse state using useState hook
-    const [menuCollapse, setMenuCollapse] = useState(false)
 
-    //create a custom function that will change menucollapse state from false to true and true to false
+  //create initial menuCollapse state using useState hook
+  const [menuCollapse, setMenuCollapse] = useState(false)
+
+  //create a custom function that will change menucollapse state from false to true and true to false
   const menuIconClick = () => {
     //condition checking to change state from true to false and vice versa
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
 
   return (
-    
-      <div id="header">
-          {/* collapsed props to change menu size using menucollapse state */}
-        <ProSidebar collapsed={menuCollapse}>
-          <SidebarHeader >
+
+    <div id="header">
+      {/* collapsed props to change menu size using menucollapse state */}
+      <ProSidebar collapsed={menuCollapse}>
+        <SidebarHeader >
           <div className="logotext">
-              {/* small and big change using menucollapse state */}
-              <h3>{menuCollapse ? < BiUser /> : <p id="userName">{cookies.get('username')}</p>}</h3>
-            </div>
+            {/* small and big change using menucollapse state */}
+            {menuCollapse ? <div style={{backgroundColor:'#fece00'}}><BiUser size='3em' color='#fbf4cd'/></div> : <h3><p id="userName">{cookies.get('username')}</p></h3>}
             <div className="closemenu" onClick={menuIconClick}>
-                {/* changing menu collapse icon on click */}
+              {/* changing menu collapse icon on click */}
               {menuCollapse ? (
-                <FiArrowRightCircle/>
+                <FiArrowRightCircle />
               ) : (
-                <FiArrowLeftCircle/>
+                <FiArrowLeftCircle />
               )}
             </div>
-          </SidebarHeader>
+          </div>
+        </SidebarHeader>
 
 
-          <SidebarContent>
-            <Menu iconShape="square">
-              
-              <MenuItem active={true} icon={<FiHome />}>
-                Inicio
-                <Link to="/menudocente" />
-              </MenuItem>              
-              
-              <MenuItem icon={<BiCog /> } >Mi Perfil</MenuItem>
-              
-              <MenuItem icon={<BiBook />}>
-                Repositorio
-                <Link to="/menudocente/repositorio"/>
-              </MenuItem>
+        <SidebarContent>
+          <Menu iconShape="square">
 
-              <MenuItem icon={<BiBookBookmark />}>
-                Metodologías
-                <Link to="/menudocente/metodologias"/>
-              </MenuItem>
-              
-              <MenuItem icon={<BiBarChartAlt />}>Métricas</MenuItem>
-            
-            
-            </Menu>
-          </SidebarContent>
+            <MenuItem active={true} icon={<FiHome />}>
+              Inicio
+              <Link to="/menudocente" />
+            </MenuItem>
+
+            <MenuItem icon={<BiCog />} >Mi Perfil</MenuItem>
+
+            <MenuItem icon={<BiBook />}>
+              Repositorio
+              <Link to="/menudocente/repositorio" />
+            </MenuItem>
+
+            <MenuItem icon={<BiBookBookmark />}>
+              Metodologías
+              <Link to="/menudocente/metodologias" />
+            </MenuItem>
+
+            <MenuItem icon={<BiBarChartAlt />}>Métricas</MenuItem>
 
 
+          </Menu>
+        </SidebarContent>
 
-          <SidebarFooter>
-            <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />} onClick={() => cerrarSesion(this.props)}>Cerrar Sesión</MenuItem>
-            </Menu>
-          </SidebarFooter>
-        </ProSidebar>
-      </div>
-    
+
+
+        <SidebarFooter>
+          <Menu iconShape="square">
+            <MenuItem icon={<FiLogOut />} onClick={() => cerrarSesion(this.props)}>Cerrar Sesión</MenuItem>
+          </Menu>
+        </SidebarFooter>
+      </ProSidebar>
+    </div>
+
   );
 };
 
