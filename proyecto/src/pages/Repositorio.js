@@ -6,6 +6,10 @@ import axios from "axios";
 import {
   Table,
   Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from "reactstrap";
 import HeaderTeacher from "./Header";
 import { Rating, RatingView } from 'react-simple-star-rating'
@@ -17,7 +21,17 @@ class Repositorio extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      templates : []
+      teacher : null,
+      templates : [],
+      selectedTemplate : null,
+      
+      openCalificarModal : false,
+      myReview : "",
+      myScore : 0,
+
+      openVerReviewsModal : false,
+
+      openVerTemplateModal : false
     };
   }
 
@@ -25,6 +39,8 @@ class Repositorio extends Component {
     axios.defaults.headers.common["Authorization"] = cookies.get("token");
     axios.defaults.baseURL = API_HOST;
     
+    let teacher = (await axios.get("user/" + cookies.get("id"))).data;
+
     let templates = [];
     templates.push(...(await axios.get("templates/projects")).data);
     templates.push(...(await axios.get("templates/activities")).data);
@@ -40,7 +56,7 @@ class Repositorio extends Component {
       reviewCount: template.reviewCount
     }));
 
-    this.setState({ templates: templates });
+    this.setState({ templates: templates, teacher: teacher });
   }
 
   parseTemplateType(templateType) {
@@ -55,23 +71,122 @@ class Repositorio extends Component {
     else return methodology.name;
   }
 
-  calificar(template){
-    //formulario para calificar y dejar reseña
+
+
+
+  verReviewsModal (template) {
+    if (template != null) {
+      return (
+        <Modal isOpen={this.state.openVerReviewsModal} className="modalStyle">
+          <ModalHeader size="lg">{template.name}</ModalHeader>
+          <ModalBody>
+            {template.reviews.map((review) => (
+              <tr>
+                <td>{review.reviewer.username}</td>
+                
+                <td>
+                  <RatingView ratingValue={review.score} size={20}/>
+                </td>
+
+                <td>
+                  <td>{review.review}</td>
+                </td> 
+              </tr>
+            ))}
+          </ModalBody>
+          <ModalFooter className="modalFooter">
+          <Button color="primary" onClick={() => {this.openCalificarModal(template)}}> Calificar </Button>
+            <Button color="secondary" onClick={() => this.closeVerReviewsModal()}> Cerrar </Button>
+          </ModalFooter>
+        </Modal>
+      )
   }
 
-  verReviews(template){
-    //lista de reseñas
+}
+
+  async openVerReviewsModal (template) {  
+    template.reviews = (await axios.get("template/" + template.id + "/reviews")).data;
+    this.setState({ openVerReviewsModal: true, selectedTemplate: template});
   }
 
-  usar(template){
-    //reusar interfaz para nuevo proyecto/clase/actividad
-    //o bien, eliminar boton y agregar seleccion de templates en las paginas de creacion de proyecto/clase/actividad
+  closeVerReviewsModal () {
+    this.setState({ openVerReviewsModal: false});
   }
 
-  ver (template){
-    //reusar interfaz para visualizacion de proyecto/clase/actividad
+
+
+
+  calificarModal (template) {
+    if (template != null)
+    return (
+      <Modal isOpen={this.state.openCalificarModal} className="modalStyle">
+        <ModalHeader size="lg">{template.name}</ModalHeader>
+        <ModalBody>
+          <form>
+            <label><h4>{template.name}</h4></label>
+            <br />
+            <Rating onClick={(rating) => this.setState({ myScore: rating})} ratingValue={this.state.myScore}/>
+            <textarea class="form-control" id="calificarTextArea1" rows="3"onChange={(n) => this.setState({ myReview: n.target.value})}></textarea>
+          </form>
+        </ModalBody>
+        <ModalFooter className="modalFooter">
+        <Button color="primary" onClick={() => this.submitReview(template)}> Calificar </Button>
+        <Button color="secondary" onClick={() => this.closeCalificarModal(template)}> Cerrar </Button>
+        </ModalFooter>
+      </Modal>
+    )
   }
 
+  openCalificarModal (template) {
+    this.closeVerReviewsModal(); 
+    this.setState({ openCalificarModal: true, selectedTemplate: template});
+  };
+
+  closeCalificarModal (template) {
+    this.setState({ openCalificarModal: false});
+    this.openVerReviewsModal(template);
+  };
+
+  async submitReview (template) {
+    let reviewDTO = {
+      review: this.state.myReview,
+      score: this.state.myScore,
+      templateId: template.id,
+      reviewerId: this.state.teacher.id
+    }
+    
+    await axios.post("template/review", reviewDTO);
+    this.closeCalificarModal(template);
+  }
+
+
+
+
+  verTemplateModal (template) {
+    if (template != null)
+    return (
+      <Modal isOpen={this.state.openVerTemplateModal} className="modalStyle">
+        <ModalHeader size="lg">{template.name}</ModalHeader>
+        <ModalBody>
+        </ModalBody>
+        <ModalFooter className="modalFooter">
+          <Button color="secondary" onClick={() => this.closeVerTemplateModal()}> Cerrar </Button>
+        </ModalFooter>
+      </Modal>
+    )
+  }
+
+  openVerTemplateModal (template) {
+    this.setState({ openVerTemplateModal: true, selectedTemplate: template});
+  }
+
+  closeVerTemplateModal () {
+    this.setState({ openVerTemplateModal: false});
+  }
+
+
+
+  
   render() {
     return (
       <div className="mainContainer">
@@ -91,24 +206,37 @@ class Repositorio extends Component {
               {this.state.templates.map((template) => (
                 <tr>
                   <td>{template.name}</td>
+                  
                   <td>{template.type}</td>
+                  
                   <td>{template.methodology}</td>
+                  
                   <td>{template.owner}</td>
+                  
                   <td>
                     <RatingView ratingValue={template.score} size={20}/>
-                    <Link to={``} activeClassName="active"><div className="annotation"><ln>{"(" + template.reviewCount + " reseñas)"}</ln></div></Link>
-                    <Button color="primary" onClick={() => this.calificar(template)}> Calificar </Button>{" "}
+                    
+                    <Link to={'#'} onClick={() => this.openVerReviewsModal(template)} activeClassName="active">
+                      <div className="annotation"> {"(" + template.reviewCount + " reseñas)"} </div>
+                    </Link>
+                    
+                    <Button color="primary" onClick={() => this.openCalificarModal(template)}> Calificar </Button>{" "}
                   </td>
+
                   <td>
-                    <Button color="primary" onClick={() => this.calificar(template)}> Ver </Button>{" "}  
-                    <Button color="primary" onClick={() => this.calificar(template)}> Usar </Button>{" "}
+                    <Button color="primary" onClick={() => this.openVerTemplateModal(template)}> Ver </Button>{" "}  
                   </td> 
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div>
+          {this.calificarModal(this.state.selectedTemplate)}
+          {this.verReviewsModal(this.state.selectedTemplate)}
+          {this.verTemplateModal(this.state.selectedTemplate)}
+        </div>
+
+      
     );
   }
 
