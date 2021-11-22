@@ -92,7 +92,7 @@ export default class LessonAlumno extends Component {
         console.log(documento);
 
         return await axios
-          .post(API_HOST + "document", documento, {
+          .post(API_HOST + "/user​/"+ cookies.get("id") +"/project​/"+cookies.get("projectid")+"/document", documento, {
             headers: { Authorization: cookies.get("token") },
           })
           .then((response) => console.log(response.data))
@@ -224,6 +224,7 @@ export default class LessonAlumno extends Component {
   //-------------------------Respuestas Alumno--------------------------------------
   handleCallbackCondition = (answers) => {
     this.setState({ answersQ: answers });
+    
   };
 
   handleCallbackQuizz = (answers, puntaje) => {
@@ -264,10 +265,13 @@ export default class LessonAlumno extends Component {
     this.setState({ openModal: true, modalId: id });
   };
 
-  closeModal() {
+  closeModal(activityId, answer) {
     this.setState({ openModal: false, modalId: -1 });
     console.log("RESPUESTAS CUESTIONARIO:", this.state.answersQ);
     console.log("RESPUESTAS QUIZZ:", this.state.answersQizz);
+    console.log("url cuest");
+    console.log("/user​/" + cookies.get("id")+ "/activity​/"+ activityId +"/document", answer);
+    axios.post("/user​/" + cookies.get("id")+ "/activity​/"+ activityId +"/document", answer)
   }
 
   render() {
@@ -323,7 +327,7 @@ export default class LessonAlumno extends Component {
                           JSON.parse(actCuestionario.data).length && (
                           <Button
                             color="secondary"
-                            onClick={() => this.closeModal()}
+                            onClick={() => this.closeModal(actCuestionario.activityId, this.answersQ)}
                           >
                             Finalizar
                           </Button>
@@ -362,7 +366,7 @@ export default class LessonAlumno extends Component {
                       <ModalFooter className="modalFooter">
                         <Button
                           color="secondary"
-                          onClick={() => this.closeModal()}
+                          onClick={() => this.closeModal(actQuizz.activityId, this.answersQizz)}
                         >
                           Finalizar
                         </Button>

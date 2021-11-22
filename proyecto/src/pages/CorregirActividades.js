@@ -5,6 +5,7 @@ import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import HeaderTeacher from "./Header";
 import '../css/DocenteEditLesson.css';
+import ShowActivity from "./ShowActivity";
 
 const cookies = new Cookies();
 
@@ -12,18 +13,25 @@ export default class CorregirActividades extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            lesson: undefined
+            lesson: undefined,
+            activities: [],
+            alumnos: []
         };
     }
 
     async componentDidMount() {
-        await axios.get(API_HOST + "lesson/" + cookies.get('lessonid'), { headers: { 'Authorization': cookies.get('token') } })
-            .then(async response => {
-                console.log(response.data);
-                this.setState({
-                    lesson: response.data
-                });
-            })
+        axios.defaults.headers.common["Authorization"] = cookies.get("token");
+        axios.defaults.baseURL = API_HOST;
+        this.setState({
+            lesson: (await axios.get("lesson/" + cookies.get('lessonid'))).data,
+        });
+        this.setState({
+            activities: (await axios.get("lesson/" + cookies.get('lessonid') + "/activities")).data.map(activity =>({ id: activity.documents.id, name: activity.documents.name})),
+        });
+
+        this.setState({
+            alumnos: (await axios.get("classroom/" + cookies.get('classid') + "/students")).data.map(alumno => ({ id: alumno.id, username: alumno.username })),
+        });
     }
 
     render() {
@@ -32,7 +40,7 @@ export default class CorregirActividades extends Component {
                 <HeaderTeacher />
                 <div className='newClaseForm'>
                     <div className='whiteBox'>
-                    {/* aca va el nombre de la clase */}
+                        {/* aca va el nombre de la clase */}
                         <div>
                             {this.state.lesson && <h1><Label>{this.state.lesson.name}</Label></h1>}
                         </div>
@@ -41,9 +49,19 @@ export default class CorregirActividades extends Component {
                             {this.state.lesson && <h1><Label>{this.state.lesson.description}</Label></h1>}
                         </div>
                     </div>
-                    <div>
-                        <Alert>Aca seria el lugar donde se listarian las actividades que el profesor pueda corregir</Alert>
-                        <Alert>Como quizzes y cuestionarios</Alert>
+                    <div className="whiteBox">
+                    {this.state.alumnos.map((alumno) => {
+                      return (
+                        <h4
+                          key={alumno.id}
+                          id={alumno.id}
+                        >
+                          {alumno.username}
+                          <ShowActivity studentID = {alumno.id} activities={this.activities} />
+                            
+                        </h4>
+                      );
+                    })}
                     </div>
                 </div>
             </div>

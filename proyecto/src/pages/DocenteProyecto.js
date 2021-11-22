@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Cookies from "universal-cookie/es6";
 import "../css/Global.css";
 import axios from "axios";
+import ShowDocs from "./ShowDocs";
 
 import { API_HOST } from "../constants";
 import {
@@ -46,6 +47,8 @@ export default class DocenteProyecto extends Component {
       lessons: [],
       project: "",
       status: "",
+      tareasModal: false,
+      alumnos: []
     };
   }
 
@@ -77,6 +80,7 @@ export default class DocenteProyecto extends Component {
     axios.defaults.headers.common["Authorization"] = cookies.get("token");
     axios.defaults.baseURL = API_HOST;
 
+    let classroomId = cookies.get("classid");
     let projectId = cookies.get("projectid");
 
     this.setState({ groups: await this.getFullGroups(projectId) });
@@ -86,6 +90,10 @@ export default class DocenteProyecto extends Component {
     this.setState({ project: (await axios.get("project/" + projectId)).data });
     this.setState({
       status: (await axios.get("project/" + projectId)).data.active,
+    });
+
+    this.setState({
+      alumnos: (await axios.get("classroom/" + classroomId + "/students")).data.map(alumno => ({ id: alumno.id, username: alumno.username })),
     });
 
     console.log("Grupos:");
@@ -112,7 +120,23 @@ export default class DocenteProyecto extends Component {
     this.props.history.push("/menudocente/classroom/proyecto/clase");
   };
 
+  opModal = () => {
+    this.setState({ tareasModal: true });
+  };
+
+  cloModal() {
+    this.setState({ tareasModal: false });
+  }
+
   render() {
+    const styleButton = {
+      width: '50%',
+    }
+    const flexDivStyle = {
+      display: 'flex',
+      justifyContent: 'center',
+    }
+
     return (
       <div className="mainContainer">
         <HeaderTeacher />
@@ -130,12 +154,45 @@ export default class DocenteProyecto extends Component {
 
           <div className="mainFlex">
             <div className="left">
-              <div className="center-div">
+              <div >
                 <h3>Grupos</h3>
               </div>
               <DocenteProgresoGrupo studentGroups={this.state.groups} />
               {/* {this.state.modal} */}
+
+              <br /><br />
+              <div >
+                <h3>Tareas entregadas por los alumnos</h3>
+              </div>
+              <div style={flexDivStyle}>
+                <Button style={styleButton} onClick={() =>
+                  this.opModal()}>VER TAREAS</Button>
+                <Modal isOpen={this.state.tareasModal}>
+                  <ModalHeader>
+                    TAREAS ENTREGADAS
+                  </ModalHeader>
+                  <ModalBody>
+                    {this.state.alumnos.map((alumno) => {
+                      return (
+                        <h4
+                          key={alumno.id}
+                          id={alumno.id}
+                        >
+                          {alumno.username}
+                          
+                          <ShowDocs studentID= {alumno.id}/>
+                            
+                        </h4>
+                      );
+                    })}
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button onClick={() => this.cloModal()}>Finalizar</Button>
+                  </ModalFooter>
+                </Modal>
+              </div >
             </div>
+
             <div className="right">
               <div className="center-div">
                 <h3>Clases</h3>
