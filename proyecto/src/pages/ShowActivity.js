@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Alert, Button, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
+import { Alert, Button, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, FormGroup, Input, Label, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
 import '../css/Global.css';
+import '../css/ShowActivity.css';
 import Cookies from 'universal-cookie/es6';
 import axios from "axios";
 import { API_HOST } from "../constants";
@@ -11,7 +12,8 @@ export default class ShowActivity extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activitiesAnswers: []
+      activitiesAnswers: [],
+      openModal: false, modalId: -1,
     };
   }
 
@@ -37,7 +39,20 @@ export default class ShowActivity extends Component {
     console.log("documentos:")
     console.log(this.state.activitiesAnswers)
   }
-  // hay que hacer algun map con la lista de actividades para que me haga un get por activity id, ahora esta mal
+
+
+  openModal = (id) => {
+    this.setState({ openModal: true, modalId: id });
+  }
+
+  closeModal() {
+    this.setState({ openModal: false, modalId: -1 });
+  }
+
+  calificar() {
+    alert("calificaste yay!");
+  }
+
 
   render() {
 
@@ -45,16 +60,80 @@ export default class ShowActivity extends Component {
       <div>
         {this.state.activitiesAnswers.map((activityList) =>
           activityList.map(activity => {
+            let actividad = JSON.parse(activity.data);
+            console.log(actividad);
             return (
               <div key={activity.id} id={activity.id}>
                 <h3>
                   <li>
-                    <Button
+                    <Button onClick={() => this.openModal(activity.id)}
                       class="btn btn-link">
                       <h5>{activity.name}</h5>
                     </Button>
                   </li>
                 </h3>
+                <Modal isOpen={this.state.openModal && this.state.modalId === activity.id}>
+                  <ModalHeader size='lg'>
+                    {activity.name}
+                  </ModalHeader>
+                  <ModalBody>
+                    {activity.dataType === "CUESTIONARIO"
+                      ?
+                      (<div>
+                        {actividad && actividad.map((respuesta, index) => <Label key={index} id={index}>{respuesta}</Label>)}
+                      </div>)
+                      : activity.dataType === "QUIZZ"
+                        ?
+                        (<div>
+                          {actividad && actividad.resultados.map((resultado, index) =>
+                            <div key={index} id={index} className="respuesta">
+                              <Label>{resultado.pregunta}</Label>
+                              <Label>{resultado.respuesta}</Label>
+                            </div>
+                          )
+                          }
+                        </div>)
+                        : <div></div>
+                    }
+                  </ModalBody>
+                  <ModalFooter className="modalFooter">
+                    {activity.dataType === "CUESTIONARIO"
+                      ?
+                      (<div>
+                        <Label>Calificar:</Label>
+                        <FormGroup row>
+                          <Label
+                            for="exampleSelect"
+                            sm={2}
+                          >
+                            Select
+                          </Label>
+                          <Col sm={10}>
+                            <Input
+                              id="exampleSelect"
+                              name="select"
+                              type="select"
+                            >
+                              {Array.from({ length: 11 }, (x, i) =>
+                                <option>
+                                  {i}
+                                </option>)}
+                            </Input>
+                          </Col>
+                        </FormGroup>
+                        <Button color="secondary" onClick={() => this.calificar()}>Calificar</Button>
+                      </div>)
+                      : activity.dataType === "QUIZZ"
+                        ?
+                        (<div>
+                          <Label>Calificacion:</Label>
+                          <Label>{actividad.puntaje / actividad.resultados.length * 10}</Label>
+                        </div>)
+                        : <div></div>
+                    }
+                    <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
+                  </ModalFooter>
+                </Modal>
               </div>
             )
           })
