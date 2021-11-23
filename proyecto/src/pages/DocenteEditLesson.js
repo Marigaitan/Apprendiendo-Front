@@ -83,54 +83,9 @@ export default class DocenteEditLesson extends Component {
         }))
     }
 
-    //--------------------------------------------------------------------------------------------- PROYECTO
-    goProject = () => {
-        this.props.history.push("/menudocente/classroom/proyecto");
-    }
 
 
-
-
-    // -------------------------POST-------------------------------------------------------
-    editClase = async () => {
-        // let newClaseUrl = API_HOST + "project/" + cookies.get('projectid') + "/lesson/template";
-        // let newClase = {
-        //     name: name,
-        //     description: enun,
-        //     position: null,
-        //     dueDate: null,
-        //     startDate: null,
-        //     active: true, //Cambiarlo para que funcione con el switch y en default este en false
-        //     activities: actividades,
-        //     documents: archivos
-        // }
-        // console.log(newClase);
-        // await axios.post(newClaseUrl,
-        //     {
-        //         name: name,
-        //         description: enun,
-        //         position: null,
-        //         dueDate: null,
-        //         startDate: null,
-        //         active: true, //Cambiarlo para que funcione con el switch y en default este en false
-        //         activities: actividades,
-        //         documents: archivos
-        //     },
-        //     {
-        //         headers: {
-        //             'Authorization': cookies.get('token')
-        //         }
-        //     }
-        // )
-        //     .then(response => {
-        //         console.log(response);
-        //         this.goProject();
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //         alert('No se pudo crear la Clase')
-        //     })
-    }
+    
 
     //--------------------------------------------------------------------------------------------- FILE
     subirArchivos = async elem => {
@@ -369,6 +324,7 @@ export default class DocenteEditLesson extends Component {
                                     )
                                 })}
                             </div>
+                            <br />
                             <div>
                                 <label><h4>Agregar Cuestionario</h4></label><br />
                                 <form onSubmit={this.handleSubmitC}>
@@ -464,8 +420,7 @@ export default class DocenteEditLesson extends Component {
                     </div>
                     {/* -------------------------------------------------------------------------- */}
                     <div className='newClaseFotter'>
-                        <button className="btn btn-success btn-lg btn-block" type="submit" onClick={() => this.editClase()}>Crear Clase</button>{' '}
-                        <button className="btn btn-secondary btn-lg btn-block" type="button" onClick={() => this.goProject()} >Cancelar</button>
+                        <button className="btn btn-secondary btn-lg btn-block" type="button" onClick={this.props.history.goBack} >Volver</button>
                     </div>
                 </div>
             </div>

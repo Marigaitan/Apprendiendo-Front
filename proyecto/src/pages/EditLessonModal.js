@@ -45,16 +45,17 @@ export default class EditLessonModal extends Component {
     buttonEditQuizzParams = (quizz) => {
         let pregunta = JSON.parse(quizz.data);
         console.log(pregunta);
-        return (<Button key={pregunta[0].questionText} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
-            {pregunta[0].questionText}
-        </Button>)
+        return (<Button key={quizz.name} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
+            {quizz.name}
+        </Button>);
     }
 
     buttonEditCuestionarioParams = (cuestionario) => {
         let pregunta = JSON.parse(cuestionario.data);
-        return (<Button key={pregunta[0].question} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
-            {pregunta[0].question}
-        </Button>)
+        console.log(pregunta);
+        return (<Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
+            {cuestionario.name}
+        </Button>);
     }
 
     removeFormFields = (i) => {
@@ -162,9 +163,6 @@ export default class EditLessonModal extends Component {
                     // -------------------------------------------------------------------------------- QUIZZ
                     (<div key={this.props.quizz.id} >
                         <div className='quizzData'>
-                            <div className='nameQuizz'>
-                                <Label>{this.state.name}</Label>
-                            </div>
                             <div className='quizzButton'>
                                 {this.buttonEditQuizzParams(this.props.quizz)}
                             </div>
