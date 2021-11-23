@@ -8,45 +8,60 @@ import { API_HOST } from "../constants";
 const cookies = new Cookies();
 
 export default class ShowActivity extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activitiesAnswers: []
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      activitiesAnswers: []
+    };
+  }
 
-    async componentDidMount(studentID, activities) {
-        axios.defaults.headers.common["Authorization"] = cookies.get("token");
-        axios.defaults.baseURL = API_HOST;
-        this.setState({
-            activitiesAnswers: (await axios.get("user​/" + studentID + "​/activity​/" + activities + "​/documents")).data.map(activity =>({ id: activity.id, name: activity.name, type: activity.dataType, answers: activity.data})),
-        });
-        console.log("documentos:")
-        console.log(this.activitiesAnswers)
-    }
-    // hay que hacer algun map con la lista de actividades para que me haga un get por activity id, ahora esta mal
+  async componentDidMount() {
+    axios.defaults.headers.common["Authorization"] = cookies.get("token");
+    axios.defaults.baseURL = API_HOST;
+    let axiosActivities = [];
+    this.props.activities.forEach(activity => {
+      const request = axios.get("user/" + this.props.studentID + "/activity/" + activity.id + "/documents");
+      axiosActivities.push(request);
+    })
+    console.log(axiosActivities);
 
-    render() {
 
-        return (
-            <div>
-                {this.state.activitiesAnswers.map((activity) => {
-                return (
-                  <div key={activity.id} id={activity.id}>
-                    <h3>
-                      <li>
-                        <button
-                          class="btn btn-link">
-                          <h5>{activity.name}</h5>
-                        </button>
-                      </li>
-                    </h3>
-                  </div>
-                );
-              })}
-            </div>
-        );
+    await axios.all(axiosActivities).then(responses => {
+      let activities = responses.map(response => response.data);
+      console.log(activities);
+      this.setState({
+        activitiesAnswers: activities
+      });
+    }).catch(console.log)
 
-    }
+    console.log("documentos:")
+    console.log(this.state.activitiesAnswers)
+  }
+  // hay que hacer algun map con la lista de actividades para que me haga un get por activity id, ahora esta mal
+
+  render() {
+
+    return (
+      <div>
+        {this.state.activitiesAnswers.map((activityList) =>
+          activityList.map(activity => {
+            return (
+              <div key={activity.id} id={activity.id}>
+                <h3>
+                  <li>
+                    <Button
+                      class="btn btn-link">
+                      <h5>{activity.name}</h5>
+                    </Button>
+                  </li>
+                </h3>
+              </div>
+            )
+          })
+        )}
+      </div>
+    );
+
+  }
 
 }

@@ -266,13 +266,16 @@ export default class LessonAlumno extends Component {
     this.setState({ openModal: true, modalId: id });
   };
 
-  closeModal(activityId, answer) {
+  closeModal(activityId, name, dataType, answer) {
     this.setState({ openModal: false, modalId: -1 });
+    let body = {sourceId: activityId, documentSourceType: "ACTIVITY", name: name, dataType: dataType, data: JSON.stringify(answer)};
     console.log("RESPUESTAS CUESTIONARIO:", this.state.answersQ);
     console.log("RESPUESTAS QUIZZ:", this.state.answersQizz);
+    console.log("RESPUESTA ANSWER:", answer);
     console.log("url cuest");
-    console.log("/user​/" + cookies.get("id")+ "/activity​/"+ activityId +"/document", answer);
-    axios.post("/user​/" + cookies.get("id")+ "/activity​/"+ activityId +"/document", answer)
+    console.log("/user​/" + cookies.get("id")+ "/activity​/"+ activityId +"/document", body);
+    axios.post("/user/" + cookies.get("id")+ "/activity/"+ activityId + "/document", body, {headers: { Authorization: cookies.get("token") },})
+    .then(response => this.setState({answersQ: [], answersQizz: []})).catch(err => {console.log(err); this.setState({answersQ: [], answersQizz: []});})
   }
 
   render() {
@@ -328,7 +331,7 @@ export default class LessonAlumno extends Component {
                           JSON.parse(actCuestionario.data).length && (
                           <Button
                             color="secondary"
-                            onClick={() => this.closeModal(actCuestionario.activityId, this.answersQ)}
+                            onClick={() => this.closeModal(actCuestionario.activityId, actCuestionario.name, "CUESTIONARIO", this.state.answersQ)}
                           >
                             Finalizar
                           </Button>
@@ -367,7 +370,7 @@ export default class LessonAlumno extends Component {
                       <ModalFooter className="modalFooter">
                         <Button
                           color="secondary"
-                          onClick={() => this.closeModal(actQuizz.activityId, this.answersQizz)}
+                          onClick={() => this.closeModal(actQuizz.activityId, actQuizz.name, "QUIZZ", this.state.answersQizz)}
                         >
                           Finalizar
                         </Button>

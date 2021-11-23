@@ -26,12 +26,19 @@ export default class CorregirActividades extends Component {
             lesson: (await axios.get("lesson/" + cookies.get('lessonid'))).data,
         });
         this.setState({
-            activities: (await axios.get("lesson/" + cookies.get('lessonid') + "/activities")).data.map(activity =>({ id: activity.documents.id, name: activity.documents.name})),
+            activities: (await axios.get("lesson/" + cookies.get('lessonid') + "/activities")).data //.map(activity =>({ id: activity.documents[0].id, name: activity.documents[0].name})),
         });
 
         this.setState({
             alumnos: (await axios.get("classroom/" + cookies.get('classid') + "/students")).data.map(alumno => ({ id: alumno.id, username: alumno.username })),
         });
+
+        console.log("lesson")
+        console.log(this.state.lesson)
+        console.log("activities")
+        console.log(this.state.activities)
+        console.log("alumnos")
+        console.log(this.state.alumnos)
     }
 
     render() {
@@ -57,7 +64,7 @@ export default class CorregirActividades extends Component {
                           id={alumno.id}
                         >
                           {alumno.username}
-                          <ShowActivity studentID = {alumno.id} activities={this.activities} />
+                          <ShowActivity studentID = {alumno.id} activities={this.state.activities} />
                             
                         </h4>
                       );
