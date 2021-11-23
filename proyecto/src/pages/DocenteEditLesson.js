@@ -53,6 +53,8 @@ export default class DocenteEditLesson extends Component {
                 const quizzes = actDocuments.filter(
                     actDocument => actDocument !== undefined && actDocument && actDocument.dataType === "QUIZZ"
                 );
+                console.log(cuestionarios)
+                console.log(quizzes)
                 this.setState({
                     lesson: response.data,
                     archivos: archivos,
@@ -71,6 +73,7 @@ export default class DocenteEditLesson extends Component {
                 ? undefined
                 :
                 {
+                    id: activityData.documents[0].id,
                     name: activityData.documents[0].name,
                     position: activityData.documents[0].position,
                     dataType: activityData.documents[0].dataType,
@@ -355,9 +358,16 @@ export default class DocenteEditLesson extends Component {
                         {/* luego dar la opcion de cargar uno */}
 
                         <div className='setCuestionario'>
-                            <div>
-                                <Label><h4>Cuestionarios</h4></Label>
-                                {this.state.cuestionarios.map(cuestionario => JSON.parse(cuestionario.data).map(pregunta => <div key={pregunta.question}><Label>{pregunta.question}</Label></div>))}
+                            <div className='editQuizz'>
+                                <Label><h4>Cuestionarios activos:</h4></Label>
+                                {this.state.cuestionarios.map(cuestionario => {
+                                    console.log(cuestionario);
+                                    return (
+                                        <div key={cuestionario.id} >
+                                            <EditLessonModal cuestionario={cuestionario} />
+                                        </div>
+                                    )
+                                })}
                             </div>
                             <div>
                                 <label><h4>Agregar Cuestionario</h4></label><br />

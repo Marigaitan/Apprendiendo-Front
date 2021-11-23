@@ -16,57 +16,65 @@ export default class EditLessonModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quizzOpenModal: false, quizzModalId: -1, activeButton: false, formValues: [], nameQuizz: ''
+            openModal: false, modalId: -1, activeButton: false, formValues: [], name: ''
         };
     }
 
     componentDidMount() {
-        let quizzData = JSON.parse(this.props.quizz.data)
-        console.log(quizzData)
-        this.setState({ formValues: quizzData, nameQuizz: this.props.quizz.name })
+        let data = JSON.parse(this.props.quizz
+            ? this.props.quizz.data
+            : (this.props.cuestionario
+                ? this.props.cuestionario.data
+                : ""))
+        console.log(data)
+        this.setState({ formValues: data, name: this.props.quizz ? this.props.quizz.name : (this.props.cuestionario ? this.props.cuestionario.name : "") })
     }
 
-    openModalQuizz = (id) => {
-        this.setState({ quizzOpenModal: true, activeButton: false, quizzModalId: id })
+    openModal = (id) => {
+        this.setState({ openModal: true, activeButton: false, modalId: id })
     }
 
     closeButton = () => {
         this.setState({ activeButton: true })
     }
 
-    closeModalQuizz = () => {
-        this.setState({ quizzOpenModal: false, quizzModalId: -1 })
+    closeModal = () => {
+        this.setState({ openModal: false, modalId: -1 })
     }
 
-    editLesson = (quizz) => {
+    buttonEditQuizzParams = (quizz) => {
         let pregunta = JSON.parse(quizz.data);
         console.log(pregunta);
-        return (<Button key={pregunta[0].questionText} outline block color='primary' onClick={() => this.openModalQuizz(quizz.position)}>
+        return (<Button key={pregunta[0].questionText} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
             {pregunta[0].questionText}
         </Button>)
     }
 
+    buttonEditCuestionarioParams = (cuestionario) => {
+        let pregunta = JSON.parse(cuestionario.data);
+        return (<Button key={pregunta[0].question} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
+            {pregunta[0].question}
+        </Button>)
+    }
+
+    removeFormFields = (i) => {
+        let newFormValuesQ = [...this.state.formValues];
+        newFormValuesQ.splice(i, 1);
+        this.setState({ formValues: (newFormValuesQ) });
+    };
+
+    handleChange = (i, e) => {
+        let newFormValuesQ = [...this.state.formValues];
+        newFormValuesQ[i][e.target.name] = e.target.value;
+        this.setState({ formValues: newFormValuesQ });
+    };
+
 
     // -------------------------------------------------------------------------------- QUIZZ
 
-    handleChangeQ = (i, e) => {
+    handleChangeAnswerText = (i, e, option) => {
         let newFormValuesQ = [...this.state.formValues];
-        newFormValuesQ[i][e.target.name] = e.target.value;
-        this.setState({ formValues: (newFormValuesQ) });
-    };
-    handleChangeQ1 = (i, e) => {
-        let newFormValuesQ = [...this.state.formValues];
-        newFormValuesQ[i][e.target.name][0].answerText = e.target.value;
-        this.setState({ formValues: (newFormValuesQ) });
-    };
-    handleChangeQ2 = (i, e) => {
-        let newFormValuesQ = [...this.state.formValues];
-        newFormValuesQ[i][e.target.name][1].answerText = e.target.value;
-        this.setState({ formValues: (newFormValuesQ) });
-    };
-    handleChangeQ3 = (i, e) => {
-        let newFormValuesQ = [...this.state.formValues];
-        newFormValuesQ[i][e.target.name][2].answerText = e.target.value;
+        newFormValuesQ[i][e.target.name][option].answerText = e.target.value;
         this.setState({ formValues: (newFormValuesQ) });
     };
 
@@ -87,13 +95,10 @@ export default class EditLessonModal extends Component {
         console.log(this.state.formValues);
     };
 
-    removeFormFieldsQ = (i) => {
-        let newFormValuesQ = [...this.state.formValues];
-        newFormValuesQ.splice(i, 1);
-        this.setState({ formValues: (newFormValuesQ) });
-    };
+
 
     handleSubmitQ = async (event) => {
+        console.log(this.props.quizz)
         event.preventDefault();
         let quizz = {
             id: this.props.quizz.id,
@@ -104,72 +109,155 @@ export default class EditLessonModal extends Component {
             dataType: "QUIZZ",
             data: JSON.stringify(this.state.formValues),
         };
-        await axios.put(API_HOST + "documents/" + cookies.get('lessonid'), quizz, { headers: { Authorization: cookies.get("token"), }, })
-            .then(response => {
-                alert("Quizz actualizado!");
-                this.setState({ activeButton: true })
-                console.log(response.data)
-            }).catch(err => { console.log(err); alert("No se pudo actualizar el quizz :(") })
+        await this.sendDocument(quizz);
     };
 
+
+    // -------------------------------------------------------------------------------- CUESTIONARIO
+
+
+    addFormFieldsC = () => {
+        this.setState({
+            formValues: [
+                ...this.state.formValues,
+                {
+                    question: "",
+                },
+            ]
+        });
+        console.log(this.state.formValues);
+    };
+
+    handleSubmitC = async (event) => {
+        console.log(this.props.cuestionario)
+        event.preventDefault();
+        let cuestionario = {
+            id: this.props.cuestionario.id,
+            sourceId: this.props.cuestionario.activityId,
+            documentSourceType: "ACTIVITY",
+            name: this.props.cuestionario.name,
+            position: this.props.cuestionario.position,
+            dataType: "CUESTIONARIO",
+            data: JSON.stringify(this.state.formValues),
+        };
+        await this.sendDocument(cuestionario);
+    };
+
+
+    // -------------------------------------------------------------------------------- ENVIAR DOCUMENTO
+
+    sendDocument = async (document) => {
+        await axios.put(API_HOST + "documents/" + document.id, document, { headers: { Authorization: cookies.get("token"), }, })
+            .then(response => {
+                alert("Actividad actualizada!");
+                this.setState({ activeButton: true })
+                console.log(response.data)
+            }).catch(err => { console.log(err); alert("No se pudo actualizar la actividad :(") })
+    }
+
     render() {
-        console.log(this.props.quizz);
         return (
-            <div key={this.props.quizz.id} >
-                <div className='quizzData'>
-                    <div className='nameQuizz'>
-                        <Label>{this.state.nameQuizz}</Label>
-                    </div>
-                    <div className='quizzButton'>
-                        {this.editLesson(this.props.quizz)}
-                    </div>
-                </div>
-                <Modal isOpen={this.state.quizzOpenModal && this.state.quizzModalId === this.props.quizz.position}>
-                    <ModalHeader size='lg'>
-                        {this.state.nameQuizz}
-                    </ModalHeader>
-                    <ModalBody>
-                        <form onSubmit={this.handleSubmitQ}>
-                            <label> <h4>Título del quizz:</h4> </label>
-                            <br />
-                            <input type="text" name="nameQuizz" className="col-md-8" value={this.state.nameQuizz} maxLength="30" onChange={(n) => this.setState({ nameQuizz: (n.target.value) })} />
-                            {this.state.formValues.map((element, index) => (
-                                <div key={element.questionText} className="form-inline">
-                                        <div>
-                                            <label> <h5>Pregunta</h5> </label>
-                                            <input type="text" name="questionText" value={element.questionText || ""} onChange={(e) => this.handleChangeQ(index, e)} />
-                                        </div>
-                                        <div>
-                                            <label> <h5>Opción Correcta</h5> </label>
-                                            <input type="text" name="answerOptions" placeholder="Ingrese la Opción Correcta" value={element.answerOptions[0].answerText || ""} onChange={(e) => this.handleChangeQ1(index, e)} style={{ backgroundColor: "lightskyblue" }} />
-                                        </div>
-                                        <div>
-                                            <label> <h5>Opción Incorrecta 1</h5> </label>
-                                            <input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions[1].answerText || ""} onChange={(e) => this.handleChangeQ2(index, e)} />
-                                        </div>
-                                        <div>
-                                            <label> <h5>Opción Incorrecta 2</h5> </label>
-                                            <input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions[2].answerText || ""} onChange={(e) => this.handleChangeQ3(index, e)} />
-                                            {index ?
-                                                <button type="button" className="btn btn-danger" onClick={() => this.removeFormFieldsQ(index)}>X</button>
-                                                : null}
-                                        </div>
-                                </div>
-                            ))}
-                            <div className="button-section">
-                                <button className="btn btn-warning" type="button" onClick={() => this.addFormFieldsQ()} >+ Pregunta</button>
-                                <br />
-                                <Button disabled={this.state.activeButton} color='primary' className="btn btn-primary btn-lg btn-block" type="submit" > Actualizar Actividad </Button>
-                                <br />
-                                <br />
+            <div>
+                {this.props.quizz ?
+                    // -------------------------------------------------------------------------------- QUIZZ
+                    (<div key={this.props.quizz.id} >
+                        <div className='quizzData'>
+                            <div className='nameQuizz'>
+                                <Label>{this.state.name}</Label>
                             </div>
-                        </form>
-                        <Alert>Aca van a ir los campos del quizz</Alert>
-                    </ModalBody>
-                    <ModalFooter className="modalFooter">
-                        <Button color="secondary" onClick={() => this.closeModalQuizz()}>Cerrar</Button>
-                    </ModalFooter>
-                </Modal>
+                            <div className='quizzButton'>
+                                {this.buttonEditQuizzParams(this.props.quizz)}
+                            </div>
+                        </div>
+                        <Modal isOpen={this.state.openModal && this.state.modalId === this.props.quizz.position}>
+                            <ModalHeader size='lg'>
+                                {this.state.name}
+                            </ModalHeader>
+                            <ModalBody>
+                                <form onSubmit={this.handleSubmitQ}>
+                                    <label> <h4>Título del quizz:</h4> </label>
+                                    <br />
+                                    <input type="text" name="nameQuizz" className="col-md-8" value={this.state.name} maxLength="30" onChange={(n) => this.setState({ name: (n.target.value) })} />
+                                    {this.state.formValues.map((element, index) => (
+                                        <div key={index} className="form-inline">
+                                            <div>
+                                                <label> <h5>Pregunta</h5> </label>
+                                                <input type="text" name="questionText" value={element.questionText || ""} onChange={(e) => this.handleChange(index, e)} />
+                                            </div>
+                                            <div>
+                                                <label> <h5>Opción Correcta</h5> </label>
+                                                <input type="text" name="answerOptions" placeholder="Ingrese la Opción Correcta" value={element.answerOptions[0].answerText || ""} onChange={(e) => this.handleChangeAnswerText(index, e, 0)} style={{ backgroundColor: "lightskyblue" }} />
+                                            </div>
+                                            <div>
+                                                <label> <h5>Opción Incorrecta 1</h5> </label>
+                                                <input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions[1].answerText || ""} onChange={(e) => this.handleChangeAnswerText(index, e, 1)} />
+                                            </div>
+                                            <div>
+                                                <label> <h5>Opción Incorrecta 2</h5> </label>
+                                                <input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions[2].answerText || ""} onChange={(e) => this.handleChangeAnswerText(index, e, 2)} />
+                                                {index ?
+                                                    <button type="button" className="btn btn-danger" onClick={() => this.removeFormFields(index)}>X</button>
+                                                    : null}
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <div className="button-section">
+                                        <button className="btn btn-warning" type="button" onClick={() => this.addFormFieldsQ()} >+ Pregunta</button>
+                                        <br />
+                                        <Button disabled={this.state.activeButton} color='primary' className="btn btn-primary btn-lg btn-block" type="submit" > Actualizar Actividad </Button>
+                                        <br />
+                                        <br />
+                                    </div>
+                                </form>
+                            </ModalBody>
+                            <ModalFooter className="modalFooter">
+                                <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
+                            </ModalFooter>
+                        </Modal>
+                    </div>)
+                    :
+                    this.props.cuestionario ?
+                        // -------------------------------------------------------------------------------- CUESTIONARIO
+                        (<div key={this.props.cuestionario.id} >
+                            <div className='quizzData'>
+                                <div className='quizzButton'>
+                                    {this.buttonEditCuestionarioParams(this.props.cuestionario)}
+                                </div>
+                            </div>
+                            <Modal isOpen={this.state.openModal && this.state.modalId === this.props.cuestionario.position}>
+                                <ModalHeader size='lg'>
+                                    {this.state.name}
+                                </ModalHeader>
+                                <ModalBody>
+                                    <form onSubmit={this.handleSubmitC}>
+                                        <label> <h4>Título del cuestionario:</h4> </label>
+                                        <br />
+                                        <input type="text" name="nameQuizz" className="col-md-8" value={this.state.name} maxLength="30" onChange={(n) => this.setState({ name: (n.target.value) })} />
+                                        {this.state.formValues.map((element, index) => (
+                                            <div key={index} className="form-inline">
+                                                <label> <h5>Pregunta</h5> </label>
+                                                <input type="text" name="question" value={element.question || ""} onChange={(e) => this.handleChange(index, e)} />
+                                                {index ?
+                                                    <button type="button" className="btn btn-danger" onClick={() => this.removeFormFields(index)}>X</button>
+                                                    : null}
+                                            </div>
+                                        ))}
+                                        <div className="button-section">
+                                            <button className="btn btn-warning" type="button" onClick={() => this.addFormFieldsC()} >+ Pregunta</button>
+                                            <br />
+                                            <Button disabled={this.state.activeButton} color='primary' className="btn btn-primary btn-lg btn-block" type="submit" > Actualizar Actividad </Button>
+                                            <br />
+                                            <br />
+                                        </div>
+                                    </form>
+                                </ModalBody>
+                                <ModalFooter className="modalFooter">
+                                    <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
+                                </ModalFooter>
+                            </Modal>
+                        </div>)
+                        : <div></div>
+                }
             </div>
         )
     }

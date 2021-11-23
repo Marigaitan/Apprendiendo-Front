@@ -87,12 +87,13 @@ export default class LessonAlumno extends Component {
           dataType: archivo.dataType,
           data: archivo.data,
           sourceId: archivo.sourceId,
+          documentSourceType: archivo.documentSourceType,
         };
         console.log("documento");
         console.log(documento);
 
         return await axios
-          .post(API_HOST + "/user​/"+ cookies.get("id") +"/project​/"+cookies.get("projectid")+"/document", documento, {
+          .post(API_HOST + "user/" + cookies.get("id") + "/project/" + cookies.get("projectid") + "/document", documento, {
             headers: { Authorization: cookies.get("token") },
           })
           .then((response) => console.log(response.data))
@@ -116,8 +117,8 @@ export default class LessonAlumno extends Component {
       name: elem[0].name,
       dataType: "STUDENT",
       data: base64,
-      documentSourceType: "LESSON",
-      sourceId: cookies.get("lessonid"),
+      documentSourceType: "PROJECT",
+      sourceId: cookies.get("projectid"),
     };
     this.setState((prevState) => ({
       archivos: prevState.archivos.concat(archivo),

@@ -72,29 +72,6 @@ export default class AlumnoClassroom extends Component {
         this.props.history.push("/menualumno/classroom/proyecto");
     }
 
-    async alumnoDescargaFile(url, fileName) {
-        await axios.get(
-            url,
-            {
-                headers: {
-                    'Authorization': cookies.get('token')
-                }
-            }
-        )
-            .then(response => {
-                const buff = Buffer.from(response.data.data, 'base64')
-                const url = window.URL.createObjectURL(new Blob([buff]));
-                const link = document.createElement('a');
-                link.href = response.data.data;
-                //link.href = url;
-                link.setAttribute('download', fileName);
-                document.body.appendChild(link);
-                link.click();
-                link.remove()
-      setTimeout(() => window.URL.revokeObjectURL(url), 100)
-            });
-    }
-
 
     render() {
         console.log(cookies.get('classid'));
@@ -121,10 +98,6 @@ export default class AlumnoClassroom extends Component {
                                 {this.state.students.map(student => { return (<div key={student.id} id={student.id}><h3 >{student.username}</h3></div>) })}
                             </div>
                         </div>
-                    </div>
-                    <div className="classData">
-                        {/* este es un ejemplo hardcodeado, cargue un documento tipo imagen en el back con id 410 */}
-                        <Button onClick={() => this.alumnoDescargaFile(API_HOST + 'document/409', 'sample.png')}>Descargame!</Button> 
                     </div>
                 </div>
             </div>

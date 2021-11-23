@@ -15,11 +15,11 @@ export default class ShowDocs extends Component {
         };
     }
 
-    async componentDidMount(studentID) {
+    async componentDidMount() {
         axios.defaults.headers.common["Authorization"] = cookies.get("token");
         axios.defaults.baseURL = API_HOST;
         this.setState({
-            docs: (await axios.get("user​/" + studentID + "​/project​/" + cookies.get("projectid") + "​/documents")).data,
+            docs: (await axios.get("user/" + this.props.studentID + "/project/" + cookies.get("projectid") + "/documents")).data,
         });
         console.log("documentos:")
         console.log(this.docs)
