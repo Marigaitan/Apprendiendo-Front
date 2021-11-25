@@ -23,7 +23,7 @@ import { ListarAvatars } from "../pages/ListarAvatars";
 import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
 import { ListarAccesorios } from "../pages/ListarAccesorios";
 import DocenteLogros from "../pages/DocenteLogros";
-import  DocenteEstatusClase from "../pages/DocenteEstatusClase";
+import DocenteEstatusClase from "../pages/DocenteEstatusClase";
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 
 import NewClase from "../pages/NewClase";
@@ -37,6 +37,7 @@ import { ListarLogrosDelCurso } from "../pages/ListarLogrosDelCurso";
 import MenuLogrosDocente from "../pages/MenuLogrosDocente";
 import DocenteLesson from "../pages/DocenteLesson";
 import CorregirActividades from "../pages/CorregirActividades";
+import { docenteMetricas } from "../pages/docenteMetricas";
 
 function Routes() {
   return (
@@ -52,12 +53,7 @@ function Routes() {
           path="/menudocente/metodologias"
           component={Metodologias}
         />
-                <Route
-          exact
-          path="/menudocente/repositorio"
-          component={Repositorio}
-        />
-        
+        <Route exact path="/menudocente/repositorio" component={Repositorio} />
         <Route exact path="/menualumno/classroom" component={AlumnoClassroom} />
         <Route
           exact
@@ -114,7 +110,6 @@ function Routes() {
           path="/menudocente/classroom/proyecto/clase"
           component={DocenteLesson}
         />
-        
         <Route
           exact
           path="/menudocente/classroom/proyecto/clase/corregir"
@@ -126,11 +121,20 @@ function Routes() {
         <Route exact path="/ListarAvatars" component={ListarAvatars} />
         <Route exact path="/SeleccionarAvatar" component={SeleccionarAvatar} />
         <Route exact path="/ListarAccesorios" component={ListarAccesorios} />
+        <Route exact path="/docenteMetricas" component={docenteMetricas} />
         <Route exact path="/AlumnoProgreso" component={AlumnoProgreso} />
         <Route exact path="/ProgresoMateria" component={ProgresoMateria} />
         <Route exact path="/ListarLogros" component={ListarLogros} />
-        <Route exact path="/menudocente/classroom/logros" component={MenuLogrosDocente} />
-        <Route exact path="/menudocente/classroom/logros/new" component={DocenteLogros} />
+        <Route
+          exact
+          path="/menudocente/classroom/logros"
+          component={MenuLogrosDocente}
+        />
+        <Route
+          exact
+          path="/menudocente/classroom/logros/new"
+          component={DocenteLogros}
+        />
         <Route
           exact
           path="/ListarLogrosDelCurso"
