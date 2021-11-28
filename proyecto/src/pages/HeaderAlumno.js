@@ -87,6 +87,12 @@ const HeaderStudent = () => {
 
   }
 
+  const imageSource = (imageName) => {
+    if (imageName == null) return '';
+    if (imageName.startsWith("mc")) return `./medallas_cursos/${imageName}.png`;
+    else return `./medallas/${imageName}.png`;
+  }
+
 
   const newRewardsModal = () => {
       return (
@@ -99,7 +105,7 @@ const HeaderStudent = () => {
                 <div className="row no-gutters">
                   <div className="d-flex flex-column align-items-center text-center">
                     <img
-                      src={`./medallas_cursos/${reward.imageData}.png`}
+                      src={imageSource(reward.imageData)}
                       alt={reward.id}
                       width="100"
                     />
