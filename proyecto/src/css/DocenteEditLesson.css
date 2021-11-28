@@ -6,7 +6,9 @@
     background-repeat: no-repeat;
     background-position: center;
 }
-
+.blackLetter{
+    color:rgb(10, 10, 10);
+}
 .whiteBox{
     display: flex;
     justify-content: flex-start;
