@@ -23,7 +23,7 @@ import { ListarAvatars } from "../pages/ListarAvatars";
 import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
 import { ListarAccesorios } from "../pages/ListarAccesorios";
 import DocenteLogros from "../pages/DocenteLogros";
-import DocenteEstatusClase from "../pages/DocenteEstatusClase";
+
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 
 import NewClase from "../pages/NewClase";
@@ -66,11 +66,7 @@ function Routes() {
           path="/menudocente/classroom/alumnos"
           component={ListaAlumnos}
         />
-        <Route
-          exact
-          path="/menudocente/classroom/estatusclase"
-          component={DocenteEstatusClase}
-        />
+       
         <Route
           exact
           path="/menudocente/classroom/nuevoproyecto"

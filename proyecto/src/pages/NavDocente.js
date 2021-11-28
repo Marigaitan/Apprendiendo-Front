@@ -16,9 +16,7 @@ const NavDocente = (props) => {
             <NavItem>
                 <NavLink href="/menudocente/classroom/logros" active={props.activeBar === 'logros'}>Logros de la clase</NavLink>
             </NavItem>
-            <NavItem>
-                <NavLink href="/menudocente/classroom/estatusclase" active={props.activeBar === 'estatusclase'}>Tareas Entregadas del curso</NavLink>
-            </NavItem> 
+            
         </Nav>
     )
 }
