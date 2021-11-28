@@ -38,6 +38,7 @@ export default class Login extends Component {
       username: this.state.form.username,
       password: this.state.form.password,
     };
+    await delete axios.defaults.headers.common["Authorization"];
     await axios
       .post(baseUrl, body) //aca podria usar MD5
       .then((response) => {
