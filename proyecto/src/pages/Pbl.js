@@ -65,68 +65,76 @@ export default class Pbl extends Component {
     console.log(Date.now())
 
     const body = {
-      "name": this.state.projectName,
-      "classroomId": cookies.get('classid'),
-      "position": 0,
-      "dueDate": "2021-10-11T01:45:50.611Z",
-      "startDate": "2021-10-11T01:45:50.611Z",
-      "active": true,
-      "lessons": [
+      name: this.state.projectName,
+      classroomId: cookies.get('classid'),
+      position: 0,
+      //"dueDate": "2021-10-11T01:45:50.611Z",
+      //"startDate": "2021-10-11T01:45:50.611Z",
+      active: true,
+      documents: [],
+      lessons: [
         {
-          "name": "Pregunta Disparadora",
-          "position": 0,
+          name: "Pregunta Disparadora",
+          position: 0,
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
-          "active": false,
-          "activities": []
+          active: false,
+          activities: [],
+          rewards: []
         },
         {
-          "name": "Formando Equipos",
-          "position": 1,
+          name: "Formando Equipos",
+          position: 1,
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
-          "active": false,
-          "activities": []
+          active: false,
+          activities: [],
+          rewards: []
         },
         {
-          "name": "Planificación",
-          "position": 2,
+          name: "Planificación",
+          position: 2,
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
-          "active": false,
-          "activities": []
+          active: false,
+          activities: [],
+          rewards: []
         },
         {
-          "name": "Investigación",
-          "position": 3,
+          name: "Investigación",
+          position: 3,
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
-          "active": false,
-          "activities": []
+          active: false,
+          activities: [],
+          rewards: []
         },
         {
-          "name": "Puesta en común y debate",
-          "position": 4,
+          name: "Puesta en común y debate",
+          position: 4,
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
-          "active": false,
-          "activities": []
+          active: false,
+          activities: [],
+          rewards: []
         },
         {
-          "name": "Elaborar Producto",
-          "position": 5,
+          name: "Elaborar Producto",
+          position: 5,
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
-          "active": false,
-          "activities": []
+          active: false,
+          activities: [],
+          rewards: []
         },
         {
-          "name": "Presentación del producto",
-          "position": 6,
+          name: "Presentación del producto",
+          position: 6,
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
-          "active": false,
-          "activities": []
+          active: false,
+          activities: [],
+          rewards: []
         },
       ]
     }

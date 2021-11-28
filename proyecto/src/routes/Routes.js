@@ -38,6 +38,7 @@ import MenuLogrosDocente from "../pages/MenuLogrosDocente";
 import DocenteLesson from "../pages/DocenteLesson";
 import CorregirActividades from "../pages/CorregirActividades";
 import { docenteMetricas } from "../pages/docenteMetricas";
+import DocenteEditGroups from "../pages/DocenteEditGroups";
 
 function Routes() {
   return (
@@ -154,6 +155,11 @@ function Routes() {
           exact
           path="/menudocente/classroom/nuevoproyecto/pbl"
           component={Pbl}
+        />
+        <Route
+          exact
+          path="/menudocente/classroom/proyecto/edit/groups"
+          component={DocenteEditGroups}
         />
       </Switch>
     </BrowserRouter>

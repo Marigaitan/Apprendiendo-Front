@@ -120,6 +120,10 @@ export default class DocenteProyecto extends Component {
     this.props.history.push("/menudocente/classroom/proyecto/clase");
   };
 
+  goEditGroups = () => {
+    this.props.history.push("/menudocente/classroom/proyecto/edit/groups");
+  }
+
   opModal = () => {
     this.setState({ tareasModal: true });
   };
@@ -159,7 +163,7 @@ export default class DocenteProyecto extends Component {
               </div>
               <DocenteProgresoGrupo studentGroups={this.state.groups} />
               {/* {this.state.modal} */}
-
+              <Button onClick={this.goEditGroups}>Editar grupos</Button>
               <br /><br />
               <div >
                 <h3>Tareas entregadas por los alumnos</h3>
