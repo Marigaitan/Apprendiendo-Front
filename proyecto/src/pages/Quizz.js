@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { isCompositeComponent } from "react-dom/test-utils";
 import "../css/Quizz.css";
 
+
 const Quizz = React.memo(({ handleQuizz, workquizz }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [respuestas, setrespuestas] = useState({
@@ -11,6 +13,27 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
     resultados: [],
   });
   const { puntaje, resultados } = respuestas;
+  const questions = JSON.parse(workquizz.data);
+
+   //------------------random Options ---------------------------
+   useEffect(() => {
+    
+    for (let n=0; n < questions.length; n++) {
+      let options = questions[n].answerOptions;
+              let i = options.length - 1;
+              for (; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = options[i];
+                options[i] = options[j];
+                options[j] = temp;
+                questions[n].answerOptions = options;
+              }
+              
+            }
+            console.log("estructura random");
+            console.log(questions);
+            return questions;
+          });
 
   const handleAnswerButtonClick = (isCorrect, questionText, answerText) => {
     let aux = {
@@ -35,8 +58,9 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
     }
   };
 
-  const questions = JSON.parse(workquizz.data);
+
   handleQuizz(respuestas, score);
+
 
   //console.log("ESTRUCTURA:", respuestas);
   return (
@@ -44,7 +68,7 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
       <div className="appQuizz">
         {showScore ? (
           <div className="score-section">
-            You scored {score} out of {questions.length}
+            ¡Acertaste {score} de {questions.length} preguntas!
           </div>
         ) : (
           <div>
