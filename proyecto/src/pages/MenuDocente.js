@@ -77,13 +77,10 @@ export default class MenuDocente extends Component {
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-
         };
 
         return (
-            <div className="mainContainer" 
-            style={mainStyle}
-            >
+            <div className="mainContainer" style={mainStyle}>
                 <HeaderTeacher />
                 <div className="secContainer" >
                     <div className='misCursos'>

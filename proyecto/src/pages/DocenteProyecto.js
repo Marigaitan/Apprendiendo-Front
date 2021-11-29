@@ -36,6 +36,7 @@ import "react-vertical-timeline-component/style.min.css";
 
 import logo from "../Images/logoMini.png";
 import Switch from "./Switch";
+import Background from '../Images/fondoLetras.png';
 
 const cookies = new Cookies();
 
@@ -141,14 +142,21 @@ export default class DocenteProyecto extends Component {
       justifyContent: 'center',
     }
 
-    return (
-      <div className="mainContainer">
+    const mainStyle = {
+      backgroundImage: "url(" + Background + ")",
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+  };
+
+  return (
+      <div className="mainContainer" style={mainStyle}>
         <HeaderTeacher />
         <div className="mainProyecto">
-          <div className="whitebox">
+          <div className="whiteboxTitle">
             <h2>{this.state.project.name}</h2>
           </div>
-          <div className="whitebox">
+          <div className="whiteboxTitle">
             <Switch
               id={cookies.get("projectid")}
               //status={this.state.status}
@@ -158,12 +166,12 @@ export default class DocenteProyecto extends Component {
 
           <div className="mainFlex">
             <div className="left">
-              <div >
+              <div className="flex-start">
                 <h3>Grupos</h3>
+              <Button onClick={this.goEditGroups} color="success" size="lg">Editar grupos</Button>
               </div>
               <DocenteProgresoGrupo studentGroups={this.state.groups} />
               {/* {this.state.modal} */}
-              <Button onClick={this.goEditGroups}>Editar grupos</Button>
               <br /><br />
               <div >
                 <h3>Tareas entregadas por los alumnos</h3>

@@ -1,0 +1,44 @@
+.whitebox{
+    background-color: rgb(255, 255, 255, 0.8);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px;
+    width:100%;
+}
+
+.whiteboxButtons{
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 2;
+    background-color: rgb(255, 255, 255, 0.8);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px;
+    width:100%;
+}
+
+.bigButtons{
+        background-color: cadetblue;
+        margin: 20px;
+        margin-bottom: 30px;
+        border: 1px solid grey;
+        border-radius: 10px;
+        padding: 50px;
+        outline: 0px;
+        font-weight: 900;
+        font-size: 2em;
+        flex:3; 
+        color: rgb(54, 54, 54);
+}
+
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 60%;
+}
