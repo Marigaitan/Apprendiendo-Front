@@ -269,8 +269,8 @@ export default class AulaInvertida extends Component {
                     {/* aca va el nombre de la clase */}
                     <div className='whiteBox'>
 
-                        <div className ='blackLetter'>
-    
+                        <div className='blackLetter'>
+
                             <div className="title">
                                 Aula Invertida
                             </div>
@@ -280,7 +280,7 @@ export default class AulaInvertida extends Component {
                                     contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     date="2011 - present"
-                                    iconStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                                    iconStyle={{ background: 'rgb(255, 97, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
                                     {/* configuración inicial */}
@@ -310,10 +310,10 @@ export default class AulaInvertida extends Component {
                                 {/* CLASE 1 */}
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "#fece00", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     date="2011 - present"
-                                    iconStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                                    iconStyle={{ background: 'rgb(255, 161, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
                                     <h3 className="vertical-timeline-element-title">Lección inicial</h3>
@@ -419,10 +419,10 @@ export default class AulaInvertida extends Component {
 
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "#fece00", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     date="2011 - present"
-                                    iconStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                                    iconStyle={{ background: 'rgb(255, 246, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
                                     <h3 className="vertical-timeline-element-title">Práctica Inicial</h3>
@@ -527,10 +527,10 @@ export default class AulaInvertida extends Component {
                                 {/* CLASE 3 */}
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "#fece00", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     date="2011 - present"
-                                    iconStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                                    iconStyle={{ background: 'rgb(218, 255, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
                                     <h3 className="vertical-timeline-element-title">Práctica de Refuerzo </h3>
@@ -619,13 +619,21 @@ export default class AulaInvertida extends Component {
                                     </Modal>
 
                                 </VerticalTimelineElement>
-                            </VerticalTimeline>
+                            
 
-                        </div>
+                            <VerticalTimelineElement
+                                iconStyle={{ background: 'rgb(51, 255, 107)', color: '#fff' }}
+                                icon={<img src={logo} className="small-img" />} 
+                            />
+                            
+               
+                        </VerticalTimeline>
+
                     </div>
                 </div>
+            </div>
 
-            </div>)
+            </div >)
     }
 }
 
