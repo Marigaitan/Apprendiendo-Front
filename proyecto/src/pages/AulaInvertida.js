@@ -18,6 +18,7 @@ import { ButtonGroup, Label, Form, FormGroup, Input, FormText, Col } from 'react
 import { CustomInput, Container, Row, Progress, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Badge, Alert } from 'reactstrap';
 import logo from "../Images/logoMini.png";
 import VerticalTimeLineElement from '../css/VerticalTimeLineElement.css';
+import DocenteProyectoQuizz from './DocenteProyectoQuizz';
 
 //HACER DISEÑO DE CLASES DE LOS PROYECTOS
 //GUARDAR LA INFORMACIÓN
@@ -59,13 +60,15 @@ export default class AulaInvertida extends Component {
             archivosClase1: [],
             archivosClase2: [],
             archivosClase3: [],
-            textClass3: '',
+            description1: '',
             description2: '',
             description3: '',
-            textClass2: '',
             textClass1: '',
-            description1: '',
+            textClass2: '',
+            textClass3: '',
             duedateClass1: '',
+            duedateClass2: '',
+            duedateClass3: '',
         };
     }
 
@@ -106,7 +109,7 @@ export default class AulaInvertida extends Component {
     addSecondLesson = () => {
         const lesson = {
             name: this.state.textClass2,
-            id: this.state.lessonIds[0], //falta obtener el id de la lesson
+            id: this.state.lessonIds[1], //falta obtener el id de la lesson
             position: 0,
             description: this.state.description2,
             projectId: this.state.projectId,
@@ -122,7 +125,7 @@ export default class AulaInvertida extends Component {
     addThirdLesson = () => {
         const lesson = {
             name: this.state.textClass3,
-            id: this.state.lessonIds[0], //falta obtener el id de la lesson
+            id: this.state.lessonIds[3], //falta obtener el id de la lesson
             position: 0,
             description: this.state.description3,
             projectId: this.state.projectId,
@@ -147,8 +150,8 @@ export default class AulaInvertida extends Component {
             name: this.state.projectName,
             classroomId: cookies.get('classid'),
             position: 0,
-            dueDate: "2021-10-11T01:45:50.611Z",
-            startDate: "2021-10-11T01:45:50.611Z",
+            //dueDate: "2021-10-11T01:45:50.611Z",
+            //startDate: "2021-10-11T01:45:50.611Z",
             active: true,
             rewards: [],
             documents: [],
@@ -156,15 +159,7 @@ export default class AulaInvertida extends Component {
                 {
                     name: "Pregunta Disparadora",
                     position: 0,
-                    // dueDate: "2021-10-11T01:45:50.611Z",
-                    // startDate: "2021-10-11T01:45:50.611Z",
-                    active: false,
-                    activities: [],
-                    documents: [],
-                },
-                {
-                    name: "Formando Equipos",
-                    position: 1,
+                    description: '',
                     // dueDate: "2021-10-11T01:45:50.611Z",
                     // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
@@ -173,7 +168,8 @@ export default class AulaInvertida extends Component {
                 },
                 {
                     name: "Planificación",
-                    position: 2,
+                    position: 1,
+                    description: '',
                     // dueDate: "2021-10-11T01:45:50.611Z",
                     // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
@@ -182,7 +178,8 @@ export default class AulaInvertida extends Component {
                 },
                 {
                     name: "Investigación",
-                    position: 3,
+                    position: 2,
+                    description: '',
                     // dueDate: "2021-10-11T01:45:50.611Z",
                     // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
@@ -295,7 +292,7 @@ export default class AulaInvertida extends Component {
                                             <Label for="exampleText"><p>Para avanzar con la configuración:
                                                 Ingresar un nombre con el que se identificará el proyecto y luego guardar
                                             </p></Label>
-                                            <Input type="textarea" name="text" id="exampleText" />
+                                            <Input type="textarea" name="projectName" id="exampleText" onChange={this.handleChange}/>
                                         </FormGroup>
                                     </Form>
                                     <div><Button onClick={() => this.createProject()} color="success" >Guardar</Button></div>
@@ -351,7 +348,7 @@ export default class AulaInvertida extends Component {
                                                         <FormGroup>
                                                             <Label for="exampleText"><p>
                                                             </p></Label>
-                                                            <Input type="textarea" name="textClass1" id="exampleText" />
+                                                            <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange}/>
                                                         </FormGroup>
                                                     </Form>
                                                 </div>
@@ -361,7 +358,7 @@ export default class AulaInvertida extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="description1" id="exampleText" />
+                                                        <Input type="textarea" name="description1" id="exampleText" onChange={this.handleChange}/>
                                                     </FormGroup>
                                                 </div>
                                                 <div>
@@ -400,6 +397,7 @@ export default class AulaInvertida extends Component {
                                                             name="duedateClass1"
                                                             id="date"
                                                             placeholder="Hora de Finalización"
+                                                            onChange={this.handleChange}
                                                         />
                                                     </FormGroup>
                                                 </div>
@@ -452,7 +450,7 @@ export default class AulaInvertida extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass2" id="exampleText" />
+                                                        <Input type="textarea" name="textClass2" id="exampleText" onChange={this.handleChange}/>
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -462,7 +460,7 @@ export default class AulaInvertida extends Component {
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
-                                                    <Input type="textarea" name="description2" id="exampleText" />
+                                                    <Input type="textarea" name="description2" id="exampleText" onChange={this.handleChange}/>
                                                 </FormGroup>
                                             </div>
                                             <div>
@@ -481,12 +479,8 @@ export default class AulaInvertida extends Component {
                                                 </FormGroup>
                                             </div>
                                             <div>
-                                                <h3>Crear Cuestionario</h3>
-                                                <FormGroup>
-                                                    <Label for="exampleText"><p>
-                                                    </p></Label>
-                                                    <Input type="textarea" name="text" id="exampleText" />
-                                                </FormGroup>
+                                                <h3>Crear Quizz</h3>
+                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
                                             </div>
 
                                             {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
@@ -509,6 +503,7 @@ export default class AulaInvertida extends Component {
                                                         name="duedate2"
                                                         id="date"
                                                         placeholder="Hora de Finalización"
+                                                        onChange={this.handleChange}
                                                     />
                                                 </FormGroup>
                                             </div>
@@ -551,7 +546,7 @@ export default class AulaInvertida extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass1" id="exampleText" />
+                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange}/>
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -561,7 +556,7 @@ export default class AulaInvertida extends Component {
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
-                                                    <Input type="textarea" name="description3" id="exampleText" />
+                                                    <Input type="textarea" name="description3" id="exampleText" onChange={this.handleChange}/>
                                                 </FormGroup>
                                             </div>
                                             <div>
@@ -581,11 +576,7 @@ export default class AulaInvertida extends Component {
                                             </div>
                                             <div>
                                                 <h3>Crear Cuestionario</h3>
-                                                <FormGroup>
-                                                    <Label for="exampleText"><p>
-                                                    </p></Label>
-                                                    <Input type="textarea" name="text" id="exampleText" />
-                                                </FormGroup>
+                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
                                             </div>
 
                                             {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}

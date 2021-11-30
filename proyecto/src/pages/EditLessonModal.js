@@ -105,7 +105,7 @@ export default class EditLessonModal extends Component {
             id: this.props.quizz.id,
             sourceId: this.props.quizz.activityId,
             documentSourceType: "ACTIVITY",
-            name: this.props.quizz.name,
+            name: this.state.name,
             position: this.props.quizz.position,
             dataType: "QUIZZ",
             data: JSON.stringify(this.state.formValues),
@@ -136,7 +136,7 @@ export default class EditLessonModal extends Component {
             id: this.props.cuestionario.id,
             sourceId: this.props.cuestionario.activityId,
             documentSourceType: "ACTIVITY",
-            name: this.props.cuestionario.name,
+            name: this.state.name,
             position: this.props.cuestionario.position,
             dataType: "CUESTIONARIO",
             data: JSON.stringify(this.state.formValues),
@@ -169,7 +169,7 @@ export default class EditLessonModal extends Component {
                         </div>
                         <Modal isOpen={this.state.openModal && this.state.modalId === this.props.quizz.position}>
                             <ModalHeader size='lg'>
-                                {this.state.name}
+                                {this.props.quizz.name}
                             </ModalHeader>
                             <ModalBody>
                                 <form onSubmit={this.handleSubmitQ}>

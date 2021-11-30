@@ -3,6 +3,7 @@ import Cookies from 'universal-cookie/es6';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
+import '../css/DocenteClassroom.css';
 import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
 import { Link } from 'react-router-dom';
@@ -90,10 +91,8 @@ export default class DocenteClassroom extends Component {
                         <div>
                             {this.state.projects.map(project => {
                                 return (
-                                    <div key={project.id} id={project.id}>
-                                        <h3>
-                                            <li><Button onClick={() => this.goDocenteProyecto(project)}>{project.name}</Button></li>
-                                        </h3>
+                                    <div key={project.id} id={project.id} className="pro-buttons">
+                                            <Button size="lg" color="warning" onClick={() => this.goDocenteProyecto(project)}>{project.name}</Button>
                                     </div>)
                             })}
                         </div>

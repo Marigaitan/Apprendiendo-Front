@@ -29,8 +29,8 @@ export default class Pbl extends Component {
       projectName: '',
       openModal: false,
       modalId: -1,
-      description1: '',
       lessonIds: [],
+      description1: '',
       description2: '',
       description3: '',
       description4: '',
@@ -77,6 +77,7 @@ export default class Pbl extends Component {
       name: this.state.projectName,
       classroomId: cookies.get('classid'),
       position: 0,
+      description: '',
       //"dueDate": "2021-10-11T01:45:50.611Z",
       //"startDate": "2021-10-11T01:45:50.611Z",
       active: true,
@@ -86,6 +87,7 @@ export default class Pbl extends Component {
         {
           name: "Pregunta Disparadora",
           position: 0,
+          description: '',
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
@@ -96,6 +98,7 @@ export default class Pbl extends Component {
         {
           name: "Formando Equipos",
           position: 1,
+          description: '',
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
@@ -106,6 +109,7 @@ export default class Pbl extends Component {
         {
           name: "Planificación",
           position: 2,
+          description: '',
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
@@ -116,6 +120,7 @@ export default class Pbl extends Component {
         {
           name: "Investigación",
           position: 3,
+          description: '',
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
@@ -126,6 +131,7 @@ export default class Pbl extends Component {
         {
           name: "Puesta en común y debate",
           position: 4,
+          description: '',
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
@@ -136,6 +142,7 @@ export default class Pbl extends Component {
         {
           name: "Elaborar Producto",
           position: 5,
+          description: '',
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
@@ -146,6 +153,7 @@ export default class Pbl extends Component {
         {
           name: "Presentación del producto",
           position: 6,
+          description: '',
           // "dueDate": "2021-10-11T01:45:50.611Z",
           // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
@@ -212,7 +220,7 @@ export default class Pbl extends Component {
   addSecondLesson = () => {
     const lesson = {
       name: this.state.textClass2,
-      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      id: this.state.lessonIds[1], //falta obtener el id de la lesson
       position: 0,
       description: this.state.description2,
       projectId: this.state.projectId,
@@ -227,7 +235,7 @@ export default class Pbl extends Component {
   addThirdLesson = () => {
     const lesson = {
       name: this.state.textClass3,
-      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      id: this.state.lessonIds[2], //falta obtener el id de la lesson
       position: 0,
       description: this.state.description3,
       projectId: this.state.projectId,
@@ -243,7 +251,7 @@ export default class Pbl extends Component {
   addForthLesson = () => {
     const lesson = {
       name: this.state.textClass4,
-      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      id: this.state.lessonIds[3], //falta obtener el id de la lesson
       position: 0,
       description: this.state.description4,
       projectId: this.state.projectId,
@@ -258,7 +266,7 @@ export default class Pbl extends Component {
   addFifthLesson = () => {
     const lesson = {
       name: this.state.textClass5,
-      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      id: this.state.lessonIds[4], //falta obtener el id de la lesson
       position: 0,
       description: this.state.description5,
       projectId: this.state.projectId,
@@ -273,7 +281,7 @@ export default class Pbl extends Component {
   addSixthLesson = () => {
     const lesson = {
       name: this.state.textClass6,
-      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      id: this.state.lessonIds[5], //falta obtener el id de la lesson
       position: 0,
       description: this.state.description6,
       projectId: this.state.projectId,
@@ -288,7 +296,7 @@ export default class Pbl extends Component {
   addSeventhLesson = () => {
     const lesson = {
       name: this.state.textClass7,
-      id: this.state.lessonIds[0], //falta obtener el id de la lesson
+      id: this.state.lessonIds[6], //falta obtener el id de la lesson
       position: 0,
       description: this.state.description7,
       projectId: this.state.projectId,
@@ -387,7 +395,7 @@ export default class Pbl extends Component {
                       <Label for="exampleText"><p>Para avanzar con la configuración:
                         Ingresar un nombre con el que se identificará el proyecto y luego guardar
                       </p></Label>
-                      <Input type="textarea" name="text" id="exampleText" />
+                      <Input type="textarea" name="projectName" id="exampleText" onChange={this.handleChange} />
                     </FormGroup>
                   </Form>
                   <div><Button onClick={() => this.createProject()} color="success" >Guardar</Button></div>
@@ -397,7 +405,7 @@ export default class Pbl extends Component {
                 {/* CLASE 1 */}
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
-                  
+
                   contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 110  , 51)' }}
                   iconStyle={{ background: 'rgb(255, 110  , 51', color: 'rgb(225, 206, 81)' }}
@@ -444,8 +452,6 @@ export default class Pbl extends Component {
                         <h3>Descripción acerca del tema (Opcional) </h3>
                         <Form>
                           <FormGroup>
-                            <Label for="exampleText"><p>
-                            </p></Label>
                             <Input type="textarea" name="description1" id="exampleText" onChange={this.handleChange} />
                           </FormGroup>
                         </Form>
@@ -494,7 +500,7 @@ export default class Pbl extends Component {
                   </Modal>
                 </VerticalTimelineElement>
 
-
+                {/* CLASE 2 */}
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
@@ -944,12 +950,12 @@ export default class Pbl extends Component {
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--education"
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }} 
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(184, 232  , 63)' }}
                   date="03/6 al 01/7"
                   iconStyle={{ background: 'rgb(184, 232  , 63)', color: '#fff' }}
                   icon={<img src={LogoMini} className="small-img" />}
-                  
+
                 >
                   <h3 className="vertical-timeline-element-title">Presentación del producto y evaluación</h3>
                   <h4 className="vertical-timeline-element-subtitle">Clase 7</h4>
