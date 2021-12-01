@@ -37,6 +37,7 @@ export const docenteAlumnosMetricas = () => {
           lastName: student.item.lastName,
           firstName: student.item.firstName,
           avgCompletion: student.averageCompletion,
+          percentageCompleted: student.percentageCompleted,
           avgGrade: student.averageGrade,
           userName: student.item.username,
         }));
@@ -70,9 +71,15 @@ export const docenteAlumnosMetricas = () => {
                     key={alumno.userName}
                     bgcolor="#789a1b"
                     completed={alumno.avgCompletion}
+                    tarea="Promedio de tareas completadas"
+                  />
+                  <ProgressBar
+                    key={alumno.userName}
+                    bgcolor="#789a1b"
+                    completed={alumno.percentageCompleted}
                     tarea="Porcentaje de tareas completadas"
                   />
-                  <h2>Promedio de nota: {alumno.avgGrade}</h2>
+                  <h2>Nota Promedio: {alumno.avgGrade}</h2>
                 </div>
                 <br />
               </div>

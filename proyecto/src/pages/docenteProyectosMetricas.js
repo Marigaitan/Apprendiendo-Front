@@ -37,6 +37,7 @@ export const docenteProyectosMetricas = () => {
           classroomId: proyecto.item.classroomId,
           id: proyecto.item.id,
           avgCompletion: proyecto.averageCompletion,
+          percentageCompleted: proyecto.percentageCompleted,
           avgGrade: proyecto.averageGrade,
         }));
         setProjects(proyectos);
@@ -66,9 +67,15 @@ export const docenteProyectosMetricas = () => {
                     key={project.id}
                     bgcolor="#1b2a9a"
                     completed={project.avgCompletion}
+                    tarea="Promedio completado del proyecto"
+                  />
+                  <ProgressBar
+                    key={project.id}
+                    bgcolor="#1b2a9a"
+                    completed={project.percentageCompleted}
                     tarea="Porcentaje completado del proyecto"
                   />
-                  <h2>Promedio de nota: {project.avgGrade}</h2>
+                  <h2>Nota Promedio: {project.avgGrade}</h2>
                 </div>
                 <br />
               </div>

@@ -37,6 +37,7 @@ export const docenteActividadesMetricas = () => {
           lessonId: activity.item.lessonId,
           id: activity.item.id,
           avgCompletion: activity.averageCompletion,
+          percentageCompleted: activity.percentageCompleted,
           avgGrade: activity.averageGrade,
         }));
         setActivities(activities);
@@ -66,9 +67,15 @@ export const docenteActividadesMetricas = () => {
                     key={activity.id}
                     bgcolor="#1b9a9a"
                     completed={activity.avgCompletion}
+                    tarea="Promedio completado de la actividad"
+                  />
+                  <ProgressBar
+                    key={activity.id}
+                    bgcolor="#1b9a9a"
+                    completed={activity.percentageCompleted}
                     tarea="Porcentaje completado de la actividad"
                   />
-                  <h2>Promedio de nota: {activity.avgGrade}</h2>
+                  <h2>Nota Promedio: {activity.avgGrade}</h2>
                 </div>
                 <br />
               </div>
