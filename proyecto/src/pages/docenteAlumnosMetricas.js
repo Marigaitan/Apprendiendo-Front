@@ -1,0 +1,85 @@
+import React, { useState, useEffect } from "react";
+import Cookies from "universal-cookie/es6";
+import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import HeaderStudent from "./HeaderAlumno";
+import { API_HOST } from "../constants";
+import "../css/Global.css";
+import "../css/MenuDocente.css";
+import HeaderTeacher from "./Header";
+import Background from "../Images/fondoLetras.png";
+import { Button } from "reactstrap";
+import NavMetricas from "./NavMetricas";
+import ProgressBar from "./ProgressBar";
+
+const cookies = new Cookies();
+export const docenteAlumnosMetricas = () => {
+  useEffect(() => {
+    getStuedents();
+  }, []);
+
+  const [alumnos, setAlumnos] = useState([]);
+
+  const getStuedents = async () => {
+    //const url54 =
+    //API_HOST + "​statistics/teacher/" + cookies.get("id") + "/students";
+    const url2 = "http://localhost:8080/statistics/teacher/42/students";
+    console.log(url2);
+    //console.log(url54);
+    await axios
+      .get(url2, {
+        headers: {
+          Authorization: cookies.get("token"),
+        },
+      })
+      .then((response) => {
+        const students = response.data.map((student) => ({
+          lastName: student.item.lastName,
+          firstName: student.item.firstName,
+          avgCompletion: student.averageCompletion,
+          avgGrade: student.averageGrade,
+          userName: student.item.username,
+        }));
+        setAlumnos(students);
+      });
+  };
+
+  return (
+    <div className="mainContainer">
+      <HeaderTeacher />
+      <div className="navBar">
+        <h1> METRICAS</h1>
+        <NavMetricas activeBar="Alumnos" />
+
+        <div className="ml-2 mt-2">
+          <h2>Metricas por Alumno</h2>
+          <br />
+
+          {alumnos.map((alumno) => {
+            return (
+              <div>
+                {/* {classroom.name} */}
+                <div className="containerAvancesDelCurso animate__animated animate__fadeInUp">
+                  <div className="container mb-4">
+                    <h2>
+                      {alumno.firstName} {alumno.lastName}
+                    </h2>
+                  </div>
+
+                  <ProgressBar
+                    key={alumno.userName}
+                    bgcolor="#789a1b"
+                    completed={alumno.avgCompletion}
+                    tarea="Porcentaje de tareas completadas"
+                  />
+                  <h2>Promedio de nota: {alumno.avgGrade}</h2>
+                </div>
+                <br />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};

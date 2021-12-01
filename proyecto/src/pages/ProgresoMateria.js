@@ -15,12 +15,6 @@ export const ProgresoMateria = () => {
   const [logros, setLogros] = useState([]);
   const [progreso, setprogreso] = useState([]);
 
-  // const testData = [
-  //   { tarea: "Proyecto de multiplicacion", bgcolor: "#6a1b9a", completed: 60 },
-  //   { tarea: "Investigando numeros", bgcolor: "#00695c", completed: 30 },
-  //   { tarea: "Rompecabeza numerico", bgcolor: "#ef6c00", completed: 100 },
-  // ];
-
   useEffect(() => {
     getLogros();
     getProgreso();

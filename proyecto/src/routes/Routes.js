@@ -39,6 +39,10 @@ import DocenteLesson from "../pages/DocenteLesson";
 import CorregirActividades from "../pages/CorregirActividades";
 import { docenteMetricas } from "../pages/docenteMetricas";
 import DocenteEditGroups from "../pages/DocenteEditGroups";
+import { docenteAlumnosMetricas } from "../pages/docenteAlumnosMetricas";
+import { docenteProyectosMetricas } from "../pages/docenteProyectosMetricas";
+import { docenteLessonsMetricas } from "../pages/docenteLessonsMetricas";
+import { docenteActividadesMetricas } from "../pages/docenteActividadesMetricas";
 
 function Routes() {
   return (
@@ -66,7 +70,6 @@ function Routes() {
           path="/menudocente/classroom/alumnos"
           component={ListaAlumnos}
         />
-       
         <Route
           exact
           path="/menudocente/classroom/nuevoproyecto"
@@ -119,6 +122,26 @@ function Routes() {
         <Route exact path="/SeleccionarAvatar" component={SeleccionarAvatar} />
         <Route exact path="/ListarAccesorios" component={ListarAccesorios} />
         <Route exact path="/docenteMetricas" component={docenteMetricas} />
+        <Route
+          exact
+          path="/docenteActividadesMetricas"
+          component={docenteActividadesMetricas}
+        />
+        <Route
+          exact
+          path="/docenteLessonsMetricas"
+          component={docenteLessonsMetricas}
+        />
+        <Route
+          exact
+          path="/docenteProyectosMetricas"
+          component={docenteProyectosMetricas}
+        />
+        <Route
+          exact
+          path="/docenteAlumnosMetricas"
+          component={docenteAlumnosMetricas}
+        />
         <Route exact path="/AlumnoProgreso" component={AlumnoProgreso} />
         <Route exact path="/ProgresoMateria" component={ProgresoMateria} />
         <Route exact path="/ListarLogros" component={ListarLogros} />
