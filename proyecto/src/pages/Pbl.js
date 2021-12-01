@@ -58,7 +58,14 @@ export default class Pbl extends Component {
       archivosClase5: [],
       archivosClase6: [],
       archivosClase7: [],
-
+      disableButtonProject: false,
+      disableButtonClass1: true,
+      disableButtonClass2: true,
+      disableButtonClass3: true,
+      disableButtonClass4: true,
+      disableButtonClass5: true,
+      disableButtonClass6: true,
+      disableButtonClass7: true,
 
 
 
@@ -179,8 +186,17 @@ export default class Pbl extends Component {
             const ids = response.data.map(lesson => lesson.id);
             console.log(ids);
             this.setState({
-              lessonIds: ids
+              lessonIds: ids,
+              disableButtonProject: true,
+              disableButtonClass1: false,
+              disableButtonClass2: false,
+              disableButtonClass3: false,
+              disableButtonClass4: false,
+              disableButtonClass5: false,
+              disableButtonClass6: false,
+              disableButtonClass7: false,
             })
+            alert("Proyecto creado exitosamente");
           })
       })
 
@@ -213,8 +229,10 @@ export default class Pbl extends Component {
       startDate: new Date().toISOString(),
       active: true
     }
+    this.setState({disableButtonClass1: true})
     console.log(lesson);
     this.addLesson(lesson);
+    
   }
 
   addSecondLesson = () => {
@@ -229,6 +247,8 @@ export default class Pbl extends Component {
       documents: this.state.archivosClase2,
       active: true
     }
+    this.setState({disableButtonClass2: true})
+
     console.log(lesson);
     this.addLesson(lesson);
   }
@@ -244,6 +264,8 @@ export default class Pbl extends Component {
       documents: this.state.archivosClase3,
       active: true
     }
+    this.setState({disableButtonClass3: true})
+
     console.log(lesson);
     this.addLesson(lesson);
   }
@@ -260,6 +282,8 @@ export default class Pbl extends Component {
       documents: this.state.archivosClase4,
       active: true
     }
+    this.setState({disableButtonClass4: true})
+
     console.log(lesson);
     this.addLesson(lesson);
   }
@@ -275,6 +299,8 @@ export default class Pbl extends Component {
       documents: this.state.archivosClase5,
       active: true
     }
+    this.setState({disableButtonClass5: true})
+
     console.log(lesson);
     this.addLesson(lesson);
   }
@@ -290,6 +316,8 @@ export default class Pbl extends Component {
       documents: this.state.archivosClase6,
       active: true
     }
+    this.setState({disableButtonClass6: true})
+
     console.log(lesson);
     this.addLesson(lesson);
   }
@@ -305,6 +333,8 @@ export default class Pbl extends Component {
       active: true,
       documents: this.state.archivosClase7,
     }
+    this.setState({disableButtonClass7: true})
+
     console.log(lesson);
     this.addLesson(lesson);
   }
@@ -398,7 +428,7 @@ export default class Pbl extends Component {
                       <Input type="textarea" name="projectName" id="exampleText" onChange={this.handleChange} />
                     </FormGroup>
                   </Form>
-                  <div><Button onClick={() => this.createProject()} color="success" >Guardar</Button></div>
+                  <div><Button disabled= {this.state.disableButtonProject} onClick={() => this.createProject()} color="success" >Crear proyecto</Button></div>
                 </VerticalTimelineElement>
 
 
@@ -417,7 +447,7 @@ export default class Pbl extends Component {
                   <p>
                     Formular pregunta disparadora
                     <div>
-                      <Button color="success" onClick={() => this.openModal(1)}>Activar Clase</Button></div>
+                      <Button disabled={this.state.disableButtonClass1} color="success" onClick={() => this.openModal(1)}>Activar Clase</Button></div>
                   </p>
                   <Modal isOpen={this.state.openModal && this.state.modalId === 1}>
                     <ModalHeader className="mainContainer">
@@ -495,7 +525,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addFirstLesson()}>Guardar y Cerrar</Button>
+                      <Button   color="secondary" onClick={() => this.addFirstLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
                 </VerticalTimelineElement>
@@ -516,7 +546,7 @@ export default class Pbl extends Component {
                     Formar equipos con diversidad de perfiles
 
                     <div>
-                      <Button color="success" onClick={() => this.openModal(2)}>Activar Clase</Button></div>
+                      <Button disabled={this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}>Activar Clase</Button></div>
                   </p>
                   <Modal isOpen={this.state.openModal && this.state.modalId === 2}>
                     <ModalHeader className="title">
@@ -565,7 +595,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
+                      <Button  color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -589,7 +619,7 @@ export default class Pbl extends Component {
                     Delimitar fechas y lineamientos para la planificación y desarrollo del proyecto
 
                   </p>
-                  <div>  <Button color="success" onClick={() => this.openModal(3)}>Activar Clase</Button>
+                  <div>  <Button disabled={this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}>Activar Clase</Button>
                     <Modal isOpen={this.state.openModal && this.state.modalId === 3}>
                       <ModalHeader className="title">
                         <h3 className="title">Planificación </h3>
@@ -649,7 +679,7 @@ export default class Pbl extends Component {
                         </div>
                       </ModalBody>
                       <ModalFooter className="modalFooter">
-                        <Button color="secondary" onClick={() => this.addThirdLesson()}>Guardar y Cerrar</Button>
+                        <Button  color="secondary" onClick={() => this.addThirdLesson()}>Guardar y Cerrar</Button>
                       </ModalFooter>
                     </Modal>
 
@@ -675,7 +705,7 @@ export default class Pbl extends Component {
                     Definir los temas que se desarrollarán en la investigación y los entregables
 
                   </p>
-                  <div>  <Button color="success" onClick={() => this.openModal(4)}>Activar Clase</Button>
+                  <div>  <Button disabled={this.state.disableButtonClass4} color="success" onClick={() => this.openModal(4)}>Activar Clase</Button>
                   </div>
 
                   <Modal isOpen={this.state.openModal && this.state.modalId === 4}>
@@ -738,7 +768,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addForthLesson()}>Guardar y Cerrar</Button>
+                      <Button  color="secondary" onClick={() => this.addForthLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -769,7 +799,7 @@ export default class Pbl extends Component {
                   <p>
                     Definir lineamientos para el debate
                   </p>
-                  <div>  <Button color="success" color="success" onClick={() => this.openModal(5)}>Activar Clase</Button>
+                  <div>  <Button disabled={this.state.disableButtonClass5} color="success" color="success" onClick={() => this.openModal(5)}>Activar Clase</Button>
                   </div>
 
 
@@ -835,7 +865,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addFifthLesson()}>Guardar y Cerrar</Button>
+                      <Button  color="secondary" onClick={() => this.addFifthLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -874,7 +904,7 @@ export default class Pbl extends Component {
                   <p>
                     Elaborar un producto  para la presentación que contemple la investigación y una posible solución al problema
                   </p>
-                  <div> <Button color="success" onClick={() => this.openModal(6)}>Activar Clase</Button>
+                  <div> <Button disabled={this.state.disableButtonClass6} color="success" onClick={() => this.openModal(6)}>Activar Clase</Button>
                   </div>
                   <Modal isOpen={this.state.openModal && this.state.modalId === 6}>
                     <ModalHeader className="title">
@@ -937,7 +967,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addSixthLesson()}>Guardar y Cerrar</Button>
+                      <Button  color="secondary" onClick={() => this.addSixthLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -962,7 +992,7 @@ export default class Pbl extends Component {
                   <p>
                     Entregar el producto final e incluir conclusiones. Preparar una presentación oral y realizar la evaluación
                   </p>
-                  <div>  <Button color="success" onClick={() => this.openModal(7)}>Activar Clase</Button>
+                  <div>  <Button disabled={this.state.disableButtonClass7} color="success" onClick={() => this.openModal(7)}>Activar Clase</Button>
                   </div>
                   <Modal isOpen={this.state.openModal && this.state.modalId === 7}>
                     <ModalHeader className="title">
@@ -1028,7 +1058,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addSeventhLesson()}>Guardar y Cerrar</Button>
+                      <Button  color="secondary" onClick={() => this.addSeventhLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 

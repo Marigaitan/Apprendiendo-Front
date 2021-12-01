@@ -69,6 +69,10 @@ export default class AulaInvertida extends Component {
             duedateClass1: '',
             duedateClass2: '',
             duedateClass3: '',
+            disableButtonProject: false,
+            disableButtonClass1: true,
+            disableButtonClass2: true,
+            disableButtonClass3: true,
         };
     }
 
@@ -102,6 +106,7 @@ export default class AulaInvertida extends Component {
             active: true,
             documents: this.state.archivosClase1,
         }
+        this.setState({disableButtonClass1: true})
         console.log(lesson);
         this.addLesson(lesson);
     }
@@ -118,6 +123,7 @@ export default class AulaInvertida extends Component {
             active: true,
             documents: this.state.archivosClase2,
         }
+        this.setState({disableButtonClass2: true})
         console.log(lesson);
         this.addLesson(lesson);
     }
@@ -134,6 +140,7 @@ export default class AulaInvertida extends Component {
             active: true,
             documents: this.state.archivosClase3,
         }
+        this.setState({disableButtonClass3: true})
         console.log(lesson);
         this.addLesson(lesson);
     }
@@ -204,8 +211,13 @@ export default class AulaInvertida extends Component {
                         const ids = response.data.map(lesson => lesson.id);
                         console.log(ids);
                         this.setState({
-                            lessonIds: ids
+                            lessonIds: ids,
+                            disableButtonProject: true,
+                            disableButtonClass1: false,
+                            disableButtonClass2: false,
+                            disableButtonClass3: false,
                         })
+                        alert("Proyecto creado exitosamente");
                     })
             }).catch(err => console.log(err))
 
@@ -266,8 +278,8 @@ export default class AulaInvertida extends Component {
                     {/* aca va el nombre de la clase */}
                     <div className='whiteBox'>
 
-                        <div className='blackLetter'>
-
+                       {/* <div className='blackLetter'> */}
+<div>
                             <div className="title">
                                 Aula Invertida
                             </div>
@@ -292,10 +304,10 @@ export default class AulaInvertida extends Component {
                                             <Label for="exampleText"><p>Para avanzar con la configuración:
                                                 Ingresar un nombre con el que se identificará el proyecto y luego guardar
                                             </p></Label>
-                                            <Input type="textarea" name="projectName" id="exampleText" onChange={this.handleChange}/>
+                                            <Input type="textarea" name="projectName" id="exampleText" onChange={this.handleChange} />
                                         </FormGroup>
                                     </Form>
-                                    <div><Button onClick={() => this.createProject()} color="success" >Guardar</Button></div>
+                                    <div><Button disabled= {this.state.disableButtonProject} onClick={() => this.createProject()} color="success" >Crear Proyecto</Button></div>
 
 
 
@@ -306,7 +318,7 @@ export default class AulaInvertida extends Component {
 
                                 {/* CLASE 1 */}
                                 <VerticalTimelineElement
-                                    className="vertical-timeline-element--work"
+                                    //className="vertical-timeline-element--work"
                                     contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     date="2011 - present"
@@ -321,7 +333,7 @@ export default class AulaInvertida extends Component {
                                             para que los alumnos utilicen su tiempo de tarea en el hogar aprendiendo la parte teórica y el tiempo del aula sea utilizado para trabajar en la parte práctica
 
                                         </p></div>
-                                    <div><Button color="success" onClick={() => this.openModal(1)}>Activar Clase</Button></div>
+                                    <div><Button disabled= {this.state.disableButtonClass1} color="success" onClick={() => this.openModal(1)}>Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 1} className="modalStyle">
                                         <ModalHeader size='lg' >
 
@@ -348,7 +360,7 @@ export default class AulaInvertida extends Component {
                                                         <FormGroup>
                                                             <Label for="exampleText"><p>
                                                             </p></Label>
-                                                            <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange}/>
+                                                            <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
                                                         </FormGroup>
                                                     </Form>
                                                 </div>
@@ -358,7 +370,7 @@ export default class AulaInvertida extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="description1" id="exampleText" onChange={this.handleChange}/>
+                                                        <Input type="textarea" name="description1" id="exampleText" onChange={this.handleChange} />
                                                     </FormGroup>
                                                 </div>
                                                 <div>
@@ -430,7 +442,7 @@ export default class AulaInvertida extends Component {
                                         para que los alumnos realicen una actividad con el fin de hacer una primera detección de las dificultades que tuvieron
                                         con los distintos conceptos. Esta detección servira como guía tanto al docente como al alumno para entender sobre que temas se debe trabajar
                                     </p>
-                                    <div><Button color="success" onClick={() => this.openModal(2)}   >Activar Clase</Button></div>
+                                    <div><Button disabled= {this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}   >Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 2} className="modalStyle">
                                         <ModalHeader size='lg' >
 
@@ -450,7 +462,7 @@ export default class AulaInvertida extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass2" id="exampleText" onChange={this.handleChange}/>
+                                                        <Input type="textarea" name="textClass2" id="exampleText" onChange={this.handleChange} />
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -460,7 +472,7 @@ export default class AulaInvertida extends Component {
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
-                                                    <Input type="textarea" name="description2" id="exampleText" onChange={this.handleChange}/>
+                                                    <Input type="textarea" name="description2" id="exampleText" onChange={this.handleChange} />
                                                 </FormGroup>
                                             </div>
                                             <div>
@@ -510,7 +522,7 @@ export default class AulaInvertida extends Component {
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
+                                            <Button color="secondary"  onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -534,7 +546,7 @@ export default class AulaInvertida extends Component {
                                         Esta clase podría activarse para solicitar algún entregable del alumno o alumna relacionado al tema
                                         o bien disponibilizar otra actividad cambiando el nivel de dificultad.
                                     </p>
-                                    <div><Button color="success" onClick={() => this.openModal(3)}  >Activar Clase</Button></div>
+                                    <div><Button disabled= {this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}  >Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 3} className="modalStyle">
                                         <ModalHeader size='lg' >
 
@@ -546,7 +558,7 @@ export default class AulaInvertida extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange}/>
+                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -556,7 +568,7 @@ export default class AulaInvertida extends Component {
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
-                                                    <Input type="textarea" name="description3" id="exampleText" onChange={this.handleChange}/>
+                                                    <Input type="textarea" name="description3" id="exampleText" onChange={this.handleChange} />
                                                 </FormGroup>
                                             </div>
                                             <div>
@@ -610,19 +622,19 @@ export default class AulaInvertida extends Component {
                                     </Modal>
 
                                 </VerticalTimelineElement>
-                            
 
-                            <VerticalTimelineElement
-                                iconStyle={{ background: 'rgb(51, 255, 107)', color: '#fff' }}
-                                icon={<img src={logo} className="small-img" />} 
-                            />
-                            
-               
-                        </VerticalTimeline>
 
+                                <VerticalTimelineElement
+                                    iconStyle={{ background: 'rgb(51, 255, 107)', color: '#fff' }}
+                                    icon={<img src={logo} className="small-img" />}
+                                />
+
+
+                            </VerticalTimeline>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
             </div >)
     }
