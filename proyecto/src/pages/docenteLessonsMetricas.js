@@ -46,7 +46,7 @@ export const docenteLessonsMetricas = () => {
   return (
     <div className="mainContainer">
       <HeaderTeacher />
-      <div className="navBar">
+      <div className="container">
         <h1> METRICAS</h1>
         <NavMetricas activeBar="Lessons" />
 

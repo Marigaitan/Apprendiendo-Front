@@ -48,13 +48,12 @@ export const docenteAlumnosMetricas = () => {
   return (
     <div className="mainContainer">
       <HeaderTeacher />
-      <div className="navBar">
+      <div className="container">
         <h1> METRICAS</h1>
         <NavMetricas activeBar="Alumnos" />
 
         <div className="ml-2 mt-2">
           <h2>Metricas por Alumno</h2>
-          <br />
 
           {alumnos.map((alumno) => {
             return (
