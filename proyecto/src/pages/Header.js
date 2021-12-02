@@ -74,7 +74,7 @@ const HeaderTeacher = () => {
               <Link to="/menudocente" />
             </MenuItem>
 
-            <MenuItem icon={<BiCog />}>Mi Perfil</MenuItem>
+            {/* <MenuItem icon={<BiCog />}>Mi Perfil</MenuItem> */}
 
             <MenuItem icon={<BiBook />}>
               Repositorio
