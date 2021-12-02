@@ -45,9 +45,9 @@ export const docenteMetricas = () => {
   };
 
   const getStuedents = async () => {
-    //const url54 =
-    //API_HOST + "​statistics/teacher/" + cookies.get("id") + "/students";
-    const url2 = "http://localhost:8080/statistics/teacher/42/activities";
+    const url2 =
+      API_HOST + "statistics/teacher/" + cookies.get("id") + "/activities";
+    //const url2 = "http://localhost:8080/statistics/teacher/42/activities";
     console.log(url2);
     //console.log(url54);
     await axios

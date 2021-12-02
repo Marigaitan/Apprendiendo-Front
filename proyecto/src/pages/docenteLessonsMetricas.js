@@ -21,9 +21,9 @@ export const docenteLessonsMetricas = () => {
   const [lessons, setLessons] = useState([]);
 
   const getLessons = async () => {
-    //const url55 =
-    //API_HOST + "​​statistics/teacher/" + cookies.get("id") + "​/projects";
-    const url3 = "http://localhost:8080/statistics/teacher/42/lessons";
+    const url3 =
+      API_HOST + "statistics/teacher/" + cookies.get("id") + "/lessons";
+    //const url3 = "http://localhost:8080/statistics/teacher/42/lessons";
     console.log(url3);
     await axios
       .get(url3, {
