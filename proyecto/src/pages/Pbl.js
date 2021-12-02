@@ -210,10 +210,15 @@ export default class Pbl extends Component {
       [name]: value
     });
   }
-  addLesson = (lesson) => {
+
+  addLesson = (lesson, documents) => {
     let putParamUrl = API_HOST + "lesson";
     axios.put(putParamUrl, lesson, { headers: { 'Authorization': cookies.get('token') } })
-      .then(response => console.log(response.data))
+      .then(response => console.log(response.data));
+    let sendDocs = documents.map(doc =>
+      axios.post(API_HOST + "document", doc, { headers: { 'Authorization': cookies.get('token') } })
+    );
+    axios.all(sendDocs).catch(console.log);
     this.closeModal();
   }
 
@@ -225,14 +230,13 @@ export default class Pbl extends Component {
       description: this.state.description1,
       projectId: this.state.projectId,
       dueDate: this.state.duedateClass1,
-      documents: this.state.archivosClase1,
       startDate: new Date().toISOString(),
       active: true
     }
-    this.setState({disableButtonClass1: true})
+    this.setState({ disableButtonClass1: true })
     console.log(lesson);
-    this.addLesson(lesson);
-    
+    this.addLesson(lesson, this.state.archivosClase1);
+
   }
 
   addSecondLesson = () => {
@@ -244,13 +248,12 @@ export default class Pbl extends Component {
       projectId: this.state.projectId,
       dueDate: this.state.duedateClass2,
       startDate: new Date().toISOString(),
-      documents: this.state.archivosClase2,
       active: true
     }
-    this.setState({disableButtonClass2: true})
+    this.setState({ disableButtonClass2: true })
 
     console.log(lesson);
-    this.addLesson(lesson);
+    this.addLesson(lesson, this.state.archivosClase2);
   }
   addThirdLesson = () => {
     const lesson = {
@@ -261,13 +264,12 @@ export default class Pbl extends Component {
       projectId: this.state.projectId,
       dueDate: this.state.duedateClass3,
       startDate: new Date().toISOString(),
-      documents: this.state.archivosClase3,
       active: true
     }
-    this.setState({disableButtonClass3: true})
+    this.setState({ disableButtonClass3: true })
 
     console.log(lesson);
-    this.addLesson(lesson);
+    this.addLesson(lesson, this.state.archivosClase3);
   }
 
   addForthLesson = () => {
@@ -279,13 +281,12 @@ export default class Pbl extends Component {
       projectId: this.state.projectId,
       dueDate: this.state.duedateClass4,
       startDate: new Date().toISOString(),
-      documents: this.state.archivosClase4,
       active: true
     }
-    this.setState({disableButtonClass4: true})
+    this.setState({ disableButtonClass4: true })
 
     console.log(lesson);
-    this.addLesson(lesson);
+    this.addLesson(lesson, this.state.archivosClase4);
   }
   addFifthLesson = () => {
     const lesson = {
@@ -296,13 +297,12 @@ export default class Pbl extends Component {
       projectId: this.state.projectId,
       dueDate: this.state.duedateClass5,
       startDate: new Date().toISOString(),
-      documents: this.state.archivosClase5,
       active: true
     }
-    this.setState({disableButtonClass5: true})
+    this.setState({ disableButtonClass5: true })
 
     console.log(lesson);
-    this.addLesson(lesson);
+    this.addLesson(lesson, this.state.archivosClase5);
   }
   addSixthLesson = () => {
     const lesson = {
@@ -313,13 +313,12 @@ export default class Pbl extends Component {
       projectId: this.state.projectId,
       dueDate: this.state.duedateClass6,
       startDate: new Date().toISOString(),
-      documents: this.state.archivosClase6,
       active: true
     }
-    this.setState({disableButtonClass6: true})
+    this.setState({ disableButtonClass6: true })
 
     console.log(lesson);
-    this.addLesson(lesson);
+    this.addLesson(lesson, this.state.archivosClase6);
   }
   addSeventhLesson = () => {
     const lesson = {
@@ -331,12 +330,11 @@ export default class Pbl extends Component {
       dueDate: this.state.duedateClass7,
       startDate: new Date().toISOString(),
       active: true,
-      documents: this.state.archivosClase7,
     }
-    this.setState({disableButtonClass7: true})
+    this.setState({ disableButtonClass7: true })
 
     console.log(lesson);
-    this.addLesson(lesson);
+    this.addLesson(lesson, this.state.archivosClase7);
   }
 
   onValueChange = (event) => {
@@ -363,6 +361,7 @@ export default class Pbl extends Component {
     console.log('imprimiendo base64')
     console.log(base64);
     let archivo = {
+      position: this.state[archivosLesson].length,
       name: elem[0].name,
       dataType: 'FILE',
       data: base64,
@@ -428,7 +427,7 @@ export default class Pbl extends Component {
                       <Input type="textarea" name="projectName" id="exampleText" onChange={this.handleChange} />
                     </FormGroup>
                   </Form>
-                  <div><Button disabled= {this.state.disableButtonProject} onClick={() => this.createProject()} color="success" >Crear proyecto</Button></div>
+                  <div><Button disabled={this.state.disableButtonProject} onClick={() => this.createProject()} color="success" >Crear proyecto</Button></div>
                 </VerticalTimelineElement>
 
 
@@ -525,7 +524,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button   color="secondary" onClick={() => this.addFirstLesson()}>Guardar y Cerrar</Button>
+                      <Button color="secondary" onClick={() => this.addFirstLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
                 </VerticalTimelineElement>
@@ -566,7 +565,7 @@ export default class Pbl extends Component {
 
                       <h3>Adjuntar documentación </h3>
                       <FormGroup>
-                        <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase1', this.state.lessonIds[1])} />
+                        <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase2', this.state.lessonIds[1])} />
                         <br />
                         {this.state.archivosClase2 && this.state.archivosClase2.map(document =>
                           <div key={document.name} >
@@ -595,7 +594,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button  color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
+                      <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -679,7 +678,7 @@ export default class Pbl extends Component {
                         </div>
                       </ModalBody>
                       <ModalFooter className="modalFooter">
-                        <Button  color="secondary" onClick={() => this.addThirdLesson()}>Guardar y Cerrar</Button>
+                        <Button color="secondary" onClick={() => this.addThirdLesson()}>Guardar y Cerrar</Button>
                       </ModalFooter>
                     </Modal>
 
@@ -768,7 +767,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button  color="secondary" onClick={() => this.addForthLesson()}>Guardar y Cerrar</Button>
+                      <Button color="secondary" onClick={() => this.addForthLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -865,7 +864,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button  color="secondary" onClick={() => this.addFifthLesson()}>Guardar y Cerrar</Button>
+                      <Button color="secondary" onClick={() => this.addFifthLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -967,7 +966,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button  color="secondary" onClick={() => this.addSixthLesson()}>Guardar y Cerrar</Button>
+                      <Button color="secondary" onClick={() => this.addSixthLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -1058,7 +1057,7 @@ export default class Pbl extends Component {
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button  color="secondary" onClick={() => this.addSeventhLesson()}>Guardar y Cerrar</Button>
+                      <Button color="secondary" onClick={() => this.addSeventhLesson()}>Guardar y Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 

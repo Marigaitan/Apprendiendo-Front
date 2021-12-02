@@ -148,7 +148,7 @@ export default class EditLessonModal extends Component {
     // -------------------------------------------------------------------------------- ENVIAR DOCUMENTO
 
     sendDocument = async (document) => {
-        await axios.put(API_HOST + "documents/" + document.id, document, { headers: { Authorization: cookies.get("token"), }, })
+        await axios.put(API_HOST + "document/" + document.id, document, { headers: { Authorization: cookies.get("token"), }, })
             .then(response => {
                 alert("Actividad actualizada!");
                 this.setState({ activeButton: true })

@@ -87,10 +87,14 @@ export default class AulaInvertida extends Component {
 
     // ---------------------------------------------------------------------------------- add lessons
 
-    addLesson = (lesson) => {
+    addLesson = (lesson, documents) => {
         let putParamUrl = API_HOST + "lesson";
         axios.put(putParamUrl, lesson, { headers: { 'Authorization': cookies.get('token') } })
             .then(response => console.log(response.data))
+        let sendDocs = documents.map(doc =>
+            axios.post(API_HOST + "document", doc, { headers: { 'Authorization': cookies.get('token') } })
+        );
+        axios.all(sendDocs).catch(console.log);
         this.closeModal();
     }
 
@@ -104,11 +108,10 @@ export default class AulaInvertida extends Component {
             dueDate: this.state.duedateClass1,
             startDate: new Date().toISOString(),
             active: true,
-            documents: this.state.archivosClase1,
         }
-        this.setState({disableButtonClass1: true})
+        this.setState({ disableButtonClass1: true })
         console.log(lesson);
-        this.addLesson(lesson);
+        this.addLesson(lesson, this.state.archivosClase1);
     }
 
     addSecondLesson = () => {
@@ -121,11 +124,10 @@ export default class AulaInvertida extends Component {
             dueDate: this.state.duedateClass2,
             startDate: new Date().toISOString(),
             active: true,
-            documents: this.state.archivosClase2,
         }
-        this.setState({disableButtonClass2: true})
+        this.setState({ disableButtonClass2: true })
         console.log(lesson);
-        this.addLesson(lesson);
+        this.addLesson(lesson, this.state.archivosClase2);
     }
 
     addThirdLesson = () => {
@@ -138,11 +140,10 @@ export default class AulaInvertida extends Component {
             dueDate: this.state.duedateClass3,
             startDate: new Date().toISOString(),
             active: true,
-            documents: this.state.archivosClase3,
         }
-        this.setState({disableButtonClass3: true})
+        this.setState({ disableButtonClass3: true })
         console.log(lesson);
-        this.addLesson(lesson);
+        this.addLesson(lesson, this.state.archivosClase3);
     }
 
     // ---------------------------------------------------------------------------------- create project
@@ -249,6 +250,7 @@ export default class AulaInvertida extends Component {
             sourceId: lessonId
         }
         this.setState(prevState => ({ ...prevState, [archivosLesson]: prevState[archivosLesson].concat(archivo) }));
+        console.log(archivo);
     }
 
     convertToBase64 = async (file) => {
@@ -278,8 +280,8 @@ export default class AulaInvertida extends Component {
                     {/* aca va el nombre de la clase */}
                     <div className='whiteBox'>
 
-                       {/* <div className='blackLetter'> */}
-<div>
+                        {/* <div className='blackLetter'> */}
+                        <div>
                             <div className="title">
                                 Aula Invertida
                             </div>
@@ -307,7 +309,7 @@ export default class AulaInvertida extends Component {
                                             <Input type="textarea" name="projectName" id="exampleText" onChange={this.handleChange} />
                                         </FormGroup>
                                     </Form>
-                                    <div><Button disabled= {this.state.disableButtonProject} onClick={() => this.createProject()} color="success" >Crear Proyecto</Button></div>
+                                    <div><Button disabled={this.state.disableButtonProject} onClick={() => this.createProject()} color="success" >Crear Proyecto</Button></div>
 
 
 
@@ -333,7 +335,7 @@ export default class AulaInvertida extends Component {
                                             para que los alumnos utilicen su tiempo de tarea en el hogar aprendiendo la parte teórica y el tiempo del aula sea utilizado para trabajar en la parte práctica
 
                                         </p></div>
-                                    <div><Button disabled= {this.state.disableButtonClass1} color="success" onClick={() => this.openModal(1)}>Activar Clase</Button></div>
+                                    <div><Button disabled={this.state.disableButtonClass1} color="success" onClick={() => this.openModal(1)}>Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 1} className="modalStyle">
                                         <ModalHeader size='lg' >
 
@@ -442,7 +444,7 @@ export default class AulaInvertida extends Component {
                                         para que los alumnos realicen una actividad con el fin de hacer una primera detección de las dificultades que tuvieron
                                         con los distintos conceptos. Esta detección servira como guía tanto al docente como al alumno para entender sobre que temas se debe trabajar
                                     </p>
-                                    <div><Button disabled= {this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}   >Activar Clase</Button></div>
+                                    <div><Button disabled={this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}   >Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 2} className="modalStyle">
                                         <ModalHeader size='lg' >
 
@@ -522,7 +524,7 @@ export default class AulaInvertida extends Component {
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="secondary"  onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
+                                            <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -546,7 +548,7 @@ export default class AulaInvertida extends Component {
                                         Esta clase podría activarse para solicitar algún entregable del alumno o alumna relacionado al tema
                                         o bien disponibilizar otra actividad cambiando el nivel de dificultad.
                                     </p>
-                                    <div><Button disabled= {this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}  >Activar Clase</Button></div>
+                                    <div><Button disabled={this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}  >Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 3} className="modalStyle">
                                         <ModalHeader size='lg' >
 

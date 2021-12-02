@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
 import '../css/DocenteEditLesson.css';
 import Cookies from "universal-cookie/es6";
+import * as _ from "lodash";
 import HeaderTeacher from './Header';
 import axios from 'axios';
 import { API_HOST } from "../constants";
@@ -96,11 +97,13 @@ export default class DocenteEditLesson extends Component {
         console.log(base64);
         let archivo = {
             name: elem[0].name,
+            position: this.state.archivos.position,
             dataType: 'FILE',
             data: base64,
             documentSourceType: 'LESSON',
-            sourceId: cookies.get('lessonid')
+            sourceId: cookies.get('lessonid'),
         }
+        await axios.post(API_HOST + "document", archivo,{ headers: { Authorization: cookies.get("token"), }, }).then(response => archivo.id = response.data).catch(console.log);
         this.setState(prevState => ({ archivos: prevState.archivos.concat(archivo) }));
     }
 
@@ -117,8 +120,11 @@ export default class DocenteEditLesson extends Component {
         });
     };
 
-    borrarArchivo = (e) => {
-        this.setState(prevState => ({ archivos: prevState.archivos.filter(archivo => archivo.name !== e.name) }))
+    borrarArchivo = async (e) => {
+        let document = _.find(this.state.archivos, {name: e.name});
+        console.log(document);
+        await axios.delete(API_HOST + "document/" + document.id + "/source/" + document.sourceId, { headers: { Authorization: cookies.get("token"), }, }).catch(console.log);
+        this.setState(prevState => ({ archivos: prevState.archivos.filter(archivo => archivo.name !== e.name) }));
     }
 
     //--------------------------------------------------------------------------------------------- CUESTIONARIO
