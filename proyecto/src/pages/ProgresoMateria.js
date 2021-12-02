@@ -81,7 +81,7 @@ export const ProgresoMateria = () => {
             className="rounded-circle"
           />
         </div>
-        <div className="containerAvancesDelCurso animate__animated animate__fadeInUp">
+        <div className="fondo_general containerAvancesDelCurso animate__animated animate__fadeInUp">
           <div className="container mb-4">
             <h2>Progreso de las actividades</h2>
           </div>
@@ -94,7 +94,7 @@ export const ProgresoMateria = () => {
             />
           ))}
         </div>
-        <div className="containerLogrosDelCurso animate__animated animate__fadeInUp">
+        <div className="fondo_general containerLogrosDelCurso animate__animated animate__fadeInUp">
           <div className="container">
             <h2 className="mt-2">Lista de logros obtenidos</h2>
             <div className="card-columns">
