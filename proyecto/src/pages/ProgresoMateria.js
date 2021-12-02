@@ -16,6 +16,7 @@ export const ProgresoMateria = () => {
   const [progreso, setprogreso] = useState([]);
 
   useEffect(() => {
+    console.log(getLogrosDeProjects());
     getLogros();
     getProgreso();
   }, []);
@@ -44,6 +45,32 @@ export const ProgresoMateria = () => {
       setprogreso(rta);
     });
   };
+
+
+  const getLogrosDeProjects = async () => {
+    let classroomLessons = (await axios.get("classroom/" + id + "/projects")).data;
+    return Promise.all(classroomLessons.map(async project => ({
+      projectName: project.name,
+      rewards: (await axios.get("user/" + cookies.get("id") + "/project/" + project.id + "/rewards")).data,
+      lessons: await getLogrosDeLessons(project)
+    })))
+  }
+
+  const getLogrosDeLessons = async (project) => {
+    let projectLessons = (await axios.get("project/" + project.id + "/lessons")).data;
+    return Promise.all(projectLessons.map(async lesson => ({
+      lessonName: lesson.name,
+      activities: await getLogrosDeActivities(lesson)
+    })))
+  }
+
+  const getLogrosDeActivities = async (lesson) => {
+    return Promise.all(lesson.activities.map(async activity => ({
+      activityName: activity.name,
+      rewards: (await axios.get("user/" + cookies.get("id") + "/activity/" + activity.id + "/rewards")).data
+    })))
+  }
+
 
   const getLogros = async () => {
     const url =
