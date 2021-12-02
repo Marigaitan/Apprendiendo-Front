@@ -50,9 +50,8 @@ export const docenteLessonsMetricas = () => {
         <h1> METRICAS</h1>
         <NavMetricas activeBar="Lessons" />
 
-        <div className="ml-2 mt-2">
+        <div className="fondo_general ml-2 mt-2">
           <h2>Metricas por Lessons</h2>
-          <br />
 
           {lessons.map((lesson) => {
             return (

@@ -50,9 +50,8 @@ export const docenteProyectosMetricas = () => {
         <h1> METRICAS</h1>
         <NavMetricas activeBar="Proyectos" />
 
-        <div className="ml-2 mt-2">
+        <div className="fondo_general ml-2 mt-2">
           <h2>Metricas por Proyectos</h2>
-          <br />
 
           {projects.map((project) => {
             return (
