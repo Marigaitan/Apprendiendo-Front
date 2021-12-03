@@ -23,7 +23,9 @@ export const ListarLogrosDelCurso = ({ id, reward, name, proyecto }) => {
         </div>
         <div>
           <div>
-            <p style={{ color: "red", fontWeight: "bold" }}>{name}</p>
+            <p style={{ fontSize: 15, color: "red", fontWeight: "bold" }}>
+              {name}
+            </p>
           </div>
         </div>
       </div>
