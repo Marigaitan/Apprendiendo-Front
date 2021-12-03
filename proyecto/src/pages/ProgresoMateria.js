@@ -151,15 +151,38 @@ export const ProgresoMateria = () => {
         </div>
         <div className="fondo_general containerLogrosDelCurso animate__animated animate__fadeInUp">
           <div className="container">
-            <h2 className="mt-2">Lista de logros obtenidos</h2>
+            <h2 className="mt-2">Lista de logros obtenidos en proyectos</h2>
             <div className="card-columns">
-              {logros.map((logro) => (
-                <ListarLogrosDelCurso
-                  key={logro.id}
-                  reward={logro.imageData}
-                  name={logro.name}
-                />
-              ))}
+              {aux.map((logro) =>
+                logro.rewards.map((reward) => (
+                  <ListarLogrosDelCurso
+                    key={reward.id}
+                    reward={reward.imageData}
+                    name={reward.name}
+                  />
+                ))
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="fondo_general containerLogrosDelCurso animate__animated animate__fadeInUp">
+          <div className="container">
+            <h2 className="mt-2">Lista de logros obtenidos en actividades</h2>
+            <div className="card-columns">
+              {aux.map((logro) =>
+                logro.lessons.map((lesson) =>
+                  lesson.activities.map((activity) =>
+                    activity.rewards.map((reward) => (
+                      <ListarLogrosDelCurso
+                        key={reward.id}
+                        reward={reward.imageData}
+                        name={reward.name}
+                      />
+                    ))
+                  )
+                )
+              )}
             </div>
           </div>
         </div>
