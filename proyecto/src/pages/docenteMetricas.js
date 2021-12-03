@@ -15,7 +15,6 @@ import ProgressBar from "./ProgressBar";
 const cookies = new Cookies();
 export const docenteMetricas = () => {
   useEffect(() => {
-    getClassrooms();
     getStuedents();
   }, []);
 
@@ -25,31 +24,10 @@ export const docenteMetricas = () => {
       name: "",
     },
   ]);
-  const getClassrooms = async () => {
-    const url = API_HOST + "user/" + cookies.get("id") + "/classrooms";
-
-    await axios
-      .get(url, {
-        headers: {
-          Authorization: cookies.get("token"),
-        },
-      })
-      .then((response) => {
-        console.log("CERO RESPUESTA:", response);
-        const classrooms = response.data.map((classroom) => ({
-          name: classroom.subject,
-          id: classroom.id,
-        }));
-        setClases(classrooms);
-      });
-  };
 
   const getStuedents = async () => {
     const url2 =
-      API_HOST + "statistics/teacher/" + cookies.get("id") + "/activities";
-    //const url2 = "http://localhost:8080/statistics/teacher/42/activities";
-    console.log(url2);
-    //console.log(url54);
+      API_HOST + "statistics/teacher/" + cookies.get("id") + "/classrooms";
     await axios
       .get(url2, {
         headers: {
@@ -57,24 +35,30 @@ export const docenteMetricas = () => {
         },
       })
       .then((response) => {
-        console.log("PRIMER RESPUESTA:", response);
-        // const classrooms = response.data.map((classroom) => ({
-        //   name: classroom.subject,
-        //   id: classroom.id,
-        // }));
-        // setClases(classrooms);
+        const classrooms = response.data.map((classroom) => ({
+          name: classroom.item.subject,
+          division: classroom.item.division,
+          year: classroom.item.year,
+          id: classroom.item.id,
+
+          avgCompletion: classroom.averageCompletion,
+          percentageCompleted: classroom.percentageCompleted,
+          avgGrade: classroom.averageGrade,
+        }));
+        setClases(classrooms);
       });
   };
 
+  console.log("DAOTSSSSS:", clases);
   return (
     <div className="mainContainer">
       <HeaderTeacher />
-      <div className="container">
+      <div className="fondo_general container">
         <h1> METRICAS</h1>
         <NavMetricas activeBar="Materias" />
 
-        <div className="fondo_general ml-2 mt-2">
-          <h2>Metricas por curso</h2>
+        <div className="ml-2 mt-2">
+          <h2>Metricas por materias</h2>
 
           {clases.map((classroom) => {
             return (
@@ -82,15 +66,24 @@ export const docenteMetricas = () => {
                 {/* {classroom.name} */}
                 <div className="containerAvancesDelCurso animate__animated animate__fadeInUp">
                   <div className="container mb-4">
-                    <h2>Metrica de {classroom.name} </h2>
+                    <h2>
+                      {classroom.name} - Curso {classroom.division} - Año{" "}
+                      {classroom.year}{" "}
+                    </h2>
                   </div>
-
                   <ProgressBar
-                    key={classroom.id}
-                    bgcolor="#6a1b9a"
-                    completed="80"
-                    tarea="Titulo"
+                    //key={classroom.id}
+                    bgcolor="#1b9a9a"
+                    completed={classroom.avgCompletion}
+                    tarea="Promedio completado de la clase"
                   />
+                  <ProgressBar
+                    //key={classroom.id}
+                    bgcolor="#1b9a9a"
+                    completed={classroom.percentageCompleted}
+                    tarea="Porcentaje completado de la clase"
+                  />
+                  <h2>Nota Promedio de la clase: {classroom.avgGrade}</h2>
                 </div>
                 <br />
               </div>

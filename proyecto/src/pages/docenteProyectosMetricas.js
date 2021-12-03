@@ -43,14 +43,15 @@ export const docenteProyectosMetricas = () => {
         setProjects(proyectos);
       });
   };
+
   return (
     <div className="mainContainer">
       <HeaderTeacher />
-      <div className="container">
+      <div className="fondo_general container">
         <h1> METRICAS</h1>
         <NavMetricas activeBar="Proyectos" />
 
-        <div className="fondo_general ml-2 mt-2">
+        <div className="ml-2 mt-2">
           <h2>Metricas por Proyectos</h2>
 
           {projects.map((project) => {
