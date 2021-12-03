@@ -49,7 +49,6 @@ export const docenteMetricas = () => {
       });
   };
 
-  console.log("DAOTSSSSS:", clases);
   return (
     <div className="mainContainer">
       <HeaderTeacher />
