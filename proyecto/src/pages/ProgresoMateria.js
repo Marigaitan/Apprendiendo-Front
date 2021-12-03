@@ -159,6 +159,7 @@ export const ProgresoMateria = () => {
                     key={reward.id}
                     reward={reward.imageData}
                     name={reward.name}
+                    proyecto={logro.projectName}
                   />
                 ))
               )}
@@ -178,6 +179,7 @@ export const ProgresoMateria = () => {
                         key={reward.id}
                         reward={reward.imageData}
                         name={reward.name}
+                        proyecto={activity.activityName}
                       />
                     ))
                   )

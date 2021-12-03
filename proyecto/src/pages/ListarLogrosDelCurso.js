@@ -8,10 +8,11 @@ import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
-export const ListarLogrosDelCurso = ({ id, reward, name }) => {
+export const ListarLogrosDelCurso = ({ id, reward, name, proyecto }) => {
   return (
     <div className="card ms-3 mt-2" style={{ maxWidth: 120 }}>
       <div className="row no-gutters">
+        <h6> {proyecto} </h6>
         <div className="d-flex flex-column align-items-center text-center">
           <img
             src={`./medallas_cursos/${reward}.png`}
