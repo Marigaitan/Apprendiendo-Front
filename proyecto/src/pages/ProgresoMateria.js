@@ -14,11 +14,10 @@ export const ProgresoMateria = () => {
   const { id = "", m = "" } = queryString.parse(location.search);
   const [logros, setLogros] = useState([]);
   const [progreso, setprogreso] = useState([]);
+  const [aux, setaux] = useState([]);
 
   useEffect(() => {
-    console.log("LOGRO-PROYECTOS:", getLogrosDeProjects());
-    console.log("LOGRO-LESSONS:", getLogrosDeLessons());
-    console.log("LOGRO-ACTIVIDADES:", getLogrosDeActivities());
+    getAux();
     getLogros();
     getProgreso();
   }, []);
@@ -45,6 +44,13 @@ export const ProgresoMateria = () => {
     const prueba = getClassroomProjectsProgress(id, cookies.get("id"));
     prueba.then((rta) => {
       setprogreso(rta);
+    });
+  };
+
+  const getAux = () => {
+    const aux = getLogrosDeProjects();
+    aux.then((rta) => {
+      setaux(rta);
     });
   };
 
@@ -116,6 +122,8 @@ export const ProgresoMateria = () => {
         alert("ERROR en get Logros");
       });
   };
+
+  console.log("AUUUUXXX:", aux);
 
   return (
     <div className="mainContainer">

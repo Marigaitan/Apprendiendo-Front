@@ -84,7 +84,8 @@ export const AlumnoProgreso = () => {
 
   const filtro1 = logros.filter((imagen) => imagen.imageData);
   const filtro = filtro1.filter((imagen) => !imagen.targetId);
-  console.log("este fultro", filtro);
+  console.log("este filtro", filtro);
+  console.log("CLASESSS:", clases);
   return (
     <div className="mainContainer">
       <HeaderStudent />
