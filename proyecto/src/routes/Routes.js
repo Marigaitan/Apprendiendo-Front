@@ -37,12 +37,12 @@ import { ListarLogrosDelCurso } from "../pages/ListarLogrosDelCurso";
 import MenuLogrosDocente from "../pages/MenuLogrosDocente";
 import DocenteLesson from "../pages/DocenteLesson";
 import CorregirActividades from "../pages/CorregirActividades";
-import { docenteMetricas } from "../pages/docenteMetricas";
+import { DocenteMetricas } from "../pages/docenteMetricas";
 import DocenteEditGroups from "../pages/DocenteEditGroups";
-import { docenteAlumnosMetricas } from "../pages/docenteAlumnosMetricas";
-import { docenteProyectosMetricas } from "../pages/docenteProyectosMetricas";
-import { docenteLessonsMetricas } from "../pages/docenteLessonsMetricas";
-import { docenteActividadesMetricas } from "../pages/docenteActividadesMetricas";
+import { DocenteAlumnosMetricas } from "../pages/docenteAlumnosMetricas";
+import { DocenteProyectosMetricas } from "../pages/docenteProyectosMetricas";
+import { DocenteLessonsMetricas } from "../pages/docenteLessonsMetricas";
+import { DocenteActividadesMetricas } from "../pages/docenteActividadesMetricas";
 
 function Routes() {
   return (
@@ -121,26 +121,26 @@ function Routes() {
         <Route exact path="/ListarAvatars" component={ListarAvatars} />
         <Route exact path="/SeleccionarAvatar" component={SeleccionarAvatar} />
         <Route exact path="/ListarAccesorios" component={ListarAccesorios} />
-        <Route exact path="/docenteMetricas" component={docenteMetricas} />
+        <Route exact path="/docenteMetricas" component={DocenteMetricas} />
         <Route
           exact
           path="/docenteActividadesMetricas"
-          component={docenteActividadesMetricas}
+          component={DocenteActividadesMetricas}
         />
         <Route
           exact
           path="/docenteLessonsMetricas"
-          component={docenteLessonsMetricas}
+          component={DocenteLessonsMetricas}
         />
         <Route
           exact
           path="/docenteProyectosMetricas"
-          component={docenteProyectosMetricas}
+          component={DocenteProyectosMetricas}
         />
         <Route
           exact
           path="/docenteAlumnosMetricas"
-          component={docenteAlumnosMetricas}
+          component={DocenteAlumnosMetricas}
         />
         <Route exact path="/AlumnoProgreso" component={AlumnoProgreso} />
         <Route exact path="/ProgresoMateria" component={ProgresoMateria} />

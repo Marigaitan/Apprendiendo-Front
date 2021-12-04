@@ -13,7 +13,7 @@ import NavMetricas from "./NavMetricas";
 import ProgressBar from "./ProgressBar";
 
 const cookies = new Cookies();
-export const docenteMetricas = () => {
+export const DocenteMetricas = () => {
   useEffect(() => {
     getStuedents();
   }, []);
