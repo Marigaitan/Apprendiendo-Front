@@ -43,6 +43,7 @@ import { docenteAlumnosMetricas } from "../pages/docenteAlumnosMetricas";
 import { docenteProyectosMetricas } from "../pages/docenteProyectosMetricas";
 import { docenteLessonsMetricas } from "../pages/docenteLessonsMetricas";
 import { docenteActividadesMetricas } from "../pages/docenteActividadesMetricas";
+import Tbl from "../pages/Tbl";
 
 function Routes() {
   return (
@@ -179,6 +180,11 @@ function Routes() {
           exact
           path="/menudocente/classroom/proyecto/edit/groups"
           component={DocenteEditGroups}
+        />
+         <Route
+          exact
+          path="/menudocente/classroom/nuevoproyecto/tbl"
+          component={Tbl}
         />
       </Switch>
     </BrowserRouter>
