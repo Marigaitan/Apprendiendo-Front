@@ -37,6 +37,7 @@ import "react-vertical-timeline-component/style.min.css";
 import logo from "../Images/logoMini.png";
 import Switch from "./Switch";
 import Background from '../Images/fondoLetras.png';
+import NavDocenteProyecto from "./NavDocenteProyecto";
 
 const cookies = new Cookies();
 
@@ -155,6 +156,7 @@ export default class DocenteProyecto extends Component {
         <div className="mainProyecto">
           <div className="whiteboxTitle">
             <h2>{this.state.project.name}</h2>
+            <NavDocenteProyecto />
           </div>
           <div className="whiteboxTitle">
             <Switch

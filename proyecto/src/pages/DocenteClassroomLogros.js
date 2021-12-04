@@ -28,7 +28,7 @@ import { accesorios } from "../data/accesorios";
 
 const cookies = new Cookies();
 
-class DocenteLogros extends Component {
+class DocenteClassroomLogros extends Component {
   constructor(props) {
     //constructor de mi clase
     super(props);
@@ -65,7 +65,7 @@ class DocenteLogros extends Component {
         });
       });
 
-    
+
       // var ans = [];
       // for (let i = 210; i <= 230; i++) {
       //    + i, {
@@ -77,8 +77,8 @@ class DocenteLogros extends Component {
     await axios
       .get(API_HOST + "conditions", {headers: { Authorization: cookies.get("token") }})
       .then(response => {
-          
-          const conditions = response.data
+
+          const conditions = response.data.filter(condition => condition.conditionType.includes("TARGET"));
 
           //SET STATE
           this.setState({
@@ -413,4 +413,4 @@ class DocenteLogros extends Component {
   }
 }
 
-export default DocenteLogros;
+export default DocenteClassroomLogros;

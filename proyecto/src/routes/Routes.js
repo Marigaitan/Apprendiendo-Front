@@ -22,7 +22,9 @@ import NewStandarProject from "../pages/NewStandarProject";
 import { ListarAvatars } from "../pages/ListarAvatars";
 import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
 import { ListarAccesorios } from "../pages/ListarAccesorios";
-import DocenteLogros from "../pages/DocenteLogros";
+import DocenteClassroomLogros from "../pages/DocenteClassroomLogros";
+import DocenteProjectLogros from "../pages/DocenteProjectLogros";
+import DocenteLessonLogros from "../pages/DocenteLessonLogros";
 
 import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
 
@@ -154,7 +156,17 @@ function Routes() {
         <Route
           exact
           path="/menudocente/classroom/logros/new"
-          component={DocenteLogros}
+          component={DocenteClassroomLogros}
+        />
+        <Route
+          exact
+          path="/menudocente/classroom/proyecto/logros/new"
+          component={DocenteProjectLogros}
+        />
+        <Route
+          exact
+          path="/menudocente/classroom/proyecto/clase/logros/new"
+          component={DocenteLessonLogros}
         />
         <Route
           exact
