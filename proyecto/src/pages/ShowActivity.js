@@ -13,7 +13,7 @@ export default class ShowActivity extends Component {
     super(props);
     this.state = {
       activitiesAnswers: [],
-      openModal: false, modalId: -1,
+      openModal: false, modalId: -1, selectGrade: 0
     };
   }
 
@@ -49,16 +49,39 @@ export default class ShowActivity extends Component {
     this.setState({ openModal: false, modalId: -1 });
   }
 
-  calificar() {
-    alert("calificaste yay!");
+  calificar(activityId) {
+    let body = {
+      percentageCompleted: 100,
+      dateCompleted: (new Date()).toISOString(),
+      grade: this.state.selectGrade,
+    }
+    axios.put("user/" + this.props.studentID + "/activity/" + activityId + "/progress", body)
+    .then(response => {
+      console.log(response.data);
+      alert("Nota actualizada correctamente");
+      window.location.reload();
+    })
+    .catch(response => {
+      alert("Hubo un error en el envio de la nota");
+      console.log(response)
+    });
+  }
+
+  handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
+
+    this.setState({
+      [name]: value
+    });
   }
 
 
   render() {
-
+    console.log(this.state.activitiesAnswers);
     return (
       <div>
-        {this.state.activitiesAnswers.map((activityList) =>
+        {this.state.activitiesAnswers.map(activityList =>
           activityList.map(activity => {
             let actividad = JSON.parse(activity.data);
             console.log(actividad);
@@ -80,7 +103,14 @@ export default class ShowActivity extends Component {
                     {activity.dataType === "CUESTIONARIO"
                       ?
                       (<div>
-                        {actividad && actividad.map((respuesta, index) => <Label key={index} id={index}>{respuesta}</Label>)}
+                        {actividad && actividad.map((respuesta, index) =>
+                          <div key={index} id={index}>
+                            <h4><Label>Pregunta {index + 1}</Label></h4>
+                            <Label >{respuesta}</Label>
+                            <br/>
+                            <br/>
+                          </div>
+                        )}
                       </div>)
                       : activity.dataType === "QUIZZ"
                         ?
@@ -96,42 +126,76 @@ export default class ShowActivity extends Component {
                         : <div></div>
                     }
                   </ModalBody>
-                  <ModalFooter className="modalFooter">
+                  <ModalFooter className="footer">
+                    {/* ------------------------------ CALIFICACION ------------------------------ */}
+                    {/* ------------------------------ CUESTIONARIO ------------------------------ */}
+                    {/* ------------------------------ SIN CALIFAR TODAVIA ------------------------------ */}
                     {activity.dataType === "CUESTIONARIO"
                       ?
-                      (<div>
-                        <Label>Calificar:</Label>
-                        <FormGroup row>
-                          <Label
-                            for="exampleSelect"
-                            sm={2}
-                          >
-                            Select
-                          </Label>
-                          <Col sm={10}>
-                            <Input
-                              id="exampleSelect"
-                              name="select"
-                              type="select"
-                            >
-                              {Array.from({ length: 11 }, (x, i) =>
-                                <option>
-                                  {i}
-                                </option>)}
-                            </Input>
-                          </Col>
-                        </FormGroup>
-                        <Button color="secondary" onClick={() => this.calificar()}>Calificar</Button>
+                      (<div className="full-width">
+                        {
+                          activity.source.grade === null || activity.source.grade === -1
+                            ?
+                            (<div>
+                              <Alert color='info'>Aun no se ha calificado</Alert>
+                              <div className="flex-start">
+                                <Label>Calificar:</Label>
+                                <FormGroup row>
+                                  <Col sm={10}>
+                                    <Input
+                                      id="exampleSelect"
+                                      name="selectGrade"
+                                      type="select"
+                                      className="selector"
+                                    >
+                                      {Array.from({ length: 11 }, (x, i) =>
+                                        <option>
+                                          {i}
+                                        </option>)}
+                                    </Input>
+                                  </Col>
+                                </FormGroup>
+                              </div>
+                              <div>
+                                <Button block outline color="primary" onClick={() => this.calificar(activity.source.activityId)}>Calificar</Button>
+                                <Button block outline color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
+                              </div>
+                            </div>)
+                              // ------------------------------------------------------------ YA CALIFICADO ------------------------------------------------------------------------------------------
+                            : <div>
+                              <Alert>Calificado con {activity.source.grade}</Alert>
+                              <div className="flex-start">
+                              <Label>Editar Calificacion:</Label>
+                              <FormGroup row>
+                                  <Col sm={10}>
+                                    <Input
+                                      id="exampleSelect"
+                                      name="selectGrade"
+                                      value={this.state.selectGrade}
+                                      type="select"
+                                      className="selector"
+                                      onChange={this.handleChange}
+                                    >
+                                      {Array.from({ length: 11 }, (x, i) =>
+                                        <option>
+                                          {i}
+                                        </option>)}
+                                    </Input>
+                                  </Col>
+                                </FormGroup>
+                                </div>
+                              <Button block color='warning' onClick={() => this.calificar(activity.source.activityId)}>Editar nota</Button>
+                              </div>
+                        }
                       </div>)
                       : activity.dataType === "QUIZZ"
                         ?
                         (<div>
-                          <Label>Calificacion:</Label>
-                          <Label>{actividad.puntaje / actividad.resultados.length * 10}</Label>
+                          <Alert>Calificado con {actividad.puntaje / actividad.resultados.length * 10}</Alert>
+                          <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
                         </div>)
                         : <div></div>
                     }
-                    <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
                   </ModalFooter>
                 </Modal>
               </div>

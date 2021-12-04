@@ -53,9 +53,13 @@ export default class EditLessonModal extends Component {
     buttonEditCuestionarioParams = (cuestionario) => {
         let pregunta = JSON.parse(cuestionario.data);
         console.log(pregunta);
-        return (<Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
-            {cuestionario.name}
-        </Button>);
+        return (<div className="flex-start">
+                <Label size="lg">{cuestionario.name}</Label>
+                <Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
+                    Editar
+                </Button>
+        </div>
+        );
     }
 
     removeFormFields = (i) => {

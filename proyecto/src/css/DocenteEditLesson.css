@@ -21,6 +21,11 @@
     margin:5px;
 }
 
+.flex-start{
+    display: flex;
+    justify-content: center;
+}
+
 .boxActiv{
     display: flex;
     margin: 0px;
@@ -75,8 +80,8 @@
     margin-bottom: 30px;
     border: 1px solid grey;
     border-radius: 10px;
-    padding: 50px;
     outline: 0px;
+    padding: 50px;
     font-weight: 900;
     font-size: 2em;
     flex:3; 
@@ -86,7 +91,6 @@
 .editQuizz{
     display: flex;
     flex-direction: column;
-    width: 80%;
     /* gap: 5px; */
 }
 

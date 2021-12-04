@@ -2,3 +2,22 @@
     display: flex;
     flex-direction: column;
 }
+
+.flex-start{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.footer{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.selector{
+    width: 50px;
+}
+
+.full-width{
+    width: 100%;
+}

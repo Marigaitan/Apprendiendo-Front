@@ -175,7 +175,7 @@ export default class DocenteEditLesson extends Component {
                         cuestionarios: prevState.cuestionarios.concat(cuestionario.documents[0]),
                     }
                 ));
-                alert("guardaste el cuestionario yay");
+                alert("Cuestionario creado correctamente");
                 window.location.reload(false);
             })
         console.log(this.state.actividades);
@@ -324,7 +324,7 @@ export default class DocenteEditLesson extends Component {
                                 {this.state.cuestionarios.map(cuestionario => {
                                     console.log(cuestionario);
                                     return (
-                                        <div key={cuestionario.id} >
+                                        <div key={cuestionario.id} className="editActivity">
                                             <EditLessonModal cuestionario={cuestionario} />
                                         </div>
                                     )
