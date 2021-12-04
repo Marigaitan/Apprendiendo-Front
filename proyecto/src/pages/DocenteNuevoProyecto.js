@@ -69,10 +69,15 @@ export default class DocenteNuevoProyecto extends Component {
 
     }
 
+    goTblProject(){
+        window.location.href = "/menudocente/classroom/nuevoproyecto/tbl"
+    }
+
     render() {
         return (
             <div className="mainContainer">
                 <HeaderTeacher />
+         
                 <div>
                     <div classname="navBar">
                         <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
@@ -85,7 +90,7 @@ export default class DocenteNuevoProyecto extends Component {
                         </div>
                         <div className='newTBL'>
                             <h2>Metodología Basada en el Pensamiento</h2><br />
-                            <Button color="success" >Crear Proyecto</Button>
+                            <Button color="success" onClick={() => this.goTblProject()}>Crear Proyecto</Button>
                         </div>
                         <div className='newFlipped'>
                             <h2>Aula Invertida</h2><br />
@@ -98,6 +103,7 @@ export default class DocenteNuevoProyecto extends Component {
                     </div>
                 </div>
         </div>
+      
         )
     }
 }
