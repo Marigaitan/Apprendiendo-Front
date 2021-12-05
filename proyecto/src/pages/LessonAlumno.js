@@ -289,8 +289,8 @@ export default class LessonAlumno extends Component {
   openModal = async (id) => {
     console.log("LOS CUESTIONARIOS", this.state.actCuestionario);
     console.log("LOS QUIZZ", this.state.actQuizz);
-    let documents = (await axios.get("/user/" + cookies.get("id") + "/activity/" + id + "/documents", { headers: { Authorization: cookies.get("token") }})).data;
-    if (documents.length>0){
+    let documents = (await axios.get("/user/" + cookies.get("id") + "/activity/" + id + "/documents", { headers: { Authorization: cookies.get("token") } })).data;
+    if (documents.length > 0) {
       return alert("Ya resolviste esta actividad");
     }
     this.setState({ openModal: true, modalId: id });
@@ -317,11 +317,13 @@ export default class LessonAlumno extends Component {
       <div className="mainContainer">
         <HeaderStudent />
         <div className="alumnoLesson">
-          <div>
-            <h2>{this.state.lessonName}</h2>
-          </div>
-          <div className="enunciado">
-            <h4>{this.state.lessonDescription}</h4>
+          <div className="TituloLesson">
+            <div>
+              <h2>{this.state.lessonName}</h2>
+            </div>
+            <div className="enunciado">
+              <h4>{this.state.lessonDescription}</h4>
+            </div>
           </div>
           <div className="lessonActivities">
             <div className="quizzCuestionario">
