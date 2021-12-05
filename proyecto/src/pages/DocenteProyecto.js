@@ -179,8 +179,7 @@ export default class DocenteProyecto extends Component {
                 <h3>Tareas entregadas por los alumnos</h3>
               </div>
               <div style={flexDivStyle}>
-                <Button style={styleButton} onClick={() =>
-                  this.opModal()}>VER TAREAS</Button>
+                <Button style={styleButton} onClick={() => this.opModal()}>VER TAREAS</Button>
                 <Modal isOpen={this.state.tareasModal}>
                   <ModalHeader>
                     TAREAS ENTREGADAS
@@ -188,14 +187,9 @@ export default class DocenteProyecto extends Component {
                   <ModalBody>
                     {this.state.alumnos.map((alumno) => {
                       return (
-                        <h4
-                          key={alumno.id}
-                          id={alumno.id}
-                        >
+                        <h4 key={alumno.id} id={alumno.id}>
                           {alumno.username}
-                          
                           <ShowDocs studentID= {alumno.id}/>
-                            
                         </h4>
                       );
                     })}

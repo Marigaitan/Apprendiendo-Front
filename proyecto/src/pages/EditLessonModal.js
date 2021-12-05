@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Alert, Button, Label, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
+import { Alert, Button, Card, CardBody, CardTitle, Label, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
 import '../css/Global.css';
 import '../css/DocenteEditLesson.css';
 import Cookies from 'universal-cookie/es6';
@@ -168,7 +168,7 @@ export default class EditLessonModal extends Component {
     // -------------------------------------------------------------------------------- ENVIAR DOCUMENTO
 
     sendDocument = async (document) => {
-        await axios.put(API_HOST + "document/" + document.id, document, { headers: { Authorization: cookies.get("token"), }, })
+        await axios.put(API_HOST + "document", document, { headers: { Authorization: cookies.get("token"), }, })
             .then(response => {
                 alert("Actividad actualizada!");
                 this.setState({ activeButton: true })

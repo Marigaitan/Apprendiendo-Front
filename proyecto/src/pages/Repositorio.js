@@ -1,10 +1,10 @@
-import React, { Component, useState } from "react";
+import React, { Component} from "react";
 import "../css/Global.css";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import axios from "axios";
 import {
-  Table,
+  Alert,
   Button,
   Modal,
   ModalHeader,
@@ -73,7 +73,7 @@ class Repositorio extends Component {
 
 
 
-
+//revisar estetica modal
   verReviewsModal (template) {
     if (template != null) {
       return (
@@ -81,17 +81,16 @@ class Repositorio extends Component {
           <ModalHeader size="lg">{template.name}</ModalHeader>
           <ModalBody>
             {template.reviews.map((review) => (
-              <tr>
-                <td>{review.reviewer.username}</td>
-                
+              <Alert color="info"><div>
+                <td><h5>{review.reviewer.username}</h5></td>             
                 <td>
                   <RatingView ratingValue={review.score} size={20}/>
-                </td>
-
-                <td>
-                  <td>{review.review}</td>
                 </td> 
-              </tr>
+                <div>
+                  <td>{review.review}</td>
+                </div> <br />
+              </div>
+              </Alert>
             ))}
           </ModalBody>
           <ModalFooter className="modalFooter">
