@@ -166,7 +166,7 @@ class DocenteProjectLogros extends Component {
       .then((response) => {
         console.log(response.data);
         alert("Logro creado exitosamente");
-        this.props.history.push("/menudocente/classroom/logros");
+        this.props.history.push("/menudocente/classroom/proyecto/logros");
       })
       .catch((error) => {
         console.log(error);

@@ -5,6 +5,7 @@ import '../css/Global.css';
 import '../css/DocenteEditLesson.css';
 import Cookies from 'universal-cookie/es6';
 import { API_HOST } from "../constants";
+import { Link } from 'react-router-dom';
 
 const cookies = new Cookies();
 
@@ -45,22 +46,37 @@ export default class EditLessonModal extends Component {
     buttonEditQuizzParams = (quizz) => {
         let pregunta = JSON.parse(quizz.data);
         console.log(pregunta);
-        return (<Button key={quizz.name} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
-            {quizz.name}
-        </Button>);
+        return (
+            <div className="flex-start">
+                <Button key={quizz.name} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
+                    <Link> {quizz.name} </Link>
+                </Button>
+                <Button outline block color='primary'>
+                    <Link to={{ pathname: "/menudocente/classroom/proyecto/clase/logros/new", state: { activityId: quizz.activityId } }}>
+                        Agregar Logro
+                    </Link>
+                </Button>
+            </div>);
     }
 
     buttonEditCuestionarioParams = (cuestionario) => {
         let pregunta = JSON.parse(cuestionario.data);
         console.log(pregunta);
         return (<div className="flex-start">
-                <Label size="lg">{cuestionario.name}</Label>
-                <Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
-                    Editar
-                </Button>
+            <Label size="lg">{cuestionario.name}</Label>
+            <Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
+                <Link> Editar </Link>
+            </Button>
+            <Button key={cuestionario.name} outline block color='primary'>
+                <Link to={{ pathname: "/menudocente/classroom/proyecto/clase/logros/new", state: { activityId: cuestionario.activityId } }}>
+                    Agregar Logro
+                </Link>
+            </Button>
         </div>
         );
     }
+
+
 
     removeFormFields = (i) => {
         let newFormValuesQ = [...this.state.formValues];

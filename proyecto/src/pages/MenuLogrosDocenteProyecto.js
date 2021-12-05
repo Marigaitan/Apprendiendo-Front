@@ -11,7 +11,7 @@ import { Alert, Badge, Button, Label } from 'reactstrap';
 
 const cookies = new Cookies();
 
-export default class MenuLogrosDocente extends Component {
+export default class MenuLogrosDocenteProyecto extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
         this.state = {

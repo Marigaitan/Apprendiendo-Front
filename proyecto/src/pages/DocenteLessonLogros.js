@@ -66,12 +66,6 @@ class DocenteLessonLogros extends Component {
         });
       });
 
-      let lesson = (await axios.get(API_HOST + "lesson/" + cookies.get("lessonid"), { headers: { Authorization: cookies.get("token") } })).data;
-
-      this.setState({
-        lesson: lesson
-      })
-
 
       // var ans = [];
       // for (let i = 210; i <= 230; i++) {
@@ -165,7 +159,7 @@ class DocenteLessonLogros extends Component {
       .then((response) => {
         console.log(response.data);
         alert("Logro creado exitosamente");
-        this.props.history.push("/menudocente/classroom/logros");
+        this.props.history.push("/menudocente/classroom/proyecto/clase/logros");
       })
       .catch((error) => {
         console.log(error);
@@ -199,8 +193,8 @@ class DocenteLessonLogros extends Component {
       conditionId: condition,
       text: this.state.congrats, 
       data: data,
-      targetType: "CLASSROOM",
-      targetId: cookies.get("classid"),
+      targetType: "ACTIVITY",
+      targetId: this.props.location.state.activityId,
       imageData: optionC,
       rewardType: rewardType,
     };

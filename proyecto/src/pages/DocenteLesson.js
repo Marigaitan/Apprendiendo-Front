@@ -7,7 +7,6 @@ import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import axios from "axios";
 import HeaderTeacher from "./Header";
-import NavDocenteClase from "./NavDocenteClase";
 const cookies = new Cookies();
 
 export default class DocenteLesson extends Component {
@@ -45,7 +44,6 @@ export default class DocenteLesson extends Component {
                     {/* aca va el nombre de la clase */}
                         <div>
                             {this.state.lesson && <h1><Label>{this.state.lesson.name}</Label></h1>}
-                            <NavDocenteClase />
                         </div>
                         {/* aca va el enunciado */}
                         <div>

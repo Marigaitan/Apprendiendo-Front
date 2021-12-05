@@ -36,7 +36,9 @@ import { AlumnoProgreso } from "../pages/AlumnoProgreso";
 import { ProgresoMateria } from "../pages/ProgresoMateria";
 import { ListarLogros } from "../pages/ListarLogros";
 import { ListarLogrosDelCurso } from "../pages/ListarLogrosDelCurso";
-import MenuLogrosDocente from "../pages/MenuLogrosDocente";
+import MenuLogrosDocenteClassroom from "../pages/MenuLogrosDocenteClassroom";
+import MenuLogrosDocenteProyecto from "../pages/MenuLogrosDocenteProyecto";
+import MenuLogrosDocenteClase from "../pages/MenuLogrosDocenteClase";
 import DocenteLesson from "../pages/DocenteLesson";
 import CorregirActividades from "../pages/CorregirActividades";
 import { DocenteMetricas } from "../pages/docenteMetricas";
@@ -151,7 +153,17 @@ function Routes() {
         <Route
           exact
           path="/menudocente/classroom/logros"
-          component={MenuLogrosDocente}
+          component={MenuLogrosDocenteClassroom}
+        />
+        <Route
+          exact
+          path="/menudocente/classroom/proyecto/logros"
+          component={MenuLogrosDocenteProyecto}
+        />
+        <Route
+          exact
+          path="/menudocente/classroom/proyecto/clase/logros"
+          component={MenuLogrosDocenteClase}
         />
         <Route
           exact
