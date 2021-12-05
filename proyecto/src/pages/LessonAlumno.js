@@ -289,10 +289,10 @@ export default class LessonAlumno extends Component {
   openModal = async (id) => {
     console.log("LOS CUESTIONARIOS", this.state.actCuestionario);
     console.log("LOS QUIZZ", this.state.actQuizz);
-    /* let documents = (await axios.get("/user/" + cookies.get("id") + "/activity/" + id + "/documents", { headers: { Authorization: cookies.get("token") }})).data;
+    let documents = (await axios.get("/user/" + cookies.get("id") + "/activity/" + id + "/documents", { headers: { Authorization: cookies.get("token") }})).data;
     if (documents.length>0){
       return alert("Ya resolviste esta actividad");
-    } */
+    }
     this.setState({ openModal: true, modalId: id });
   };
 
