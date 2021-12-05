@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Alert, Button, Label, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
+import { Alert, Button, Card, CardBody, CardTitle, Label, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
 import '../css/Global.css';
 import '../css/DocenteEditLesson.css';
 import Cookies from 'universal-cookie/es6';
@@ -45,19 +45,24 @@ export default class EditLessonModal extends Component {
     buttonEditQuizzParams = (quizz) => {
         let pregunta = JSON.parse(quizz.data);
         console.log(pregunta);
-        return (<Button key={quizz.name} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
-            {quizz.name}
-        </Button>);
+        return (
+            <div className="flex-start">
+                <Label size="lg">{quizz.name}</Label>
+                <Button key={quizz.name} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
+                    Editar quizz
+                </Button>
+            </div>
+        );
     }
 
     buttonEditCuestionarioParams = (cuestionario) => {
         let pregunta = JSON.parse(cuestionario.data);
         console.log(pregunta);
         return (<div className="flex-start">
-                <Label size="lg">{cuestionario.name}</Label>
-                <Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
-                    Editar
-                </Button>
+            <Label size="lg">{cuestionario.name}</Label>
+            <Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
+                Editar cuestionario
+            </Button>
         </div>
         );
     }
@@ -152,7 +157,7 @@ export default class EditLessonModal extends Component {
     // -------------------------------------------------------------------------------- ENVIAR DOCUMENTO
 
     sendDocument = async (document) => {
-        await axios.put(API_HOST + "document/" + document.id, document, { headers: { Authorization: cookies.get("token"), }, })
+        await axios.put(API_HOST + "document", document, { headers: { Authorization: cookies.get("token"), }, })
             .then(response => {
                 alert("Actividad actualizada!");
                 this.setState({ activeButton: true })

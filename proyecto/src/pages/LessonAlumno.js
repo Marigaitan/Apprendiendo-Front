@@ -95,6 +95,7 @@ export default class LessonAlumno extends Component {
 
         return await axios
           .post(API_HOST + "user/" + cookies.get("id") + "/project/" + cookies.get("projectid") + "/document", documento, {
+          //.post(API_HOST + "activity", documento, {
             headers: { Authorization: cookies.get("token") },
           })
           .then((response) => console.log(response.data))
