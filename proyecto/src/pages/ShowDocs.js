@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import '../css/Global.css';
+import '../css/ShowActivity.css';
 import Cookies from 'universal-cookie/es6';
 import axios from "axios";
 import { API_HOST } from "../constants";
@@ -83,6 +84,23 @@ export default class ShowDocs extends Component {
     this.setState({ openModal: false, modalId: -1 });
   }
 
+  calificar(activityId) {
+    alert("calificaste!");
+    // let body = {
+    //   percentageCompleted: 100,
+    //   dateCompleted: (new Date()).toISOString(),
+    //   grade: this.state.selectGrade,
+    // }
+    // axios.put("user/" + this.props.studentID + "/activity/" + activityId + "/progress", body)
+    //   .then(response => {
+    //     alert("Nota actualizada correctamente");
+    //     window.location.reload();
+    //   })
+    //   .catch(response => {
+    //     alert("Hubo un error en el envio de la nota");
+    //   });
+  }
+
   render() {
 
     return (
@@ -108,7 +126,7 @@ export default class ShowDocs extends Component {
                 {
                           doc.source.grade === null || doc.source.grade === -1
                             ?
-                            (<div>
+                            (<div className="full-width">
                               <Alert color='info'>Aun no se ha calificado</Alert>
                               <div className="flex-start">
                                 <Label>Calificar:</Label>
