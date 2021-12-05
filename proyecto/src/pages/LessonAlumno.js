@@ -40,6 +40,7 @@ export default class LessonAlumno extends Component {
       actFiles: [],
       answersQ: [],
       answersQizz: [],
+      actGrades: [],
     };
   }
   //------------------------Files----------------------------------------------
@@ -171,8 +172,11 @@ export default class LessonAlumno extends Component {
           const activities = lesson.data.activities;
           const files = file.data;
           let actDocuments = await this.getActivityDocs(activities);
+          let actGrades = await this.getActivityGrades(activities);
           console.log("actDocuments");
           console.log(actDocuments);
+          console.log("actGrades");
+          console.log(actGrades);
 
           const actQuizz = actDocuments.filter(
             (actDocument) => actDocument.dataType === "QUIZZ"
@@ -191,6 +195,7 @@ export default class LessonAlumno extends Component {
             activities: activities,
             actQuizz: actQuizz,
             actCuestionario: actCuestionario,
+            actGrades: actGrades,
           });
         },
         (error) => {
@@ -222,10 +227,32 @@ export default class LessonAlumno extends Component {
     );
   }
 
+  async getActivityGrades(activities) {
+    return Promise.all(
+      activities.map(async (activity) => {
+        const actData = (await axios.get("user/" + cookies.get("id") + "/activity/" + activity.id + "/progress")).data;
+        console.log("actData")
+        console.log(actData)
+        let documents = (await axios.get("activity/" + activity.id + "/documents")).data
+        if (documents.length > 0) {
+          let document =
+          {
+            activityId: activity.id,
+            name: (await axios.get("activity/" + activity.id + "/documents")).data[0].name,
+            grade: actData.grade,
+          };
+          console.log("document");
+          console.log(document);
+          return document;
+        }
+      })
+    );
+  }
+
   //-------------------------Respuestas Alumno--------------------------------------
   handleCallbackCondition = (answers) => {
     this.setState({ answersQ: answers });
-    
+
   };
 
   handleCallbackQuizz = (answers, puntaje) => {
@@ -259,23 +286,30 @@ export default class LessonAlumno extends Component {
   }
 
   //----------------------POPup-Actividades---------------------------------------
-  openModal = (id) => {
+  openModal = async (id) => {
     console.log("LOS CUESTIONARIOS", this.state.actCuestionario);
     console.log("LOS QUIZZ", this.state.actQuizz);
-
+    /* let documents = (await axios.get("/user/" + cookies.get("id") + "/activity/" + id + "/documents", { headers: { Authorization: cookies.get("token") }})).data;
+    if (documents.length>0){
+      return alert("Ya resolviste esta actividad");
+    } */
     this.setState({ openModal: true, modalId: id });
   };
 
   closeModal(activityId, name, dataType, answer) {
     this.setState({ openModal: false, modalId: -1 });
-    let body = {sourceId: activityId, documentSourceType: "ACTIVITY", name: name, dataType: dataType, data: JSON.stringify(answer)};
-    console.log("RESPUESTAS CUESTIONARIO:", this.state.answersQ);
-    console.log("RESPUESTAS QUIZZ:", this.state.answersQizz);
-    console.log("RESPUESTA ANSWER:", answer);
-    console.log("url cuest");
-    console.log("/user​/" + cookies.get("id")+ "/activity​/"+ activityId +"/document", body);
-    axios.post("/user/" + cookies.get("id")+ "/activity/"+ activityId + "/document", body, {headers: { Authorization: cookies.get("token") },})
-    .then(response => this.setState({answersQ: [], answersQizz: []})).catch(err => {console.log(err); this.setState({answersQ: [], answersQizz: []});})
+    let body = { sourceId: activityId, documentSourceType: "ACTIVITY", name: name, dataType: dataType, data: JSON.stringify(answer) };
+    axios.post("/user/" + cookies.get("id") + "/activity/" + activityId + "/document", body, { headers: { Authorization: cookies.get("token") }, })
+      .then(response => this.setState({ answersQ: [], answersQizz: [] })).catch(err => { console.log(err); this.setState({ answersQ: [], answersQizz: [] }); });
+
+    if (dataType === "QUIZZ") {
+      let body = {
+        grade: (answer.puntaje / answer.resultados.length) * 10,
+        percentageCompleted: 100
+      }
+      axios.put("/user/" + cookies.get("id") + "/activity/" + activityId + "/progress", body, { headers: { Authorization: cookies.get("token") }, });
+    }
+
   }
 
   render() {
@@ -329,13 +363,13 @@ export default class LessonAlumno extends Component {
                       <ModalFooter className="modalFooter">
                         {this.state.answersQ.length ===
                           JSON.parse(actCuestionario.data).length && (
-                          <Button
-                            color="secondary"
-                            onClick={() => this.closeModal(actCuestionario.activityId, actCuestionario.name, "CUESTIONARIO", this.state.answersQ)}
-                          >
-                            Finalizar
-                          </Button>
-                        )}
+                            <Button
+                              color="secondary"
+                              onClick={() => this.closeModal(actCuestionario.activityId, actCuestionario.name, "CUESTIONARIO", this.state.answersQ)}
+                            >
+                              Finalizar
+                            </Button>
+                          )}
                       </ModalFooter>
                     </Modal>
                   </div>
@@ -379,16 +413,15 @@ export default class LessonAlumno extends Component {
                   </div>
                 );
               })}
-            </div>
-            <div className="materialDocente">
-              <h4>Material:</h4>
-              {this.state.files.map((files) => {
-                return (
-                  <div key={files.id} id={files.id}>
-                    <h3>
-                      <li>
-                        <button
-                          class="btn btn-link"
+              <div><br />
+                <h4>Material:</h4>
+                {this.state.files.map((files) => {
+                  return (
+                    <div key={files.id} id={files.id}>
+                      <h4>
+                        <Button
+                          size="lg"
+                          color="warning"
                           onClick={() =>
                             this.alumnoDescargaFile(
                               API_HOST + "document/" + files.id,
@@ -396,10 +429,25 @@ export default class LessonAlumno extends Component {
                             )
                           }
                         >
-                          <h5>{files.name}</h5>
-                        </button>
-                      </li>
-                    </h3>
+                          {files.name}
+                        </Button>
+                      </h4>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="materialDocente">
+              <h4>Notas:</h4>
+              {this.state.actGrades.map((actGrade) => {
+                return (
+                  <div key={actGrade.activityId} id={actGrade.activityId}>
+                    <h4>
+                      <Alert color='info'>
+                        {actGrade.name} {":  "}
+                        {actGrade.grade}
+                      </Alert>
+                    </h4>
                   </div>
                 );
               })}
