@@ -191,7 +191,7 @@ export default class ShowActivity extends Component {
                     : activity.dataType === "QUIZZ"
                       ?
                       (<div>
-                        <Alert>Calificado con {actividad.puntaje / actividad.resultados.length * 10}</Alert>
+                        <Alert>Calificado con {activity.source.grade}</Alert>
                         <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
                       </div>)
                       : <div></div>
