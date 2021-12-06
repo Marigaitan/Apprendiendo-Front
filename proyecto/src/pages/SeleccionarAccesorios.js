@@ -60,7 +60,7 @@ export const SeleccionarAccesorios = ({ id }) => {
             onClick={handleSelection}
           />
         </div>
-        <div className="col-md-8">
+        {/* <div className="col-md-8">
           <div className="card-body ml-4">
             <p style={{ color: "red", fontWeight: "bold" }}>
               Puntaje para desbloquear:
@@ -72,7 +72,7 @@ export const SeleccionarAccesorios = ({ id }) => {
               </span>
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
