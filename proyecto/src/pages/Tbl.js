@@ -401,12 +401,14 @@ export default class Tbl extends Component {
                                     iconStyle={{ background: 'rgb(255, 246, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
-                                    <h3 className="vertical-timeline-element-title"></h3>
+                                    <h3 className="vertical-timeline-element-title">
+                                    Registro de ideas
+
+                                    </h3>
                                     <h4 className="vertical-timeline-element-subtitle"></h4>
                                     <p>
-                                        Se disponibiliza este espacio
-                                        para que los alumnos realicen una actividad con el fin de hacer una primera detección de las dificultades que tuvieron
-                                        con los distintos conceptos. Esta detección servira como guía tanto al docente como al alumno para entender sobre que temas se debe trabajar
+                                    El docente proveerá instrucciones para que los alumnos registren en la misma
+                                    las primeras ideas con respecto a la temática planteada.
                                     </p>
                                     <div><Button disabled={this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}   >Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 2} className="modalStyle">
@@ -415,12 +417,11 @@ export default class Tbl extends Component {
                                         </ModalHeader>
                                         <ModalBody>
                                             <div>
-                                                <h3 className="title">Práctica inicial </h3>
+                                                <h3 className="title">  </h3>
                                             </div>
                                             <div className="maincontainer">
-                                                Con el fin de avanzar en las clases y hacer más productivo el tiempo de clase en el aula, el docente
-                                                podrá disponiblizar una práctica inicial a modo de refuerzo sobre el material teórico brindado en la clase anterior. De esta manera se podrán detectar
-                                                inicialmente los temas con los que mayor dificultad se encontró cada uno.
+                                            Se espera que el docente de indicaciones a los alumnos de que manera deben registrar sus ideas (brindando o no una plantilla) 
+                                        
                                             </div>
                                             <div>
                                                 <h3>Ingresar título del tema </h3>
