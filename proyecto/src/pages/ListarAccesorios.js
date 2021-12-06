@@ -8,16 +8,16 @@ import { useLocation } from "react-router";
 export const ListarAccesorios = (tipo) => {
   const location = useLocation();
   const { q = "" } = queryString.parse(location.search);
-  console.log(q);
+  //console.log(q);
 
   const filtro = accesorios.filter((accesorio) => accesorio.tipo === q);
   return (
     <div className="mainContainer">
       <HeaderStudent />
-      <div className="ml-2 animate__animated animate__fadeInUp align-items-center text-center">
+      <div className="fondo_general ml-2 animate__animated animate__fadeInUp align-items-center text-center">
         <br />
         <h2> Haga click en un accesorio para seleccionarlo</h2>
-        <div className="fondo_general card-columns">
+        <div className="card-columns">
           {filtro.map((acc) => (
             <SeleccionarAccesorios key={acc.id} {...acc} />
           ))}
