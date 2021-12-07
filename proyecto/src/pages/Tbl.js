@@ -35,19 +35,25 @@ export default class Tbl extends Component {
             archivosClase1: [],
             archivosClase2: [],
             archivosClase3: [],
+            archivosClase4: [],
+
             description1: '',
             description2: '',
             description3: '',
+            description4: '',
             textClass1: '',
             textClass2: '',
             textClass3: '',
+            textClass4: '',
             duedateClass1: '',
             duedateClass2: '',
             duedateClass3: '',
+            duedateClass4: '',
             disableButtonProject: false,
             disableButtonClass1: true,
             disableButtonClass2: true,
             disableButtonClass3: true,
+            disableButtonClass4: true,
         };
     }
 
@@ -104,7 +110,7 @@ export default class Tbl extends Component {
     addThirdLesson = () => {
         const lesson = {
             name: this.state.textClass3,
-            id: this.state.lessonIds[3], //falta obtener el id de la lesson
+            id: this.state.lessonIds[2], //falta obtener el id de la lesson
             position: 0,
             description: this.state.description3,
             projectId: this.state.projectId,
@@ -115,6 +121,21 @@ export default class Tbl extends Component {
         this.setState({ disableButtonClass3: true })
         console.log(lesson);
         this.addLesson(lesson, this.state.archivosClase3);
+    }
+    addFourthLesson = () => {
+        const lesson = {
+            name: this.state.textClass4,
+            id: this.state.lessonIds[3], //falta obtener el id de la lesson
+            position: 0,
+            description: this.state.description4,
+            projectId: this.state.projectId,
+            dueDate: this.state.duedateClass4,
+            startDate: new Date().toISOString(),
+            active: true,
+        }
+        this.setState({ disableButtonClass4: true })
+        console.log(lesson);
+        this.addLesson(lesson, this.state.archivosClase4);
     }
     async createProject() {
 
@@ -133,7 +154,7 @@ export default class Tbl extends Component {
             documents: [],
             lessons: [
                 {
-                    name: "Pregunta Disparadora",
+                    name: "Organizadores Gráficos",
                     position: 0,
                     description: '',
                     // dueDate: "2021-10-11T01:45:50.611Z",
@@ -143,7 +164,7 @@ export default class Tbl extends Component {
                     documents: [],
                 },
                 {
-                    name: "Planificación",
+                    name: "Registro de Ideas",
                     position: 1,
                     description: '',
                     // dueDate: "2021-10-11T01:45:50.611Z",
@@ -153,8 +174,18 @@ export default class Tbl extends Component {
                     documents: [],
                 },
                 {
-                    name: "Investigación",
+                    name: "Búsqueda y Procesamiento de información",
                     position: 2,
+                    description: '',
+                    // dueDate: "2021-10-11T01:45:50.611Z",
+                    // startDate: "2021-10-11T01:45:50.611Z",
+                    active: false,
+                    activities: [],
+                    documents: [],
+                },
+                {
+                    name: "Toma de decisiones y conclusiones finales",
+                    position: 3,
                     description: '',
                     // dueDate: "2021-10-11T01:45:50.611Z",
                     // startDate: "2021-10-11T01:45:50.611Z",
@@ -259,7 +290,7 @@ export default class Tbl extends Component {
                                     className="vertical-timeline-element--work"
                                     contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    date="2011 - present"
+                                    //date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 97, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -292,7 +323,7 @@ export default class Tbl extends Component {
                                     //className="vertical-timeline-element--work"
                                     contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    date="2011 - present"
+                                    //date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 161, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -316,8 +347,8 @@ export default class Tbl extends Component {
                                                 </div>
                                                 <div className="maincontainer">
                                                     En esta primer etapa el objetivo es lograr que el alumno documente su proceso de pensamiento.
-                                                    El docente proporciona a los estudiantes una guía con indicadores en forma de preguntas para fomentar el pensamiento de los estudiantes junto con 
-                                                    organizadores gráficos los cuales los alumnos podrán usar como soporte. 
+                                                    El docente proporciona a los estudiantes una guía con indicadores en forma de preguntas para fomentar el pensamiento de los estudiantes junto con
+                                                    organizadores gráficos los cuales los alumnos podrán usar como soporte.
                                                 </div>
                                                 <Alert color="info"> Los siguientes campos serán visualizados por el alumno una vez guardados los cambios </Alert>
                                                 <div>
@@ -366,7 +397,7 @@ export default class Tbl extends Component {
                                                 <div className="center-text">
 
                                                 </div>
-                                                <div className="center-alert">
+                                                {/* div className="center-alert">
                                                     <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                                                     <FormGroup>
                                                         <Label for="dueDate"></Label>
@@ -378,7 +409,7 @@ export default class Tbl extends Component {
                                                             onChange={this.handleChange}
                                                         />
                                                     </FormGroup>
-                                                </div>
+                                                </div> */}
 
                                             </ModalBody>
                                             <ModalFooter className="modalFooter">
@@ -397,18 +428,18 @@ export default class Tbl extends Component {
                                     className="vertical-timeline-element--work"
                                     contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    date="2011 - present"
+                                   // date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 246, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
                                     <h3 className="vertical-timeline-element-title">
-                                    Registro de ideas
+                                        Registro de ideas
 
                                     </h3>
                                     <h4 className="vertical-timeline-element-subtitle"></h4>
                                     <p>
-                                    El docente proveerá instrucciones para que los alumnos registren en la misma
-                                    las primeras ideas con respecto a la temática planteada.
+                                        El docente proveerá instrucciones para que los alumnos registren en la misma
+                                        las primeras ideas con respecto a la temática planteada.
                                     </p>
                                     <div><Button disabled={this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}   >Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 2} className="modalStyle">
@@ -420,8 +451,8 @@ export default class Tbl extends Component {
                                                 <h3 className="title">  </h3>
                                             </div>
                                             <div className="maincontainer">
-                                            Se espera que el docente de indicaciones a los alumnos de que manera deben registrar sus ideas (brindando o no una plantilla) 
-                                        
+                                                Se espera que el docente de indicaciones a los alumnos de que manera deben registrar sus ideas (brindando o no una plantilla)
+
                                             </div>
                                             <div>
                                                 <h3>Ingresar título del tema </h3>
@@ -473,7 +504,7 @@ export default class Tbl extends Component {
                                             <div className="center-text">
 
                                             </div>
-                                            <div className="center-alert">
+                                            {/*<div className="center-alert">
                                                 <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                                                 <FormGroup>
                                                     <Label for="dueDate2"></Label>
@@ -485,11 +516,11 @@ export default class Tbl extends Component {
                                                         onChange={this.handleChange}
                                                     />
                                                 </FormGroup>
-                                            </div>
+                                                </div>*/}
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
+                                            <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar </Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -503,15 +534,16 @@ export default class Tbl extends Component {
                                     className="vertical-timeline-element--work"
                                     contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    date="2011 - present"
+                                    //date="2011 - present"
                                     iconStyle={{ background: 'rgb(218, 255, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
-                                    <h3 className="vertical-timeline-element-title">Práctica de Refuerzo </h3>
-                                    <h4 className="vertical-timeline-element-subtitle">Optativa</h4>
+                                    <h3 className="vertical-timeline-element-title">Búsqueda y procesamiento de información</h3>
+                                    <h4 className="vertical-timeline-element-subtitle"></h4>
                                     <p>
-                                        Esta clase podría activarse para solicitar algún entregable del alumno o alumna relacionado al tema
-                                        o bien disponibilizar otra actividad cambiando el nivel de dificultad.
+                                        Hacer del mundo un recurso para los estudiantes haciendo a los mismos participes preguntandoles que fuentes de información considerarían.
+
+
                                     </p>
                                     <div><Button disabled={this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}  >Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 3} className="modalStyle">
@@ -519,8 +551,19 @@ export default class Tbl extends Component {
 
                                         </ModalHeader>
                                         <ModalBody>
+
                                             <div>
-                                                <h3>Ingresar título del tema </h3>
+                                                <h3 className="title">Búsqueda y procesamiento de información</h3>
+                                            </div>
+                                            <div className="maincontainer">
+                                                Hacer del mundo un recurso para los estudiantes haciendo a los mismos participes preguntandoles que fuentes de información considerarían. Una opción es que los docentes disponibilicen
+                                                recursos complementarios como artículos o vídeos.
+                                                El objetivo es que los alumnos aprendan a obtener información de múltiples fuentes y aprendan a detectar aquellas que son confiables confiables
+                                            </div>
+
+
+                                            <div>
+                                                <h3>Ingresar título de la clase </h3>
                                                 <Form>
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
@@ -531,7 +574,7 @@ export default class Tbl extends Component {
                                             </div>
                                             <br />
                                             <div>
-                                                <h3>Breve descripción (opcional)</h3>
+                                                <h3>Breve descripción </h3>
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
@@ -539,7 +582,7 @@ export default class Tbl extends Component {
                                                 </FormGroup>
                                             </div>
                                             <div>
-                                                <h3>Disponibilizar material de práctica</h3>
+                                                <h3>Disponibilizar material </h3>
                                                 <FormGroup>
                                                     <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
                                                     <br />
@@ -569,7 +612,7 @@ export default class Tbl extends Component {
                                             <div className="center-text">
 
                                             </div>
-                                            <div className="center-alert">
+                                            {/* <div className="center-alert">
                                                 <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
                                                 <FormGroup>
                                                     <Label for="dueDate"></Label>
@@ -580,16 +623,123 @@ export default class Tbl extends Component {
                                                         placeholder="Hora de Finalización"
                                                     />
                                                 </FormGroup>
-                                            </div>
+                                                </div>*/}
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="secondary" onClick={() => this.addThirdLesson()}>Cerrar</Button>
+                                            <div><Button color="secondary" onClick={() => this.addThirdLesson()}>Guardar</Button></div>
+                                            <div> <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button></div>
                                         </ModalFooter>
                                     </Modal>
 
                                 </VerticalTimelineElement>
 
+                                {/* Clase 4 */}
+                                <VerticalTimelineElement
+                                    className="vertical-timeline-element--work"
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
+                                    //date="2011 - present"
+                                    iconStyle={{ background: 'rgb(218, 255, 51)', color: '#fff' }}
+                                    icon={<img src={logo} className="small-img" />}
+                                >
+                                    <h3 className="vertical-timeline-element-title"> Toma de decisiones y conclusiones finales </h3>
+                                    <h4 className="vertical-timeline-element-subtitle"></h4>
+                                    <p>
+                                        Los estudiantes deben hacer entrega de las conclusiones finales en base a lo realizado en la clase anterior junto con el complemento de cómo lo realizaron.
+                                    </p>
+                                    <div><Button disabled={this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}  >Activar Clase</Button></div>
+                                    <Modal isOpen={this.state.openModal && this.state.modalId === 3} className="modalStyle">
+                                        <ModalHeader size='lg' >
+
+
+                                        </ModalHeader>
+                                        <ModalBody>
+
+
+
+                                            <div>
+                                                <h3 className="title">Búsqueda y procesamiento de información</h3>
+                                            </div>
+                                            <div className="maincontainer">
+                                                Además de las conclusiones es importante que los estudiantes registren el proceso de pensamiento. El objetivo es que puedan crear un proceso estándar para ser utilizado
+                                                en futuras actividades y continuar mejorando el mismo. Este proceso se basa en:
+                                                -Planificación: ¿Cómo lo harás la próxima vez? ¿Dónde más lo podrás aplicar?
+                                                -Evaluación reflexiva: ¿Fue hecho de forma eficaz?
+                                                -Conocer la estrategia: ¿Cómo lo has hecho?
+                                                -Ser consciente: ¿Qué tipo de pensamiento estás realizando?
+                                            </div>
+                                            <div>
+                                                <h3>Ingresar título de la clase </h3>
+                                                <Form>
+                                                    <FormGroup>
+                                                        <Label for="exampleText"><p>
+                                                        </p></Label>
+                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
+                                                    </FormGroup>
+                                                </Form>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <h3>Breve descripción </h3>
+                                                <FormGroup>
+                                                    <Label for="exampleText"><p>
+                                                    </p></Label>
+                                                    <Input type="textarea" name="description3" id="exampleText" onChange={this.handleChange} />
+                                                </FormGroup>
+                                            </div>
+                                            <div>
+                                                <h3>Disponibilizar material </h3>
+                                                <FormGroup>
+                                                    <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
+                                                    <br />
+                                                    {this.state.archivosClase2 && this.state.archivosClase2.map(document =>
+                                                        <div key={document.name} >
+                                                            <Alert className="flexSpaceBetween">
+                                                                <Label>{document.name}</Label>
+                                                                <Button name={document.name} onClick={() => this.borrarArchivo(document, 'archivosClase3')}>Borrar</Button>
+                                                            </Alert>
+                                                        </div>
+                                                    )}
+                                                </FormGroup>
+                                            </div>
+                                            <div>
+                                                <h3>Crear Cuestionario</h3>
+                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                            </div>
+
+                                            {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
+
+                                            {/* <ListGroup>
+                                                    {studentGroup.studentGroup.map(student => {
+                                                        return (
+                                                            <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
+                                                    )})}
+                                                    </ListGroup> */}
+                                            <div className="center-text">
+
+                                            </div>
+                                            {/* <div className="center-alert">
+                                                <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
+                                                <FormGroup>
+                                                    <Label for="dueDate"></Label>
+                                                    <Input
+                                                        type="date"
+                                                        name="duedate"
+                                                        id="date"
+                                                        placeholder="Hora de Finalización"
+                                                    />
+                                                </FormGroup>
+                                                </div>*/}
+
+                                        </ModalBody>
+                                        <ModalFooter className="modalFooter">
+                                            <Button color="secondary" onClick={() => this.addFourthLesson()}>Guardar</Button>
+
+                                        </ModalFooter>
+                                    </Modal>
+
+                                </VerticalTimelineElement>
 
                                 <VerticalTimelineElement
                                     iconStyle={{ background: 'rgb(51, 255, 107)', color: '#fff' }}
