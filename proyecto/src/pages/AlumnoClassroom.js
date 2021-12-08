@@ -13,7 +13,7 @@ const cookies = new Cookies();
 export default class AlumnoClassroom extends Component {
     constructor(props) {        //constructor de mi clase
         super(props);
-        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], teacherName: "" };
+        this.state = { subject: "", year: 0, division: "", teacherId: -1, students: [], projects: [], activeProjects: [], teacherName: "" };
     }
 
     async componentDidMount() {
@@ -40,7 +40,10 @@ export default class AlumnoClassroom extends Component {
 
                 const students = studentsData.data.map(student => ({ id: student.id, username: student.username }));
 
-                const projects = projectsData.data.map(project => ({ id: project.id, name: project.name }));
+                const projects = projectsData.data.map(project => ({ id: project.id, name: project.name, status: project.active }));
+                const activeProjects =  projects.filter(
+                    (project) => project.status === true
+                  );
 
                 //SET STATE
                 this.setState({
@@ -50,6 +53,7 @@ export default class AlumnoClassroom extends Component {
                     division: division,
                     students: students,
                     projects: projects,
+                    activeProjects: activeProjects
                 })
                 return axios.get(getTeacherUrl + classData.data.teacherId, { headers: { 'Authorization': cookies.get('token') } });
             }))
@@ -89,7 +93,7 @@ export default class AlumnoClassroom extends Component {
                         <div className="proAlumno">
                             <h2>Proyectos</h2>
                             <div>
-                                {this.state.projects.map(project => <li><Button onClick={() => this.goAlumnoProyecto(project)}>{project.name}</Button></li>)}
+                                {this.state.activeProjects.map(project => <li><Button onClick={() => this.goAlumnoProyecto(project)}>{project.name}</Button></li>)}
                             </div>
                         </div>
                         <div className="barraLateralAlumno">
