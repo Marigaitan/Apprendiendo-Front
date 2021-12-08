@@ -1,10 +1,11 @@
 .alumnoLesson {
     flex: 4;
     padding: 15px;
-    background-image: url(../Images/FondoNaranja.png);
-    background-repeat: no-repeat;
+    background: url(../Images/fondoLetras.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-attachment: fixed; /* Esto es para que ocupe todo el width y height */
 }
 .lessonActivities{
     display: flex;

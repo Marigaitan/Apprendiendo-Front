@@ -5,6 +5,7 @@ import "../css/MenuAlumno.css";
 import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
 import { API_HOST } from "../constants";
+import { Button } from "reactstrap";
 
 const cookies = new Cookies();
 
@@ -82,21 +83,21 @@ export default class MenuAlumno extends Component {
       <div className="mainContainer animate__animated animate__fadeIn">
         <HeaderStudent />
         <div className="mainMenuAlumno">
-          <div>
+          <div className="titleMenuAlumno">
             <h1>Mis Cursos</h1>
           </div>
           <div className="myProjectcontainer">
             {this.state.classrooms.map((classroom) => {
               //react necesita una key para identif elementos siblings
               return (
-                <button
+                <Button
                   key={classroom.id}
                   className="projectButton"
                   id={classroom.id}
                   onClick={() => this.goClassroom(classroom.id)}
                 >
                   {classroom.name}
-                </button>
+                </Button>
               );
             })}
           </div>

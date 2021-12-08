@@ -85,7 +85,7 @@ export default class AlumnoClassroom extends Component {
             <div className="mainContainer">
                 <HeaderStudent />
                 <div className="ClassroomContent">
-                    <div>
+                    <div className="titleAlumnoClassroom">
                         <h1>{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1><br />
                         <h3>{"Docente: " + this.state.teacherName}</h3>
                     </div>

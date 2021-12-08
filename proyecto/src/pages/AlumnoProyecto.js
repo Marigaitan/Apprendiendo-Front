@@ -112,7 +112,7 @@ export default class AlumnoProyecto extends Component {
             <div className="mainContainer">
                 <HeaderStudent />
                 <div className="AlumnoProyecto">
-                    <div>
+                    <div className="titleAlumnoProyecto">
                         <h2>{this.state.project.name}</h2>
                     </div>
                     <div className="myProject">

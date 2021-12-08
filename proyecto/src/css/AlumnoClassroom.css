@@ -1,35 +1,39 @@
 .ClassroomContent{
     flex: 4;
     padding: 15px;
-    background-image: url(../Images/FondoNaranja.png);
-    background-repeat: no-repeat;
+    background: url(../Images/fondoLetras.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-attachment: fixed;
-    
 }
 .classData{
     display: flex;
 }
+.titleAlumnoClassroom{
+    background-color: rgb(255, 255, 255, 0.8);
+    border: 1px solid grey;
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    padding: 10px;
+    margin:5px;
+}
 .proAlumno{
     border-radius: 20px;
-    width: 33%;
     justify-content: center;
-    flex: 3;
+    flex: 5;
     border: 1px solid grey;
     padding: 10px;
     margin:5px ;
-    background-color: white;  
+    background-color: rgb(255, 255, 255, 0.8); 
 }
 .barraLateralAlumno{
     border-radius: 20px;
-    width: 33%;
     justify-content: center;
     flex: 1;
     border: 1px solid grey;
     padding: 10px;
     margin:5px ;
-    background-color: white;
-    
-        
+    background-color: rgb(255, 255, 255, 0.8);
 }
 
