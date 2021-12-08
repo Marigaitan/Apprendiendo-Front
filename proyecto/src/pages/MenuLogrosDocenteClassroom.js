@@ -85,7 +85,15 @@ export default class MenuLogrosDocenteClassroom extends Component {
         this.props.history.push("/menudocente/classroom/logros/new");
     }
 
-
+    imageSource = (imageName) => {
+        if (imageName == null) return '';
+        if (imageName.startsWith("mc")) return `/medallas_cursos/${imageName}.png`;
+        if (imageName.startsWith("b")) return `/avatars/${imageName}.png`;
+        if (imageName.startsWith("o")) return `/accesorios/${imageName}.png`;
+        if (imageName.startsWith("l")) return `/accesorios/${imageName}.png`;
+        if (imageName.startsWith("r")) return `/accesorios/${imageName}.png`;
+        else return `/medallas/${imageName}.png`;
+    }
 
     render() {
 
@@ -114,7 +122,7 @@ export default class MenuLogrosDocenteClassroom extends Component {
                                         <div key={reward.id} className="flex-center">
                                             <div>
                                                 <img
-                                                    src={`/medallas_cursos/${reward.imageData}.png`}
+                                                    src={this.imageSource(reward.imageData)}
                                                     alt={reward.imageData}
                                                     width="50"
                                                 />

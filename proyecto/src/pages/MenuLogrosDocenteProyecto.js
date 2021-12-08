@@ -22,8 +22,8 @@ export default class MenuLogrosDocenteProyecto extends Component {
     }
     async componentDidMount() {
 
-        let project = (await axios.get("project/" + cookies.get("projectid"), {headers: {'Authorization': cookies.get('token')}})).data;
-        this.setState({project: project});
+        let project = (await axios.get("project/" + cookies.get("projectid"), { headers: { 'Authorization': cookies.get('token') } })).data;
+        this.setState({ project: project });
 
         let rewardsUrl = API_HOST + "project/" + project.id + "/rewards";
         await axios.get(rewardsUrl, {
@@ -69,7 +69,15 @@ export default class MenuLogrosDocenteProyecto extends Component {
         this.props.history.push("/menudocente/classroom/proyecto/logros/new");
     }
 
-
+    imageSource = (imageName) => {
+        if (imageName == null) return '';
+        if (imageName.startsWith("mc")) return `/medallas_cursos/${imageName}.png`;
+        if (imageName.startsWith("b")) return `/avatars/${imageName}.png`;
+        if (imageName.startsWith("o")) return `/accesorios/${imageName}.png`;
+        if (imageName.startsWith("l")) return `/accesorios/${imageName}.png`;
+        if (imageName.startsWith("r")) return `/accesorios/${imageName}.png`;
+        else return `/medallas/${imageName}.png`;
+    }
 
     render() {
 
@@ -98,7 +106,7 @@ export default class MenuLogrosDocenteProyecto extends Component {
                                         <div key={reward.id} className="flex-center">
                                             <div>
                                                 <img
-                                                    src={`/medallas_cursos/${reward.imageData}.png`}
+                                                    src={this.imageSource(reward.imageData)}
                                                     alt={reward.imageData}
                                                     width="50"
                                                 />
