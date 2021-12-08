@@ -2,7 +2,6 @@
     margin: 0px;
     display: flex;
     font-family: 'Indie Flower';
-
 }
 
 .secContainer{   
@@ -26,10 +25,6 @@
     text-align: center; 
     font-weight: 1000;
 
-}
-
-.formProyectoClase {
-    padding: 15px;
 }
 
 .annotation {

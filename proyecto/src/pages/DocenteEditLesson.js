@@ -300,7 +300,7 @@ export default class DocenteEditLesson extends Component {
             documents: [{
                 activityId: null,
                 name: this.state.nameEntregable,
-                position: 0,
+                position: this.state.entregables.length,
                 dataType: "ENTREGABLE",
                 data: "",
             }]

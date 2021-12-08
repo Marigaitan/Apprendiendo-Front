@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Label } from "reactstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/Global.css';
-import '../css/DocenteEditLesson.css';
+import '../css/DocenteLesson.css';
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import axios from "axios";
@@ -39,7 +39,7 @@ export default class DocenteLesson extends Component {
         return (
             <div className='mainContainer'>
                 <HeaderTeacher />
-                <div className='newClaseForm'>
+                <div className='newClaseFormDocenteLesson'>
                     <div className='whitebox'>
                     {/* aca va el nombre de la clase */}
                         <div>

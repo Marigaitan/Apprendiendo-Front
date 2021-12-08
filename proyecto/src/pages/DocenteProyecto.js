@@ -157,6 +157,7 @@ export default class DocenteProyecto extends Component {
         <div className="mainProyecto">
           <div className="whiteboxTitle">
             <h2>{this.state.project.name}</h2>
+            <h5>{this.state.project.description}</h5>
             <NavDocenteProyecto />
           </div>
           <div className="whiteboxTitle">
@@ -209,7 +210,7 @@ export default class DocenteProyecto extends Component {
               <VerticalTimeline layout="2-columns" lineColor={"rgb(225, 206, 81)"}>
                 {this.state.lessons.map((lesson) => {
                   return (
-                    <VerticalTimelineElement
+                    <VerticalTimelineElement key={lesson.id}
                       className="vertical-timeline-element--work"
                       contentStyle={{
                         background: "rgb(225, 206, 81)",
@@ -218,7 +219,7 @@ export default class DocenteProyecto extends Component {
                       contentArrowStyle={{
                         borderRight: "7px solid  rgb(33, 150, 243)",
                       }}
-                      date="1/4 al 10/4"
+                      // date="1/4 al 10/4"
                       iconStyle={{
                         background: "rgb(225, 206, 81)",
                         color: "#000000",

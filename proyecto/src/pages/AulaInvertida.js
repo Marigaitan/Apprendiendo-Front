@@ -20,6 +20,7 @@ import logo from "../Images/logoMini.png";
 import VerticalTimeLineElement from '../css/VerticalTimeLineElement.css';
 import DocenteProyectoQuizz from './DocenteProyectoQuizz';
 import DocenteProyectoCuestionario from './DocenteProyectoCuestionario';
+import DocenteProyectoEntregable from './DocenteProyectoEntregable';
 
 //HACER DISEÑO DE CLASES DE LOS PROYECTOS
 //GUARDAR LA INFORMACIÓN
@@ -500,6 +501,10 @@ export default class AulaInvertida extends Component {
                                             <div>
                                                 <h3>Crear Cuestionario</h3>
                                                 <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
+                                            </div>
+                                            <div>
+                                                <h3>Crear actividad entregable</h3>
+                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
                                             </div>
 
                                             {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
