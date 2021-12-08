@@ -96,7 +96,7 @@ export const AlumnoProgreso = () => {
 
       <div className="fondo_general containerLogros animate__animated animate__fadeIn">
         <h2 className="align-items-center text-center">
-          <br /> Logros obtenidos <br />
+          <br /> Insignias Apprendiendo <br />
         </h2>
 
         <div className="card-columns">

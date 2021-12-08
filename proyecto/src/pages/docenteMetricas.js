@@ -74,7 +74,7 @@ export const DocenteMetricas = () => {
                     //key={classroom.id}
                     bgcolor="#1b9a9a"
                     completed={classroom.avgCompletion}
-                    tarea="Promedio completado de la clase"
+                    tarea="Promedio de avance en las clases"
                   />
                   <ProgressBar
                     //key={classroom.id}

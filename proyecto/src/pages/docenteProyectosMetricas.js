@@ -67,7 +67,7 @@ export const DocenteProyectosMetricas = () => {
                     key={project.id}
                     bgcolor="#1b2a9a"
                     completed={project.avgCompletion}
-                    tarea="Promedio completado del proyecto"
+                    tarea="Promedio de avance en los proyectos"
                   />
                   <ProgressBar
                     key={project.id}
