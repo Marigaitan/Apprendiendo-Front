@@ -5,6 +5,7 @@ import HeaderTeacher from "./Header";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import axios from "axios";
+import NavDocente from "./NavDocente";
 import {
   Form,
   FormGroup,
@@ -50,35 +51,8 @@ class DocenteLessonLogros extends Component {
   }
 
   async componentDidMount() {
-<<<<<<< Updated upstream
     let activity = (await axios.get("activity/" + this.props.location.state.activityId, {headers: { Authorization: cookies.get("token") }})).data;
     this.setState({activity: activity});
-=======
-    let classparamUrl = API_HOST + "classroom/" + cookies.get("classid");
-
-    await axios
-      .get(classparamUrl, { headers: { Authorization: cookies.get("token") } })
-      .then((response) => {
-        const subject = response.data.subject;
-        const year = response.data.year;
-        const division = response.data.division;
-
-        this.setState({
-          subject: subject,
-          year: year,
-          division: division,
-        });
-      });
-
-
-    // var ans = [];
-    // for (let i = 210; i <= 230; i++) {
-    //    + i, {
-    //     headers: { Authorization: cookies.get("token") },
-    //   });
-    //     ans.push(request);
-    // }
->>>>>>> Stashed changes
 
     await axios
       .get(API_HOST + "conditions", { headers: { Authorization: cookies.get("token") } })
