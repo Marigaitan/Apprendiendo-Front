@@ -78,12 +78,12 @@ const HeaderTeacher = () => {
 
             <MenuItem icon={<BiBook />}>
               Repositorio
-              <Link to="/menudocente/repositorio" />
+              <Link to="/menudocente_repositorio" />
             </MenuItem>
 
             <MenuItem icon={<BiBookBookmark />}>
               Metodologías
-              <Link to="/menudocente/metodologias" />
+              <Link to="/menudocente_metodologias" />
             </MenuItem>
 
             <MenuItem icon={<BiBarChartAlt />}>

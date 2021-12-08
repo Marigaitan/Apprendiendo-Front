@@ -54,7 +54,8 @@ export default function NewClase() {
       data: base64,
       documentSourceType: "LESSON",
     };
-    if (archivos.filter((archivo) => archivo.name === elem.name).length === 0) setArchivos((oldArray) => [...oldArray, archivo])
+    if (archivos.filter((archivo) => archivo.name === elem.name).length === 0)
+      setArchivos((oldArray) => [...oldArray, archivo]);
   };
 
   const convertToBase64 = async (file) => {
@@ -75,7 +76,6 @@ export default function NewClase() {
       oldArray.filter((archivo) => archivo.name !== e.name)
     );
   };
-
 
   //---------------------Cuestionario------------------------------------------
   let handleChangeC = (i, e) => {
@@ -190,17 +190,17 @@ export default function NewClase() {
       dueDate: null,
       startDate: null,
       rewards: null,
-      documents: [{
-        name: nameEntregable,
-        position: actividades.length,
-        dataType: "ENTREGABLE",
-        data: "",
-      }]
-    }
-    setActividades(actividades.concat(entregable))
-  }
-
-
+      documents: [
+        {
+          name: nameEntregable,
+          position: actividades.length,
+          dataType: "ENTREGABLE",
+          data: "",
+        },
+      ],
+    };
+    setActividades(actividades.concat(entregable));
+  };
 
   // -------------------------POST-------------------------------------------------------
   const newClase = async () => {
@@ -248,7 +248,7 @@ export default function NewClase() {
   };
 
   let goProject = () => {
-    window.location.href = "/menudocente/classroom/proyecto";
+    window.location.href = "/menudocente_classroom_proyecto";
   };
   console.log("LISTA DE ACTIVIDADES BIS:", actividades);
   //console.log("ACTIVIDADES:", JSON.parse(actividades[0].documents.data));
@@ -343,7 +343,14 @@ export default function NewClase() {
                   <label>
                     <h5>Pregunta: </h5>
                   </label>
-                  <div style={{ display: 'flex', justifyContent: 'flex-start', height: '40px', gap: '10px' }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      height: "40px",
+                      gap: "10px",
+                    }}
+                  >
                     <Input
                       type="text"
                       name="question"
@@ -445,7 +452,14 @@ export default function NewClase() {
                     <label>
                       <h5>Opción Incorrecta 2</h5>
                     </label>
-                    <div style={{ display: 'flex', justifyContent: 'flex-start', height: '40px', gap: '10px' }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        height: "40px",
+                        gap: "10px",
+                      }}
+                    >
                       <Input
                         type="text"
                         name="answerOptions"
@@ -489,17 +503,39 @@ export default function NewClase() {
               </div>
             </form>
           </div>
-            {/* ------------------------------------ ENTREGABLE --------------------------------------  */}
-            <div className='addEntregableNewClase'>
-              <label><h4>Agregar Actividad Entregable</h4></label>
-              <form onSubmit={handleSubmitEntregable}>
-                <label><h4>Título</h4></label>
-                <Input type="text" name="nameEntregable" value={nameEntregable} placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => setNameEntregable(n.target.value)} />
-                <label><h4>Descripcion</h4></label>
-                <Input type="text" name="descEntregable" value={descEntregable} placeholder="Ingrese la descripcion del entregable" maxLength="255" onChange={(n) => setDescEntregable(n.target.value)} />
-                <Button color="primary" block size="lg" type="submit">Crear Actividad</Button>
-              </form>
-        </div>
+          {/* ------------------------------------ ENTREGABLE --------------------------------------  */}
+          <div className="addEntregableNewClase">
+            <label>
+              <h4>Agregar Actividad Entregable</h4>
+            </label>
+            <form onSubmit={handleSubmitEntregable}>
+              <label>
+                <h4>Título</h4>
+              </label>
+              <Input
+                type="text"
+                name="nameEntregable"
+                value={nameEntregable}
+                placeholder="Ingrese el título de la actividad"
+                maxLength="30"
+                onChange={(n) => setNameEntregable(n.target.value)}
+              />
+              <label>
+                <h4>Descripcion</h4>
+              </label>
+              <Input
+                type="text"
+                name="descEntregable"
+                value={descEntregable}
+                placeholder="Ingrese la descripcion del entregable"
+                maxLength="255"
+                onChange={(n) => setDescEntregable(n.target.value)}
+              />
+              <Button color="primary" block size="lg" type="submit">
+                Crear Actividad
+              </Button>
+            </form>
+          </div>
         </div>
         {/* -------------------------------------------------------------------------- */}
         <div className="newClaseFotter">
