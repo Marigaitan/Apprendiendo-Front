@@ -32,9 +32,9 @@ export const ListarAvatars = () => {
       });
   };
   return (
-    <div className="mainContainer">
+    <div className="fondo_general mainContainer">
       <HeaderStudent />
-      <div className="fondo_general ml-2 animate__animated animate__fadeInUp align-items-center text-center">
+      <div className="ml-2 animate__animated animate__fadeInUp align-items-center text-center">
         <br />
         <h2> Haga click en un avatar para seleccionarlo</h2>
 

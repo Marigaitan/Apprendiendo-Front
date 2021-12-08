@@ -41,9 +41,9 @@ export const ListarAccesorios = (tipo) => {
   console.log("ACCESORIOS", accesorios);
   //const filtro = accesorios.filter((accesorio) => accesorio.tipo === q);
   return (
-    <div className="mainContainer">
+    <div className="fondo_general mainContainer">
       <HeaderStudent />
-      <div className="fondo_general ml-2 animate__animated animate__fadeInUp align-items-center text-center">
+      <div className="ml-2 animate__animated animate__fadeInUp align-items-center text-center">
         <br />
         <h2> Haga click en un accesorio para seleccionarlo</h2>
         <div className="card-columns">
