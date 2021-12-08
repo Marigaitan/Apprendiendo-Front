@@ -8,7 +8,7 @@ import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 
-export const SeleccionarAvatar = ({ id, tipo }) => {
+export const SeleccionarAvatar = ({ id }) => {
   const handleSelection = async (e) => {
     console.log(e.target);
     console.log(e.target.alt);
@@ -48,7 +48,7 @@ export const SeleccionarAvatar = ({ id, tipo }) => {
       <div className="row no-gutters">
         <div className="d-flex flex-column align-items-center text-center animate__animated animate__fadeInUp">
           <img
-            src={`./${tipo}/${id}.png`}
+            src={`./avatars/${id}.png`}
             alt={id}
             className="card-img img"
             width="200"

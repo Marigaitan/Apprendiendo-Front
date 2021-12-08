@@ -46,13 +46,13 @@ const AlumnoPerfil = () => {
     window.location.href = "ListarAvatars";
   };
   const handleEditOrejas = () => {
-    window.location.href = "ListarAccesorios?q=hat";
+    window.location.href = "ListarAccesorios?q=o";
   };
   const handleEditLentes = () => {
-    window.location.href = "ListarAccesorios?q=glasses";
+    window.location.href = "ListarAccesorios?q=l";
   };
   const handleEditRopa = () => {
-    window.location.href = "ListarAccesorios?q=clothes";
+    window.location.href = "ListarAccesorios?q=r";
   };
   const handleClean = async () => {
     const url = API_HOST + "avatar/";

@@ -13,14 +13,16 @@ const cookies = new Cookies();
 export const SeleccionarAccesorios = ({ id }) => {
   const location = useLocation();
   const { q = "" } = queryString.parse(location.search);
-  console.log(q);
 
   const handleSelection = async (e) => {
-    console.log(e.target);
-    console.log(e.target.alt);
+    // console.log(e.target);
+    // console.log(e.target.alt);
     // cookies.set("body", e.target.alt, { path: "/" });
     const url = API_HOST + "avatar/";
-    cookies.set(q, e.target.alt, { path: "/" });
+    if (id.startsWith("l")) cookies.set("glasses", e.target.alt, { path: "/" });
+    if (id.startsWith("r")) cookies.set("clothes", e.target.alt, { path: "/" });
+    if (id.startsWith("o")) cookies.set("hat", e.target.alt, { path: "/" });
+
     await axios
       .put(
         url,
@@ -49,7 +51,7 @@ export const SeleccionarAccesorios = ({ id }) => {
     // e.target.setAttribute("alt", "dog");
   };
   return (
-    <div className="fondo_tarjeta  card ms-3 mt-4" style={{ maxWidth: 200 }}>
+    <div className="fondo_tarjeta card ms-3 mt-4" style={{ maxWidth: 200 }}>
       <div className="row no-gutters d-flex flex-row">
         <div className="d-flex flex-column align-items-center text-center">
           <img

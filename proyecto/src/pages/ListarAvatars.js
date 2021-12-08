@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { avatars } from "../data/avatars";
+//import { avatars } from "../data/avatars";
 import { SeleccionarAvatar } from "./SeleccionarAvatar";
 import HeaderStudent from "./HeaderAlumno";
 import { API_HOST } from "../constants";
@@ -12,7 +12,7 @@ export const ListarAvatars = () => {
     getAvatars();
   }, []);
 
-  const [avatars2, setavatars] = useState();
+  const [avatars, setavatars] = useState([]);
   const getAvatars = async () => {
     const url =
       API_HOST + "user/" + cookies.get("id") + "/avatar/parts/available";
@@ -24,14 +24,13 @@ export const ListarAvatars = () => {
         },
       })
       .then((response) => {
-        console.log("PARTES DISPONIBLES:", response);
+        setavatars(response.data.filter((name) => name.startsWith("b")));
       })
       .catch((error) => {
         console.log(error);
         alert("ERROR LIST PARTS");
       });
   };
-
   return (
     <div className="mainContainer">
       <HeaderStudent />
@@ -40,9 +39,8 @@ export const ListarAvatars = () => {
         <h2> Haga click en un avatar para seleccionarlo</h2>
 
         <div className="card-columns">
-          {avatars.map((av) => (
-            <SeleccionarAvatar key={av.id} {...av} />
-          ))}
+          {avatars.length !== 0 &&
+            avatars.map((av) => <SeleccionarAvatar id={av} />)}
         </div>
       </div>
     </div>
