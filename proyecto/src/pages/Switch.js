@@ -20,7 +20,7 @@ const Switch = ({ id, type }) => {
   }, []);
 
   const setInitialStatus = async () => {
-    const estado = (await axios.get("project/" + cookies.get("projectid"))).data
+    const estado = (await axios.get( type +"/" + id)).data
       .active;
     setStatusSwitch(estado);
   };
@@ -31,11 +31,11 @@ const Switch = ({ id, type }) => {
   };
 
   const setActive = async (id, statusSwitch) => {
-    let proyecto = (await axios.get("project/" + id)).data;
+    let proyecto = (await axios.get(type +"/" + id)).data;
 
     proyecto.active = !statusSwitch;
 
-    await axios.put("project/", proyecto);
+    await axios.put(type +"/", proyecto);
   };
 
   console.log("estatusProyectoooooooo:", statusSwitch);

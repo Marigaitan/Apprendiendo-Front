@@ -43,6 +43,7 @@ export default class AlumnoProyecto extends Component {
             grupo: '', 
             integrantes:[], 
             lessons: [], 
+            activeLessons: [],
             project: ''
         };
     }
@@ -70,9 +71,13 @@ export default class AlumnoProyecto extends Component {
             const lessons = response.data.map((lessons) => ({
               name: lessons.name,
               id: lessons.id,
-              description: lessons.description
+              description: lessons.description,
+              status: lessons.active
             }));
-            this.setState({ lessons });
+            const activeLessons =lessons.filter(
+                (lesson) => lesson.status === true
+              );
+            this.setState({ lessons: lessons, activeLessons: activeLessons });
           })
           .catch((error) => {
             console.log(error);
@@ -114,7 +119,7 @@ export default class AlumnoProyecto extends Component {
                         <div className="availableLessons">
                             <h2>Clases</h2>
                             <VerticalTimeline>
-                            {this.state.lessons.map(lessons => { return (
+                            {this.state.activeLessons.map(lessons => { return (
                                 <VerticalTimelineElement  key={lessons.id} id={lessons.id}
                                     className="vertical-timeline-element--work"
                                     //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
