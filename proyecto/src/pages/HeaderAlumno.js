@@ -90,6 +90,10 @@ const HeaderStudent = () => {
   const imageSource = (imageName) => {
     if (imageName == null) return '';
     if (imageName.startsWith("mc")) return `./medallas_cursos/${imageName}.png`;
+    if (imageName.startsWith("b")) return `./avatars/${imageName}.png`;
+    if (imageName.startsWith("o")) return `./accesorios/${imageName}.png`;
+    if (imageName.startsWith("l")) return `./accesorios/${imageName}.png`;
+    if (imageName.startsWith("r")) return `./accesorios/${imageName}.png`;
     else return `./medallas/${imageName}.png`;
   }
 
