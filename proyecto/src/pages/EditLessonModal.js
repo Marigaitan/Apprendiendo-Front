@@ -78,7 +78,7 @@ export default class EditLessonModal extends Component {
             </Link>
             <Link to={{ pathname: "/menudocente/classroom/proyecto/actividad/logros", state: { activityId: cuestionario.activityId } }}>
                 <Button key={cuestionario.position} outline block color='primary'>
-                    Agregar Logro
+                     Logros
                 </Button>
             </Link>
         </div>
@@ -94,9 +94,9 @@ export default class EditLessonModal extends Component {
                         Ver actividad entregable
                     </Button>
                 </Link>
-                <Link to={{ pathname: "/menudocente/classroom/proyecto/clase", state: { activityId: entregable.activityId } }}>
+            <Link to={{ pathname: "/menudocente/classroom/proyecto/actividad/logros", state: { activityId: entregable.activityId } }}>
                     <Button outline block color='primary'>
-                        Agregar Logro (NO FUNCIONA TODAVIA, NO TOCAR)
+                        Logros (NO FUNCIONA TODAVIA, NO TOCAR)
                     </Button>
                 </Link>
             </div>);
