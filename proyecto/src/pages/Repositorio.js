@@ -31,7 +31,9 @@ class Repositorio extends Component {
 
       openVerReviewsModal : false,
 
-      openVerTemplateModal : false
+      openVerTemplateModal : false,
+
+      updated: true
     };
   }
 
@@ -56,7 +58,11 @@ class Repositorio extends Component {
       reviewCount: template.reviewCount
     }));
 
-    this.setState({ templates: templates, teacher: teacher });
+    this.setState({ templates: templates, teacher: teacher, updated: true });
+  }
+
+  async componentDidUpdate() {
+    if (!this.state.updated) await this.componentDidMount();
   }
 
   parseTemplateType(templateType) {
@@ -155,6 +161,7 @@ class Repositorio extends Component {
     }
     
     await axios.post("template/review", reviewDTO);
+    this.setState({ updated: false});
     this.closeCalificarModal(template);
   }
 
@@ -218,8 +225,6 @@ class Repositorio extends Component {
                     <Link to={'#'} onClick={() => this.openVerReviewsModal(template)} activeClassName="active">
                       <div className="annotation"> {"(" + template.reviewCount + " reseñas)"} </div>
                     </Link>
-                    
-                    <Button color="primary" onClick={() => this.openCalificarModal(template)}> Calificar </Button>{" "}
                   </td>
 
                   <td>
