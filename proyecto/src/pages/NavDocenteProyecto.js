@@ -5,16 +5,13 @@ const NavDocenteProyecto = (props) => {
     return (
         <Nav tabs>
             <NavItem>
-                <NavLink href="/menudocente/classroom" active={props.activeBar === 'classroom'}>Proyectos</NavLink>
-            </NavItem>
-            <NavItem>
-                <NavLink href="/menudocente/classroom/alumnos" active={props.activeBar === 'alumnos'}>Alumnos</NavLink>
+                <NavLink href="/menudocente/classroom" active={props.activeBar === 'classroom'}>Classroom</NavLink>
             </NavItem>
             <NavItem>
                 <NavLink href="/menudocente/classroom/proyecto" active={props.activeBar === 'proyecto'}>Proyecto</NavLink>
             </NavItem>
             <NavItem>
-                <NavLink href="/menudocente/classroom/proyecto/logros/new" active={props.activeBar === 'logrosProyecto'}>Logros del proyecto</NavLink>
+                <NavLink href="/menudocente/classroom/proyecto/logros" active={props.activeBar === 'logrosProyecto'}>Logros del proyecto</NavLink>
             </NavItem>
         </Nav>
     )

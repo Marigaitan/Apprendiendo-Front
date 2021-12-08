@@ -58,9 +58,9 @@ export default class EditLessonModal extends Component {
                         Editar Quizz
                     </Button>
                 </Link>
-                <Link to={{ pathname: "/menudocente/classroom/proyecto/clase/logros/new", state: { activityId: quizz.activityId } }}>
+                <Link to={{ pathname: "/menudocente/classroom/proyecto/actividad/logros", state: { activityId: quizz.activityId } }}>
                     <Button outline block color='primary'>
-                        Agregar Logro
+                        Logros
                     </Button>
                 </Link>
             </div>);
@@ -76,7 +76,7 @@ export default class EditLessonModal extends Component {
                     Editar Cuestionario
                 </Button>
             </Link>
-            <Link to={{ pathname: "/menudocente/classroom/proyecto/clase/logros/new", state: { activityId: cuestionario.activityId } }}>
+            <Link to={{ pathname: "/menudocente/classroom/proyecto/actividad/logros", state: { activityId: cuestionario.activityId } }}>
                 <Button key={cuestionario.position} outline block color='primary'>
                     Agregar Logro
                 </Button>

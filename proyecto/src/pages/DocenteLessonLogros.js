@@ -19,7 +19,6 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import NavDocente from "./NavDocente";
 import { logrosPorCurso } from "../data/medallas";
 import ListarLogrosPorCurso from "./ListarLogrosPorCurso";
 import Conditions from "./Conditions";
@@ -45,35 +44,14 @@ class DocenteLessonLogros extends Component {
       realValue: "",
       congrats: "",
       rewardName: "",
-      lesson: {}
+      lesson: {},
+      activity: {}
     };
   }
 
   async componentDidMount() {
-    let classparamUrl = API_HOST + "classroom/" + cookies.get("classid");
-
-    await axios
-      .get(classparamUrl, { headers: { Authorization: cookies.get("token") } })
-      .then((response) => {
-        const subject = response.data.subject;
-        const year = response.data.year;
-        const division = response.data.division;
-
-        this.setState({
-          subject: subject,
-          year: year,
-          division: division,
-        });
-      });
-
-
-      // var ans = [];
-      // for (let i = 210; i <= 230; i++) {
-      //    + i, {
-      //     headers: { Authorization: cookies.get("token") },
-      //   });
-      //     ans.push(request);
-      // }
+    let activity = (await axios.get("activity/" + this.props.location.state.activityId, {headers: { Authorization: cookies.get("token") }})).data;
+    this.setState({activity: activity});
 
     await axios
       .get(API_HOST + "conditions", {headers: { Authorization: cookies.get("token") }})
@@ -159,7 +137,10 @@ class DocenteLessonLogros extends Component {
       .then((response) => {
         console.log(response.data);
         alert("Logro creado exitosamente");
-        this.props.history.push("/menudocente/classroom/proyecto/clase/logros");
+        this.props.history.push({
+          pathname: "/menudocente/classroom/proyecto/actividad/logros",
+          state: { activityId: this.state.activity.id }
+      })
       })
       .catch((error) => {
         console.log(error);
@@ -218,9 +199,8 @@ class DocenteLessonLogros extends Component {
         <HeaderTeacher />
         <div className="navBar">
           <h1>
-            Crear nuevo Logro para {this.state.lesson.name}
+            Crear nuevo Logro para {this.state.activity.name}
           </h1>
-          <NavDocente activeBar="logros" />
           <div className="mi-form">
             <form onSubmit={this.formSubmit}>
             <div className="center-alert">

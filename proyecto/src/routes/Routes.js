@@ -162,7 +162,7 @@ function Routes() {
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/clase/logros"
+          path="/menudocente/classroom/proyecto/actividad/logros"
           component={MenuLogrosDocenteClase}
         />
         <Route
@@ -177,7 +177,7 @@ function Routes() {
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/clase/logros/new"
+          path="/menudocente/classroom/proyecto/actividad/logros/new"
           component={DocenteLessonLogros}
         />
         <Route

@@ -6,7 +6,6 @@ import '../css/MenuLogrosDocente.css';
 import axios from 'axios';
 import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
-import NavDocente from './NavDocente';
 import { Alert, Badge, Button, Label } from 'reactstrap';
 
 const cookies = new Cookies();
@@ -17,76 +16,20 @@ export default class MenuLogrosDocenteClase extends Component {
         this.state = {
             noRewards: false,
             rewards: [],
-            subject: "",
-            year: "",
-            division: "",
+            activity: {}
         };
     }
     async componentDidMount() {
 
-        let classparamUrl = API_HOST + "classroom/" + cookies.get("classid");
+        let activity = (await axios.get(API_HOST + "activity/" + this.props.location.state.activityId, { headers: { Authorization: cookies.get("token") } })).data;
+        let rewards = (await axios.get(API_HOST + "activity/" + activity.id + "/rewards", { headers: { Authorization: cookies.get("token") } })).data;
+        this.setState({
+            activity: activity,
+            rewards: rewards 
+        });
+        
 
-        let lessonRewards = []
-
-
-        let lesson = (await axios.get(API_HOST + "lesson/" + cookies.get("lessonId"), { headers: { Authorization: cookies.get("token") } })).data;
-
-        let rewards = Promise.all(lesson.activities.map(async activity => (await axios.get(API_HOST + "lesson/" + cookies.get("lessonId"), { headers: { Authorization: cookies.get("token") } })).data));
-
-        console.log(rewards);
-
-
-
-
-
-
-        await axios
-            .get(classparamUrl, { headers: { Authorization: cookies.get("token") } })
-            .then((response) => {
-                const subject = response.data.subject;
-                const year = response.data.year;
-                const division = response.data.division;
-
-                this.setState({
-                    subject: subject,
-                    year: year,
-                    division: division,
-                });
-            });
-
-
-        let rewardsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/rewards";
-        await axios.get(rewardsUrl, {
-            headers: {
-                'Authorization': cookies.get('token')
-            }
-        })
-            .then(response => {
-                if (response.data.length > 0) {
-                    var rewards = response.data.map(reward => ({
-                        key: reward.id,
-                        id: reward.id,
-                        name: reward.name,
-                        conditionId: reward.conditionId,
-                        text: reward.text,
-                        data: reward.data,
-                        targetType: reward.targetType,
-                        targetId: reward.targetId,
-                        imageData: reward.imageData,
-                        rewardType: reward.rewardType,
-                    }));
-                    console.log(rewards);
-                    this.setState({ rewards: rewards });
-                } else {
-                    this.setState({ noRewards: true });
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({ errorRewards: true });
-            })
     }
-
 
     //para que lo redirija al login si no hay token
     redirect = () => {
@@ -96,10 +39,11 @@ export default class MenuLogrosDocenteClase extends Component {
     }
 
     crearLogro = () => {
-        this.props.history.push("/menudocente/classroom/logros/new");
+        this.props.history.push({
+            pathname: "/menudocente/classroom/proyecto/actividad/logros/new",
+            state: { activityId: this.state.activity.id }
+        })
     }
-
-
 
     render() {
 
@@ -110,9 +54,8 @@ export default class MenuLogrosDocenteClase extends Component {
                 <HeaderTeacher />
                 <div className="full-width-div">
                     <h1>
-                        {this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}
+                        {this.state.activity.name}
                     </h1>
-                    <NavDocente activeBar='logros' />
                     <div>
                         {this.state.errorRewards ?
                             <div className="center-button">

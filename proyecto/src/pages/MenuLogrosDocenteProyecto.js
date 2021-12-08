@@ -6,7 +6,7 @@ import '../css/MenuLogrosDocente.css';
 import axios from 'axios';
 import HeaderTeacher from "./Header"
 import { API_HOST } from "../constants";
-import NavDocente from './NavDocente';
+import NavDocenteProyecto from './NavDocenteProyecto';
 import { Alert, Badge, Button, Label } from 'reactstrap';
 
 const cookies = new Cookies();
@@ -17,31 +17,15 @@ export default class MenuLogrosDocenteProyecto extends Component {
         this.state = {
             noRewards: false,
             rewards: [],
-            subject: "",
-            year: "",
-            division: "",
+            project: {}
         };
     }
     async componentDidMount() {
 
-        let classparamUrl = API_HOST + "classroom/" + cookies.get("classid");
+        let project = (await axios.get("project/" + cookies.get("projectid"), {headers: {'Authorization': cookies.get('token')}})).data;
+        this.setState({project: project});
 
-        await axios
-            .get(classparamUrl, { headers: { Authorization: cookies.get("token") } })
-            .then((response) => {
-                const subject = response.data.subject;
-                const year = response.data.year;
-                const division = response.data.division;
-
-                this.setState({
-                    subject: subject,
-                    year: year,
-                    division: division,
-                });
-            });
-
-
-        let rewardsUrl = API_HOST + "classroom/" + cookies.get('classid') + "/rewards";
+        let rewardsUrl = API_HOST + "project/" + project.id + "/rewards";
         await axios.get(rewardsUrl, {
             headers: {
                 'Authorization': cookies.get('token')
@@ -82,7 +66,7 @@ export default class MenuLogrosDocenteProyecto extends Component {
     }
 
     crearLogro = () => {
-        this.props.history.push("/menudocente/classroom/logros/new");
+        this.props.history.push("/menudocente/classroom/proyecto/logros/new");
     }
 
 
@@ -96,9 +80,9 @@ export default class MenuLogrosDocenteProyecto extends Component {
                 <HeaderTeacher />
                 <div className="full-width-div">
                     <h1>
-                        {this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}
+                        {this.state.project.name}
                     </h1>
-                    <NavDocente activeBar='logros' />
+                    <NavDocenteProyecto activeBar='logros' />
                     <div>
                         {this.state.errorRewards ?
                             <div className="center-button">

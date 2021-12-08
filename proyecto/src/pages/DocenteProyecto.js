@@ -90,6 +90,7 @@ export default class DocenteProyecto extends Component {
       lessons: (await axios.get("project/" + projectId + "/lessons")).data,
     });
     this.setState({ project: (await axios.get("project/" + projectId)).data });
+    cookies.set("project", this.state.project, { path: "/" });
     this.setState({
       status: (await axios.get("project/" + projectId)).data.active,
     });
