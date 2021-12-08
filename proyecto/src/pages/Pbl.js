@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Nav, NavItem, NavLink } from 'reactstrap';
 import '../css/Global.css';
+import '../css/DocenteEditLesson.css';
 //import '../css/DocenteClassroom.css';
 import HeaderTeacher from "./Header";
 import Cookies from 'universal-cookie/es6';

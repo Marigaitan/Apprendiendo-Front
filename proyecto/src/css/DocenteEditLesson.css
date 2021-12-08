@@ -1,20 +1,22 @@
 .newClaseForm{
     padding: 15px;
-    background-image: url(../Images/fondoLetras.png);
-    background-size:cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url(../Images/fondoLetras.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     display: flex;
     flex-direction: column;
+    width:100%;
 }
 .blackLetter{
     color:rgb(10, 10, 10);
 }
 .whiteBox{
     background-color: rgb(255, 255, 255, 0.8);
+    border: 1px solid grey;
     backdrop-filter: blur(6px);
     border-radius: 20px;
-    border: 1px solid grey;
     padding: 10px;
     margin:5px;
 }

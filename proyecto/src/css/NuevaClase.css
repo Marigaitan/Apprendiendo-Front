@@ -1,10 +1,17 @@
-.newClaseForm{
+.nuevaClaseForm{
     flex: 4;
     padding: 15px;
-    background-image: url(../Images/FondoNaranja.png);
+    /* background-image: url(../Images/fondo.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: fixed; /* Esto es para que ocupe todo el width y height */
+    background-attachment: fixed; Esto es para que ocupe todo el width y height */
+    background: url(../Images/fondo.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
 }
 .nameClase{
     border-radius: 20px;
@@ -26,47 +33,53 @@
     background-color: rgb(255, 255, 255, 0.8);
     backdrop-filter: blur(6px);
 }
-.boxActiv{
+.activities-new-clase{
     display: flex;
-    margin: 0px;
-    width: 100%;
+    flex-direction: column;
      
 }
-.newFile{
+.addFileNewClase{
     border-radius: 20px;
-    width: 33%;
-    justify-content: center;
-    flex: 1;
     border: 1px solid grey;
     padding: 10px;
     margin:5px ;
-    background-color: white;
+    background-color: rgb(255, 255, 255, 0.8);
     
 }
 
-.setCuestionario{
+.addCuestionarioNewClase{
     border-radius: 20px;
-    width: 33%;
     justify-content: center;
-    flex: 1;
     border: 1px solid grey;
     padding: 10px;
     margin:5px;
-    background-color: white;
+    background-color: rgb(255, 255, 255, 0.8);
    
 }
-.setQuizz{
+.addQuizzNewClase{
     border-radius: 20px;
-    width: 33%;
-    justify-content: center;
-    flex: 1;
     border: 1px solid grey;
     padding: 10px;
     margin:5px;
-    background-color: white; 
+    background-color: rgb(255, 255, 255, 0.8); 
+}
+
+.addEntregableNewClase{
+    border-radius: 20px;
+    justify-content: center;
+    border: 1px solid grey;
+    padding: 10px;
+    margin:5px;
+    background-color: rgb(255, 255, 255, 0.8);
+   
 }
 
 .flexSpaceBetween{
     display: flex;
     justify-content: space-between;
+}
+
+.formInlineNewClase{
+    padding-top: 20px;
+    width: 100%;
 }

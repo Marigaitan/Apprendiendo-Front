@@ -17,6 +17,7 @@ export default class DocenteEditGroups extends Component {
         this.state = {
             project: '',
             grupos: [],
+            nameGrupo: '',
             grupoNuevoAlumnos: [],
             alumnosSinGrupo: [],
             grupoSeleccionado: [],
@@ -133,7 +134,7 @@ export default class DocenteEditGroups extends Component {
         let group = {
             id: null,
             projectId: this.state.project.id,
-            name: "Grupo " + (this.state.grupos.length + 1),
+            name: this.state.nameGrupo,
             progress: 0,
         }
         console.log(group);
@@ -144,7 +145,7 @@ export default class DocenteEditGroups extends Component {
         group.id = newGroup.data;
         console.log(group);
 
-        this.setState({ disabledButton: true, })
+        this.setState({ nameGrupo: '' })
         console.log(this.state.grupos)
 
         let addStudentsToNewGroup = newGroupStudents.map((student, index) => {
@@ -153,8 +154,7 @@ export default class DocenteEditGroups extends Component {
         })
         await axios.all(addStudentsToNewGroup)
             .then(axios.spread((...res) => {
-                console.log(res.map(response => response.data))
-                window.location.reload();
+                window.location.reload(false);
             })).catch(err => { console.log(err); alert("hubo un error al enviar el grupo") })
     }
 
@@ -211,7 +211,7 @@ export default class DocenteEditGroups extends Component {
         await axios.all(addStudentsToNewGroup)
             .then(axios.spread((...res) => {
                 console.log(res.map(response => response.data))
-                window.location.reload();
+                window.location.reload(false);
             }))
             .catch(err => { console.log(err); alert("hubo un error al enviar el grupo") })
     }
@@ -221,6 +221,15 @@ export default class DocenteEditGroups extends Component {
         let group = _.find(grupos, { id: groupId });
         console.log(group);
         return group ? (group.members ? group.members : []) : [];
+    }
+
+    handleChange = (event) => {
+        const value = event.target.value;
+        const name = event.target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
 
 
@@ -251,7 +260,9 @@ export default class DocenteEditGroups extends Component {
                                     Nuevo grupo
                                 </ModalHeader>
                                 <ModalBody>
-                                    Aca irian los alumnos con un checkbox y un boton para agregar a todos los seleccionados
+                                    <Label>Nombre del grupo:</Label>
+                                    <Input type="text" name="nameGrupo" value={this.state.nameGrupo} onChange={this.handleChange}/>
+                                    <Label>Crear un nuevo grupo seleccionando a todos los integrantes sin grupo listados a continuacion:</Label>
                                     {this.state.alumnosSinGrupo.map((alumno, index) =>
                                         <div key={alumno.id}>
                                             <Alert>
@@ -274,12 +285,12 @@ export default class DocenteEditGroups extends Component {
                             {this.state.grupos.map(grupo =>
                                 <div key={grupo.id}>
 
-                                    <Label><h3>Grupo {grupo.id}</h3></Label>
+                                    <Label><h3>Grupo {grupo.name}</h3></Label>
                                     <Button className="bigButtons" onClick={() => this.abrirModalEditarGrupo(grupo)}>Editar</Button>
 
                                     <Modal isOpen={this.state.openModal && this.state.modalId === grupo.id}>
                                         <ModalHeader>
-                                            Editar grupo {grupo.id}
+                                            Editar grupo {grupo.name}
                                         </ModalHeader>
                                         <ModalBody>
                                             <div>
@@ -306,7 +317,7 @@ export default class DocenteEditGroups extends Component {
                                                     <h3>Alumnos sin grupo</h3>
                                                 </div>
                                                 <div>
-                                                    <h5>Aca irian los alumnos con un checkbox y un boton para agregar a todos los seleccionados</h5>
+                                                    <h5>A continuación se listan los alumnos sin grupo. Seleccionar los alumnos para agregar a todos los seleccionados</h5>
                                                     {this.state.alumnosSinGrupo.map((alumno, index) =>
                                                         <div>
                                                             <Alert color="info">

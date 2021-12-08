@@ -82,9 +82,11 @@ export default class DocenteClassroom extends Component {
         return (
             <div className="mainContainer">
                 <HeaderTeacher />
-                <div className="navBar">
+                <div className="containerDocenteClassroom">
+                    <div className="navBar">
                         <h1 >{this.state.subject + " " + this.state.year.toString() + "°" + this.state.division}</h1>
                         <NavDocente activeBar='classroom'/>
+                    </div>
                     <br />
                     <div className="pro">
                         <h2>Proyectos</h2>

@@ -50,20 +50,47 @@ class DocenteLessonLogros extends Component {
   }
 
   async componentDidMount() {
+<<<<<<< Updated upstream
     let activity = (await axios.get("activity/" + this.props.location.state.activityId, {headers: { Authorization: cookies.get("token") }})).data;
     this.setState({activity: activity});
+=======
+    let classparamUrl = API_HOST + "classroom/" + cookies.get("classid");
 
     await axios
-      .get(API_HOST + "conditions", {headers: { Authorization: cookies.get("token") }})
+      .get(classparamUrl, { headers: { Authorization: cookies.get("token") } })
+      .then((response) => {
+        const subject = response.data.subject;
+        const year = response.data.year;
+        const division = response.data.division;
+
+        this.setState({
+          subject: subject,
+          year: year,
+          division: division,
+        });
+      });
+
+
+    // var ans = [];
+    // for (let i = 210; i <= 230; i++) {
+    //    + i, {
+    //     headers: { Authorization: cookies.get("token") },
+    //   });
+    //     ans.push(request);
+    // }
+>>>>>>> Stashed changes
+
+    await axios
+      .get(API_HOST + "conditions", { headers: { Authorization: cookies.get("token") } })
       .then(response => {
 
-          const conditions = response.data.filter(condition => condition.conditionType.includes("TARGET"));
+        const conditions = response.data.filter(condition => condition.conditionType.includes("TARGET"));
 
-          //SET STATE
-          this.setState({
-            condiciones: conditions,
-          });
-        })
+        //SET STATE
+        this.setState({
+          condiciones: conditions,
+        });
+      })
       .catch((error) => console.log(error));
   }
 
@@ -99,8 +126,8 @@ class DocenteLessonLogros extends Component {
           ? "error"
           : this.state.condicionId.toString()
         : this.state.selectedOptionA === "Manual"
-        ? "Manual"
-        : "error";
+          ? "Manual"
+          : "error";
 
     const optionB =
       this.state.selectedOptionB === "Virtual"
@@ -108,17 +135,17 @@ class DocenteLessonLogros extends Component {
           ? "error"
           : this.state.selectedOptionImage
         : this.state.selectedOptionB === "Real"
-        ? this.state.realValue === ""
-          ? "error"
-          : this.state.realValue
-        : "error";
+          ? this.state.realValue === ""
+            ? "error"
+            : this.state.realValue
+          : "error";
 
     const optionC =
       this.state.selectedOptionC === "" ? "error" : this.state.selectedOptionC;
 
-      const congrats = this.state.congrats === "" ? "error" : this.state.congrats;
+    const congrats = this.state.congrats === "" ? "error" : this.state.congrats;
 
-      const rewardName = this.state.rewardName === "" ? "error" : this.state.rewardName;
+    const rewardName = this.state.rewardName === "" ? "error" : this.state.rewardName;
 
     if (optionA === "error" || optionB === "error" || optionC === "error" || congrats === "error" || rewardName === "error") {
       alert("Completar todos los campos");
@@ -127,7 +154,7 @@ class DocenteLessonLogros extends Component {
     }
   };
 
-  async enviarLogro(optionA, optionB, optionC){
+  async enviarLogro(optionA, optionB, optionC) {
     let newAchievementUrl = API_HOST + "reward";
     let body = this.crearLogro(optionA, optionB, optionC);
     await axios
@@ -172,7 +199,7 @@ class DocenteLessonLogros extends Component {
     return {
       name: this.state.rewardName, // TODO ver como completar este campo
       conditionId: condition,
-      text: this.state.congrats, 
+      text: this.state.congrats,
       data: data,
       targetType: "ACTIVITY",
       targetId: this.props.location.state.activityId,
@@ -197,89 +224,80 @@ class DocenteLessonLogros extends Component {
     return (
       <div className="mainContainer">
         <HeaderTeacher />
-        <div className="navBar">
-          <h1>
-            Crear nuevo Logro para {this.state.activity.name}
-          </h1>
+        <div className="containerDocenteLogros">
+          <div className="navBarDocenteLogros">
+            <h1>
+              Crear nuevo Logro para {this.state.activity.name}
+            </h1>
+            <NavDocente activeBar="logros" />
+          </div>
           <div className="mi-form">
             <form onSubmit={this.formSubmit}>
-            <div className="center-alert">
+              <div className="center-alert">
                 <Alert color="info">
                   Nombre del logro! Usa tu imaginación!
                 </Alert>
+                <Input
+                  type="textarea"
+                  name="rewardName"
+                  placeholder="Ingresá acá el nombre del logro!"
+                  value={this.state.rewardName}
+                  onChange={this.handleChange}
+                />
               </div>
-              <div className="mi-flex">
-                    <div className="input-flex">
-                      <Input
-                        type="textarea"
-                        name="rewardName"
-                        placeholder="Ingresá acá el nombre del logro!"
-                        value={this.state.rewardName}
-                        onChange={this.handleChange}
-                      />
-                    </div>
-                  </div>
-            <div className="center-alert">
+              <div className="center-alert">
                 <Alert color="info">
                   Dale una descripción interesante al logro!
                 </Alert>
+                <Input
+                  type="textarea"
+                  name="congrats"
+                  placeholder="Dale una descripción interesante al logro!"
+                  value={this.state.congrats}
+                  onChange={this.handleChange}
+                />
               </div>
-              <div className="mi-flex">
-                    <div className="input-flex">
-                      <Input
-                        type="textarea"
-                        name="congrats"
-                        placeholder="Dale una descripción interesante al logro!"
-                        value={this.state.congrats}
-                        onChange={this.handleChange}
-                      />
-                    </div>
-                  </div>
               <div className="center-alert">
                 <Alert color="info">
                   Seleccionar condición para obtener el logro
                 </Alert>
-              </div>
-              <div className="mi-flex">
-                <div className="radio-flex">
-                  <Label>
-                    <input
-                      type="radio"
-                      value="Predefinida"
-                      checked={this.state.selectedOptionA === "Predefinida"}
-                      onChange={this.onValueChangeA}
-                    />
-                    Predefinida
-                  </Label>
-                </div>
-                <div className="radio-flex">
-                  <Label>
-                    <input
-                      type="radio"
-                      value="Manual"
-                      checked={this.state.selectedOptionA === "Manual"}
-                      onChange={this.onValueChangeA}
-                    />
-                    Manual
-                  </Label>
+                <div className="spaceEvenlyDocenteLogros">
+                  <div>
+                    <Label>
+                      <Input
+                        type="radio"
+                        value="Predefinida"
+                        checked={this.state.selectedOptionA === "Predefinida"}
+                        onChange={this.onValueChangeA}
+                      />
+                      Predefinida
+                    </Label>
+                  </div>
+                  <div>
+                    <Label>
+                      <Input
+                        type="radio"
+                        value="Manual"
+                        checked={this.state.selectedOptionA === "Manual"}
+                        onChange={this.onValueChangeA}
+                      />
+                      Manual
+                    </Label>
+                  </div>
                 </div>
               </div>
               {/* esto se puede pasar a un componente */}
               <div className="mi-flex">
                 {this.state.selectedOptionA === "Predefinida" ? (
-                  <div className="radio-flex">
-                    <Conditions
-                      condiciones={this.state.condiciones}
-                      parentCallback={this.handleCallbackCondition}
-                    />
-                  </div>
+                  <Conditions
+                    condiciones={this.state.condiciones}
+                    parentCallback={this.handleCallbackCondition}
+                  />
                 ) : this.state.selectedOptionA === "Manual" ? (
-                  <div className="input-flex">
-                    <Alert color="secondary">
-                      Cuando llegue el momento que creas oportuno, otorgarás la
-                      recompensa manualmente
-                    </Alert>
-                  </div>
+                  <Alert color="secondary">
+                    Cuando llegue el momento que creas oportuno, otorgarás la
+                    recompensa manualmente
+                  </Alert>
                 ) : (
                   <div></div>
                 )}
@@ -287,43 +305,39 @@ class DocenteLessonLogros extends Component {
 
               <div className="center-alert">
                 <Alert color="info">Seleccionar tipo de recompensa</Alert>
+                <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                  <div>
+                    <Label>
+                      <input
+                        type="radio"
+                        value="Virtual"
+                        checked={this.state.selectedOptionB === "Virtual"}
+                        onChange={this.onValueChangeB}
+                      />
+                      Virtual
+                    </Label>
+                  </div>
+                  <div>
+                    <Label>
+                      <input
+                        type="radio"
+                        value="Real"
+                        checked={this.state.selectedOptionB === "Real"}
+                        onChange={this.onValueChangeB}
+                      />
+                      Real
+                    </Label>
+                  </div>
+                </div>
               </div>
               <div className="mi-flex">
-                <div className="radio-flex">
-                  <Label>
-                    <input
-                      type="radio"
-                      value="Virtual"
-                      checked={this.state.selectedOptionB === "Virtual"}
-                      onChange={this.onValueChangeB}
-                    />
-                    Virtual
-                  </Label>
-                </div>
-                <div className="radio-flex">
-                  <Label>
-                    <input
-                      type="radio"
-                      value="Real"
-                      checked={this.state.selectedOptionB === "Real"}
-                      onChange={this.onValueChangeB}
-                    />
-                    Real
-                  </Label>
-                </div>
-              </div>
-              <div>
                 {this.state.selectedOptionB === "Virtual" ? (
-                  <div>
-                    <div className="mi-alert-flex">
-                      <div className="half-length">
-                        <Alert color="secondary">
-                          Selecciona la parte del avatar que otorgarás como
-                          recompensa
-                        </Alert>
-                      </div>
-                    </div>
-                    <div className="mi-flex">
+                  <div className="widthAlmostFullDocenteLogros">
+                    <Alert color="secondary">
+                      Selecciona la parte del avatar que otorgarás como
+                      recompensa
+                    </Alert>
+                    <div style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
                       {accesorios.map((accesorio) => {
                         return (
                           <div
@@ -346,42 +360,36 @@ class DocenteLessonLogros extends Component {
                     </div>
                   </div>
                 ) : this.state.selectedOptionB === "Real" ? (
-                  <div className="mi-flex">
-                    <div className="input-flex">
-                      <Input
-                        type="textarea"
-                        name="realValue"
-                        placeholder="Describir el premio que le darás a los alumnos que ganen el logro"
-                        value={this.state.realValue}
-                        onChange={this.handleChange}
-                      />
-                    </div>
-                  </div>
+                  <Input
+                    type="textarea"
+                    name="realValue"
+                    placeholder="Describir el premio que le darás a los alumnos que ganen el logro"
+                    value={this.state.realValue}
+                    onChange={this.handleChange}
+                    className="widthAlmostFullDocenteLogros"
+                  />
                 ) : (
                   <div></div>
                 )}
               </div>
               <div className="center-alert">
                 <Alert color="info">Seleccionar medalla</Alert>
+                <div style={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', gap: '40px', padding: '15px', }}>
+                  {logrosPorCurso.map((logro) => (
+                    <div style={{ margin: '5px' }}>
+                      <Input
+                        type="radio"
+                        value={logro.id}
+                        checked={this.state.selectedOptionC === logro.id}
+                        onChange={this.onValueChangeC}
+                      />
+                      <ListarLogrosPorCurso key={logro.id} {...logro} />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="mi-flex">
-                {logrosPorCurso.map((logro) => (
-                  <div id={logro.id} key={logro.id} className="radio-flex">
-                    <input
-                      type="radio"
-                      value={logro.id}
-                      checked={this.state.selectedOptionC === logro.id}
-                      onChange={this.onValueChangeC}
-                    />
-                    <ListarLogrosPorCurso key={logro.id} {...logro} />
-                  </div>
-                ))}
-              </div>
-              <div className="center-button">
-                <Button outline color="primary" type="submit" block>
-                  Submit
-                </Button>
-              </div>
+              <br />
+              <Button color="primary" type="submit" block> Submit </Button>
             </form>
           </div>
         </div>

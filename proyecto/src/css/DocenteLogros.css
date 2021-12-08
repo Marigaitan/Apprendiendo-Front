@@ -2,9 +2,28 @@
     display: flex;
     justify-content: center;
     margin-top: 2%;
-    width: 50%;
+    /* width: 80%; */
     flex-wrap: wrap;
     gap: 5px;
+}
+
+.containerDocenteLogros{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: url(../Images/fondoLetras.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+}
+
+.navBarDocenteLogros{
+    width: 100%;
+    background-color: rgb(255, 255, 255, 0.8);
+    border-bottom: 1px solid grey;
+    backdrop-filter: blur(6px);
 }
 
 .radio-flex{
@@ -14,27 +33,35 @@
 }
 
 .center-alert{
-    margin-top: 3%;
-    margin-left: 5%;
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    padding: 15px;
 }
 
 .center-button{
     margin-top: 3%;
     margin-left: 5%;
-    width: 50%;
+    /* width: 100%; */
 }
 
 .center-text{
     /* margin-top: 3%; */
     margin-left: 10%;
-    width: 40%;
+    /* width: 100%; */
 }
 
 .mi-form{
-    position: relative;
-    margin-top: 3%;
-    max-width: 60%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255, 0.8);
+    backdrop-filter: blur(6px);
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding: 10px;
+    margin:5px;
 }
 
 .imagen{
@@ -57,4 +84,13 @@
 
 .half-length{
     width:50%;
+}
+
+.widthAlmostFullDocenteLogros{
+    width: 80%;
+}
+
+.spaceEvenlyDocenteLogros{
+    display: flex; 
+    justify-content: space-evenly; 
 }
