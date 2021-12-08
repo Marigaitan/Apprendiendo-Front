@@ -32,13 +32,18 @@
 }
 .uploadDocStudent{
     border-radius: 20px;
-    justify-content: center;  
     background-color: rgb(255, 255, 255, 0.8);
     backdrop-filter: blur(6px);
     border: 1px solid grey;
     padding: 10px;
     margin:5px;
     width:100%;
+}
+
+.flex-start-upload-docs{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 .TituloLesson{

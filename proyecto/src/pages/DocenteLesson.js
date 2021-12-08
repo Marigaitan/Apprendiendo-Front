@@ -40,7 +40,7 @@ export default class DocenteLesson extends Component {
             <div className='mainContainer'>
                 <HeaderTeacher />
                 <div className='newClaseForm'>
-                    <div className='whiteBox'>
+                    <div className='whitebox'>
                     {/* aca va el nombre de la clase */}
                         <div>
                             {this.state.lesson && <h1><Label>{this.state.lesson.name}</Label></h1>}

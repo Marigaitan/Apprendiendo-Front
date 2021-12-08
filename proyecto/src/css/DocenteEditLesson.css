@@ -1,18 +1,16 @@
 .newClaseForm{
-    flex: 4;
     padding: 15px;
     background-image: url(../Images/fondoLetras.png);
     background-size:cover;
     background-repeat: no-repeat;
     background-position: center;
+    display: flex;
+    flex-direction: column;
 }
 .blackLetter{
     color:rgb(10, 10, 10);
 }
 .whiteBox{
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
     background-color: rgb(255, 255, 255, 0.8);
     backdrop-filter: blur(6px);
     border-radius: 20px;
@@ -22,9 +20,6 @@
 }
 
 .whiteTable{
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
     background-color: rgb(255, 255, 255);
     backdrop-filter: blur(6px);
     border-radius: 20px;
@@ -40,15 +35,12 @@
 
 .boxActiv{
     display: flex;
-    margin: 0px;
-    width: 100%;
-     
+    justify-content: space-evenly;
 }
 .newFile{
     border-radius: 20px;
     width: 33%;
     justify-content: center;
-    flex: 1;
     border: 1px solid grey;
     padding: 10px;
     margin:5px ;
@@ -58,9 +50,6 @@
 }
 
 .setCuestionario{
-    justify-content: center;
-    flex: 1;
-    width: 33%;
     border-radius: 20px;
     border: 1px solid grey;
     padding: 10px;
@@ -71,7 +60,6 @@
 }
 .setQuizz{
     border-radius: 20px;
-    width: 33%;
     justify-content: center;
     flex: 1;
     border: 1px solid grey;
@@ -121,9 +109,9 @@
 
 .form-inline{
     display: flex;
-    align-content: space-around;
+    align-content: flex-start;
+    gap: 5px;
     padding-left: 10px;
-    width: 100%;
 }
 
 .width-table{

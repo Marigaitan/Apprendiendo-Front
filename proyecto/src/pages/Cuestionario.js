@@ -50,7 +50,8 @@ const Cuestionario = React.memo(({ handleAnswers, work }) => {
   const questions = JSON.parse(work.data);
   handleAnswers(answers);
   return (
-    <div classname="quizzBack">
+    // <div className="quizzBack">
+    <div>
       <div className="appQuizz">
         {showScore ? (
           <div className="score-section">
@@ -77,7 +78,7 @@ const Cuestionario = React.memo(({ handleAnswers, work }) => {
               />
 
               <button
-                classname="QuizzButton"
+                className="QuizzButton"
                 onClick={() => handleAnswerButtonClick()}
               >
                 Siguiente

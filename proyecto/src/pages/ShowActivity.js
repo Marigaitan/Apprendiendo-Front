@@ -30,7 +30,8 @@ export default class ShowActivity extends Component {
 
     await axios.all(axiosActivities).then(responses => {
       let activities = responses.map(response => response.data);
-      activities = activities.filter(activityList => activityList.length > 0 && activityList[0] !== "FILE")
+      console.log(activities);
+      activities = activities.filter(activityList => activityList.length > 0 && activityList[0].dataType !== "ENTREGABLE" )
       console.log(activities);
       this.setState({
         activitiesAnswers: activities
@@ -97,7 +98,7 @@ export default class ShowActivity extends Component {
                           <Card color="secondary" inverse>
                             <CardBody>
                               <CardTitle tag="h4">
-                                <h4><Label>Pregunta {index + 1}</Label></h4>
+                                <Label>Pregunta {index + 1}</Label>
                               </CardTitle>
                               <CardText>
                                 {respuesta}

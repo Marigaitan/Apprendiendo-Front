@@ -84,7 +84,7 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
               {questions[currentQuestion].answerOptions.map(
                 (answerOption, index) => (
                   <button
-                    classname="QuizzButton"
+                    className="QuizzButton"
                     onClick={() =>
                       handleAnswerButtonClick(
                         answerOption.isCorrect,

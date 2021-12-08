@@ -22,13 +22,17 @@ export default class EditLessonModal extends Component {
     }
 
     componentDidMount() {
-        let data = JSON.parse(this.props.quizz
-            ? this.props.quizz.data
-            : (this.props.cuestionario
-                ? this.props.cuestionario.data
-                : ""))
+        let data = (this.props.entregable
+            ? this.props.entregable
+            : JSON.parse(this.props.quizz
+                ? this.props.quizz.data
+                : (this.props.cuestionario
+                    ? this.props.cuestionario.data
+                    : "")
+            )
+        )
         console.log(data)
-        this.setState({ formValues: data, name: this.props.quizz ? this.props.quizz.name : (this.props.cuestionario ? this.props.cuestionario.name : "") })
+        this.setState({ formValues: data, name: (this.props.quizz ? this.props.quizz.name : (this.props.cuestionario ? this.props.cuestionario.name : (this.props.entregable ? this.props.entregable.name : ""))) })
     }
 
     openModal = (id) => {
@@ -48,14 +52,17 @@ export default class EditLessonModal extends Component {
         console.log(pregunta);
         return (
             <div className="flex-start">
-                <Button key={quizz.name} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
-                    <Link> {quizz.name} </Link>
-                </Button>
-                <Button outline block color='primary'>
-                    <Link to={{ pathname: "/menudocente/classroom/proyecto/clase/logros/new", state: { activityId: quizz.activityId } }}>
+                <Label size="lg">{quizz.name}</Label>
+                <Link>
+                    <Button key={quizz.position} outline block color='primary' onClick={() => this.openModal(quizz.position)}>
+                        Editar Quizz
+                    </Button>
+                </Link>
+                <Link to={{ pathname: "/menudocente/classroom/proyecto/clase/logros/new", state: { activityId: quizz.activityId } }}>
+                    <Button outline block color='primary'>
                         Agregar Logro
-                    </Link>
-                </Button>
+                    </Button>
+                </Link>
             </div>);
     }
 
@@ -64,16 +71,35 @@ export default class EditLessonModal extends Component {
         console.log(pregunta);
         return (<div className="flex-start">
             <Label size="lg">{cuestionario.name}</Label>
-            <Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
-                <Link> Editar </Link>
-            </Button>
-            <Button key={cuestionario.name} outline block color='primary'>
-                <Link to={{ pathname: "/menudocente/classroom/proyecto/clase/logros/new", state: { activityId: cuestionario.activityId } }}>
+            <Link>
+                <Button key={cuestionario.name} outline block color='primary' onClick={() => this.openModal(cuestionario.position)}>
+                    Editar Cuestionario
+                </Button>
+            </Link>
+            <Link to={{ pathname: "/menudocente/classroom/proyecto/clase/logros/new", state: { activityId: cuestionario.activityId } }}>
+                <Button key={cuestionario.position} outline block color='primary'>
                     Agregar Logro
-                </Link>
-            </Button>
+                </Button>
+            </Link>
         </div>
         );
+    }
+
+    buttonEditEntregableParams = (entregable) => {
+        return (
+            <div className="flex-start">
+                <Label size="lg">{entregable.name}</Label>
+                <Link>
+                    <Button key={entregable.id} outline block color='primary' onClick={() => this.openModal(entregable.id)}>
+                        Ver actividad entregable
+                    </Button>
+                </Link>
+                <Link to={{ pathname: "/menudocente/classroom/proyecto/clase", state: { activityId: entregable.activityId } }}>
+                    <Button outline block color='primary'>
+                        Agregar Logro (NO FUNCIONA TODAVIA, NO TOCAR)
+                    </Button>
+                </Link>
+            </div>);
     }
 
 
@@ -274,7 +300,28 @@ export default class EditLessonModal extends Component {
                                 </ModalFooter>
                             </Modal>
                         </div>)
-                        : <div></div>
+                        : this.props.entregable ?
+                            // -------------------------------------------------------------------------------- ENTREGABLE 
+                            <div className='quizzData'>
+                                <div className='quizzButton'>
+                                    {this.buttonEditEntregableParams(this.props.entregable)}
+                                </div>
+                                <Modal isOpen={this.state.openModal && this.state.modalId === this.props.entregable.id}>
+                                    <ModalHeader size='lg'>
+                                        {this.state.name}
+                                    </ModalHeader>
+                                    <ModalBody>
+                                        <h4><Label>Titulo</Label></h4>
+                                        <Label>{this.state.name}</Label>
+                                        <h4><Label>Descripcion</Label></h4>
+                                        <Label>{this.props.entregable.description}</Label>
+                                    </ModalBody>
+                                    <ModalFooter className="modalFooter">
+                                        <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
+                                    </ModalFooter>
+                                </Modal>
+                            </div>
+                            : <div></div>
                 }
             </div>
         )

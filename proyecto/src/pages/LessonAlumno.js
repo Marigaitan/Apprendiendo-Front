@@ -13,6 +13,7 @@ import {
   ModalFooter,
   Alert,
   Label,
+  Input,
 } from "reactstrap";
 import Cuestionario from "./Cuestionario";
 import Quizz from "./Quizz";
@@ -37,6 +38,7 @@ export default class LessonAlumno extends Component {
       actDocuments: [],
       actQuizz: [],
       actCuestionario: [],
+      actEntregables: [],
       actFiles: [],
       answersQ: [],
       answersQizz: [],
@@ -71,7 +73,7 @@ export default class LessonAlumno extends Component {
     });
   };
 
-  insertarArchivos = async () => {
+  insertarArchivos = async (activityId) => {
     console.log("archivos");
     console.log(this.state.archivos);
 
@@ -80,36 +82,35 @@ export default class LessonAlumno extends Component {
       return;
     }
 
-    Promise.all(
-      this.state.archivos.map(async (archivo) => {
-        let documento = {
-          position: 0,
-          name: archivo.name,
-          dataType: archivo.dataType,
-          data: archivo.data,
-          sourceId: archivo.sourceId,
-          documentSourceType: archivo.documentSourceType,
-        };
-        console.log("documento");
-        console.log(documento);
+    let archivosRequest = this.state.archivos.map((archivo, index) => {
+      let documento = {
+        position: index,
+        name: archivo.name,
+        dataType: archivo.dataType,
+        data: archivo.data,
+        sourceId: archivo.sourceId,
+        documentSourceType: archivo.documentSourceType,
+      };
+      console.log("documento");
+      console.log(documento);
 
-        return await axios
-          .post(API_HOST + "user/" + cookies.get("id") + "/project/" + cookies.get("projectid") + "/document", documento, {
-          //.post(API_HOST + "activity", documento, {
-            headers: { Authorization: cookies.get("token") },
-          })
-          .then((response) => console.log(response.data))
-          .catch((error) => {
-            console.log(error);
-          });
+      return axios.post(API_HOST + "user/" + cookies.get("id") + "/activity/" + activityId + "/document",
+        documento,
+        { headers: { Authorization: cookies.get("token") }, })
+    })
+    
+    await Promise.allSettled(archivosRequest)
+      .then((results) => {
+        console.log(results);
+        let sentDocs = results.filter(result => result.status === 'fulfilled')
+        alert(sentDocs.length + " documentos cargados");
+        results.forEach((failedDoc, index) => {if(failedDoc.status === 'rejected') alert("fallo la carga del archivo: " + this.state.archivos[index].name )})
+        this.setState({ archivos: [] });
+        window.location.reload(false)
       })
-    ).then((values) => {
-      alert(values.length + " documentos cargados");
-      this.setState({ archivos: [] });
-    });
-  };
+  }
 
-  subirArchivos = async (elem) => {
+  subirArchivos = async (elem, activityId) => {
     console.log("imprimiendo elem");
     console.log(elem);
     const base64 = await this.convertToBase64(elem[0]);
@@ -117,10 +118,10 @@ export default class LessonAlumno extends Component {
     console.log(base64);
     let archivo = {
       name: elem[0].name,
-      dataType: "STUDENT",
+      dataType: "ENTREGABLE",
       data: base64,
-      documentSourceType: "PROJECT",
-      sourceId: cookies.get("projectid"),
+      documentSourceType: "STUDENT_ACTIVITY",
+      sourceId: activityId,
     };
     this.setState((prevState) => ({
       archivos: prevState.archivos.concat(archivo),
@@ -185,9 +186,13 @@ export default class LessonAlumno extends Component {
           const actCuestionario = actDocuments.filter(
             (actDocument) => actDocument.dataType === "CUESTIONARIO"
           );
+          const actEntregables = actDocuments.filter(
+            (actDocument) => actDocument.dataType === "ENTREGABLE"
+          );
 
           console.log(actQuizz);
           console.log(actCuestionario);
+          console.log(actEntregables);
 
           this.setState({
             lessonName: lessonName,
@@ -196,6 +201,7 @@ export default class LessonAlumno extends Component {
             activities: activities,
             actQuizz: actQuizz,
             actCuestionario: actCuestionario,
+            actEntregables: actEntregables,
             actGrades: actGrades,
           });
         },
@@ -219,6 +225,7 @@ export default class LessonAlumno extends Component {
             dataType: document.dataType,
             data: document.data,
             activityId: activity.id,
+            activityDescription: activity.description,
           };
         });
         return documents === undefined || documents.size === 0
@@ -297,9 +304,8 @@ export default class LessonAlumno extends Component {
     this.setState({ openModal: true, modalId: id });
   };
 
-  closeModal(activityId, name, dataType, answer) {
-    this.setState({ openModal: false, modalId: -1 });
-    let body = { sourceId: activityId, documentSourceType: "ACTIVITY", name: name, dataType: dataType, data: JSON.stringify(answer) };
+  closeModalActivity = (activityId, name, dataType, answer) => {
+    let body = { sourceId: activityId, documentSourceType: "STUDENT_ACTIVITY", name: name, dataType: dataType, data: JSON.stringify(answer) };
     axios.post("/user/" + cookies.get("id") + "/activity/" + activityId + "/document", body, { headers: { Authorization: cookies.get("token") }, })
       .then(response => this.setState({ answersQ: [], answersQizz: [] })).catch(err => { console.log(err); this.setState({ answersQ: [], answersQizz: [] }); });
 
@@ -310,7 +316,16 @@ export default class LessonAlumno extends Component {
       }
       axios.put("/user/" + cookies.get("id") + "/activity/" + activityId + "/progress", body, { headers: { Authorization: cookies.get("token") }, });
     }
+    this.closeModal();
+  }
 
+  closeModalDocuments = () => {
+    this.setState({ archivos: [] });
+    this.closeModal();
+  }
+
+  closeModal = () => {
+    this.setState({ openModal: false, modalId: -1 });
   }
 
   render() {
@@ -364,15 +379,15 @@ export default class LessonAlumno extends Component {
                         />
                       </ModalBody>
                       <ModalFooter className="modalFooter">
-                        {this.state.answersQ.length ===
-                          JSON.parse(actCuestionario.data).length && (
+                        {this.state.answersQ.length === JSON.parse(actCuestionario.data).length
+                          ? (
                             <Button
                               color="secondary"
-                              onClick={() => this.closeModal(actCuestionario.activityId, actCuestionario.name, "CUESTIONARIO", this.state.answersQ)}
+                              onClick={() => this.closeModalActivity(actCuestionario.activityId, actCuestionario.name, "CUESTIONARIO", this.state.answersQ)}
                             >
                               Finalizar
                             </Button>
-                          )}
+                          ) : <div></div>}
                       </ModalFooter>
                     </Modal>
                   </div>
@@ -407,7 +422,7 @@ export default class LessonAlumno extends Component {
                       <ModalFooter className="modalFooter">
                         <Button
                           color="secondary"
-                          onClick={() => this.closeModal(actQuizz.activityId, actQuizz.name, "QUIZZ", this.state.answersQizz)}
+                          onClick={() => this.closeModalActivity(actQuizz.activityId, actQuizz.name, "QUIZZ", this.state.answersQizz)}
                         >
                           Finalizar
                         </Button>
@@ -456,34 +471,40 @@ export default class LessonAlumno extends Component {
               })}
             </div>
           </div>
+          {/* ------------------------------------------------------- ENTREGABLES ------------------------------------------------------- */}
           <div className="uploadDocStudent">
-            <h4>Cargar Nueva Tarea:</h4>
-            <input
-              type="file"
-              name="documents"
-              //multiple
-              onChange={(elem) => this.subirArchivos(elem.target.files)}
-            />
+            <h3>Entregables</h3>
             <br />
-            {this.state.archivos.map((document) => (
-              <div key={document.name}>
-                <Alert className="flexSpaceBetween">
-                  <Label>{document.name}</Label>
-                  <Button
-                    name={document.name}
-                    onClick={() => this.borrarArchivo(document)}
-                  >
-                    Borrar
-                  </Button>
-                </Alert>
-              </div>
-            ))}
-            <button
-              className="btn btn-primary"
-              onClick={() => this.insertarArchivos()}
-            >
-              Insertar Archivos
-            </button>
+            <div className="flex-start-upload-docs">
+              {this.state.actEntregables.map(entregable =>
+                <div>
+                  <Button color="success" onClick={() => this.openModal(entregable.activityId)}>{entregable.name}</Button>
+                  <Modal size="lg" isOpen={this.state.openModal && this.state.modalId === entregable.activityId} className="modalStyle">
+                    <ModalHeader tag="h3">
+                      <Label>{entregable.name}</Label>
+                    </ModalHeader>
+                    <ModalBody>
+                      <h4><Label>{entregable.activityDescription}</Label></h4>
+                      <br />
+                      <h5>Cargar nueva tarea:</h5>
+                      <Input type="file" name={"documents"} onChange={(elem) => this.subirArchivos(elem.target.files, entregable.activityId)} />
+                      {this.state.archivos.map((document) => (
+                        <div key={document.name}>
+                          <Alert className="flexSpaceBetween">
+                            <Label>{document.name}</Label>
+                            <Button name={document.name} onClick={() => this.borrarArchivo(document)}>Borrar</Button>
+                          </Alert>
+                        </div>
+                      ))}
+                      <Button color="primary" block onClick={() => this.insertarArchivos(entregable.activityId)}>Insertar Archivos</Button>
+                    </ModalBody>
+                    <ModalFooter className="modalFooter">
+                      <Button color="secondary" onClick={this.closeModalDocuments}>Cerrar sin guardar</Button>
+                    </ModalFooter>
+                  </Modal>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

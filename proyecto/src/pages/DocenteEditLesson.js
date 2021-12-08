@@ -16,10 +16,12 @@ export default class DocenteEditLesson extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            archivos: [], nameCuest: '', formValuesCuest: [], lesson: undefined,
-            actividades: [], cuestionarios: [], quizzes: [],
+            lesson: undefined,
+            archivos: [],
             quizzOpenModal: false, quizzModalId: -1, quizzUpdate: undefined, activeButton: false,
-            nameQuizz: '', formValuesQuizz: [],
+            formValuesCuest: [], formValuesQuizz: [], formValuesEntregable: [],
+            actividades: [], cuestionarios: [], quizzes: [], entregables: [],
+            nameCuest: '', nameQuizz: '', nameEntregable: '', descEntregable: '',
         };
     }
 
@@ -54,14 +56,19 @@ export default class DocenteEditLesson extends Component {
                 const quizzes = actDocuments.filter(
                     actDocument => actDocument !== undefined && actDocument && actDocument.dataType === "QUIZZ"
                 );
+                const entregables = actDocuments.filter(
+                    actDocument => actDocument !== undefined && actDocument && actDocument.dataType === "ENTREGABLE"
+                );
                 console.log(cuestionarios)
                 console.log(quizzes)
+                console.log(entregables)
                 this.setState({
                     lesson: response.data,
                     archivos: archivos,
                     actividades: actividades,
                     cuestionarios: cuestionarios,
                     quizzes: quizzes,
+                    entregables: entregables,
                 });
             })
     }
@@ -80,13 +87,14 @@ export default class DocenteEditLesson extends Component {
                     dataType: activityData.documents[0].dataType,
                     data: activityData.documents[0].data,
                     activityId: activity.id,
+                    description: activity.description,
                 }
         }))
     }
 
 
 
-    
+
 
     //--------------------------------------------------------------------------------------------- FILE
     subirArchivos = async elem => {
@@ -103,7 +111,7 @@ export default class DocenteEditLesson extends Component {
             documentSourceType: 'LESSON',
             sourceId: cookies.get('lessonid'),
         }
-        await axios.post(API_HOST + "document", archivo,{ headers: { Authorization: cookies.get("token"), }, }).then(response => archivo.id = response.data).catch(console.log);
+        await axios.post(API_HOST + "document", archivo, { headers: { Authorization: cookies.get("token"), }, }).then(response => archivo.id = response.data).catch(console.log);
         this.setState(prevState => ({ archivos: prevState.archivos.concat(archivo) }));
     }
 
@@ -121,7 +129,7 @@ export default class DocenteEditLesson extends Component {
     };
 
     borrarArchivo = async (e) => {
-        let document = _.find(this.state.archivos, {name: e.name});
+        let document = _.find(this.state.archivos, { name: e.name });
         console.log(document);
         await axios.delete(API_HOST + "document/" + document.id + "/source/" + document.sourceId, { headers: { Authorization: cookies.get("token"), }, }).catch(console.log);
         this.setState(prevState => ({ archivos: prevState.archivos.filter(archivo => archivo.name !== e.name) }));
@@ -131,7 +139,7 @@ export default class DocenteEditLesson extends Component {
     handleChangeC = (i, e) => {
         let newFormValuesCuest = [...this.state.formValuesCuest];
         newFormValuesCuest[i][e.target.name] = e.target.value;
-        this.setState({ newFormValuesCuest: newFormValuesCuest });
+        this.setState({ formValuesCuest: newFormValuesCuest });
     }
 
     addFormFieldsC = () => {
@@ -142,7 +150,7 @@ export default class DocenteEditLesson extends Component {
     removeFormFieldsC = (i) => {
         let newFormValuesCuest = [...this.state.formValuesCuest];
         newFormValuesCuest.splice(i, 1);
-        this.setState({ newFormValuesCuest: newFormValuesCuest });
+        this.setState({ formValuesCuest: newFormValuesCuest });
     }
 
     handleSubmitC = async (event) => {
@@ -277,6 +285,43 @@ export default class DocenteEditLesson extends Component {
         </Button>)
     }
 
+    //--------------------------------------------------------------------------------------------- ENTREGABLE
+    handleSubmitEntregable = async (event) => {
+        event.preventDefault();
+        let entregable = {
+            id: null,
+            name: this.state.nameEntregable,
+            description: this.state.descEntregable,
+            position: 0,
+            dueDate: null,
+            startDate: null,
+            rewards: null,
+            lessonId: parseInt(cookies.get('lessonid'), 10),
+            documents: [{
+                activityId: null,
+                name: this.state.nameEntregable,
+                position: 0,
+                dataType: "ENTREGABLE",
+                data: "",
+            }]
+        }
+        await axios.post(API_HOST + "lesson/" + cookies.get('lessonid') + "/activity/template", entregable, { headers: { Authorization: cookies.get("token"), }, })
+            .then(response => {
+                entregable.id = parseInt(response.data, 10)
+                entregable.documents[0].activityId = parseInt(response.data, 10)
+                this.setState(prevState => (
+                    {
+                        actividades: prevState.actividades.concat(entregable),
+                        entregables: prevState.entregables.concat(entregable.documents[0]),
+                    }
+                ));
+                alert("Entregable creado correctamente");
+                window.location.reload(false);
+            })
+        console.log(this.state.actividades);
+        console.log(this.state.entregables);
+    }
+
     //--------------------------------------------------------------------------------------------- RENDER
 
     render() {
@@ -313,11 +358,12 @@ export default class DocenteEditLesson extends Component {
                             )}
                         </div>
                         <br />
+                    </div>
 
-                        {/* //---------------------Cuestionario------------------------------------------ */}
-                        {/* aca se deben ver los cuestionarios cargados */}
-                        {/* luego dar la opcion de cargar uno */}
-
+                    {/* //---------------------Cuestionario------------------------------------------ */}
+                    {/* aca se deben ver los cuestionarios cargados */}
+                    {/* luego dar la opcion de cargar uno */}
+                    <div className='boxActiv'>
                         <div className='setCuestionario'>
                             <div className='editQuizz'>
                                 <Label><h4>Cuestionarios activos:</h4></Label>
@@ -335,16 +381,18 @@ export default class DocenteEditLesson extends Component {
                                 <label><h4>Agregar Cuestionario</h4></label><br />
                                 <form onSubmit={this.handleSubmitC}>
                                     <label><h4>Título</h4></label><br />
-                                    <input type="text" name="nameCuest" className="col-md-8" placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => { this.setState({ nameCuest: n.target.value }) }} />
+                                    <Input type="text" name="nameCuest" placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => { this.setState({ nameCuest: n.target.value }) }} />
                                     {this.state.formValuesCuest.map((element, index) => (
-                                        <div className="form-inline" key={index}>
-                                            <label><h5>Pregunta: </h5></label>
-                                            <input type="text" name="question" value={element.question || ""} onChange={e => this.handleChangeC(index, e)} />
-                                            {
-                                                index ?
-                                                    <button type="button" className="btn btn-danger" onClick={() => this.removeFormFieldsC(index)}>X</button>
-                                                    : null
-                                            }
+                                        <div key={index}>
+                                            <Label><h5>Pregunta: </h5></Label>
+                                            <div className="flex-start" style={{ height: '40px' }}>
+                                                <Input type="text" name="question" style={{ width: '50%' }} value={element.question || ""} onChange={e => this.handleChangeC(index, e)} />
+                                                {
+                                                    index ?
+                                                        <Button color="danger" onClick={() => this.removeFormFieldsC(index)}>X</Button>
+                                                        : null
+                                                }
+                                            </div>
                                         </div>
                                     ))}
                                     <div className="button-section">
@@ -354,13 +402,11 @@ export default class DocenteEditLesson extends Component {
                                 </form>
                             </div>
                         </div>
-
-
-                        {/* ---------------------------------------Quizz--------------------------------------- */}
-                        {/* aca se deben ver los quizz cargados */}
-                        {/* luego dar la opcion de cargar uno */}
-
-
+                    </div>
+                    {/* ---------------------------------------Quizz--------------------------------------- */}
+                    {/* aca se deben ver los quizz cargados */}
+                    {/* luego dar la opcion de cargar uno */}
+                    <div className='boxActiv'>
                         <div className='setQuizz'>
                             <div className='editQuizz'>
                                 <Label><h4>Quizzes activos:</h4></Label>
@@ -378,26 +424,32 @@ export default class DocenteEditLesson extends Component {
                                 <h4>Agregar Ejercicio de Selección Múltiple</h4>
                             </label>
                             <br />
-                            <form onSubmit={this.handleSubmitQ}>
+                            <form onSubmit={this.handleSubmitQ} >
                                 <label> <h4>Título</h4> </label>
                                 <br />
-                                <input type="text" name="nameQuizz" className="col-md-8" placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => this.setState({ nameQuizz: (n.target.value) })} />
+                                <Input type="text" name="nameQuizz" placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => this.setState({ nameQuizz: (n.target.value) })} />
                                 {this.state.formValuesQuizz.map((element, index) => (
                                     <div className="form-inline" key={index}>
                                         <div>
-                                            <label> <h5>Pregunta</h5> </label>
-                                            <input type="text" name="questionText" value={element.questionText || ""} onChange={(e) => this.handleChangeQ(index, e)} />
-                                            <label> <h5>Opción Correcta</h5> </label>
-                                            <input type="text" name="answerOptions" placeholder="Ingrese la Opción Correcta" value={element.answerOptions[0].answerText || ""} onChange={(e) => this.handleChangeQ1(index, e)} style={{ backgroundColor: "lightskyblue" }} />
+                                            <Label> <h5>Pregunta</h5> </Label>
+                                            <Input type="text" name="questionText" value={element.questionText || ""} onChange={(e) => this.handleChangeQ(index, e)} />
                                         </div>
                                         <div>
-                                            <label> <h5>Opción Incorrecta 1</h5> </label>
-                                            <input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions[1].answerText || ""} onChange={(e) => this.handleChangeQ2(index, e)} />
-                                            <label> <h5>Opción Incorrecta 2</h5> </label>
-                                            <input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions[2].answerText || ""} onChange={(e) => this.handleChangeQ3(index, e)} />
-                                            {index ?
-                                                <button type="button" className="btn btn-danger" onClick={() => this.removeFormFieldsQ(index)}>X</button>
-                                                : null}
+                                            <Label> <h5>Opción Correcta</h5> </Label>
+                                            <Input type="text" name="answerOptions" placeholder="Ingrese la Opción Correcta" value={element.answerOptions[0].answerText || ""} onChange={(e) => this.handleChangeQ1(index, e)} style={{ backgroundColor: "lightskyblue" }} />
+                                        </div>
+                                        <div>
+                                            <Label> <h5>Opción Incorrecta 1</h5> </Label>
+                                            <Input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions[1].answerText || ""} onChange={(e) => this.handleChangeQ2(index, e)} />
+                                        </div>
+                                        <div>
+                                            <Label> <h5>Opción Incorrecta 2</h5> </Label>
+                                            <div style={{display: 'flex', alignContent: 'flex-start', }}>
+                                                <Input type="text" name="answerOptions" placeholder="Ingrese otra Opción" value={element.answerOptions[2].answerText || ""} onChange={(e) => this.handleChangeQ3(index, e)} />
+                                                {index ?
+                                                    <Button color="danger" style={{height: '35px', marginLeft: '5px'}} onClick={() => this.removeFormFieldsQ(index)}>X</Button>
+                                                    : null}
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -420,14 +472,36 @@ export default class DocenteEditLesson extends Component {
                                     <br />
                                 </div>
                             </form>
-
-
+                        </div>
+                    </div>
+                    {/* ----------------------------------------------- ACTIVIDAD ENTREGABLE ----------------------------------------------- */}
+                    <div className='boxActiv'>
+                        <div className='setCuestionario'>
+                            <div className='editQuizz'>
+                                <Label><h4>Entregables activos:</h4></Label>
+                                {this.state.entregables.map(entregable => {
+                                    return (
+                                        <div key={entregable.id} className="editActivity">
+                                            <EditLessonModal entregable={entregable} />
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                            <br />
+                            <div>
+                                <label><h4>Agregar Entregable</h4></label>
+                                <form onSubmit={this.handleSubmitEntregable}>
+                                    <label><h4>Título</h4></label>
+                                    <Input type="text" name="nameEntregable" value={this.state.nameEntregable} placeholder="Ingrese el título de la actividad" maxLength="30" onChange={(n) => { this.setState({ nameEntregable: n.target.value }) }} />
+                                    <label><h4>Descripcion</h4></label>
+                                    <Input type="text" name="descEntregable" value={this.state.descEntregable} placeholder="Ingrese la descripcion del entregable" maxLength="255" onChange={(n) => { this.setState({ descEntregable: n.target.value }) }} />
+                                    <Button color="primary" block size="lg" type="submit">Crear Actividad</Button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     {/* -------------------------------------------------------------------------- */}
-                    <div className='newClaseFotter'>
-                        <button className="btn btn-secondary btn-lg btn-block" type="button" onClick={this.props.history.goBack} >Volver</button>
-                    </div>
+                    <Button color="warning" size="lg" block type="button" onClick={this.props.history.goBack} >Volver</Button>
                 </div>
             </div>
         )
