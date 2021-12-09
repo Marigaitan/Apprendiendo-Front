@@ -304,17 +304,18 @@ export default class LessonAlumno extends Component {
     this.setState({ openModal: true, modalId: id });
   };
 
-  closeModalActivity = (activityId, name, dataType, answer) => {
+  closeModalActivity = async (activityId, name, dataType, answer) => {
     let body = { sourceId: activityId, documentSourceType: "STUDENT_ACTIVITY", name: name, dataType: dataType, data: JSON.stringify(answer) };
-    axios.post("/user/" + cookies.get("id") + "/activity/" + activityId + "/document", body, { headers: { Authorization: cookies.get("token") }, })
-      .then(response => this.setState({ answersQ: [], answersQizz: [] })).catch(err => { console.log(err); this.setState({ answersQ: [], answersQizz: [] }); });
-
+    await axios.post("/user/" + cookies.get("id") + "/activity/" + activityId + "/document", body, { headers: { Authorization: cookies.get("token") }, })
+      .catch(err => { console.log(err); this.setState({ answersQ: [], answersQizz: [] }); });
+      
+      this.setState({ answersQ: [], answersQizz: [] });
     if (dataType === "QUIZZ") {
       let body = {
         grade: (answer.puntaje / answer.resultados.length) * 10,
         percentageCompleted: 100
       }
-      axios.put("/user/" + cookies.get("id") + "/activity/" + activityId + "/progress", body, { headers: { Authorization: cookies.get("token") }, });
+      await axios.put("/user/" + cookies.get("id") + "/activity/" + activityId + "/progress", body, { headers: { Authorization: cookies.get("token") }, });
     }
     this.closeModal();
   }
