@@ -52,15 +52,20 @@ export default class MenuLogrosDocenteClase extends Component {
     });
   };
 
-  imageSource = (imageName) => {
-    if (imageName == null) return "";
-    if (imageName.startsWith("mc")) return `/medallas_cursos/${imageName}.png`;
-    if (imageName.startsWith("b")) return `/avatars/${imageName}.png`;
-    if (imageName.startsWith("o")) return `/accesorios/${imageName}.png`;
-    if (imageName.startsWith("l")) return `/accesorios/${imageName}.png`;
-    if (imageName.startsWith("r")) return `/accesorios/${imageName}.png`;
-    else return `/medallas/${imageName}.png`;
-  };
+  imageSource = (reward) => {
+    if(reward == null || reward == undefined) return '';
+    
+    if(reward.rewardType == "AVATAR") {
+      if (reward.data.startsWith("b")) return `./avatars/${reward.data}.png`;
+      if (reward.data.startsWith("o")) return `./accesorios/${reward.data}.png`;
+      if (reward.data.startsWith("l")) return `./accesorios/${reward.data}.png`;
+      if (reward.data.startsWith("r")) return `./accesorios/${reward.data}.png`;
+    }
+
+    if (reward.imageData == null) return '';
+    if (reward.imageData.startsWith("mc")) return `./medallas_cursos/${reward.imageData}.png`;
+    else return `./medallas/${reward.imageData}.png`;
+  }
 
   render() {
     this.redirect();
@@ -89,7 +94,7 @@ export default class MenuLogrosDocenteClase extends Component {
                   <div key={reward.id} className="flex-center">
                     <div>
                       <img
-                        src={this.imageSource(reward.imageData)}
+                        src={this.imageSource(reward)}
                         alt={reward.imageData}
                         width="50"
                       />

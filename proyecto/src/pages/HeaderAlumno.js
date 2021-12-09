@@ -87,14 +87,19 @@ const HeaderStudent = () => {
 
   }
 
-  const imageSource = (imageName) => {
-    if (imageName == null) return '';
-    if (imageName.startsWith("mc")) return `./medallas_cursos/${imageName}.png`;
-    if (imageName.startsWith("b")) return `./avatars/${imageName}.png`;
-    if (imageName.startsWith("o")) return `./accesorios/${imageName}.png`;
-    if (imageName.startsWith("l")) return `./accesorios/${imageName}.png`;
-    if (imageName.startsWith("r")) return `./accesorios/${imageName}.png`;
-    else return `./medallas/${imageName}.png`;
+  const imageSource = (reward) => {
+    if(reward == null || reward == undefined) return '';
+    
+    if(reward.rewardType == "AVATAR") {
+      if (reward.data.startsWith("b")) return `./avatars/${reward.data}.png`;
+      if (reward.data.startsWith("o")) return `./accesorios/${reward.data}.png`;
+      if (reward.data.startsWith("l")) return `./accesorios/${reward.data}.png`;
+      if (reward.data.startsWith("r")) return `./accesorios/${reward.data}.png`;
+    }
+
+    if (reward.imageData == null) return '';
+    if (reward.imageData.startsWith("mc")) return `./medallas_cursos/${reward.imageData}.png`;
+    else return `./medallas/${reward.imageData}.png`;
   }
 
 
@@ -109,7 +114,7 @@ const HeaderStudent = () => {
                 <div className="row no-gutters">
                   <div className="d-flex flex-column align-items-center text-center">
                     <img
-                      src={imageSource(reward.imageData)}
+                      src={imageSource(reward)}
                       alt={reward.id}
                       width="100"
                     />
