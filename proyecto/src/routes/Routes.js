@@ -60,68 +60,68 @@ function Routes() {
         <Route exact path="/menudocente" component={MenuDocente} />
         <Route
           exact
-          path="/menudocente/metodologias"
+          path="/menudocente_metodologias"
           component={Metodologias}
         />
-        <Route exact path="/menudocente/repositorio" component={Repositorio} />
-        <Route exact path="/menualumno/classroom" component={AlumnoClassroom} />
+        <Route exact path="/menudocente_repositorio" component={Repositorio} />
+        <Route exact path="/menualumno_classroom" component={AlumnoClassroom} />
         <Route
           exact
-          path="/menudocente/classroom"
+          path="/menudocente_classroom"
           component={DocenteClassroom}
         />
         <Route
           exact
-          path="/menudocente/classroom/alumnos"
+          path="/menudocente_classroom_alumnos"
           component={ListaAlumnos}
         />
         <Route
           exact
-          path="/menudocente/classroom/nuevoproyecto"
+          path="/menudocente_classroom_nuevoproyecto"
           component={DocenteNuevoProyecto}
         />
         <Route
           exact
-          path="/menudocente/classroom/nuevoproyecto/estandar"
+          path="/menudocente_classroom_nuevoproyecto_estandar"
           component={NewStandarProject}
         />
         <Route
           exact
-          path="/menualumno/classroom/proyecto"
+          path="/menualumno_classroom_proyecto"
           component={AlumnoProyecto}
         />
         <Route
           exact
-          path="/menualumno/classroom/proyecto/clase"
+          path="/menualumno_classroom_proyecto_clase"
           component={LessonAlumno}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto"
+          path="/menudocente_classroom_proyecto"
           component={DocenteProyecto}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/nuevaclase"
+          path="/menudocente_classroom_proyecto_nuevaclase"
           component={NewClase}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/clase/edit"
+          path="/menudocente_classroom_proyecto_clase_edit"
           component={DocenteEditLesson}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/clase"
+          path="/menudocente_classroom_proyecto_clase"
           component={DocenteLesson}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/clase/corregir"
+          path="/menudocente_classroom_proyecto_clase_corregir"
           component={CorregirActividades}
         />
-        <Route exact path="/menuAdmin/docente/abm" component={DocenteAbm} />
-        <Route exact path="/menuAdmin/alumno/abm" component={AlumnoAbm} />
+        <Route exact path="/menuAdmin_docente_abm" component={DocenteAbm} />
+        <Route exact path="/menuAdmin_alumno_abm" component={AlumnoAbm} />
         <Route exact path="/AlumnoPerfil" component={AlumnoPerfil} />
         <Route exact path="/ListarAvatars" component={ListarAvatars} />
         <Route exact path="/SeleccionarAvatar" component={SeleccionarAvatar} />
@@ -152,32 +152,32 @@ function Routes() {
         <Route exact path="/ListarLogros" component={ListarLogros} />
         <Route
           exact
-          path="/menudocente/classroom/logros"
+          path="/menudocente_classroom_logros"
           component={MenuLogrosDocenteClassroom}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/logros"
+          path="/menudocente_classroom_proyecto_logros"
           component={MenuLogrosDocenteProyecto}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/actividad/logros"
+          path="/menudocente_classroom_proyecto_actividad_logros"
           component={MenuLogrosDocenteClase}
         />
         <Route
           exact
-          path="/menudocente/classroom/logros/new"
+          path="/menudocente_classroom_logros_new"
           component={DocenteClassroomLogros}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/logros/new"
+          path="/menudocente_classroom_proyecto_logros_new"
           component={DocenteProjectLogros}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/actividad/logros/new"
+          path="/menudocente_classroom_proyecto_actividad_logros_new"
           component={DocenteLessonLogros}
         />
         <Route
@@ -192,22 +192,22 @@ function Routes() {
         />
         <Route
           exact
-          path="/menudocente/classroom/nuevoproyecto/aulainvertida"
+          path="/menudocente_classroom_nuevoproyecto_aulainvertida"
           component={AulaInvertida}
         />
         <Route
           exact
-          path="/menudocente/classroom/nuevoproyecto/pbl"
+          path="/menudocente_classroom_nuevoproyecto_pbl"
           component={Pbl}
         />
         <Route
           exact
-          path="/menudocente/classroom/proyecto/edit/groups"
+          path="/menudocente_classroom_proyecto_edit_groups"
           component={DocenteEditGroups}
         />
         <Route
           exact
-          path="/menudocente/classroom/nuevoproyecto/tbl"
+          path="/menudocente_classroom_nuevoproyecto_tbl"
           component={Tbl}
         />
       </Switch>

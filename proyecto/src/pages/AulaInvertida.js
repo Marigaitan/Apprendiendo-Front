@@ -89,14 +89,14 @@ export default class AulaInvertida extends Component {
 
     // ---------------------------------------------------------------------------------- add lessons
 
-    addLesson = (lesson, documents) => {
+    addLesson = async (lesson, documents) => {
         let putParamUrl = API_HOST + "lesson";
-        axios.put(putParamUrl, lesson, { headers: { 'Authorization': cookies.get('token') } })
+        await axios.put(putParamUrl, lesson, { headers: { 'Authorization': cookies.get('token') } })
             .then(response => console.log(response.data))
         let sendDocs = documents.map(doc =>
             axios.post(API_HOST + "document", doc, { headers: { 'Authorization': cookies.get('token') } })
         );
-        axios.all(sendDocs).catch(console.log);
+        await axios.all(sendDocs).catch(console.log);
         this.closeModal();
     }
 
@@ -135,7 +135,7 @@ export default class AulaInvertida extends Component {
     addThirdLesson = () => {
         const lesson = {
             name: this.state.textClass3,
-            id: this.state.lessonIds[3], //falta obtener el id de la lesson
+            id: this.state.lessonIds[2], //falta obtener el id de la lesson
             position: 0,
             description: this.state.description3,
             projectId: this.state.projectId,
@@ -570,7 +570,7 @@ export default class AulaInvertida extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
+                                                        <Input type="textarea" name="textClass3" id="exampleText" onChange={this.handleChange} />
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -588,7 +588,7 @@ export default class AulaInvertida extends Component {
                                                 <FormGroup>
                                                     <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
                                                     <br />
-                                                    {this.state.archivosClase2 && this.state.archivosClase2.map(document =>
+                                                    {this.state.archivosClase3 && this.state.archivosClase3.map(document =>
                                                         <div key={document.name} >
                                                             <Alert className="flexSpaceBetween">
                                                                 <Label>{document.name}</Label>
@@ -599,8 +599,16 @@ export default class AulaInvertida extends Component {
                                                 </FormGroup>
                                             </div>
                                             <div>
-                                                <h3>Crear Cuestionario</h3>
+                                                <h3>Crear Quizz</h3>
                                                 <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                            </div>
+                                            <div>
+                                                <h3>Crear Cuestionario</h3>
+                                                <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                            </div>
+                                            <div>
+                                                <h3>Crear Entregable</h3>
+                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
                                             </div>
 
                                             {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}

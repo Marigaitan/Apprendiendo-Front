@@ -70,7 +70,7 @@ const HeaderTeacher = () => {
         <SidebarContent>
           <Menu iconShape="square">
             <MenuItem active={true} icon={<FiHome />}>
-              Inicio
+              Mis Cursos
               <Link to="/menudocente" />
             </MenuItem>
 
@@ -78,12 +78,12 @@ const HeaderTeacher = () => {
 
             <MenuItem icon={<BiBook />}>
               Repositorio
-              <Link to="/menudocente/repositorio" />
+              <Link to="/menudocente_repositorio" />
             </MenuItem>
 
             <MenuItem icon={<BiBookBookmark />}>
               Metodologías
-              <Link to="/menudocente/metodologias" />
+              <Link to="/menudocente_metodologias" />
             </MenuItem>
 
             <MenuItem icon={<BiBarChartAlt />}>

@@ -36,7 +36,7 @@ import "react-vertical-timeline-component/style.min.css";
 
 import logo from "../Images/logoMini.png";
 import Switch from "./Switch";
-import Background from '../Images/fondoLetras.png';
+import Background from "../Images/fondoLetras.png";
 import NavDocenteProyecto from "./NavDocenteProyecto";
 
 const cookies = new Cookies();
@@ -50,7 +50,7 @@ export default class DocenteProyecto extends Component {
       project: "",
       status: "",
       tareasModal: false,
-      alumnos: []
+      alumnos: [],
     };
   }
 
@@ -96,7 +96,9 @@ export default class DocenteProyecto extends Component {
     });
 
     this.setState({
-      alumnos: (await axios.get("classroom/" + classroomId + "/students")).data.map(alumno => ({ id: alumno.id, username: alumno.username })),
+      alumnos: (
+        await axios.get("classroom/" + classroomId + "/students")
+      ).data.map((alumno) => ({ id: alumno.id, username: alumno.username })),
     });
 
     console.log("Grupos:");
@@ -115,17 +117,17 @@ export default class DocenteProyecto extends Component {
   };
 
   crearClase = () => {
-    this.props.history.push("/menudocente/classroom/proyecto/nuevaclase");
+    this.props.history.push("/menudocente_classroom_proyecto_nuevaclase");
   };
 
   goClase = (lessonId) => {
     cookies.set("lessonid", lessonId, { path: "/" });
-    this.props.history.push("/menudocente/classroom/proyecto/clase");
+    this.props.history.push("/menudocente_classroom_proyecto_clase");
   };
 
   goEditGroups = () => {
-    this.props.history.push("/menudocente/classroom/proyecto/edit/groups");
-  }
+    this.props.history.push("/menudocente_classroom_proyecto_edit_groups");
+  };
 
   opModal = () => {
     this.setState({ tareasModal: true });
@@ -137,21 +139,21 @@ export default class DocenteProyecto extends Component {
 
   render() {
     const styleButton = {
-      width: '50%',
-    }
+      width: "50%",
+    };
     const flexDivStyle = {
-      display: 'flex',
-      justifyContent: 'center',
-    }
+      display: "flex",
+      justifyContent: "center",
+    };
 
     const mainStyle = {
       backgroundImage: "url(" + Background + ")",
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center',
-  };
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+    };
 
-  return (
+    return (
       <div className="mainContainer" style={mainStyle}>
         <HeaderTeacher />
         <div className="mainProyecto">
@@ -172,26 +174,29 @@ export default class DocenteProyecto extends Component {
             <div className="left">
               <div className="flex-start">
                 <h3>Grupos</h3>
-              <Button onClick={this.goEditGroups} color="success" size="lg">Editar grupos</Button>
+                <Button onClick={this.goEditGroups} color="success" size="lg">
+                  Editar grupos
+                </Button>
               </div>
               <DocenteProgresoGrupo studentGroups={this.state.groups} />
               {/* {this.state.modal} */}
-              <br /><br />
-              <div >
+              <br />
+              <br />
+              <div>
                 <h3>Tareas entregadas por los alumnos</h3>
               </div>
               <div style={flexDivStyle}>
-                <Button style={styleButton} onClick={() => this.opModal()}>VER TAREAS</Button>
+                <Button style={styleButton} onClick={() => this.opModal()}>
+                  VER TAREAS
+                </Button>
                 <Modal isOpen={this.state.tareasModal}>
-                  <ModalHeader>
-                    TAREAS ENTREGADAS
-                  </ModalHeader>
+                  <ModalHeader>TAREAS ENTREGADAS</ModalHeader>
                   <ModalBody>
                     {this.state.alumnos.map((alumno) => {
                       return (
                         <h4 key={alumno.id} id={alumno.id}>
                           {alumno.username}
-                          <ShowDocs studentID= {alumno.id}/>
+                          <ShowDocs studentID={alumno.id} />
                         </h4>
                       );
                     })}
@@ -200,17 +205,21 @@ export default class DocenteProyecto extends Component {
                     <Button onClick={() => this.cloModal()}>Finalizar</Button>
                   </ModalFooter>
                 </Modal>
-              </div >
+              </div>
             </div>
 
             <div className="right">
               <div className="center-div">
                 <h3>Clases</h3>
               </div>
-              <VerticalTimeline layout="2-columns" lineColor={"rgb(225, 206, 81)"}>
+              <VerticalTimeline
+                layout="2-columns"
+                lineColor={"rgb(225, 206, 81)"}
+              >
                 {this.state.lessons.map((lesson) => {
                   return (
-                    <VerticalTimelineElement key={lesson.id}
+                    <VerticalTimelineElement
+                      key={lesson.id}
                       className="vertical-timeline-element--work"
                       contentStyle={{
                         background: "rgb(225, 206, 81)",

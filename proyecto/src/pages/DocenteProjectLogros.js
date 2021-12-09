@@ -45,7 +45,7 @@ class DocenteProjectLogros extends Component {
       realValue: "",
       congrats: "",
       rewardName: "",
-      project: {}
+      project: {},
     };
   }
 
@@ -64,15 +64,17 @@ class DocenteProjectLogros extends Component {
           year: year,
           division: division,
         });
-
       });
 
-    let project = (await axios.get(API_HOST + "project/" + cookies.get("projectid"), { headers: { Authorization: cookies.get("token") } })).data;
+    let project = (
+      await axios.get(API_HOST + "project/" + cookies.get("projectid"), {
+        headers: { Authorization: cookies.get("token") },
+      })
+    ).data;
 
     this.setState({
-      project: project
-    })
-
+      project: project,
+    });
 
     // var ans = [];
     // for (let i = 210; i <= 230; i++) {
@@ -83,10 +85,13 @@ class DocenteProjectLogros extends Component {
     // }
 
     await axios
-      .get(API_HOST + "conditions", { headers: { Authorization: cookies.get("token") } })
-      .then(response => {
-
-        const conditions = response.data.filter(condition => condition.conditionType.includes("TARGET"));
+      .get(API_HOST + "conditions", {
+        headers: { Authorization: cookies.get("token") },
+      })
+      .then((response) => {
+        const conditions = response.data.filter((condition) =>
+          condition.conditionType.includes("TARGET")
+        );
 
         //SET STATE
         this.setState({
@@ -128,8 +133,8 @@ class DocenteProjectLogros extends Component {
           ? "error"
           : this.state.condicionId.toString()
         : this.state.selectedOptionA === "Manual"
-          ? "Manual"
-          : "error";
+        ? "Manual"
+        : "error";
 
     const optionB =
       this.state.selectedOptionB === "Virtual"
@@ -137,19 +142,26 @@ class DocenteProjectLogros extends Component {
           ? "error"
           : this.state.selectedOptionImage
         : this.state.selectedOptionB === "Real"
-          ? this.state.realValue === ""
-            ? "error"
-            : this.state.realValue
-          : "error";
+        ? this.state.realValue === ""
+          ? "error"
+          : this.state.realValue
+        : "error";
 
     const optionC =
       this.state.selectedOptionC === "" ? "error" : this.state.selectedOptionC;
 
     const congrats = this.state.congrats === "" ? "error" : this.state.congrats;
 
-    const rewardName = this.state.rewardName === "" ? "error" : this.state.rewardName;
+    const rewardName =
+      this.state.rewardName === "" ? "error" : this.state.rewardName;
 
-    if (optionA === "error" || optionB === "error" || optionC === "error" || congrats === "error" || rewardName === "error") {
+    if (
+      optionA === "error" ||
+      optionB === "error" ||
+      optionC === "error" ||
+      congrats === "error" ||
+      rewardName === "error"
+    ) {
       alert("Completar todos los campos");
     } else {
       this.enviarLogro(optionA, optionB, optionC);
@@ -166,13 +178,13 @@ class DocenteProjectLogros extends Component {
       .then((response) => {
         console.log(response.data);
         alert("Logro creado exitosamente");
-        this.props.history.push("/menudocente/classroom/proyecto/logros");
+        this.props.history.push("/menudocente_classroom_proyecto_logros");
       })
       .catch((error) => {
         console.log(error);
         alert("No se pudo crear el Logro");
       });
-  };
+  }
 
   //optionA es para condicion automatica o manual
   //optionB es para recompensa de avatar o real
@@ -225,9 +237,7 @@ class DocenteProjectLogros extends Component {
         <HeaderTeacher />
         <div className="containerDocenteLogros">
           <div className="navBarDocenteLogros">
-            <h1>
-              Crear nuevo Logro para {this.state.project.name}
-            </h1>
+            <h1>Crear nuevo Logro para {this.state.project.name}</h1>
             <NavDocenteProyecto activeBar="logros" />
           </div>
           <div className="mi-form">
@@ -304,7 +314,9 @@ class DocenteProjectLogros extends Component {
 
               <div className="center-alert">
                 <Alert color="info">Seleccionar tipo de recompensa</Alert>
-                <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
                   <div>
                     <Label>
                       <input
@@ -336,7 +348,13 @@ class DocenteProjectLogros extends Component {
                       Selecciona la parte del avatar que otorgarás como
                       recompensa
                     </Alert>
-                    <div style={{ display: 'flex', justifyContent: 'flex-start', flexWrap: 'wrap' }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        flexWrap: "wrap",
+                      }}
+                    >
                       {accesorios.map((accesorio) => {
                         return (
                           <div
@@ -373,9 +391,17 @@ class DocenteProjectLogros extends Component {
               </div>
               <div className="center-alert">
                 <Alert color="info">Seleccionar medalla</Alert>
-                <div style={{ display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap', gap: '40px', padding: '15px', }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    flexWrap: "wrap",
+                    gap: "40px",
+                    padding: "15px",
+                  }}
+                >
                   {logrosPorCurso.map((logro) => (
-                    <div style={{ margin: '5px' }}>
+                    <div style={{ margin: "5px" }}>
                       <Input
                         type="radio"
                         value={logro.id}
@@ -388,7 +414,10 @@ class DocenteProjectLogros extends Component {
                 </div>
               </div>
               <br />
-              <Button color="primary" type="submit" block> Submit </Button>
+              <Button color="primary" type="submit" block>
+                {" "}
+                Submit{" "}
+              </Button>
             </form>
           </div>
         </div>

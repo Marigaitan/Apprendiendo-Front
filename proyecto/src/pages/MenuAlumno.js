@@ -65,7 +65,7 @@ export default class MenuAlumno extends Component {
   };
 
   goClassroom(classroomId) {
-    this.props.history.push("/menualumno/classroom");
+    this.props.history.push("/menualumno_classroom");
     cookies.set("classid", classroomId, { path: "/" });
   }
 

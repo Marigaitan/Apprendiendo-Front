@@ -69,7 +69,7 @@ export const DocenteAlumnosMetricas = () => {
                     key={alumno.userName}
                     bgcolor="#789a1b"
                     completed={alumno.avgCompletion}
-                    tarea="Promedio de tareas completadas"
+                    tarea="Promedio de avance en las tareas"
                   />
                   <ProgressBar
                     key={alumno.userName}

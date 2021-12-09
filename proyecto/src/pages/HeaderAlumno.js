@@ -155,7 +155,7 @@ const HeaderStudent = () => {
         <SidebarContent>
           <Menu iconShape="square">
             <MenuItem active={true} icon={<FiHome />}>
-              Inicio
+              Mis Cursos
               <Link to="/menualumno" />
             </MenuItem>
 
