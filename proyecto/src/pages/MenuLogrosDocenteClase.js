@@ -36,6 +36,7 @@ export default class MenuLogrosDocenteClase extends Component {
     
     (rewards === null || rewards === [])
     ? this.setState({
+      noRewards: true,
       activity: activity,
       rewards: rewards,
     })

@@ -107,7 +107,7 @@ export default class MenuLogrosDocenteProyecto extends Component {
                 </Alert>
             ) : this.state.noRewards ? (
                 <Alert color="warning">
-                  Todavía no hay logros para esta clase :(
+                  Todavía no hay logros para este proyecto :(
                 </Alert>
             ) : (
                 this.state.rewards.map((reward) => (
