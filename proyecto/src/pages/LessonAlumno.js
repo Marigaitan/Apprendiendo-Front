@@ -306,8 +306,7 @@ export default class LessonAlumno extends Component {
 
   closeModalActivity = async (activityId, name, dataType, answer) => {
     let body = { sourceId: activityId, documentSourceType: "STUDENT_ACTIVITY", name: name, dataType: dataType, data: JSON.stringify(answer) };
-    await axios.post("/user/" + cookies.get("id") + "/activity/" + activityId + "/document", body, { headers: { Authorization: cookies.get("token") }, })
-      .catch(err => { console.log(err); this.setState({ answersQ: [], answersQizz: [] }); });
+    await axios.post("/user/" + cookies.get("id") + "/activity/" + activityId + "/document", body, { headers: { Authorization: cookies.get("token")}});
       
       this.setState({ answersQ: [], answersQizz: [] });
     if (dataType === "QUIZZ") {
@@ -315,9 +314,10 @@ export default class LessonAlumno extends Component {
         grade: (answer.puntaje / answer.resultados.length) * 10,
         percentageCompleted: 100
       }
-      await axios.put("/user/" + cookies.get("id") + "/activity/" + activityId + "/progress", body, { headers: { Authorization: cookies.get("token") }, });
+      await axios.put("/user/" + cookies.get("id") + "/activity/" + activityId + "/progress", body, { headers: { Authorization: cookies.get("token")}});
     }
     this.closeModal();
+    this.componentDidMount();
   }
 
   closeModalDocuments = () => {
