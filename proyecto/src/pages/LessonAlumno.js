@@ -317,7 +317,11 @@ export default class LessonAlumno extends Component {
       await axios.put("/user/" + cookies.get("id") + "/activity/" + activityId + "/progress", body, { headers: { Authorization: cookies.get("token")}});
     }
     await this.closeModal();
-    await this.componentDidMount();
+
+    let activities = (await axios.get(API_HOST + "lesson/" + cookies.get("lessonid"), {headers: { Authorization: cookies.get("token") }})).data.activities;
+    let actGrades = await this.getActivityGrades(activities);
+    await this.setState({activities: activities, actGrades: actGrades});
+    
   }
 
   closeModalDocuments = async () => {
