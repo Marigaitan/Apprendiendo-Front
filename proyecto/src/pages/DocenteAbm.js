@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-//import React, { useMemo, useState, useEffect } from 'react';
 
 
 import axios from 'axios';
 
 import '../css/DocenteAbm.css';
-import img from '../Images/account.png';
 import {
   Table,
   Button,
@@ -33,7 +31,7 @@ const cookies = new Cookies();
 //create api 
 //create table
 
-class DocenteAbm extends React.Component {
+class DocenteAbm extends Component {
 
   constructor(props) {        //constructor de mi clase
     super(props);
@@ -50,9 +48,9 @@ class DocenteAbm extends React.Component {
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
     let teacherAbmUrl = API_HOST + "users/teachers";
-    axios.get(teacherAbmUrl, {
+    await axios.get(teacherAbmUrl, {
       headers: {
         'Authorization': cookies.get('token')
       }
@@ -101,8 +99,8 @@ class DocenteAbm extends React.Component {
   editar = (dato) => {
     var contador = 0;
     var arreglo = this.state.data;
-    arreglo.map((registro) => {
-      if (dato.NombreUsuario == registro.NombreUsuario) {
+    arreglo.forEach((registro) => {
+      if (dato.NombreUsuario === registro.NombreUsuario) {
         arreglo[contador].NombreUsuario = dato.NombreUsuario;
         arreglo[contador].password = dato.password;
       }
@@ -113,11 +111,11 @@ class DocenteAbm extends React.Component {
 
   eliminar = (dato) => {
     var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento " + dato.id);
-    if (opcion == true) {
+    if (opcion) {
       var contador = 0;
       var arreglo = this.state.data;
-      arreglo.map((registro) => {
-        if (dato.id == registro.id) {
+      arreglo.forEach((registro) => {
+        if (dato.id === registro.id) {
           arreglo.splice(contador, 1);
         }
         contador++;

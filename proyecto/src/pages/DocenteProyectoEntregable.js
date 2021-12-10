@@ -29,7 +29,7 @@ export default class DocenteProyectoEntregable extends Component {
 
     handleSubmitEntregable = async (event) => {
         event.preventDefault();
-        alert("Agregaste un nuevo ENTREGABLE!");
+        alert("Agregaste un nuevo entregable!");
         let entregable = {
             id: null,
             name: this.state.nameEntregable,

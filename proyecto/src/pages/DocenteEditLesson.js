@@ -7,7 +7,7 @@ import * as _ from "lodash";
 import HeaderTeacher from './Header';
 import axios from 'axios';
 import { API_HOST } from "../constants";
-import { Alert, Button, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Alert, Button, Input, Label, } from "reactstrap";
 import EditLessonModal from "./EditLessonModal";
 const cookies = new Cookies();
 

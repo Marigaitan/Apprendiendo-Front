@@ -202,7 +202,7 @@ function Routes() {
         />
         <Route
           exact
-          path="/menudocente_classroom_proyecto_edit_groups"
+          path="/menudocente_classroom_proyecto_edit_teams"
           component={DocenteEditGroups}
         />
         <Route

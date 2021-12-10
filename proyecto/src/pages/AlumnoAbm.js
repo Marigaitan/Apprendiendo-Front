@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import '../css/DocenteAbm.css';
-import img from '../Images/account.png';
 import {
   Table,
   Button,
@@ -36,7 +35,7 @@ const cookies = new Cookies();
 
 let studentAbmUrl = API_HOST + "users/students";
 
-class AlumnoAbm extends React.Component {
+class AlumnoAbm extends Component {
 
   constructor(props) {        //constructor de mi clase
     super(props);
@@ -52,9 +51,9 @@ class AlumnoAbm extends React.Component {
     }
   }
 
-  componentDidMount(){
+  async componentDidMount(){
 
-    axios.get(studentAbmUrl, {
+    await axios.get(studentAbmUrl, {
       headers: {
           'Authorization': cookies.get('token')
       }
@@ -103,8 +102,8 @@ class AlumnoAbm extends React.Component {
   editar = (dato) => {
     var contador = 0;
     var arreglo = this.state.data;
-    arreglo.map((registro) => {
-      if (dato.NombreUsuario == registro.NombreUsuario) {
+    arreglo.forEach((registro) => {
+      if (dato.NombreUsuario === registro.NombreUsuario) {
         arreglo[contador].NombreUsuario = dato.NombreUsuario;
         arreglo[contador].password = dato.password;
       }
@@ -115,11 +114,11 @@ class AlumnoAbm extends React.Component {
 
   eliminar = (dato) => {
     var opcion = window.confirm("Estás Seguro que deseas Eliminar el elemento "+dato.id);
-    if (opcion == true) {
+    if (opcion) {
       var contador = 0;
       var arreglo = this.state.data;
-      arreglo.map((registro) => {
-        if (dato.id == registro.id) {
+      arreglo.forEach((registro) => {
+        if (dato.id === registro.id) {
           arreglo.splice(contador, 1);
         }
         contador++;

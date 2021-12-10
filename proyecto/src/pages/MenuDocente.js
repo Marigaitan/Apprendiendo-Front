@@ -107,11 +107,12 @@ export default class MenuDocente extends Component {
             </h1>
           </div>
           <div id="cursos">
-            {this.state.classrooms.map((classroomGroup) => [
-              <h1 id="classroomName">
-                <li key={classroomGroup[0]}>{classroomGroup[0]}</li>
-              </h1>,
-              classroomGroup[1].map((classroom) => (
+            {this.state.classrooms.map((classroomGroup) => 
+            <div key={classroomGroup[0]}>
+              <h1 id="classroomName" >
+                <li>{classroomGroup[0]}</li>
+              </h1>
+              {classroomGroup[1].map((classroom) => (
                 <Button
                   key={classroom.id}
                   className="classButton"
@@ -119,8 +120,9 @@ export default class MenuDocente extends Component {
                 >
                   {classroom.subject}
                 </Button>
-              )),
-            ])}
+              ))}
+            </div>
+            )}
           </div>
         </div>
       </div>

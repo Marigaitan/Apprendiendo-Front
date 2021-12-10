@@ -101,14 +101,9 @@ class DocenteLessonLogros extends Component {
 
   formSubmit = (event) => {
     event.preventDefault();
-    const optionA =
-      this.state.selectedOptionA === "Predefinida"
-        ? this.state.condicionId === -1
-          ? "error"
-          : this.state.condicionId.toString()
-        : this.state.selectedOptionA === "Manual"
-        ? "Manual"
-        : "error";
+    const optionA = this.state.condicionId === -1
+    ? "error"
+    : this.state.condicionId.toString();
 
     const optionB =
       this.state.selectedOptionB === "Virtual"
@@ -248,46 +243,13 @@ class DocenteLessonLogros extends Component {
                 <Alert color="info">
                   Seleccionar condición para obtener el logro
                 </Alert>
-                <div className="spaceEvenlyDocenteLogros">
-                  <div>
-                    <Label>
-                      <Input
-                        type="radio"
-                        value="Predefinida"
-                        checked={this.state.selectedOptionA === "Predefinida"}
-                        onChange={this.onValueChangeA}
-                      />
-                      Predefinida
-                    </Label>
-                  </div>
-                  <div>
-                    <Label>
-                      <Input
-                        type="radio"
-                        value="Manual"
-                        checked={this.state.selectedOptionA === "Manual"}
-                        onChange={this.onValueChangeA}
-                      />
-                      Manual
-                    </Label>
-                  </div>
-                </div>
               </div>
               {/* esto se puede pasar a un componente */}
               <div className="mi-flex">
-                {this.state.selectedOptionA === "Predefinida" ? (
-                  <Conditions
-                    condiciones={this.state.condiciones}
-                    parentCallback={this.handleCallbackCondition}
-                  />
-                ) : this.state.selectedOptionA === "Manual" ? (
-                  <Alert color="secondary">
-                    Cuando llegue el momento que creas oportuno, otorgarás la
-                    recompensa manualmente
-                  </Alert>
-                ) : (
-                  <div></div>
-                )}
+                <Conditions
+                  condiciones={this.state.condiciones}
+                  parentCallback={this.handleCallbackCondition}
+                />
               </div>
 
               <div className="center-alert">
