@@ -55,12 +55,10 @@ export default class AlumnoProyecto extends Component {
       let miembros = (await axios.get("group/" + grupo.id + "/students")).data;
       return Promise.all(
         miembros.map((miembro) => {
-          return axios
-            .get("user/" + miembro.studentId)
-            .then((response) => ({
-              name: response.data.username,
-              role: miembro.groupRole,
-            }));
+          return axios.get("user/" + miembro.studentId).then((response) => ({
+            name: response.data.username,
+            role: miembro.groupRole,
+          }));
         })
       );
     } else return [];
@@ -72,7 +70,7 @@ export default class AlumnoProyecto extends Component {
     await axios
       .get("project/" + cookies.get("projectid") + "/lessons")
       .then((response) => {
-        console.log(response);
+        console.log("LA RESPONSE:", response);
         const lessons = response.data.map((lessons) => ({
           name: lessons.name,
           id: lessons.id,
@@ -83,6 +81,7 @@ export default class AlumnoProyecto extends Component {
           (lesson) => lesson.status === true
         );
         this.setState({ lessons: lessons, activeLessons: activeLessons });
+        this.setState({ project: response.data[0].project.name });
       })
       .catch((error) => {
         console.log(error);
@@ -115,7 +114,7 @@ export default class AlumnoProyecto extends Component {
         <HeaderStudent />
         <div className="AlumnoProyecto">
           <div className="titleAlumnoProyecto">
-            <h2>{this.state.project.name}</h2>
+            <h2>{this.state.project}</h2>
           </div>
           <div className="myProject">
             <div className="availableLessons">
