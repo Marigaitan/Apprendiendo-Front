@@ -12,7 +12,7 @@ const cookies = new Cookies();
 
 export const SeleccionarAccesorios = ({ id }) => {
   const location = useLocation();
-  const { q = "" } = queryString.parse(location.search);
+  // const { q = "" } = queryString.parse(location.search);
 
   const handleSelection = async (e) => {
     // console.log(e.target);

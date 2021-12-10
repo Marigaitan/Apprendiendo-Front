@@ -85,29 +85,31 @@ export default class DocenteProyecto extends Component {
     let classroomId = cookies.get("classid");
     let projectId = cookies.get("projectid");
 
-    this.setState({ groups: await this.getFullGroups(projectId) });
-    this.setState({
-      lessons: (await axios.get("project/" + projectId + "/lessons")).data,
-    });
-    this.setState({ project: (await axios.get("project/" + projectId)).data });
     cookies.set("project", this.state.project, { path: "/" });
+    
+    let lessons = (await axios.get("project/" + projectId + "/lessons")).data;
     this.setState({
-      status: (await axios.get("project/" + projectId)).data.active,
+      lessons: lessons,
     });
-
+    
+    let groups = await this.getFullGroups(projectId);
+    let project = (await axios.get("project/" + projectId)).data ;
+    let status = (await axios.get("project/" + projectId)).data.active;
+    let alumnos = (await axios.get("classroom/" + classroomId + "/students")).data.map((alumno) => ({ id: alumno.id, username: alumno.username }));
     this.setState({
-      alumnos: (
-        await axios.get("classroom/" + classroomId + "/students")
-      ).data.map((alumno) => ({ id: alumno.id, username: alumno.username })),
+      groups: groups, project: project, status: status, alumnos: alumnos,
     });
-
+    
     console.log("Grupos:");
-    console.log(this.state.groups);
+    console.log(groups);
     console.log("Projecto:");
-    console.log(this.state.project);
+    console.log(project);
     console.log("Lessons:");
-    console.log(this.state.lessons);
-    console.log("EL ESTADO:", this.state.status);
+    console.log(lessons);
+    console.log("EL ESTADO:", status);
+    console.log("Alumnos:");
+    console.log(alumnos);
+
   }
 
   redirect = () => {
@@ -126,16 +128,8 @@ export default class DocenteProyecto extends Component {
   };
 
   goEditGroups = () => {
-    this.props.history.push("/menudocente_classroom_proyecto_edit_groups");
+    this.props.history.push("/menudocente_classroom_proyecto_edit_teams");
   };
-
-  opModal = () => {
-    this.setState({ tareasModal: true });
-  };
-
-  cloModal() {
-    this.setState({ tareasModal: false });
-  }
 
   render() {
     const styleButton = {
@@ -173,39 +167,13 @@ export default class DocenteProyecto extends Component {
           <div className="mainFlex">
             <div className="left">
               <div className="flex-start">
-                <h3>Grupos</h3>
+                <h3>Equipos</h3>
                 <Button onClick={this.goEditGroups} color="success" size="lg">
-                  Editar grupos
+                  Editar equipos
                 </Button>
               </div>
               <DocenteProgresoGrupo studentGroups={this.state.groups} />
               {/* {this.state.modal} */}
-              <br />
-              <br />
-              <div>
-                <h3>Tareas entregadas por los alumnos</h3>
-              </div>
-              <div style={flexDivStyle}>
-                <Button style={styleButton} onClick={() => this.opModal()}>
-                  VER TAREAS
-                </Button>
-                <Modal isOpen={this.state.tareasModal}>
-                  <ModalHeader>TAREAS ENTREGADAS</ModalHeader>
-                  <ModalBody>
-                    {this.state.alumnos.map((alumno) => {
-                      return (
-                        <h4 key={alumno.id} id={alumno.id}>
-                          {alumno.username}
-                          <ShowDocs studentID={alumno.id} />
-                        </h4>
-                      );
-                    })}
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button onClick={() => this.cloModal()}>Finalizar</Button>
-                  </ModalFooter>
-                </Modal>
-              </div>
             </div>
 
             <div className="right">
@@ -225,9 +193,9 @@ export default class DocenteProyecto extends Component {
                         background: "rgb(225, 206, 81)",
                         color: "#000000",
                       }}
-                      contentArrowStyle={{
-                        borderRight: "7px solid  rgb(33, 150, 243)",
-                      }}
+                      // contentArrowStyle={{
+                      //   borderRight: "7px solid  rgb(33, 150, 243)",
+                      // }}
                       // date="1/4 al 10/4"
                       iconStyle={{
                         background: "rgb(225, 206, 81)",

@@ -15,6 +15,7 @@ export default class MenuLogrosDocenteClase extends Component {
     //constructor de mi clase
     super(props);
     this.state = {
+      errorRewards: false,
       noRewards: false,
       rewards: [],
       activity: {},
@@ -32,10 +33,16 @@ export default class MenuLogrosDocenteClase extends Component {
         headers: { Authorization: cookies.get("token") },
       })
     ).data;
-    this.setState({
+    
+    (rewards === null || rewards === [])
+    ? this.setState({
       activity: activity,
       rewards: rewards,
-    });
+    })
+    : this.setState({
+      activity: activity,
+      noRewards: true,
+    })
   }
 
   //para que lo redirija al login si no hay token
@@ -53,16 +60,16 @@ export default class MenuLogrosDocenteClase extends Component {
   };
 
   imageSource = (reward) => {
-    if(reward == null || reward == undefined) return '';
+    if(reward === null || reward === undefined) return '';
     
-    if(reward.rewardType == "AVATAR") {
+    if(reward.rewardType === "AVATAR") {
       if (reward.data.startsWith("b")) return `./avatars/${reward.data}.png`;
       if (reward.data.startsWith("o")) return `./accesorios/${reward.data}.png`;
       if (reward.data.startsWith("l")) return `./accesorios/${reward.data}.png`;
       if (reward.data.startsWith("r")) return `./accesorios/${reward.data}.png`;
     }
 
-    if (reward.imageData == null) return '';
+    if (reward.imageData === null) return '';
     if (reward.imageData.startsWith("mc")) return `./medallas_cursos/${reward.imageData}.png`;
     else return `./medallas/${reward.imageData}.png`;
   }
@@ -74,24 +81,22 @@ export default class MenuLogrosDocenteClase extends Component {
       <div className="mainContainer">
         <HeaderTeacher />
         <div className="full-width-div">
+          <div className="navBarMenuLogrosDocente">
           <h1>{this.state.activity.name}</h1>
-          <div>
+          </div>
+          <div className="whiteBoxMenuLogrosDocente">
             {this.state.errorRewards ? (
-              <div className="center-button">
                 <Alert color="danger">
                   Hubo un error para cargar los logros de esta clase
                 </Alert>
-              </div>
             ) : this.state.noRewards ? (
-              <div className="center-button">
-                <Alert color="secondary">
+                <Alert color="warning">
                   Todavía no hay logros para esta clase :(
                 </Alert>
-              </div>
             ) : (
-              <div className="center-button">
+              <div>
                 {this.state.rewards.map((reward) => (
-                  <div key={reward.id} className="flex-center">
+                  <div key={reward.id} className="flexCenterMenuLogrosDocente">
                     <div>
                       <img
                         src={this.imageSource(reward)}
@@ -110,8 +115,7 @@ export default class MenuLogrosDocenteClase extends Component {
               </div>
             )}
             <Button
-              className="center-button"
-              outline
+            className="centerButtonMenuLogrosDocente"
               block
               color="primary"
               onClick={this.crearLogro}

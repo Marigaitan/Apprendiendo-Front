@@ -23,23 +23,19 @@ export default class CorregirActividades extends Component {
     async componentDidMount() {
         axios.defaults.headers.common["Authorization"] = cookies.get("token");
         axios.defaults.baseURL = API_HOST;
-        this.setState({
-            lesson: (await axios.get("lesson/" + cookies.get('lessonid'))).data,
-        });
-        this.setState({
-            activities: (await axios.get("lesson/" + cookies.get('lessonid') + "/activities")).data //.map(activity =>({ id: activity.documents[0].id, name: activity.documents[0].name})),
-        });
 
-        this.setState({
-            alumnos: (await axios.get("classroom/" + cookies.get('classid') + "/students")).data.map(alumno => ({ id: alumno.id, username: alumno.username })),
-        });
-
+        let lesson = (await axios.get("lesson/" + cookies.get('lessonid'))).data;
+        let activities = (await axios.get("lesson/" + cookies.get('lessonid') + "/activities")).data; //.map(activity =>({ id: activity.documents[0].id, name: activity.documents[0].name})),
+        let alumnos =  (await axios.get("classroom/" + cookies.get('classid') + "/students")).data.map(alumno => ({ id: alumno.id, username: alumno.username }));
+        
         console.log("lesson")
-        console.log(this.state.lesson)
+        console.log(lesson)
         console.log("activities")
-        console.log(this.state.activities)
+        console.log(activities)
         console.log("alumnos")
-        console.log(this.state.alumnos)
+        console.log(alumnos)
+        
+        this.setState({ lesson: lesson, activities: activities, alumnos: alumnos });
     }
 
     render() {

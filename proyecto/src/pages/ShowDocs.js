@@ -79,13 +79,13 @@ export default class ShowDocs extends Component {
     this.setState({ openModal: false, modalId: -1 });
   }
 
-  calificar(activityId) {
+  async calificar(activityId) {
     let body = {
       percentageCompleted: 100,
       dateCompleted: (new Date()).toISOString(),
       grade: this.state.selectGrade,
     }
-    axios.put("user/" + this.props.studentID + "/activity/" + activityId + "/progress", body)
+    await axios.put("user/" + this.props.studentID + "/activity/" + activityId + "/progress", body)
       .then(response => {
         alert("Nota actualizada correctamente");
         window.location.reload();

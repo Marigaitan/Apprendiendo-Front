@@ -16,6 +16,7 @@ export default class MenuLogrosDocenteProyecto extends Component {
     //constructor de mi clase
     super(props);
     this.state = {
+      errorRewards: false,
       noRewards: false,
       rewards: [],
       project: {},
@@ -95,45 +96,34 @@ export default class MenuLogrosDocenteProyecto extends Component {
       <div className="mainContainer">
         <HeaderTeacher />
         <div className="full-width-div">
+          <div className="navBarMenuLogrosDocente">
           <h1>{this.state.project.name}</h1>
           <NavDocenteProyecto activeBar="logros" />
-          <div>
+          </div>
+          <div className="whiteBoxMenuLogrosDocente">
             {this.state.errorRewards ? (
-              <div className="center-button">
                 <Alert color="danger">
                   Hubo un error para cargar los logros de esta clase
                 </Alert>
-              </div>
             ) : this.state.noRewards ? (
-              <div className="center-button">
-                <Alert color="secondary">
+                <Alert color="warning">
                   Todavía no hay logros para esta clase :(
                 </Alert>
-              </div>
             ) : (
-              <div className="center-button">
-                {this.state.rewards.map((reward) => (
-                  <div key={reward.id} className="flex-center">
-                    <div>
+                this.state.rewards.map((reward) => (
+                  <div key={reward.id} className="flexCenterMenuLogrosDocente">
                       <img
                         src={this.imageSource(reward)}
                         alt={reward.imageData}
                         width="50"
                       />
-                    </div>
-                    <div>
                       <Badge>{reward.name}</Badge>
-                    </div>
-                    <div>
                       <Label>{reward.text}</Label>
-                    </div>
                   </div>
-                ))}
-              </div>
+                ))
             )}
             <Button
               className="center-button"
-              outline
               block
               color="primary"
               onClick={this.crearLogro}

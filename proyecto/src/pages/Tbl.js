@@ -64,14 +64,14 @@ export default class Tbl extends Component {
     closeModal() {
         this.setState({ openModal: false, modalId: -1 });
     }
-    addLesson = (lesson, documents) => {
+    addLesson = async (lesson, documents) => {
         let putParamUrl = API_HOST + "lesson";
-        axios.put(putParamUrl, lesson, { headers: { 'Authorization': cookies.get('token') } })
+        await axios.put(putParamUrl, lesson, { headers: { 'Authorization': cookies.get('token') } })
             .then(response => console.log(response.data))
         let sendDocs = documents.map(doc =>
             axios.post(API_HOST + "document", doc, { headers: { 'Authorization': cookies.get('token') } })
         );
-        axios.all(sendDocs).catch(console.log);
+        await axios.all(sendDocs).catch(console.log);
         this.closeModal();
     }
 

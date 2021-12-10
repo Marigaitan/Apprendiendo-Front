@@ -40,7 +40,7 @@ export default class DocenteNuevoProyecto extends Component {
       headers: { Authorization: cookies.get("token") },
     });
 
-    axios
+    await axios
       .all([requestOne, requestFour])
       .then(
         axios.spread((classData, methodologiesData) => {

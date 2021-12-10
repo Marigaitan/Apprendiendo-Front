@@ -1,15 +1,45 @@
-.center-button{
-    width: 30%;
+.centerButtonMenuLogrosDocente{
+    width: 50%;
+    align-self: center;
 }
 
 .full-width-div{
     width: 100%;
+    background: url(../Images/fondoLetras.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
 }
 
-.flex-center{
-    display:flex;
-    justify-content:flex-start;
+.navBarMenuLogrosDocente{
+    width: 100%;
+    background-color: rgb(255, 255, 255, 0.8);
+    border-bottom: 1px solid grey;
+    backdrop-filter: blur(6px);
+}
+
+.whiteBoxMenuLogrosDocente{
+    border-radius: 20px;
+    border: 1px solid grey;
+    margin: 15px;
+    padding: 10px;
+    background-color: rgb(255, 255, 255, 0.8);
+    backdrop-filter: blur(6px);
     gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+}
+
+.flexCenterMenuLogrosDocente{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 15px;
-    
+    width: 100%;
 }

@@ -98,13 +98,13 @@ export default class LessonAlumno extends Component {
         documento,
         { headers: { Authorization: cookies.get("token") }, })
     })
-    
+
     await Promise.allSettled(archivosRequest)
       .then((results) => {
         console.log(results);
         let sentDocs = results.filter(result => result.status === 'fulfilled')
         alert(sentDocs.length + " documentos cargados");
-        results.forEach((failedDoc, index) => {if(failedDoc.status === 'rejected') alert("fallo la carga del archivo: " + this.state.archivos[index].name )})
+        results.forEach((failedDoc, index) => { if (failedDoc.status === 'rejected') alert("fallo la carga del archivo: " + this.state.archivos[index].name) })
         this.setState({ archivos: [] });
         window.location.reload(false)
       })

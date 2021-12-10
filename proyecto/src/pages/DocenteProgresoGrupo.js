@@ -50,7 +50,7 @@ export default class DocenteProgresoGrupo extends Component {
                             </ModalHeader>
                             <ModalBody>
                                 <div>
-                                    <h3>Progreso de la clase del grupo: </h3>
+                                    <h3>Progreso de la clase del equipo: </h3>
                                     <Progress value={studentGroup.progress}>{studentGroup.progress}%</Progress>
                                 </div>
                                 <br />

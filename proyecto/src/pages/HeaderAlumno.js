@@ -10,7 +10,7 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
 } from "reactstrap";
 import { useIntervalWhen } from "rooks";
 
@@ -30,7 +30,7 @@ import {
   FiArrowLeftCircle,
   FiArrowRightCircle,
 } from "react-icons/fi";
-import { BiCog, BiUser} from "react-icons/bi";
+import { BiCog, BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
 //import sidebar css from react-pro-sidebar module and our custom css
 import "react-pro-sidebar/dist/css/styles.css";
@@ -45,7 +45,6 @@ const HeaderStudent = () => {
   const [rewards, setRewards] = useState([]);
   const [newRewards, setNewRewards] = useState([]);
   const [openNewRewardsModal, setOpenNewRewardsModal] = useState(false);
-  
 
   //create a custom function that will change menucollapse state from false to true and true to false
   const menuIconClick = () => {
@@ -53,64 +52,65 @@ const HeaderStudent = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
 
-
-  useIntervalWhen(() => {
-    getRecentAchievements();
+  useIntervalWhen(
+    () => {
+      getRecentAchievements();
     },
     5000,
     true,
     true
   );
 
-
   const getRecentAchievements = async () => {
     axios.defaults.headers.common["Authorization"] = cookies.get("token");
     axios.defaults.baseURL = API_HOST;
 
-
-
     if (firstRender) {
-      let currentRewards = (await axios.get("user/" + cookies.get("id") + "/rewards")).data;
-      setRewards(rewards => rewards = currentRewards);
-      setFirstRender(firstRender => firstRender = false);    
-    }
-    else {
-      let currentRewards = (await axios.get("user/" + cookies.get("id") + "/rewards")).data;
-      let diff = currentRewards.filter(x => !rewards.some(y => y.id == x.id));
+      let currentRewards = (
+        await axios.get("user/" + cookies.get("id") + "/rewards")
+      ).data;
+      setRewards((rewards) => (rewards = currentRewards));
+      setFirstRender((firstRender) => (firstRender = false));
+    } else {
+      let currentRewards = (
+        await axios.get("user/" + cookies.get("id") + "/rewards")
+      ).data;
+      let diff = currentRewards.filter(
+        (x) => !rewards.some((y) => y.id == x.id)
+      );
 
       if (diff.length > 0) {
-        setRewards(rewards => rewards = currentRewards);
-        setNewRewards(newRewards => newRewards = diff);
-        setOpenNewRewardsModal(open => open = true);
+        setRewards((rewards) => (rewards = currentRewards));
+        setNewRewards((newRewards) => (newRewards = diff));
+        setOpenNewRewardsModal((open) => (open = true));
       }
     }
-
-  }
+  };
 
   const imageSource = (reward) => {
-    if(reward == null || reward == undefined) return '';
-    
-    if(reward.rewardType == "AVATAR") {
+    if (reward == null || reward == undefined) return "";
+
+    if (reward.rewardType == "AVATAR") {
       if (reward.data.startsWith("b")) return `./avatars/${reward.data}.png`;
       if (reward.data.startsWith("o")) return `./accesorios/${reward.data}.png`;
       if (reward.data.startsWith("l")) return `./accesorios/${reward.data}.png`;
       if (reward.data.startsWith("r")) return `./accesorios/${reward.data}.png`;
     }
 
-    if (reward.imageData == null) return '';
-    if (reward.imageData.startsWith("mc")) return `./medallas_cursos/${reward.imageData}.png`;
+    if (reward.imageData == null) return "";
+    if (reward.imageData.startsWith("mc"))
+      return `./medallas_cursos/${reward.imageData}.png`;
     else return `./medallas/${reward.imageData}.png`;
-  }
-
+  };
 
   const newRewardsModal = () => {
-      return (
-        <Modal isOpen={openNewRewardsModal} className="modalStyle">
-          <ModalHeader size="lg">{"Felicitaciones!"}</ModalHeader>
-          <ModalBody>
-            {newRewards.map(reward => {
-              return (
-                <div className="card ms-3 mt-2" style={{ maxWidth: 120 }}>
+    return (
+      <Modal isOpen={openNewRewardsModal} className="modalStyle">
+        <ModalHeader size="lg">{"Felicitaciones!"}</ModalHeader>
+        <ModalBody>
+          {newRewards.map((reward) => {
+            return (
+              <div className="card ms-3 mt-2" style={{ maxWidth: 120 }}>
                 <div className="row no-gutters">
                   <div className="d-flex flex-column align-items-center text-center">
                     <img
@@ -121,20 +121,30 @@ const HeaderStudent = () => {
                   </div>
                   <div>
                     <div>
-                      <p style={{ color: "red", fontWeight: "bold" }}>{reward.name}</p>
+                      <p style={{ color: "red", fontWeight: "bold" }}>
+                        {reward.name}
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-              )
-            })}
-          </ModalBody>
-          <ModalFooter className="modalFooter">
-          <Button color="primary" onClick={() => setOpenNewRewardsModal(firstRender => firstRender = false)}> Ok </Button>
-          </ModalFooter>
-        </Modal>
-      )
-  }
+            );
+          })}
+        </ModalBody>
+        <ModalFooter className="modalFooter">
+          <Button
+            color="primary"
+            onClick={() =>
+              setOpenNewRewardsModal((firstRender) => (firstRender = false))
+            }
+          >
+            {" "}
+            Ok{" "}
+          </Button>
+        </ModalFooter>
+      </Modal>
+    );
+  };
 
   return (
     <div id="header">
@@ -144,17 +154,20 @@ const HeaderStudent = () => {
         <SidebarHeader>
           <div className="logotext">
             {/* small and big change using menucollapse state */}
-            <h3>
-              {menuCollapse ? (
-                <BiUser />
-              ) : (
+
+            {menuCollapse ? (
+              <div style={{ backgroundColor: "#fece00" }}>
+                <BiUser size="3em" color="#fbf4cd" />
+              </div>
+            ) : (
+              <h3>
                 <p id="userName">{cookies.get("username")}</p>
-              )}
-            </h3>
-          </div>
-          <div className="closemenu" onClick={menuIconClick}>
-            {/* changing menu collapse icon on click */}
-            {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
+              </h3>
+            )}
+            <div className="closemenu" onClick={menuIconClick}>
+              {/* changing menu collapse icon on click */}
+              {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
+            </div>
           </div>
         </SidebarHeader>
         <SidebarContent>
