@@ -34,15 +34,16 @@ export default class MenuLogrosDocenteClase extends Component {
       })
     ).data;
     
-    (rewards === null || rewards === [])
+    (rewards == null || rewards == [])
     ? this.setState({
       noRewards: true,
       activity: activity,
       rewards: rewards,
     })
     : this.setState({
+      noRewards: false,
       activity: activity,
-      noRewards: true,
+      rewards: rewards
     })
   }
 
@@ -92,7 +93,7 @@ export default class MenuLogrosDocenteClase extends Component {
                 </Alert>
             ) : this.state.noRewards ? (
                 <Alert color="warning">
-                  Todavía no hay logros para esta clase :(
+                  Todavía no hay logros para esta actividad :(
                 </Alert>
             ) : (
               <div>
