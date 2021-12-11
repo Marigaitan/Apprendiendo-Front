@@ -174,12 +174,7 @@ class DocenteClassroomLogros extends Component {
   //optionB es para recompensa de avatar o real
   //optionC es el icono del logro
   crearLogro = (optionA, optionB, optionC) => {
-    let condition;
-    if (this.state.selectedOptionA === "Predefinida") {
-      condition = optionA;
-    } else {
-      condition = 213;
-    }
+    let condition = optionA;
 
     let data;
     let rewardType;
