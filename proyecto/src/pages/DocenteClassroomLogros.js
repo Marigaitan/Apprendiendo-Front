@@ -116,9 +116,10 @@ class DocenteClassroomLogros extends Component {
 
   formSubmit = (event) => {
     event.preventDefault();
-    const optionA = this.state.condicionId === -1
-          ? "error"
-          : this.state.condicionId.toString();
+    const optionA =
+      this.state.condicionId === -1
+        ? "error"
+        : this.state.condicionId.toString();
 
     const optionB =
       this.state.selectedOptionB === "Virtual"
@@ -368,7 +369,7 @@ class DocenteClassroomLogros extends Component {
               <br />
               <Button color="primary" type="submit" block>
                 {" "}
-                Submit{" "}
+                Crear Logro{" "}
               </Button>
             </form>
           </div>

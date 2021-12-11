@@ -101,9 +101,10 @@ class DocenteLessonLogros extends Component {
 
   formSubmit = (event) => {
     event.preventDefault();
-    const optionA = this.state.condicionId === -1
-    ? "error"
-    : this.state.condicionId.toString();
+    const optionA =
+      this.state.condicionId === -1
+        ? "error"
+        : this.state.condicionId.toString();
 
     const optionB =
       this.state.selectedOptionB === "Virtual"
@@ -162,7 +163,6 @@ class DocenteLessonLogros extends Component {
   //optionB es para recompensa de avatar o real
   //optionC es el icono del logro
   crearLogro = (optionA, optionB, optionC) => {
-
     let condition = optionA;
 
     let data;
@@ -351,7 +351,7 @@ class DocenteLessonLogros extends Component {
               <br />
               <Button color="primary" type="submit" block>
                 {" "}
-                Submit{" "}
+                Crear Logro{" "}
               </Button>
             </form>
           </div>
