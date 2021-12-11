@@ -47,11 +47,11 @@ export const DocenteActividadesMetricas = () => {
     <div className="mainContainer">
       <HeaderTeacher />
       <div className="fondo_general container">
-        <h1> METRICAS</h1>
+        <h1> Métricas </h1>
         <NavMetricas activeBar="Actividades" />
 
         <div className="ml-2 mt-2">
-          <h2>Metricas por Actividades</h2>
+          <h2>Métricas por Actividades</h2>
 
           {activities.map((activity) => {
             return (
