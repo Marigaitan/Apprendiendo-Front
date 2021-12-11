@@ -87,7 +87,11 @@ export const AlumnoProgreso = () => {
   const filtroa = filtro2.filter((imagen) => !imagen.imageData.startsWith("b"));
   const filtrob = filtroa.filter((imagen) => !imagen.imageData.startsWith("o"));
   const filtroc = filtrob.filter((imagen) => !imagen.imageData.startsWith("l"));
-  const filtro = filtroc.filter((imagen) => !imagen.imageData.startsWith("r"));
+  const filtrod = filtroc.filter(
+    (imagen) => !imagen.imageData.startsWith("mc")
+  );
+  const filtro = filtrod.filter((imagen) => !imagen.imageData.startsWith("r"));
+
   console.log("este filtro", filtro);
   console.log("CLASESSS:", clases);
   return (
