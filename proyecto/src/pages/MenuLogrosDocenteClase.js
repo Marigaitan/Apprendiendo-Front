@@ -33,17 +33,18 @@ export default class MenuLogrosDocenteClase extends Component {
         headers: { Authorization: cookies.get("token") },
       })
     ).data;
+
+    console.log(rewards);
     
-    (rewards == null || rewards == [])
+    (rewards === null || rewards.length === 0)
     ? this.setState({
       noRewards: true,
       activity: activity,
-      rewards: rewards,
     })
     : this.setState({
-      noRewards: false,
       activity: activity,
-      rewards: rewards
+      rewards: rewards,
+      noRewards: false,
     })
   }
 
