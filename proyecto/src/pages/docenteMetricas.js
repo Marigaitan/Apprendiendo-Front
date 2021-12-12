@@ -48,7 +48,7 @@ export const DocenteMetricas = () => {
         setClases(classrooms);
       });
   };
-
+  console.log("CLASES", clases);
   return (
     <div className="mainContainer">
       <HeaderTeacher />
@@ -73,16 +73,21 @@ export const DocenteMetricas = () => {
                   <ProgressBar
                     //key={classroom.id}
                     bgcolor="#1b9a9a"
-                    completed={classroom.avgCompletion}
+                    completed={Math.round(classroom.avgCompletion * 100) / 100}
                     tarea="Promedio de avance en las clases"
                   />
                   <ProgressBar
                     //key={classroom.id}
                     bgcolor="#1b9a9a"
-                    completed={classroom.percentageCompleted}
+                    completed={
+                      Math.round(classroom.percentageCompleted * 100) / 100
+                    }
                     tarea="Porcentaje completado de la clase"
                   />
-                  <h2>Nota Promedio de la clase: {classroom.avgGrade}</h2>
+                  <h2>
+                    Nota Promedio de la clase:{" "}
+                    {Math.round(classroom.avgGrade * 100) / 100}
+                  </h2>
                 </div>
                 <br />
               </div>

@@ -144,7 +144,7 @@ export const ProgresoMateria = () => {
             <ProgressBar
               key={idx}
               bgcolor="#6a1b9a"
-              completed={item.progress}
+              completed={Math.round(item.progress * 100) / 100}
               tarea={item.name}
             />
           ))}

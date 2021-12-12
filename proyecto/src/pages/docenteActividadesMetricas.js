@@ -65,16 +65,20 @@ export const DocenteActividadesMetricas = () => {
                   <ProgressBar
                     key={activity.id}
                     bgcolor="#1b9a9a"
-                    completed={activity.avgCompletion}
+                    completed={Math.round(activity.avgCompletion * 100) / 100}
                     tarea="Promedio de avance en las actividades"
                   />
                   <ProgressBar
                     key={activity.id}
                     bgcolor="#1b9a9a"
-                    completed={activity.percentageCompleted}
+                    completed={
+                      Math.round(activity.percentageCompleted * 100) / 100
+                    }
                     tarea="Porcentaje completado de la actividad"
                   />
-                  <h2>Nota Promedio: {activity.avgGrade}</h2>
+                  <h2>
+                    Nota Promedio: {Math.round(activity.avgGrade * 100) / 100}
+                  </h2>
                 </div>
                 <br />
               </div>
