@@ -1,16 +1,16 @@
+import axios from "axios";
+import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { VerticalTimeline } from "react-vertical-timeline-component";
 import Cookies from "universal-cookie/es6";
-import "../css/Global.css";
+import { API_HOST } from "../constants";
 import "../css/AlumnoProyecto.css";
+import "../css/Global.css";
 import "../css/VerticalTimeLine.css";
 import "../css/VerticalTimeLineElement.css";
 import LogoMini from "../Images/logoMini.png";
-import axios from "axios";
-import { API_HOST } from "../constants";
 import HeaderStudent from "./HeaderAlumno";
-import { VerticalTimeline } from "react-vertical-timeline-component";
 import VerticalTimelineElement from "./VerticalTimeLineElement";
-import PropTypes from "prop-types";
 
 const cookies = new Cookies();
 

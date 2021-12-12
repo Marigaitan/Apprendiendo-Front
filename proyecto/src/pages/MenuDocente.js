@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import Cookies from "universal-cookie/es6";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import * as _ from "lodash";
+import React, { Component } from "react";
+import { Button } from "reactstrap";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
 import "../css/Global.css";
 import "../css/MenuDocente.css";
-import axios from "axios";
-import * as _ from "lodash";
-import HeaderTeacher from "./Header";
-import { API_HOST } from "../constants";
 import Background from "../Images/fondoLetras.png";
-import { Button } from "reactstrap";
+import HeaderTeacher from "./Header";
 
 const cookies = new Cookies();
 

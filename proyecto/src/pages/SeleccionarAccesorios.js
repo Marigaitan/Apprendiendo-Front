@@ -1,12 +1,11 @@
-import React from "react";
-import Cookies from "universal-cookie/es6";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import { useLocation } from "react-router";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
 import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
-import axios from "axios";
-import { API_HOST } from "../constants";
-import { useLocation } from "react-router";
-import queryString from "query-string";
 
 const cookies = new Cookies();
 

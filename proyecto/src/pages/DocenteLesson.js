@@ -1,11 +1,11 @@
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Component } from "react";
 import { Button, Label } from "reactstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/Global.css";
-import "../css/DocenteLesson.css";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import axios from "axios";
+import "../css/DocenteLesson.css";
+import "../css/Global.css";
 import HeaderTeacher from "./Header";
 import Switch from "./Switch";
 

@@ -1,23 +1,15 @@
-import React, { Component } from 'react';
 //import React, { useMemo, useState, useEffect } from 'react';
-
-
 import axios from 'axios';
-
-import '../css/DocenteAbm.css';
+import React, { Component } from 'react';
 import {
-  Table,
   Button,
-  Container,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  FormGroup,
-  ModalFooter,
+  Container, FormGroup, Modal, ModalBody, ModalFooter, ModalHeader, Table
 } from "reactstrap";
-import HeaderAdmin from './HeaderAdmin';
 import Cookies from 'universal-cookie/es6';
-import {API_HOST} from "../constants";
+import { API_HOST } from "../constants";
+import '../css/DocenteAbm.css';
+import HeaderAdmin from './HeaderAdmin';
+
 
 const cookies = new Cookies();
 //const data = [

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { isCompositeComponent } from "react-dom/test-utils";
+import React, { useEffect, useState } from "react";
 import "../css/Quizz.css";
 
 

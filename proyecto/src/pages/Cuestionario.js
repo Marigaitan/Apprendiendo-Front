@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import "../css/Quizz.css";
-import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import "../css/Quizz.css";
 
 const Cuestionario = React.memo(({ handleAnswers, work }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);

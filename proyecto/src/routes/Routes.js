@@ -1,53 +1,53 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom"; //En browserRouter y en Switch
-
+import { BrowserRouter, Route, Switch } from "react-router-dom"; //En browserRouter y en Switch
+import AlumnoAbm from "../pages/AlumnoAbm";
+import AlumnoClassroom from "../pages/AlumnoClassroom";
+import AlumnoPerfil from "../pages/AlumnoPerfil";
+import { AlumnoProgreso } from "../pages/AlumnoProgreso";
+import AlumnoProyecto from "../pages/AlumnoProyecto";
+import AulaInvertida from "../pages/AulaInvertida";
+import CorregirActividades from "../pages/CorregirActividades";
+import DocenteAbm from "../pages/DocenteAbm";
+import { DocenteActividadesMetricas } from "../pages/docenteActividadesMetricas";
+import { DocenteAlumnosMetricas } from "../pages/docenteAlumnosMetricas";
+import DocenteClassroom from "../pages/DocenteClassroom";
+import DocenteClassroomLogros from "../pages/DocenteClassroomLogros";
+import DocenteEditGroups from "../pages/DocenteEditGroups";
+import DocenteEditLesson from "../pages/DocenteEditLesson";
+import DocenteLesson from "../pages/DocenteLesson";
+import DocenteLessonLogros from "../pages/DocenteLessonLogros";
+import { DocenteLessonsMetricas } from "../pages/docenteLessonsMetricas";
+import { DocenteMetricas } from "../pages/docenteMetricas";
+import DocenteNuevoProyecto from "../pages/DocenteNuevoProyecto";
+import DocenteProjectLogros from "../pages/DocenteProjectLogros";
+import DocenteProyecto from "../pages/DocenteProyecto";
+import { DocenteProyectosMetricas } from "../pages/docenteProyectosMetricas";
+import LessonAlumno from "../pages/LessonAlumno";
+import ListaAlumnos from "../pages/ListaAlumnos";
+import { ListarAccesorios } from "../pages/ListarAccesorios";
+import { ListarAvatars } from "../pages/ListarAvatars";
+import { ListarLogros } from "../pages/ListarLogros";
+import { ListarLogrosDelCurso } from "../pages/ListarLogrosDelCurso";
 //encerramos todas las rutas que vayamos a declarar, y en Route declararemos cada una de las paginas
 import Login from "../pages/Login";
 import MenuAdmin from "../pages/MenuAdmin";
 import MenuAlumno from "../pages/MenuAlumno";
 import MenuDocente from "../pages/MenuDocente";
-import Repositorio from "../pages/Repositorio";
-import AlumnoClassroom from "../pages/AlumnoClassroom";
-import LessonAlumno from "../pages/LessonAlumno";
-import DocenteClassroom from "../pages/DocenteClassroom";
-import AlumnoProyecto from "../pages/AlumnoProyecto";
-import DocenteProyecto from "../pages/DocenteProyecto";
-import DocenteAbm from "../pages/DocenteAbm";
-import Metodologias from "../pages/Metodologias";
-import AlumnoAbm from "../pages/AlumnoAbm";
-import ListaAlumnos from "../pages/ListaAlumnos";
-import DocenteNuevoProyecto from "../pages/DocenteNuevoProyecto";
-import AlumnoPerfil from "../pages/AlumnoPerfil";
-import NewStandarProject from "../pages/NewStandarProject";
-import { ListarAvatars } from "../pages/ListarAvatars";
-import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
-import { ListarAccesorios } from "../pages/ListarAccesorios";
-import DocenteClassroomLogros from "../pages/DocenteClassroomLogros";
-import DocenteProjectLogros from "../pages/DocenteProjectLogros";
-import DocenteLessonLogros from "../pages/DocenteLessonLogros";
-
-import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
-
-import NewClase from "../pages/NewClase";
-import DocenteEditLesson from "../pages/DocenteEditLesson";
-import AulaInvertida from "../pages/AulaInvertida";
-import Pbl from "../pages/Pbl";
-import { AlumnoProgreso } from "../pages/AlumnoProgreso";
-import { ProgresoMateria } from "../pages/ProgresoMateria";
-import { ListarLogros } from "../pages/ListarLogros";
-import { ListarLogrosDelCurso } from "../pages/ListarLogrosDelCurso";
+import MenuLogrosDocenteClase from "../pages/MenuLogrosDocenteClase";
 import MenuLogrosDocenteClassroom from "../pages/MenuLogrosDocenteClassroom";
 import MenuLogrosDocenteProyecto from "../pages/MenuLogrosDocenteProyecto";
-import MenuLogrosDocenteClase from "../pages/MenuLogrosDocenteClase";
-import DocenteLesson from "../pages/DocenteLesson";
-import CorregirActividades from "../pages/CorregirActividades";
-import { DocenteMetricas } from "../pages/docenteMetricas";
-import DocenteEditGroups from "../pages/DocenteEditGroups";
-import { DocenteAlumnosMetricas } from "../pages/docenteAlumnosMetricas";
-import { DocenteProyectosMetricas } from "../pages/docenteProyectosMetricas";
-import { DocenteLessonsMetricas } from "../pages/docenteLessonsMetricas";
-import { DocenteActividadesMetricas } from "../pages/docenteActividadesMetricas";
+import Metodologias from "../pages/Metodologias";
+import NewClase from "../pages/NewClase";
+import NewStandarProject from "../pages/NewStandarProject";
+import Pbl from "../pages/Pbl";
+import { ProgresoMateria } from "../pages/ProgresoMateria";
+import Repositorio from "../pages/Repositorio";
+import { SeleccionarAccesorios } from "../pages/SeleccionarAccesorios";
+import { SeleccionarAvatar } from "../pages/SeleccionarAvatar";
 import Tbl from "../pages/Tbl";
+
+
+
 
 function Routes() {
   return (

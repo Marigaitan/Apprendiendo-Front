@@ -1,41 +1,33 @@
 //import useState hook to create menu collapse state
+import axios from "axios";
 import React, { useState } from "react";
-import cerrarSesion from "./logout";
-import Cookies from "universal-cookie/es6";
-import { GiRaceCar } from "react-icons/gi";
-import { API_HOST } from "../constants";
-import {
-  Table,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from "reactstrap";
-import { useIntervalWhen } from "rooks";
-
-//import react-pro-sidebar components
-import {
-  ProSidebar,
-  Menu,
-  MenuItem,
-  SidebarHeader,
-  SidebarFooter,
-  SidebarContent,
-} from "react-pro-sidebar";
+import { BiCog, BiUser } from "react-icons/bi";
 //import icons from react-icons
 import {
-  FiHome,
-  FiLogOut,
   FiArrowLeftCircle,
-  FiArrowRightCircle,
+  FiArrowRightCircle, FiHome,
+  FiLogOut
 } from "react-icons/fi";
-import { BiCog, BiUser } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { GiRaceCar } from "react-icons/gi";
+//import react-pro-sidebar components
+import {
+  Menu,
+  MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader
+} from "react-pro-sidebar";
 //import sidebar css from react-pro-sidebar module and our custom css
 import "react-pro-sidebar/dist/css/styles.css";
+import { Link } from "react-router-dom";
+import {
+  Button,
+  Modal, ModalBody,
+  ModalFooter, ModalHeader
+} from "reactstrap";
+import { useIntervalWhen } from "rooks";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
 import "../css/Header.css";
-import axios from "axios";
+import cerrarSesion from "./logout";
+
 
 const cookies = new Cookies();
 const HeaderStudent = () => {

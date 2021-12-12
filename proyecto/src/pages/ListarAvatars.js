@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
+import HeaderStudent from "./HeaderAlumno";
 //import { avatars } from "../data/avatars";
 import { SeleccionarAvatar } from "./SeleccionarAvatar";
-import HeaderStudent from "./HeaderAlumno";
-import { API_HOST } from "../constants";
-import Cookies from "universal-cookie/es6";
-import axios from "axios";
 
 const cookies = new Cookies();
 export const ListarAvatars = () => {

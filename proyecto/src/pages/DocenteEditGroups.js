@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import Cookies from "universal-cookie/es6";
-import "../css/Global.css";
-import "../css/DocenteEditGroups.css";
-import * as _ from "lodash";
 import axios from "axios";
-import { Alert, Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import * as _ from "lodash";
+import React, { Component } from "react";
+import { Alert, Button, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import HeaderTeacher from "./Header";
+import "../css/DocenteEditGroups.css";
+import "../css/Global.css";
 import Background from '../Images/fondoLetras.png';
+import HeaderTeacher from "./Header";
 
 const cookies = new Cookies();
 

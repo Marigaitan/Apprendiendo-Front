@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import {
-  Carousel,
-  CarouselItem,
-  CarouselControl,
-  CarouselIndicators,
-  CarouselCaption
+  Carousel, CarouselCaption, CarouselControl,
+  CarouselIndicators, CarouselItem
 } from 'reactstrap';
-
-import imABP from '../Images/PBL.png';
 import imFC from '../Images/Flipped.png';
+import imABP from '../Images/PBL.png';
 import imTBL from '../Images/TBL.png';
+
 
 const items = [
   {

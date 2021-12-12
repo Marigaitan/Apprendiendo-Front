@@ -1,8 +1,8 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Component } from "react";
 import Cookies from "universal-cookie/es6";
 import "../css/Global.css";
 import "../css/MenuAdmin.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import HeaderAdmin from "./HeaderAdmin";
 
 const cookies = new Cookies();

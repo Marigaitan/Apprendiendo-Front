@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { Component } from "react";
-import { Alert, Label, Table } from "reactstrap";
+import { Label, Table } from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import HeaderTeacher from "./Header";
 import "../css/DocenteEditLesson.css";
+import HeaderTeacher from "./Header";
 import ShowActivity from "./ShowActivity";
 import ShowDocs from "./ShowDocs";
 

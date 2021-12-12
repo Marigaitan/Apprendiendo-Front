@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import Cookies from "universal-cookie/es6";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { Component } from "react";
+import { Alert, Badge, Button, Label } from "reactstrap";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
 import "../css/Global.css";
 import "../css/MenuLogrosDocente.css";
-import axios from "axios";
 import HeaderTeacher from "./Header";
-import { API_HOST } from "../constants";
 import NavDocente from "./NavDocente";
-import { Alert, Badge, Button, Label } from "reactstrap";
 
 const cookies = new Cookies();
 

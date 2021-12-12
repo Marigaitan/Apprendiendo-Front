@@ -1,26 +1,20 @@
-import React, { Component } from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import '../css/Global.css';
-import '../css/DocenteClassroom.css';
-import HeaderTeacher from "./Header";
-import '../css/DocenteEditLesson.css';
-import { API_HOST } from "../constants";
 import axios from 'axios';
-import { Button } from 'reactstrap';
-
-import Cookies from 'universal-cookie/es6';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React, { Component } from 'react';
 import { VerticalTimeline } from 'react-vertical-timeline-component';
-import VerticalTimelineElement from './VerticalTimeLineElement';
-import { ButtonGroup, Label, Form, FormGroup, Input, FormText, Col } from 'reactstrap'
-//import 'react-vertical-timeline-component/style.min.css';
-import { CustomInput, Container, Row, Progress, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Badge, Alert } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import Cookies from 'universal-cookie/es6';
+import { API_HOST } from "../constants";
+import '../css/DocenteClassroom.css';
+import '../css/DocenteEditLesson.css';
+import '../css/Global.css';
 import logo from "../Images/logoMini.png";
-import VerticalTimeLineElement from '../css/VerticalTimeLineElement.css';
-import DocenteProyectoQuizz from './DocenteProyectoQuizz';
 import DocenteProyectoCuestionario from './DocenteProyectoCuestionario';
 import DocenteProyectoEntregable from './DocenteProyectoEntregable';
+import DocenteProyectoQuizz from './DocenteProyectoQuizz';
+import HeaderTeacher from "./Header";
+import VerticalTimelineElement from './VerticalTimeLineElement';
+
 
 //HACER DISEÑO DE CLASES DE LOS PROYECTOS
 //GUARDAR LA INFORMACIÓN

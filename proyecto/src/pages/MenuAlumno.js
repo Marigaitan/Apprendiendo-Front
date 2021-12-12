@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import Cookies from "universal-cookie/es6";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/MenuAlumno.css";
 import axios from "axios";
-import HeaderStudent from "./HeaderAlumno";
-import { API_HOST } from "../constants";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { Component } from "react";
 import { Button } from "reactstrap";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
+import "../css/MenuAlumno.css";
+import HeaderStudent from "./HeaderAlumno";
 
 const cookies = new Cookies();
 

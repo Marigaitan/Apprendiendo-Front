@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../css/Global.css';
-import '../css/DocenteEditLesson.css';
-import Cookies from "universal-cookie/es6";
-import * as _ from "lodash";
-import HeaderTeacher from './Header';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import * as _ from "lodash";
+import React, { Component } from "react";
+import { Alert, Button, Input, Label } from "reactstrap";
+import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import { Alert, Button, Input, Label, } from "reactstrap";
+import '../css/DocenteEditLesson.css';
+import '../css/Global.css';
 import EditLessonModal from "./EditLessonModal";
+import HeaderTeacher from './Header';
 const cookies = new Cookies();
 
 export default class DocenteEditLesson extends Component {

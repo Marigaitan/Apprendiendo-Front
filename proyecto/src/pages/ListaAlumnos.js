@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { Nav, NavItem, NavLink} from 'reactstrap';
-import '../css/Global.css';
-import '../css/DocenteClassroom.css';
-import HeaderTeacher from "./Header";
-import Cookies from 'universal-cookie/es6';
-import {API_HOST} from "../constants";
 import axios from 'axios';
+import React, { Component } from 'react';
+import Cookies from 'universal-cookie/es6';
+import { API_HOST } from "../constants";
+import '../css/DocenteClassroom.css';
+import '../css/Global.css';
+import HeaderTeacher from "./Header";
 import NavDocente from './NavDocente';
 
 const cookies = new Cookies();

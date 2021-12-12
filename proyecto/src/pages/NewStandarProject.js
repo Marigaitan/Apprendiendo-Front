@@ -1,11 +1,11 @@
+import axios from "axios";
 import React, { Component } from "react";
-import "../css/Global.css";
-import "../css/DocenteEditLesson.css";
-import HeaderTeacher from "./Header";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import axios from "axios";
-import { Form, FormGroup, Label, Input, FormText, Button } from "reactstrap";
+import "../css/DocenteEditLesson.css";
+import "../css/Global.css";
+import HeaderTeacher from "./Header";
 
 const cookies = new Cookies();
 

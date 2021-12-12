@@ -1,24 +1,17 @@
-import React, { Component } from "react";
-import Cookies from "universal-cookie/es6";
 import axios from "axios";
+import React, { Component } from "react";
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import {
+  Alert, Button, Input, Label, Modal, ModalBody,
+  ModalFooter, ModalHeader
+} from "reactstrap";
+import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import HeaderStudent from "./HeaderAlumno";
 import "../css/Global.css";
 import "../css/LessonAlumno.css";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Alert,
-  Label,
-  Input,
-} from "reactstrap";
 import Cuestionario from "./Cuestionario";
+import HeaderStudent from "./HeaderAlumno";
 import Quizz from "./Quizz";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 const cookies = new Cookies();
 

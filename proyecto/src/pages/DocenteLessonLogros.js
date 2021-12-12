@@ -1,30 +1,19 @@
-import React, { Component, useState } from "react";
-import "../css/Global.css";
-import "../css/DocenteLogros.css";
-import HeaderTeacher from "./Header";
+import axios from "axios";
+import React, { Component } from "react";
+import {
+  Alert, Button, Input, Label
+} from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import axios from "axios";
-import NavDocente from "./NavDocente";
-import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  Button,
-  Alert,
-  Badge,
-  DropdownToggle,
-  ButtonDropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
-import { logrosPorCurso } from "../data/medallas";
-import ListarLogrosPorCurso from "./ListarLogrosPorCurso";
-import Conditions from "./Conditions";
-import Accesorio from "./Accesorio";
+import "../css/DocenteLogros.css";
+import "../css/Global.css";
 import { accesorios } from "../data/accesorios";
+import { logrosPorCurso } from "../data/medallas";
+import Accesorio from "./Accesorio";
+import Conditions from "./Conditions";
+import HeaderTeacher from "./Header";
+import ListarLogrosPorCurso from "./ListarLogrosPorCurso";
+import NavDocente from "./NavDocente";
 
 const cookies = new Cookies();
 

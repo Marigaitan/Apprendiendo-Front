@@ -1,27 +1,19 @@
+import axios from 'axios';
 import React, { Component } from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import '../css/Global.css';
-import '../css/DocenteEditLesson.css';
-//import '../css/DocenteClassroom.css';
-import HeaderTeacher from "./Header";
+import { Alert, Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 import Cookies from 'universal-cookie/es6';
 import { API_HOST } from "../constants";
-import axios from 'axios';
-import { Button } from 'reactstrap';
+import '../css/DocenteEditLesson.css';
+import '../css/Global.css';
 import LogoMini from '../Images/logoMini.png';
-
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import VerticalTimeline from './VerticalTimeline';
-import VerticalTimelineElement from './VerticalTimeLineElement';
-import { VerticalTimelineElementcss } from '../css/VerticalTimeLineElement.css';
-import Flipped from '../Images/Flipped.png';
-import Campana from '../Images/campana.png';
-import { ButtonGroup, Label, Form, FormGroup, Input, FormText, Col } from 'reactstrap'
-import { Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Badge, Alert } from 'reactstrap';
-import DocenteProyectoQuizz from './DocenteProyectoQuizz';
 import DocenteProyectoCuestionario from './DocenteProyectoCuestionario';
 import DocenteProyectoEntregable from './DocenteProyectoEntregable';
+import DocenteProyectoQuizz from './DocenteProyectoQuizz';
+//import '../css/DocenteClassroom.css';
+import HeaderTeacher from "./Header";
+import VerticalTimeline from './VerticalTimeline';
+import VerticalTimelineElement from './VerticalTimeLineElement';
+
 
 const cookies = new Cookies();
 
