@@ -226,7 +226,7 @@ class Repositorio extends Component {
                   </td>
 
                   <td>
-                    <Button color="primary" onClick={() => this.openVerTemplateModal(template)}> Ver </Button>{" "}  
+                    <Button color="primary" onClick={() => this.openVerTemplateModal(template)}> Usar </Button>{" "}  
                   </td> 
                 </tr>
               ))}
