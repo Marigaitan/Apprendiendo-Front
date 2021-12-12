@@ -51,8 +51,66 @@ export default class DocenteProyecto extends Component {
       status: "",
       tareasModal: false,
       alumnos: [],
+      openExportarModal: false,
+      templateName: "",
+      templateDescription: ""
     };
   }
+
+  handleChange = (e) => {
+    //con este metodo guardamos en el estado el valor del input
+    console.log(e.target.value);
+
+    this.setState({
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  exportarModal() {
+    return(
+      <Modal isOpen={this.state.openExportarModal}>
+      <ModalHeader className="title">
+        <h3 className="title">Exportar a repositorio:</h3>
+      </ModalHeader>
+      <ModalBody>
+        <div>
+          <h2>Nombre del template:</h2>
+          <FormGroup>
+            <Input type="textarea" name="templateName" id="exampleText" onChange={this.handleChange} />
+          </FormGroup>
+        </div>
+        <div>
+          <h2>Descripción:</h2>
+          <FormGroup>
+            <Input type="textarea" name="templateDescription" id="exampleText" onChange={this.handleChange} />
+          </FormGroup>
+        </div>
+      </ModalBody>
+      <ModalFooter className="modalFooter">
+        <Button color="secondary" onClick={() => this.exportar()}>Exportar y Cerrar</Button>
+      </ModalFooter>
+    </Modal>
+    )
+  }
+
+  async exportar() {
+    const template = {
+      name: this.state.templateName,
+      description: this.state.templateDescription,
+      methodologyId: this.state.project.methodologyId,
+      templateType: "PROJECT",
+      template: JSON.stringify((await axios.get("project/" + cookies.get("projectid") + "/template")).data),
+      ownerId: cookies.get("id")
+    }
+
+    axios.post("template", template, { headers: { 'Authorization': cookies.get('token')}});
+    this.setState({openExportarModal:false});
+  }
+
+
 
   async getGroupMembers(groupId) {
     let members = (await axios.get("group/" + groupId + "/students")).data;
@@ -149,6 +207,7 @@ export default class DocenteProyecto extends Component {
 
     return (
       <div className="mainContainer" style={mainStyle}>
+        {this.exportarModal()}
         <HeaderTeacher />
         <div className="mainProyecto">
           <div className="whiteboxTitle">
@@ -224,6 +283,7 @@ export default class DocenteProyecto extends Component {
                   Crear Clase
                 </Button>
               </div>
+              <Button color="secondary" onClick={() => this.setState({openExportarModal:true})}>Exportar Proyecto</Button>
             </div>
           </div>
         </div>
