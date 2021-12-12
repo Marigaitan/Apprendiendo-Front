@@ -262,7 +262,7 @@ export default class Tbl extends Component {
                             <VerticalTimeline lineColor={"rgb(225, 206, 81)"}>
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     iconStyle={{ background: 'rgb(255, 97, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
@@ -294,7 +294,7 @@ export default class Tbl extends Component {
                                 {/* CLASE 1 */}
                                 <VerticalTimelineElement
                                     //className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     iconStyle={{ background: 'rgb(255, 161, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
@@ -393,7 +393,7 @@ export default class Tbl extends Component {
 
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     iconStyle={{ background: 'rgb(255, 246, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
@@ -484,7 +484,7 @@ export default class Tbl extends Component {
                                 {/* CLASE 3 */}
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     iconStyle={{ background: 'rgb(218, 255, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
@@ -576,7 +576,7 @@ export default class Tbl extends Component {
                                 {/* Clase 4 */}
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
                                     iconStyle={{ background: 'rgb(218, 255, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}

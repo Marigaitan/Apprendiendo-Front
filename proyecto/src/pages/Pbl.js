@@ -365,7 +365,7 @@ export default class Pbl extends Component {
               <VerticalTimeline lineColor={"rgb(225, 206, 81)"}>
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: ' rgb(87, 87, 87)' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 73, 51)' }}
                   iconStyle={{ background: 'rgb(255, 73, 51', color: 'rgb(225, 206, 81)' }}
                   icon={<img src={LogoMini} className="small-img" />}
@@ -390,8 +390,7 @@ export default class Pbl extends Component {
                 {/* CLASE 1 */}
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
-
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: ' rgb(87, 87, 87)' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 110  , 51)' }}
                   iconStyle={{ background: 'rgb(255, 110  , 51', color: 'rgb(225, 206, 81)' }}
                   icon={<img src={LogoMini} className="small-img" />}
@@ -477,7 +476,7 @@ export default class Pbl extends Component {
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: ' rgb(87, 87, 87)' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 153  , 51)' }}
                   iconStyle={{ background: 'rgb(255, 153  , 51', color: 'rgb(225, 206, 81)' }}
                   icon={<img src={LogoMini} className="small-img" />}
@@ -555,7 +554,7 @@ export default class Pbl extends Component {
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
                   iconStyle={{ background: 'rgb(255, 175, 51', color: 'rgb(255, 206, 81)' }}
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: ' rgb(87, 87, 87)' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 175, 51)' }}
                   icon={<img src={LogoMini} className="small-img" />}
                 >
@@ -635,7 +634,7 @@ export default class Pbl extends Component {
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: ' rgb(87, 87, 87)' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 202, 51)' }}
                   iconStyle={{ background: 'rgb(255, 202, 51)', color: 'rgb(225, 206, 81)' }}
                   icon={<img src={LogoMini} className="small-img" />}
@@ -728,7 +727,7 @@ export default class Pbl extends Component {
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--education"
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: ' rgb(87, 87, 87)' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 227, 51)' }}
                   iconStyle={{ background: 'rgb(255, 227, 51)', color: '#fff' }}
                   icon={<img src={LogoMini} className="small-img" />}
@@ -820,7 +819,7 @@ export default class Pbl extends Component {
                 {/* CLASE 6 */}
                 <VerticalTimelineElement
                   className="vertical-timeline-element--education"
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: ' rgb(87, 87, 87)' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(210, 220, 71)' }}
 
                   iconStyle={{ background: 'rgb(210, 220, 71)', color: '#fff' }}
@@ -902,7 +901,7 @@ export default class Pbl extends Component {
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--education"
-                  contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
+                  contentStyle={{ background: 'rgb(225, 206, 81)', color: ' rgb(87, 87, 87)' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(184, 232  , 63)' }}
                   iconStyle={{ background: 'rgb(184, 232  , 63)', color: '#fff' }}
                   icon={<img src={LogoMini} className="small-img" />}

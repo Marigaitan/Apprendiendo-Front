@@ -100,7 +100,7 @@ export default class Login extends Component {
               className="inputs"
               name="username"
               placeholder="Usuario"
-              maxLength="10"
+              maxLength="30"
               onChange={this.handleChange}
             />
             <br />
@@ -110,7 +110,7 @@ export default class Login extends Component {
               className="inputs"
               name="password"
               placeholder="Contraseña"
-              maxLength="10"
+              maxLength="30"
               onChange={this.handleChange}
             />
             <br />

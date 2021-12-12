@@ -100,7 +100,7 @@ export default class NewStandarProject extends Component {
                   name="projectName" //Lo que se asigna a name, es el nombre de las variables que seteamos y a las que queremos vincular
                   id="projectName"
                   placeholder="Nombre"
-                  maxLength="20"
+                  maxLength="30"
                   onChange={this.handleChange}
                 />
                 <Label for="projectName">
@@ -111,7 +111,7 @@ export default class NewStandarProject extends Component {
                   name="description" //Lo que se asigna a name, es el nombre de las variables que seteamos y a las que queremos vincular
                   id="description"
                   placeholder="Agregar descripción al proyecto"
-                  maxLength="20"
+                  maxLength="255"
                   onChange={this.handleChange}
                 />
               </FormGroup>
