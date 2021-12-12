@@ -31,13 +31,13 @@ const CarouselMet = (props) => {
   const [animating, setAnimating] = useState(false);
 
   const next = () => {
-    if (animating) return;
+    //if (animating) return;
     const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
     setActiveIndex(nextIndex);
   }
 
   const previous = () => {
-    if (animating) return;
+    //if (animating) return;
     const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
     setActiveIndex(nextIndex);
   }
@@ -50,13 +50,11 @@ const CarouselMet = (props) => {
   const slides = items.map((item) => {
     return (
       <CarouselItem
-        
-        onExiting={() => setAnimating(true)}
+        onExiting={() => setAnimating(false)}
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img src={item.src} alt={item.altText} width="75%"/>
-        <CarouselCaption captionHeader={item.caption}/>
+        <img src={item.src} alt={item.altText} width="70%"/>
       </CarouselItem>
     );
   });
@@ -67,11 +65,13 @@ const CarouselMet = (props) => {
       activeIndex={activeIndex}
       next={next}
       previous={previous}
+      enableTouch="true"
+      interval="5000000000"
     >
-      <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex}/>
+      {/* <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={goToIndex}/> */}
       {slides}
-      <CarouselControl direction="prev" directionText="Anterior" onClickHandler={previous} />
-      <CarouselControl direction="next" directionText="Siguiente" onClickHandler={next} />
+      <CarouselControl className="blackText" direction="prev" directionText="Anterior" onClickHandler={previous} />
+      <CarouselControl className="blackText" direction="next" directionText="Siguiente" onClickHandler={next} />
     </Carousel>
   );
 }

@@ -30,7 +30,7 @@ export default class CorregirActividades extends Component {
     ).data; //.map(activity =>({ id: activity.documents[0].id, name: activity.documents[0].name})),
     let alumnos = (
       await axios.get("classroom/" + cookies.get("classid") + "/students")
-    ).data.map((alumno) => ({ id: alumno.id, username: alumno.username }));
+    ).data;
 
     console.log("lesson");
     console.log(lesson);
@@ -80,7 +80,7 @@ export default class CorregirActividades extends Component {
                   return (
                     <tr key={alumno.id} id={alumno.id}>
                       <th scope="row">{index + 1}</th>
-                      <td>{alumno.username}</td>
+                      <td>{alumno.firstName + " " + alumno.lastName}</td>
                       <td className="width-table">
                         <ShowActivity
                           studentID={alumno.id}

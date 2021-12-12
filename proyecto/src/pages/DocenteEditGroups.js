@@ -268,7 +268,7 @@ export default class DocenteEditGroups extends Component {
                                             <Alert>
                                                 <FormGroup check>
                                                     <Input type="checkbox" id={"myinput" + index + alumno.id} onChange={(e) => this.isChecked(alumno.id, e)} />
-                                                    <Label for={"myinput" + index + alumno.id}>{alumno.username}</Label>
+                                                    <Label for={"myinput" + index + alumno.id}>{alumno.firstName + " " + alumno.lastName}</Label>
                                                 </FormGroup>
                                             </Alert>
                                         </div>
