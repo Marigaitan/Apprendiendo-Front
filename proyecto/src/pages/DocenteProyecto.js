@@ -1,9 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
 import "react-vertical-timeline-component/style.min.css";
-import {
-  Button
-} from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import "../css/DocenteProyecto.css";
@@ -16,8 +13,15 @@ import NavDocenteProyecto from "./NavDocenteProyecto";
 import Switch from "./Switch";
 import VerticalTimeline from "./VerticalTimeline";
 import VerticalTimelineElement from "./VerticalTimeLineElement";
-
-
+import {
+  Button,
+  FormGroup,
+  Input,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
+} from "reactstrap";
 
 
 const cookies = new Cookies();
@@ -38,17 +42,14 @@ export default class DocenteProyecto extends Component {
     };
   }
 
-  handleChange = (e) => {
-    //con este metodo guardamos en el estado el valor del input
-    console.log(e.target.value);
+  handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
 
     this.setState({
-      form: {
-        ...this.state.form,
-        [e.target.name]: e.target.value,
-      },
+      [name]: value
     });
-  };
+  }
 
   exportarModal() {
     return(
