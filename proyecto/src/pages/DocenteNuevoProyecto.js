@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Nav, NavItem, NavLink } from "reactstrap";
+import { Label, Nav, NavItem, NavLink } from "reactstrap";
 import "../css/Global.css";
 import "../css/DocenteClassroom.css";
 import HeaderTeacher from "./Header";
@@ -111,28 +111,24 @@ export default class DocenteNuevoProyecto extends Component {
           <div className="newProjectContainer">
             <div className="newProjectBox">
               <h2>Metodología Basada en Proyecto</h2>
-              <br />
               <Button color="success" onClick={() => this.goPblProject()}>
                 Crear Proyecto
               </Button>
             </div>
             <div className="newProjectBox">
               <h2>Metodología Basada en el Pensamiento</h2>
-              <br />
               <Button color="success" onClick={() => this.goTblProject()}>
                 Crear Proyecto
               </Button>
             </div>
             <div className="newProjectBox">
               <h2>Aula Invertida</h2>
-              <br />
               <Button color="success" onClick={() => this.goFlippedProject()}>
                 Crear Proyecto
               </Button>
             </div>
             <div className="newProjectBox">
               <h2>Proyecto Estándar</h2>
-              <br />
               <Button color="success" onClick={() => this.goStandarProject()}>
                 Crear Proyecto
               </Button>

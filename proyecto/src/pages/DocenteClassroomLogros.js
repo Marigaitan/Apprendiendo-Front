@@ -78,9 +78,9 @@ class DocenteClassroomLogros extends Component {
         headers: { Authorization: cookies.get("token") },
       })
       .then((response) => {
-        const conditions = response.data.filter((condition) =>
-          condition.conditionType.includes("TARGET")
-        );
+        let conditions = response.data
+        .filter((condition) => condition.conditionType.includes("TARGET"));
+        conditions.forEach(condition => condition.text = condition.text.replaceAll('la tarea', 'el curso'));
 
         //SET STATE
         this.setState({

@@ -19,6 +19,9 @@ import Flipped from '../Images/Flipped.png';
 import Campana from '../Images/campana.png';
 import { ButtonGroup, Label, Form, FormGroup, Input, FormText, Col } from 'reactstrap'
 import { Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Badge, Alert } from 'reactstrap';
+import DocenteProyectoQuizz from './DocenteProyectoQuizz';
+import DocenteProyectoCuestionario from './DocenteProyectoCuestionario';
+import DocenteProyectoEntregable from './DocenteProyectoEntregable';
 
 const cookies = new Cookies();
 
@@ -38,13 +41,6 @@ export default class Pbl extends Component {
       description5: '',
       description6: '',
       description7: '',
-      duedateClass1: '',
-      duedateClass2: '',
-      duedateClass3: '',
-      duedateClass4: '',
-      duedateClass5: '',
-      duedateClass6: '',
-      duedateClass7: '',
       textClass1: '',
       textClass2: '',
       textClass3: '',
@@ -79,15 +75,11 @@ export default class Pbl extends Component {
 
     let classparamUrl = API_HOST + "project/template";
 
-    console.log(Date.now())
-
     const body = {
       name: this.state.projectName,
       classroomId: cookies.get('classid'),
       position: 0,
       description: '',
-      //"dueDate": "2021-10-11T01:45:50.611Z",
-      //"startDate": "2021-10-11T01:45:50.611Z",
       active: true,
       documents: [],
       rewards: [],
@@ -96,8 +88,6 @@ export default class Pbl extends Component {
           name: "Pregunta Disparadora",
           position: 0,
           description: '',
-          // "dueDate": "2021-10-11T01:45:50.611Z",
-          // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
           activities: [],
           documents: [],
@@ -107,8 +97,6 @@ export default class Pbl extends Component {
           name: "Formando Equipos",
           position: 1,
           description: '',
-          // "dueDate": "2021-10-11T01:45:50.611Z",
-          // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
           activities: [],
           documents: [],
@@ -118,8 +106,6 @@ export default class Pbl extends Component {
           name: "Planificación",
           position: 2,
           description: '',
-          // "dueDate": "2021-10-11T01:45:50.611Z",
-          // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
           activities: [],
           documents: [],
@@ -129,8 +115,6 @@ export default class Pbl extends Component {
           name: "Investigación",
           position: 3,
           description: '',
-          // "dueDate": "2021-10-11T01:45:50.611Z",
-          // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
           activities: [],
           documents: [],
@@ -140,8 +124,6 @@ export default class Pbl extends Component {
           name: "Puesta en común y debate",
           position: 4,
           description: '',
-          // "dueDate": "2021-10-11T01:45:50.611Z",
-          // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
           activities: [],
           documents: [],
@@ -151,8 +133,6 @@ export default class Pbl extends Component {
           name: "Elaborar Producto",
           position: 5,
           description: '',
-          // "dueDate": "2021-10-11T01:45:50.611Z",
-          // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
           activities: [],
           documents: [],
@@ -162,8 +142,6 @@ export default class Pbl extends Component {
           name: "Presentación del producto",
           position: 6,
           description: '',
-          // "dueDate": "2021-10-11T01:45:50.611Z",
-          // "startDate": "2021-10-11T01:45:50.611Z",
           active: false,
           activities: [],
           documents: [],
@@ -230,8 +208,6 @@ export default class Pbl extends Component {
       position: 0,
       description: this.state.description1,
       projectId: this.state.projectId,
-      dueDate: this.state.duedateClass1,
-      startDate: new Date().toISOString(),
       active: true
     }
     this.setState({ disableButtonClass1: true })
@@ -247,8 +223,6 @@ export default class Pbl extends Component {
       position: 0,
       description: this.state.description2,
       projectId: this.state.projectId,
-      dueDate: this.state.duedateClass2,
-      startDate: new Date().toISOString(),
       active: true
     }
     this.setState({ disableButtonClass2: true })
@@ -263,8 +237,6 @@ export default class Pbl extends Component {
       position: 0,
       description: this.state.description3,
       projectId: this.state.projectId,
-      dueDate: this.state.duedateClass3,
-      startDate: new Date().toISOString(),
       active: true
     }
     this.setState({ disableButtonClass3: true })
@@ -280,8 +252,6 @@ export default class Pbl extends Component {
       position: 0,
       description: this.state.description4,
       projectId: this.state.projectId,
-      dueDate: this.state.duedateClass4,
-      startDate: new Date().toISOString(),
       active: true
     }
     this.setState({ disableButtonClass4: true })
@@ -296,8 +266,6 @@ export default class Pbl extends Component {
       position: 0,
       description: this.state.description5,
       projectId: this.state.projectId,
-      dueDate: this.state.duedateClass5,
-      startDate: new Date().toISOString(),
       active: true
     }
     this.setState({ disableButtonClass5: true })
@@ -312,8 +280,6 @@ export default class Pbl extends Component {
       position: 0,
       description: this.state.description6,
       projectId: this.state.projectId,
-      dueDate: this.state.duedateClass6,
-      startDate: new Date().toISOString(),
       active: true
     }
     this.setState({ disableButtonClass6: true })
@@ -328,8 +294,6 @@ export default class Pbl extends Component {
       position: 0,
       description: this.state.description7,
       projectId: this.state.projectId,
-      dueDate: this.state.duedateClass7,
-      startDate: new Date().toISOString(),
       active: true,
     }
     this.setState({ disableButtonClass7: true })
@@ -349,7 +313,7 @@ export default class Pbl extends Component {
     this.setState({ openModal: true, modalId: id });
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({ openModal: false, modalId: -1 });
   }
 
@@ -411,7 +375,6 @@ export default class Pbl extends Component {
                   className="vertical-timeline-element--work"
                   contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 73, 51)' }}
-                  date='1/4 al 10/4'
                   iconStyle={{ background: 'rgb(255, 73, 51', color: 'rgb(225, 206, 81)' }}
                   icon={<img src={LogoMini} className="small-img" />}
                 ><h3 className="vertical-timeline-element-title">Configuración inicial</h3>
@@ -440,7 +403,6 @@ export default class Pbl extends Component {
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 110  , 51)' }}
                   iconStyle={{ background: 'rgb(255, 110  , 51', color: 'rgb(225, 206, 81)' }}
                   icon={<img src={LogoMini} className="small-img" />}
-                  date='1/4 al 10/4'
                 >
                   <h3 className="vertical-timeline-element-title"> Pregunta Disparadora</h3>
                   <h4 className="vertical-timeline-element-subtitle">Clase 1 </h4>
@@ -505,27 +467,10 @@ export default class Pbl extends Component {
                           )}
                         </FormGroup>
                       </div>
-
-
-
-                      <div className="center-alert">
-                        <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                        <FormGroup>
-                          <Label for="dueDate"></Label>
-                          <Input
-                            type="date"
-                            name="duedateClass1"
-                            id="date"
-                            placeholder="Hora de Finalización"
-                            onChange={this.handleChange}
-                          />
-
-                        </FormGroup>
-
-                      </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addFirstLesson()}>Guardar y Cerrar</Button>
+                      <Button color="primary" onClick={() => this.addFirstLesson()}>Activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
                     </ModalFooter>
                   </Modal>
                 </VerticalTimelineElement>
@@ -534,7 +479,6 @@ export default class Pbl extends Component {
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
-                  //date="10/4 al 11/4"
                   contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 153  , 51)' }}
                   iconStyle={{ background: 'rgb(255, 153  , 51', color: 'rgb(225, 206, 81)' }}
@@ -577,25 +521,10 @@ export default class Pbl extends Component {
                           </div>
                         )}
                       </FormGroup>
-
-                      <div className="center-alert">
-                        <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                        <FormGroup>
-                          <Label for="dueDate"></Label>
-                          <Input
-                            type="date"
-                            name="duedate"
-                            id="date"
-                            placeholder="Hora de Finalización"
-                            onChange={this.handleChange}
-                          />
-
-                        </FormGroup>
-
-                      </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
+                      <Button color="primary" onClick={() => this.addSecondLesson()}>Activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -607,7 +536,6 @@ export default class Pbl extends Component {
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
-                  date='12/4 al 20/4'
                   iconStyle={{ background: 'rgb(255, 175, 51', color: 'rgb(255, 206, 81)' }}
                   contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 175, 51)' }}
@@ -617,7 +545,6 @@ export default class Pbl extends Component {
                   <h4 className="vertical-timeline-element-subtitle">Clase 3</h4>
                   <p>
                     Delimitar fechas y lineamientos para la planificación y desarrollo del proyecto
-
                   </p>
                   <div>  <Button disabled={this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}>Activar Clase</Button>
                     <Modal isOpen={this.state.openModal && this.state.modalId === 3}>
@@ -660,39 +587,21 @@ export default class Pbl extends Component {
                             )}
                           </FormGroup>
                         </div>
-
-
-                        <div className="center-alert">
-                          <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                          <FormGroup>
-                            <Label for="dueDate"></Label>
-                            <Input
-                              type="date"
-                              name="duedateClass3"
-                              id="date"
-                              placeholder="Hora de Finalización"
-                              onChange={this.handleChange}
-                            />
-
-                          </FormGroup>
-
-                        </div>
                       </ModalBody>
                       <ModalFooter className="modalFooter">
-                        <Button color="secondary" onClick={() => this.addThirdLesson()}>Guardar y Cerrar</Button>
+                        <Button color="primary" onClick={() => this.addThirdLesson()}>Activar clase</Button>
+                        <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
                       </ModalFooter>
                     </Modal>
-
                   </div>
-
-
-
-
                 </VerticalTimelineElement>
+
+
                 {/* CLASE 4 */}
+
+
                 <VerticalTimelineElement
                   className="vertical-timeline-element--work"
-                  date='25/4 - 5/5'
                   contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 202, 51)' }}
                   iconStyle={{ background: 'rgb(255, 202, 51)', color: 'rgb(225, 206, 81)' }}
@@ -749,46 +658,18 @@ export default class Pbl extends Component {
                           )}
                         </FormGroup>
                       </div>
-
-
-                      <div className="center-alert">
-                        <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                        <FormGroup>
-                          <Label for="dueDate"></Label>
-                          <Input
-                            type="date"
-                            name="duedateClass4"
-                            id="date"
-                            placeholder="Fecha de presentación"
-                            onChange={this.handleChange}
-                          />
-
-                        </FormGroup>
-
-                      </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addForthLesson()}>Guardar y Cerrar</Button>
+                      <Button color="primary" onClick={() => this.addForthLesson()}>Activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
                     </ModalFooter>
                   </Modal>
-
-
-
-
-
-
-
-
                 </VerticalTimelineElement>
-
-
-
 
                 {/* CLASE 5 */}
 
                 <VerticalTimelineElement
                   className="vertical-timeline-element--education"
-                  date="10/5 - 15/5"
                   contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(255, 227, 51)' }}
                   iconStyle={{ background: 'rgb(255, 227, 51)', color: '#fff' }}
@@ -846,53 +727,17 @@ export default class Pbl extends Component {
                           )}
                         </FormGroup>
                       </div>
-
-
-                      <div className="center-alert">
-                        <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                        <FormGroup>
-                          <Label for="dueDate"></Label>
-                          <Input
-                            type="date"
-                            name="duedate"
-                            id="date"
-                            placeholder="Fecha de presentación"
-                            onChange={this.handleChange}
-                          />
-
-                        </FormGroup>
-
-                      </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addFifthLesson()}>Guardar y Cerrar</Button>
+                      <Button color="primary" onClick={() => this.addFifthLesson()}>Activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
                     </ModalFooter>
                   </Modal>
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </VerticalTimelineElement>
-
-
-
-
-
-
 
                 {/* CLASE 6 */}
                 <VerticalTimelineElement
                   className="vertical-timeline-element--education"
-                  date="20/5 al 03/6"
                   contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(210, 220, 71)' }}
 
@@ -948,31 +793,12 @@ export default class Pbl extends Component {
                           )}
                         </FormGroup>
                       </div>
-
-
-                      <div className="center-alert">
-                        <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                        <FormGroup>
-                          <Label for="dueDate"></Label>
-                          <Input
-                            type="date"
-                            name="duedateClass6"
-                            id="date"
-                            placeholder="Fecha de presentación"
-                            onChange={this.handleChange}
-                          />
-
-                        </FormGroup>
-
-                      </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addSixthLesson()}>Guardar y Cerrar</Button>
+                      <Button color="primary" onClick={() => this.addSixthLesson()}>Activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
                     </ModalFooter>
                   </Modal>
-
-
-
                 </VerticalTimelineElement>
 
 
@@ -982,7 +808,6 @@ export default class Pbl extends Component {
                   className="vertical-timeline-element--education"
                   contentStyle={{ background: 'rgb(225, 206, 81)', color: '#fff' }}
                   contentArrowStyle={{ borderRight: '7px solid  rgb(184, 232  , 63)' }}
-                  date="03/6 al 01/7"
                   iconStyle={{ background: 'rgb(184, 232  , 63)', color: '#fff' }}
                   icon={<img src={LogoMini} className="small-img" />}
 
@@ -1020,10 +845,6 @@ export default class Pbl extends Component {
                         </FormGroup>
                       </div>
                       <div>
-                        <div>
-                        </div>
-
-
                         <h3>Adjuntar documentación con lineamientos</h3>
                         <FormGroup>
                           <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase7', this.state.lessonIds[6])} />
@@ -1038,31 +859,24 @@ export default class Pbl extends Component {
                           )}
                         </FormGroup>
                       </div>
-
-
-
-                      <div className="center-alert">
-                        <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                        <FormGroup>
-                          <Label for="dueDate"></Label>
-                          <Input
-                            type="date"
-                            name="duedateClass7"
-                            id="date"
-                            placeholder="Fecha de presentación"
-                            onChange={this.handleChange}
-                          />
-
-                        </FormGroup>
-
+                      <div>
+                        <h3>Crear Quizz</h3>
+                        <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                      </div>
+                      <div>
+                        <h3>Crear Cuestionario</h3>
+                        <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                      </div>
+                      <div>
+                        <h3>Crear Entregable</h3>
+                        <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="secondary" onClick={() => this.addSeventhLesson()}>Guardar y Cerrar</Button>
+                      <Button color="primary" onClick={() => this.addSeventhLesson()}>Activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
                     </ModalFooter>
                   </Modal>
-
-
                 </VerticalTimelineElement>
                 <VerticalTimelineElement
                   iconStyle={{ background: 'rgb(16, 204, 82)', color: '#fff' }}
