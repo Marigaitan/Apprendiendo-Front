@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Label } from "reactstrap";
 import "../css/Quizz.css";
 
 
@@ -67,13 +68,14 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
       <div className="appQuizz">
         {showScore ? (
           <div className="score-section">
-            ¡Acertaste {score} de {questions.length} preguntas!
+            <Label>¡Felicidades por completar el Quizz!</Label>
+            <Label>¡Acertaste {score} de {questions.length} preguntas!</Label>
           </div>
         ) : (
           <div>
             <div className="question-section">
               <div className="question-count">
-                <span>Question {currentQuestion + 1}</span>/{questions.length}
+                <span>Pregunta {currentQuestion + 1}</span>/{questions.length}
               </div>
               <div className="question-text">
                 {questions[currentQuestion].questionText}
