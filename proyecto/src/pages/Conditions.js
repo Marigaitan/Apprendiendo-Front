@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Label } from "reactstrap";
+import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 
 export default class Conditions extends Component {

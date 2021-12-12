@@ -1,43 +1,24 @@
-import React, { Component } from "react";
-import Cookies from "universal-cookie/es6";
-import "../css/Global.css";
 import axios from "axios";
-import ShowDocs from "./ShowDocs";
-
-import { API_HOST } from "../constants";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  CustomInput,
-  Input,
-  FormText,
-  Container,
-  Row,
-  Col,
-  Progress,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  ListGroup,
-  ListGroupItem,
-  Badge,
-  Alert,
-} from "reactstrap";
-import HeaderTeacher from "./Header";
-import DocenteProgresoGrupo from "./DocenteProgresoGrupo";
-
-import "../css/DocenteProyecto.css";
-import VerticalTimelineElement from "./VerticalTimeLineElement";
-import VerticalTimeline from "./VerticalTimeline";
+import React, { Component } from "react";
 import "react-vertical-timeline-component/style.min.css";
-
-import logo from "../Images/logoMini.png";
-import Switch from "./Switch";
+import {
+  Button
+} from "reactstrap";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
+import "../css/DocenteProyecto.css";
+import "../css/Global.css";
 import Background from "../Images/fondoLetras.png";
+import logo from "../Images/logoMini.png";
+import DocenteProgresoGrupo from "./DocenteProgresoGrupo";
+import HeaderTeacher from "./Header";
 import NavDocenteProyecto from "./NavDocenteProyecto";
+import Switch from "./Switch";
+import VerticalTimeline from "./VerticalTimeline";
+import VerticalTimelineElement from "./VerticalTimeLineElement";
+
+
+
 
 const cookies = new Cookies();
 

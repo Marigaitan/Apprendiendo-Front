@@ -1,19 +1,17 @@
-import React, { Component} from "react";
-import "../css/Global.css";
-import Cookies from "universal-cookie/es6";
-import { API_HOST } from "../constants";
 import axios from "axios";
+import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+import { Rating, RatingView } from 'react-simple-star-rating';
 import {
   Alert,
   Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter
+  Modal, ModalBody,
+  ModalFooter, ModalHeader
 } from "reactstrap";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
+import "../css/Global.css";
 import HeaderTeacher from "./Header";
-import { Rating, RatingView } from 'react-simple-star-rating'
-import { Link } from 'react-router-dom';
 
 const cookies = new Cookies();
 

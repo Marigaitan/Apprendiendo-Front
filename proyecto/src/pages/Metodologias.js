@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import HeaderTeacher from "./Header"
+import React, { Component } from 'react';
 import '../css/Global.css';
-import CarouselMet from "./CarouselMet.js"
+import CarouselMet from "./CarouselMet.js";
+import HeaderTeacher from "./Header";
 
 export default class Metodologias extends Component {
     render(){ 

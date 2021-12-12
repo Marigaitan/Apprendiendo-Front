@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useTable, useFilters, useSortBy } from "react-table";
+import { useFilters, useSortBy, useTable } from "react-table";
 import "../css/DocenteAbm.css";
 
 

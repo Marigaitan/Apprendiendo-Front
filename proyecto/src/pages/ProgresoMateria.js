@@ -1,12 +1,12 @@
-import React, { Profiler, useEffect, useState } from "react";
+import axios from "axios";
 import queryString from "query-string";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import Cookies from "universal-cookie/es6";
-import axios from "axios";
 import { API_HOST } from "../constants";
 import HeaderStudent from "./HeaderAlumno";
-import ProgressBar from "./ProgressBar";
 import { ListarLogrosDelCurso } from "./ListarLogrosDelCurso";
+import ProgressBar from "./ProgressBar";
 
 const cookies = new Cookies();
 export const ProgresoMateria = () => {
@@ -144,7 +144,7 @@ export const ProgresoMateria = () => {
             <ProgressBar
               key={idx}
               bgcolor="#6a1b9a"
-              completed={item.progress}
+              completed={Math.round(item.progress * 100) / 100}
               tarea={item.name}
             />
           ))}

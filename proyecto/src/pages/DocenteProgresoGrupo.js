@@ -1,9 +1,7 @@
-import axios from 'axios';
 import React, { Component } from 'react';
-import { Alert, Button, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
-import '../css/Global.css';
+import { Button, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
 import Cookies from 'universal-cookie/es6';
-import { API_HOST } from "../constants";
+import '../css/Global.css';
 
 const cookies = new Cookies();
 

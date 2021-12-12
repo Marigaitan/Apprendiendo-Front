@@ -1,30 +1,19 @@
-import React, { Component, useState } from "react";
-import "../css/Global.css";
-import "../css/DocenteLogros.css";
-import HeaderTeacher from "./Header";
+import axios from "axios";
+import React, { Component } from "react";
+import {
+  Alert, Button, Input, Label
+} from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import axios from "axios";
-import {
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-  Button,
-  Alert,
-  Badge,
-  DropdownToggle,
-  ButtonDropdown,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
-import NavDocente from "./NavDocente";
-import { logrosPorCurso } from "../data/medallas";
-import ListarLogrosPorCurso from "./ListarLogrosPorCurso";
-import Conditions from "./Conditions";
-import Accesorio from "./Accesorio";
+import "../css/DocenteLogros.css";
+import "../css/Global.css";
 import { accesorios } from "../data/accesorios";
+import { logrosPorCurso } from "../data/medallas";
+import Accesorio from "./Accesorio";
+import Conditions from "./Conditions";
+import HeaderTeacher from "./Header";
+import ListarLogrosPorCurso from "./ListarLogrosPorCurso";
+import NavDocente from "./NavDocente";
 
 const cookies = new Cookies();
 
@@ -78,9 +67,9 @@ class DocenteClassroomLogros extends Component {
         headers: { Authorization: cookies.get("token") },
       })
       .then((response) => {
-        const conditions = response.data.filter((condition) =>
-          condition.conditionType.includes("TARGET")
-        );
+        let conditions = response.data
+        .filter((condition) => condition.conditionType.includes("TARGET"));
+        conditions.forEach(condition => condition.text = condition.text.replaceAll('la tarea', 'el curso'));
 
         //SET STATE
         this.setState({

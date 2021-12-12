@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
+import { Alert, Button, Input, Label } from "reactstrap";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
 import "../css/Global.css";
 import "../css/NuevaClase.css";
-import Cookies from "universal-cookie/es6";
 import HeaderTeacher from "./Header";
-import axios from "axios";
-import { API_HOST } from "../constants";
-import { Alert, Button, Input, Label } from "reactstrap";
 
 const cookies = new Cookies();
 

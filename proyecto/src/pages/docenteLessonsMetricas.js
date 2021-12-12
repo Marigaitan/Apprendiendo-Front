@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Cookies from "universal-cookie/es6";
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import HeaderStudent from "./HeaderAlumno";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import "../css/Global.css";
 import "../css/MenuDocente.css";
 import HeaderTeacher from "./Header";
-import Background from "../Images/fondoLetras.png";
-import { Button } from "reactstrap";
 import NavMetricas from "./NavMetricas";
 import ProgressBar from "./ProgressBar";
 
@@ -47,11 +44,11 @@ export const DocenteLessonsMetricas = () => {
     <div className="mainContainer">
       <HeaderTeacher />
       <div className="fondo_general container">
-        <h1> METRICAS</h1>
+        <h1> Métricas </h1>
         <NavMetricas activeBar="Lessons" />
 
         <div className="ml-2 mt-2">
-          <h2>Metricas por Lessons</h2>
+          <h2>Métricas por Lessons</h2>
 
           {lessons.map((lesson) => {
             return (
@@ -65,16 +62,20 @@ export const DocenteLessonsMetricas = () => {
                   <ProgressBar
                     key={lesson.id}
                     bgcolor="#9a261b"
-                    completed={lesson.avgCompletion}
+                    completed={Math.round(lesson.avgCompletion * 100) / 100}
                     tarea="Promedio de avance en las lessons"
                   />
                   <ProgressBar
                     key={lesson.id}
                     bgcolor="#9a261b"
-                    completed={lesson.percentageCompleted}
+                    completed={
+                      Math.round(lesson.percentageCompleted * 100) / 100
+                    }
                     tarea="Porcentaje completado de la lesson"
                   />
-                  <h2>Nota Promedio: {lesson.avgGrade}</h2>
+                  <h2>
+                    Nota Promedio: {Math.round(lesson.avgGrade * 100) / 100}
+                  </h2>
                 </div>
                 <br />
               </div>

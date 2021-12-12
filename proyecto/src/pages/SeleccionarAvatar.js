@@ -1,10 +1,10 @@
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Cookies from "universal-cookie/es6";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { API_HOST } from "../constants";
 import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
-import axios from "axios";
-import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 

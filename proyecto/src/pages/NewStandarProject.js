@@ -1,11 +1,11 @@
+import axios from "axios";
 import React, { Component } from "react";
-import "../css/Global.css";
-import "../css/DocenteEditLesson.css";
-import HeaderTeacher from "./Header";
+import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import axios from "axios";
-import { Form, FormGroup, Label, Input, FormText, Button } from "reactstrap";
+import "../css/DocenteEditLesson.css";
+import "../css/Global.css";
+import HeaderTeacher from "./Header";
 
 const cookies = new Cookies();
 
@@ -100,7 +100,7 @@ export default class NewStandarProject extends Component {
                   name="projectName" //Lo que se asigna a name, es el nombre de las variables que seteamos y a las que queremos vincular
                   id="projectName"
                   placeholder="Nombre"
-                  maxLength="20"
+                  maxLength="30"
                   onChange={this.handleChange}
                 />
                 <Label for="projectName">
@@ -111,7 +111,7 @@ export default class NewStandarProject extends Component {
                   name="description" //Lo que se asigna a name, es el nombre de las variables que seteamos y a las que queremos vincular
                   id="description"
                   placeholder="Agregar descripción al proyecto"
-                  maxLength="20"
+                  maxLength="255"
                   onChange={this.handleChange}
                 />
               </FormGroup>

@@ -33,7 +33,7 @@ const NavDocente = (props) => {
           href="/menudocente_classroom_logros"
           active={props.activeBar === "logros"}
         >
-          Logros de la clase
+          Logros del curso
         </NavLink>
       </NavItem>
     </Nav>

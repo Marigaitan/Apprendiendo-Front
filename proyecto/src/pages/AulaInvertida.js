@@ -1,26 +1,20 @@
-import React, { Component } from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import '../css/Global.css';
-import '../css/DocenteClassroom.css';
-import HeaderTeacher from "./Header";
-import '../css/DocenteEditLesson.css';
-import { API_HOST } from "../constants";
 import axios from 'axios';
-import { Button } from 'reactstrap';
-
-import Cookies from 'universal-cookie/es6';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React, { Component } from 'react';
 import { VerticalTimeline } from 'react-vertical-timeline-component';
-import VerticalTimelineElement from './VerticalTimeLineElement';
-import { ButtonGroup, Label, Form, FormGroup, Input, FormText, Col } from 'reactstrap'
-//import 'react-vertical-timeline-component/style.min.css';
-import { CustomInput, Container, Row, Progress, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Badge, Alert } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import Cookies from 'universal-cookie/es6';
+import { API_HOST } from "../constants";
+import '../css/DocenteClassroom.css';
+import '../css/DocenteEditLesson.css';
+import '../css/Global.css';
 import logo from "../Images/logoMini.png";
-import VerticalTimeLineElement from '../css/VerticalTimeLineElement.css';
-import DocenteProyectoQuizz from './DocenteProyectoQuizz';
 import DocenteProyectoCuestionario from './DocenteProyectoCuestionario';
 import DocenteProyectoEntregable from './DocenteProyectoEntregable';
+import DocenteProyectoQuizz from './DocenteProyectoQuizz';
+import HeaderTeacher from "./Header";
+import VerticalTimelineElement from './VerticalTimeLineElement';
+
 
 //HACER DISEÑO DE CLASES DE LOS PROYECTOS
 //GUARDAR LA INFORMACIÓN
@@ -68,9 +62,6 @@ export default class AulaInvertida extends Component {
             textClass1: '',
             textClass2: '',
             textClass3: '',
-            duedateClass1: '',
-            duedateClass2: '',
-            duedateClass3: '',
             disableButtonProject: false,
             disableButtonClass1: true,
             disableButtonClass2: true,
@@ -82,7 +73,7 @@ export default class AulaInvertida extends Component {
         this.setState({ openModal: true, modalId: id });
     }
 
-    closeModal() {
+    closeModal = () => {
         this.setState({ openModal: false, modalId: -1 });
     }
 
@@ -107,8 +98,6 @@ export default class AulaInvertida extends Component {
             position: 0,
             description: this.state.description1,
             projectId: this.state.projectId,
-            dueDate: this.state.duedateClass1,
-            startDate: new Date().toISOString(),
             active: true,
         }
         this.setState({ disableButtonClass1: true })
@@ -123,8 +112,6 @@ export default class AulaInvertida extends Component {
             position: 0,
             description: this.state.description2,
             projectId: this.state.projectId,
-            dueDate: this.state.duedateClass2,
-            startDate: new Date().toISOString(),
             active: true,
         }
         this.setState({ disableButtonClass2: true })
@@ -139,8 +126,6 @@ export default class AulaInvertida extends Component {
             position: 0,
             description: this.state.description3,
             projectId: this.state.projectId,
-            dueDate: this.state.duedateClass3,
-            startDate: new Date().toISOString(),
             active: true,
         }
         this.setState({ disableButtonClass3: true })
@@ -160,38 +145,30 @@ export default class AulaInvertida extends Component {
             name: this.state.projectName,
             classroomId: cookies.get('classid'),
             position: 0,
-            //dueDate: "2021-10-11T01:45:50.611Z",
-            //startDate: "2021-10-11T01:45:50.611Z",
             active: true,
             rewards: [],
             documents: [],
             lessons: [
                 {
-                    name: "Pregunta Disparadora",
+                    name: "Lección Inicial",
                     position: 0,
                     description: '',
-                    // dueDate: "2021-10-11T01:45:50.611Z",
-                    // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
                     activities: [],
                     documents: [],
                 },
                 {
-                    name: "Planificación",
+                    name: "Práctica Inicial",
                     position: 1,
                     description: '',
-                    // dueDate: "2021-10-11T01:45:50.611Z",
-                    // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
                     activities: [],
                     documents: [],
                 },
                 {
-                    name: "Investigación",
+                    name: "Práctica de Refuerzo",
                     position: 2,
                     description: '',
-                    // dueDate: "2021-10-11T01:45:50.611Z",
-                    // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
                     activities: [],
                     documents: [],
@@ -290,9 +267,8 @@ export default class AulaInvertida extends Component {
                             <VerticalTimeline lineColor={"rgb(225, 206, 81)"}>
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 97, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -323,9 +299,8 @@ export default class AulaInvertida extends Component {
                                 {/* CLASE 1 */}
                                 <VerticalTimelineElement
                                     //className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 161, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -392,35 +367,14 @@ export default class AulaInvertida extends Component {
                                                         )}
                                                     </FormGroup>
                                                 </div>
-
-                                                {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
-
-                                                {/* <ListGroup>
-                                                    {studentGroup.studentGroup.map(student => {
-                                                        return (
-                                                            <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
-                                                    )})}
-                                                    </ListGroup> */}
                                                 <div className="center-text">
 
-                                                </div>
-                                                <div className="center-alert">
-                                                    <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                                                    <FormGroup>
-                                                        <Label for="dueDate"></Label>
-                                                        <Input
-                                                            type="date"
-                                                            name="duedateClass1"
-                                                            id="date"
-                                                            placeholder="Hora de Finalización"
-                                                            onChange={this.handleChange}
-                                                        />
-                                                    </FormGroup>
                                                 </div>
 
                                             </ModalBody>
                                             <ModalFooter className="modalFooter">
-                                                <Button color="secondary" onClick={() => this.addFirstLesson()}>Guardar y Cerrar</Button>
+                                                <Button color="primary" onClick={() => this.addFirstLesson()}>Guardar y activar clase</Button>
+                                                <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                             </ModalFooter>
                                         </ModalBody>
                                     </Modal>
@@ -433,9 +387,8 @@ export default class AulaInvertida extends Component {
 
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 246, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -506,35 +459,14 @@ export default class AulaInvertida extends Component {
                                                 <h3>Crear actividad entregable</h3>
                                                 <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
                                             </div>
-
-                                            {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
-
-                                            {/* <ListGroup>
-                                                    {studentGroup.studentGroup.map(student => {
-                                                        return (
-                                                            <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
-                                                    )})}
-                                                    </ListGroup> */}
                                             <div className="center-text">
 
-                                            </div>
-                                            <div className="center-alert">
-                                                <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                                                <FormGroup>
-                                                    <Label for="dueDate2"></Label>
-                                                    <Input
-                                                        type="date"
-                                                        name="duedate2"
-                                                        id="date"
-                                                        placeholder="Hora de Finalización"
-                                                        onChange={this.handleChange}
-                                                    />
-                                                </FormGroup>
                                             </div>
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar y Cerrar</Button>
+                                            <Button color="primary" onClick={() => this.addSecondLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -546,9 +478,8 @@ export default class AulaInvertida extends Component {
                                 {/* CLASE 3 */}
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    date="2011 - present"
                                     iconStyle={{ background: 'rgb(218, 255, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -611,33 +542,14 @@ export default class AulaInvertida extends Component {
                                                 <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
                                             </div>
 
-                                            {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
-
-                                            {/* <ListGroup>
-                                                    {studentGroup.studentGroup.map(student => {
-                                                        return (
-                                                            <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
-                                                    )})}
-                                                    </ListGroup> */}
                                             <div className="center-text">
 
-                                            </div>
-                                            <div className="center-alert">
-                                                <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                                                <FormGroup>
-                                                    <Label for="dueDate"></Label>
-                                                    <Input
-                                                        type="date"
-                                                        name="duedate"
-                                                        id="date"
-                                                        placeholder="Hora de Finalización"
-                                                    />
-                                                </FormGroup>
                                             </div>
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="secondary" onClick={() => this.addThirdLesson()}>Cerrar</Button>
+                                            <Button color="primary" onClick={() => this.addThirdLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 

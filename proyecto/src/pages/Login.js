@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import im from "../Images/logo-verde.png";
-import "../css/Login.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios"; //para las peticiones a la API
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { Component } from "react";
 //import md5 from 'md5'
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
+import "../css/Login.css";
+import im from "../Images/logo-verde.png";
 
 const baseUrl = API_HOST + "login"; //Url de la API
 const cookies = new Cookies();
@@ -100,7 +100,7 @@ export default class Login extends Component {
               className="inputs"
               name="username"
               placeholder="Usuario"
-              maxLength="10"
+              maxLength="30"
               onChange={this.handleChange}
             />
             <br />
@@ -110,7 +110,7 @@ export default class Login extends Component {
               className="inputs"
               name="password"
               placeholder="Contraseña"
-              maxLength="10"
+              maxLength="30"
               onChange={this.handleChange}
             />
             <br />

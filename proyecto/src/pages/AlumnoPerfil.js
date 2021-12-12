@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
 import {
-  ButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
+  ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle
 } from "reactstrap";
 import Cookies from "universal-cookie/es6";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { API_HOST } from "../constants";
 import "../css/MenuAlumno.css";
 import "../css/PerfilAlumno.css";
-import axios from "axios";
 import HeaderStudent from "./HeaderAlumno";
-import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 const AlumnoPerfil = () => {

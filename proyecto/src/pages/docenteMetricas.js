@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Cookies from "universal-cookie/es6";
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import HeaderStudent from "./HeaderAlumno";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import "../css/Global.css";
 import "../css/MenuDocente.css";
 import HeaderTeacher from "./Header";
-import Background from "../Images/fondoLetras.png";
-import { Button } from "reactstrap";
 import NavMetricas from "./NavMetricas";
 import ProgressBar from "./ProgressBar";
 
@@ -48,16 +45,16 @@ export const DocenteMetricas = () => {
         setClases(classrooms);
       });
   };
-
+  console.log("CLASES", clases);
   return (
     <div className="mainContainer">
       <HeaderTeacher />
       <div className="fondo_general container">
-        <h1> METRICAS</h1>
+        <h1> Métricas </h1>
         <NavMetricas activeBar="Materias" />
 
         <div className="ml-2 mt-2">
-          <h2>Metricas por materias</h2>
+          <h2>Métricas por materias</h2>
 
           {clases.map((classroom) => {
             return (
@@ -73,16 +70,21 @@ export const DocenteMetricas = () => {
                   <ProgressBar
                     //key={classroom.id}
                     bgcolor="#1b9a9a"
-                    completed={classroom.avgCompletion}
+                    completed={Math.round(classroom.avgCompletion * 100) / 100}
                     tarea="Promedio de avance en las clases"
                   />
                   <ProgressBar
                     //key={classroom.id}
                     bgcolor="#1b9a9a"
-                    completed={classroom.percentageCompleted}
+                    completed={
+                      Math.round(classroom.percentageCompleted * 100) / 100
+                    }
                     tarea="Porcentaje completado de la clase"
                   />
-                  <h2>Nota Promedio de la clase: {classroom.avgGrade}</h2>
+                  <h2>
+                    Nota Promedio de la clase:{" "}
+                    {Math.round(classroom.avgGrade * 100) / 100}
+                  </h2>
                 </div>
                 <br />
               </div>

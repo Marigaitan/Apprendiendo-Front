@@ -1,13 +1,12 @@
-import React, { Component } from "react";
-import Cookies from "universal-cookie/es6";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/Global.css";
-import "../css/DocenteClassroom.css";
-import HeaderTeacher from "./Header";
+import React, { Component } from "react";
+import { Button } from "reactstrap";
+import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import { Link } from "react-router-dom";
-import { Button, Nav, NavItem, NavLink } from "reactstrap";
+import "../css/DocenteClassroom.css";
+import "../css/Global.css";
+import HeaderTeacher from "./Header";
 import NavDocente from "./NavDocente";
 
 const cookies = new Cookies();

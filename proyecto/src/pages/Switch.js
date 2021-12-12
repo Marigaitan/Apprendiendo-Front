@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { CustomInput } from "reactstrap";
-import { API_HOST } from "../constants";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { CustomInput } from "reactstrap";
 import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
 
 const cookies = new Cookies();
 axios.defaults.headers.common["Authorization"] = cookies.get("token");

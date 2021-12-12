@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import axios from "axios";
 import queryString from "query-string";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
+import HeaderStudent from "./HeaderAlumno";
 //import { accesorios } from "../data/accesorios";
 import { SeleccionarAccesorios } from "./SeleccionarAccesorios";
-import { useLocation } from "react-router";
-import HeaderStudent from "./HeaderAlumno";
-import { API_HOST } from "../constants";
-import Cookies from "universal-cookie/es6";
-import axios from "axios";
 
 const cookies = new Cookies();
 export const ListarAccesorios = (tipo) => {

@@ -1,11 +1,10 @@
+import axios from "axios";
 import React, { Component } from 'react';
-import { Alert, Button, Card, CardBody, CardText, CardTitle, Col, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, FormGroup, Input, Label, ListGroup, ListGroupItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "reactstrap";
+import { Alert, Button, Card, CardBody, CardText, CardTitle, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import Cookies from 'universal-cookie/es6';
+import { API_HOST } from "../constants";
 import '../css/Global.css';
 import '../css/ShowActivity.css';
-import Cookies from 'universal-cookie/es6';
-import axios from "axios";
-import { API_HOST } from "../constants";
-import _ from 'lodash';
 
 const cookies = new Cookies();
 

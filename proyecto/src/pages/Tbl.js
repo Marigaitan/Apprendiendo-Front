@@ -1,24 +1,19 @@
-import React, { Component } from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
-import '../css/Global.css';
-import '../css/DocenteClassroom.css';
-import HeaderTeacher from "./Header";
-import '../css/DocenteEditLesson.css';
-import { API_HOST } from "../constants";
 import axios from 'axios';
-import { Button } from 'reactstrap';
-
-import Cookies from 'universal-cookie/es6';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React, { Component } from 'react';
 import { VerticalTimeline } from 'react-vertical-timeline-component';
-import VerticalTimelineElement from './VerticalTimeLineElement';
-import { ButtonGroup, Label, Form, FormGroup, Input, FormText, Col } from 'reactstrap'
-//import 'react-vertical-timeline-component/style.min.css';
-import { CustomInput, Container, Row, Progress, Modal, ModalHeader, ModalBody, ModalFooter, ListGroup, ListGroupItem, Badge, Alert } from 'reactstrap';
+import { Alert, Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import Cookies from 'universal-cookie/es6';
+import { API_HOST } from "../constants";
+import '../css/DocenteClassroom.css';
+import '../css/DocenteEditLesson.css';
+import '../css/Global.css';
 import logo from "../Images/logoMini.png";
-import VerticalTimeLineElement from '../css/VerticalTimeLineElement.css';
+import DocenteProyectoCuestionario from './DocenteProyectoCuestionario';
+import DocenteProyectoEntregable from './DocenteProyectoEntregable';
 import DocenteProyectoQuizz from './DocenteProyectoQuizz';
+import HeaderTeacher from "./Header";
+import VerticalTimelineElement from './VerticalTimeLineElement';
+
 
 const cookies = new Cookies();
 
@@ -45,10 +40,6 @@ export default class Tbl extends Component {
             textClass2: '',
             textClass3: '',
             textClass4: '',
-            duedateClass1: '',
-            duedateClass2: '',
-            duedateClass3: '',
-            duedateClass4: '',
             disableButtonProject: false,
             disableButtonClass1: true,
             disableButtonClass2: true,
@@ -61,7 +52,7 @@ export default class Tbl extends Component {
         this.setState({ openModal: true, modalId: id });
     }
 
-    closeModal() {
+    closeModal = () => {
         this.setState({ openModal: false, modalId: -1 });
     }
     addLesson = async (lesson, documents) => {
@@ -82,8 +73,6 @@ export default class Tbl extends Component {
             position: 0,
             description: this.state.description1,
             projectId: this.state.projectId,
-            dueDate: this.state.duedateClass1,
-            startDate: new Date().toISOString(),
             active: true,
         }
         this.setState({ disableButtonClass1: true })
@@ -98,8 +87,6 @@ export default class Tbl extends Component {
             position: 0,
             description: this.state.description2,
             projectId: this.state.projectId,
-            dueDate: this.state.duedateClass2,
-            startDate: new Date().toISOString(),
             active: true,
         }
         this.setState({ disableButtonClass2: true })
@@ -114,8 +101,6 @@ export default class Tbl extends Component {
             position: 0,
             description: this.state.description3,
             projectId: this.state.projectId,
-            dueDate: this.state.duedateClass3,
-            startDate: new Date().toISOString(),
             active: true,
         }
         this.setState({ disableButtonClass3: true })
@@ -129,8 +114,6 @@ export default class Tbl extends Component {
             position: 0,
             description: this.state.description4,
             projectId: this.state.projectId,
-            dueDate: this.state.duedateClass4,
-            startDate: new Date().toISOString(),
             active: true,
         }
         this.setState({ disableButtonClass4: true })
@@ -147,8 +130,6 @@ export default class Tbl extends Component {
             name: this.state.projectName,
             classroomId: cookies.get('classid'),
             position: 0,
-            //dueDate: "2021-10-11T01:45:50.611Z",
-            //startDate: "2021-10-11T01:45:50.611Z",
             active: true,
             rewards: [],
             documents: [],
@@ -157,8 +138,6 @@ export default class Tbl extends Component {
                     name: "Organizadores Gráficos",
                     position: 0,
                     description: '',
-                    // dueDate: "2021-10-11T01:45:50.611Z",
-                    // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
                     activities: [],
                     documents: [],
@@ -167,8 +146,6 @@ export default class Tbl extends Component {
                     name: "Registro de Ideas",
                     position: 1,
                     description: '',
-                    // dueDate: "2021-10-11T01:45:50.611Z",
-                    // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
                     activities: [],
                     documents: [],
@@ -177,8 +154,6 @@ export default class Tbl extends Component {
                     name: "Búsqueda y Procesamiento de información",
                     position: 2,
                     description: '',
-                    // dueDate: "2021-10-11T01:45:50.611Z",
-                    // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
                     activities: [],
                     documents: [],
@@ -187,8 +162,6 @@ export default class Tbl extends Component {
                     name: "Toma de decisiones y conclusiones finales",
                     position: 3,
                     description: '',
-                    // dueDate: "2021-10-11T01:45:50.611Z",
-                    // startDate: "2021-10-11T01:45:50.611Z",
                     active: false,
                     activities: [],
                     documents: [],
@@ -216,6 +189,7 @@ export default class Tbl extends Component {
                             disableButtonClass1: false,
                             disableButtonClass2: false,
                             disableButtonClass3: false,
+                            disableButtonClass4: false,
                         })
                         alert("Proyecto creado exitosamente");
                     })
@@ -288,9 +262,8 @@ export default class Tbl extends Component {
                             <VerticalTimeline lineColor={"rgb(225, 206, 81)"}>
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    //date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 97, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -321,9 +294,8 @@ export default class Tbl extends Component {
                                 {/* CLASE 1 */}
                                 <VerticalTimelineElement
                                     //className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    //date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 161, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -384,36 +356,31 @@ export default class Tbl extends Component {
                                                             </div>
                                                         )}
                                                     </FormGroup>
+
+                                                </div>
+                                                <div>
+                                                    <h3>Crear Quizz</h3>
+                                                    <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
+                                                </div>
+                                                <div>
+                                                    <h3>Crear Cuestionario</h3>
+                                                    <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
+                                                </div>
+                                                <div>
+                                                    <h3>Crear actividad entregable</h3>
+                                                    <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
                                                 </div>
 
-                                                {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
 
-                                                {/* <ListGroup>
-                                                    {studentGroup.studentGroup.map(student => {
-                                                        return (
-                                                            <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
-                                                    )})}
-                                                    </ListGroup> */}
+
                                                 <div className="center-text">
 
                                                 </div>
-                                                {/* div className="center-alert">
-                                                    <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                                                    <FormGroup>
-                                                        <Label for="dueDate"></Label>
-                                                        <Input
-                                                            type="date"
-                                                            name="duedateClass1"
-                                                            id="date"
-                                                            placeholder="Hora de Finalización"
-                                                            onChange={this.handleChange}
-                                                        />
-                                                    </FormGroup>
-                                                </div> */}
 
                                             </ModalBody>
                                             <ModalFooter className="modalFooter">
-                                                <Button color="secondary" onClick={() => this.addFirstLesson()}>Guardar y Cerrar</Button>
+                                                <Button color="primary" onClick={() => this.addFirstLesson()}>Guardar y activar clase</Button>
+                                                <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                             </ModalFooter>
                                         </ModalBody>
                                     </Modal>
@@ -426,9 +393,8 @@ export default class Tbl extends Component {
 
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                   // date="2011 - present"
                                     iconStyle={{ background: 'rgb(255, 246, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -441,7 +407,7 @@ export default class Tbl extends Component {
                                         El docente proveerá instrucciones para que los alumnos registren en la misma
                                         las primeras ideas con respecto a la temática planteada.
                                     </p>
-                                    <div><Button disabled={this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}   >Activar Clase</Button></div>
+                                    <div><Button disabled={this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}>Activar Clase</Button></div>
                                     <Modal isOpen={this.state.openModal && this.state.modalId === 2} className="modalStyle">
                                         <ModalHeader size='lg' >
 
@@ -452,7 +418,6 @@ export default class Tbl extends Component {
                                             </div>
                                             <div className="maincontainer">
                                                 Se espera que el docente de indicaciones a los alumnos de que manera deben registrar sus ideas (brindando o no una plantilla)
-
                                             </div>
                                             <div>
                                                 <h3>Ingresar título del tema </h3>
@@ -466,7 +431,7 @@ export default class Tbl extends Component {
                                             </div>
                                             <br />
                                             <div>
-                                                <h3>Breve descripción (opcional)</h3>
+                                                <h3>Breve descripción </h3>
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
@@ -492,35 +457,22 @@ export default class Tbl extends Component {
                                                 <h3>Crear Quizz</h3>
                                                 <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
                                             </div>
-
-                                            {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
-
-                                            {/* <ListGroup>
-                                                    {studentGroup.studentGroup.map(student => {
-                                                        return (
-                                                            <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
-                                                    )})}
-                                                    </ListGroup> */}
+                                            <div>
+                                                <h3>Crear Cuestionario</h3>
+                                                <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
+                                            </div>
+                                            <div>
+                                                <h3>Crear Entregable</h3>
+                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
+                                            </div>
                                             <div className="center-text">
 
                                             </div>
-                                            {/*<div className="center-alert">
-                                                <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                                                <FormGroup>
-                                                    <Label for="dueDate2"></Label>
-                                                    <Input
-                                                        type="date"
-                                                        name="duedate2"
-                                                        id="date"
-                                                        placeholder="Hora de Finalización"
-                                                        onChange={this.handleChange}
-                                                    />
-                                                </FormGroup>
-                                                </div>*/}
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="secondary" onClick={() => this.addSecondLesson()}>Guardar </Button>
+                                            <Button color="primary" onClick={() => this.addSecondLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -532,9 +484,8 @@ export default class Tbl extends Component {
                                 {/* CLASE 3 */}
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    //date="2011 - present"
                                     iconStyle={{ background: 'rgb(218, 255, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -568,7 +519,7 @@ export default class Tbl extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
+                                                        <Input type="textarea" name="textClass3" id="exampleText" onChange={this.handleChange} />
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -586,7 +537,7 @@ export default class Tbl extends Component {
                                                 <FormGroup>
                                                     <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
                                                     <br />
-                                                    {this.state.archivosClase2 && this.state.archivosClase2.map(document =>
+                                                    {this.state.archivosClase3 && this.state.archivosClase3.map(document =>
                                                         <div key={document.name} >
                                                             <Alert className="flexSpaceBetween">
                                                                 <Label>{document.name}</Label>
@@ -597,38 +548,26 @@ export default class Tbl extends Component {
                                                 </FormGroup>
                                             </div>
                                             <div>
-                                                <h3>Crear Cuestionario</h3>
+                                                <h3>Crear Quizz</h3>
                                                 <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
                                             </div>
+                                            <div>
+                                                <h3>Crear Cuestionario</h3>
+                                                <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                            </div>
+                                            <div>
+                                                <h3>Crear Entregable</h3>
+                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                            </div>
 
-                                            {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
-
-                                            {/* <ListGroup>
-                                                    {studentGroup.studentGroup.map(student => {
-                                                        return (
-                                                            <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
-                                                    )})}
-                                                    </ListGroup> */}
                                             <div className="center-text">
 
                                             </div>
-                                            {/* <div className="center-alert">
-                                                <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                                                <FormGroup>
-                                                    <Label for="dueDate"></Label>
-                                                    <Input
-                                                        type="date"
-                                                        name="duedate"
-                                                        id="date"
-                                                        placeholder="Hora de Finalización"
-                                                    />
-                                                </FormGroup>
-                                                </div>*/}
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <div><Button color="secondary" onClick={() => this.addThirdLesson()}>Guardar</Button></div>
-                                            <div> <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button></div>
+                                            <Button color="primary" onClick={() => this.addThirdLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -637,9 +576,8 @@ export default class Tbl extends Component {
                                 {/* Clase 4 */}
                                 <VerticalTimelineElement
                                     className="vertical-timeline-element--work"
-                                    contentStyle={{ background: "rgb(225, 206, 81)", color: '#fff' }}
+                                    contentStyle={{ background: "rgb(225, 206, 81)", color: 'rgb(87, 87, 87)' }}
                                     contentArrowStyle={{ borderRight: '7px solid  rgb(225, 206, 81)' }}
-                                    //date="2011 - present"
                                     iconStyle={{ background: 'rgb(218, 255, 51)', color: '#fff' }}
                                     icon={<img src={logo} className="small-img" />}
                                 >
@@ -648,16 +586,11 @@ export default class Tbl extends Component {
                                     <p>
                                         Los estudiantes deben hacer entrega de las conclusiones finales en base a lo realizado en la clase anterior junto con el complemento de cómo lo realizaron.
                                     </p>
-                                    <div><Button disabled={this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}  >Activar Clase</Button></div>
-                                    <Modal isOpen={this.state.openModal && this.state.modalId === 3} className="modalStyle">
+                                    <div><Button disabled={this.state.disableButtonClass4} color="success" onClick={() => this.openModal(4)}  >Activar Clase</Button></div>
+                                    <Modal isOpen={this.state.openModal && this.state.modalId === 4} className="modalStyle">
                                         <ModalHeader size='lg' >
-
-
                                         </ModalHeader>
                                         <ModalBody>
-
-
-
                                             <div>
                                                 <h3 className="title">Búsqueda y procesamiento de información</h3>
                                             </div>
@@ -675,7 +608,7 @@ export default class Tbl extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
+                                                        <Input type="textarea" name="textClass4" id="exampleText" onChange={this.handleChange} />
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -685,57 +618,44 @@ export default class Tbl extends Component {
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
-                                                    <Input type="textarea" name="description3" id="exampleText" onChange={this.handleChange} />
+                                                    <Input type="textarea" name="description4" id="exampleText" onChange={this.handleChange} />
                                                 </FormGroup>
                                             </div>
                                             <div>
                                                 <h3>Disponibilizar material </h3>
                                                 <FormGroup>
-                                                    <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
+                                                    <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase4', this.state.lessonIds[2])} />
                                                     <br />
-                                                    {this.state.archivosClase2 && this.state.archivosClase2.map(document =>
+                                                    {this.state.archivosClase4 && this.state.archivosClase4.map(document =>
                                                         <div key={document.name} >
                                                             <Alert className="flexSpaceBetween">
                                                                 <Label>{document.name}</Label>
-                                                                <Button name={document.name} onClick={() => this.borrarArchivo(document, 'archivosClase3')}>Borrar</Button>
+                                                                <Button name={document.name} onClick={() => this.borrarArchivo(document, 'archivosClase4')}>Borrar</Button>
                                                             </Alert>
                                                         </div>
                                                     )}
                                                 </FormGroup>
                                             </div>
                                             <div>
-                                                <h3>Crear Cuestionario</h3>
-                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                                <h3>Crear Quizz</h3>
+                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
                                             </div>
-
-                                            {/* La idea es que haya grupos pero por el momento tengo solo ids de estudiantes */}
-
-                                            {/* <ListGroup>
-                                                    {studentGroup.studentGroup.map(student => {
-                                                        return (
-                                                            <ListGroupItem color="warning" key={student.id}>{student.username}</ListGroupItem>
-                                                    )})}
-                                                    </ListGroup> */}
+                                            <div>
+                                                <h3>Crear Cuestionario</h3>
+                                                <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
+                                            </div>
+                                            <div>
+                                                <h3>Crear Entregable</h3>
+                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
+                                            </div>
                                             <div className="center-text">
 
                                             </div>
-                                            {/* <div className="center-alert">
-                                                <Alert color="info">Selecciona fecha límite para finalizar con la clase</Alert>
-                                                <FormGroup>
-                                                    <Label for="dueDate"></Label>
-                                                    <Input
-                                                        type="date"
-                                                        name="duedate"
-                                                        id="date"
-                                                        placeholder="Hora de Finalización"
-                                                    />
-                                                </FormGroup>
-                                                </div>*/}
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="secondary" onClick={() => this.addFourthLesson()}>Guardar</Button>
-
+                                            <Button color="primary" onClick={() => this.addFourthLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 

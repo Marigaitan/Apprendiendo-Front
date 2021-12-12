@@ -1,6 +1,6 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import Cookies from 'universal-cookie/es6';
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/Avatar.css";
 
 

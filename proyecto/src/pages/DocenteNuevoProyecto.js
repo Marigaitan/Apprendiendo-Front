@@ -1,12 +1,11 @@
+import axios from "axios";
 import React, { Component } from "react";
-import { Nav, NavItem, NavLink } from "reactstrap";
-import "../css/Global.css";
-import "../css/DocenteClassroom.css";
-import HeaderTeacher from "./Header";
+import { Button } from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import axios from "axios";
-import { Button } from "reactstrap";
+import "../css/DocenteClassroom.css";
+import "../css/Global.css";
+import HeaderTeacher from "./Header";
 import NavDocente from "./NavDocente";
 
 const cookies = new Cookies();
@@ -111,28 +110,24 @@ export default class DocenteNuevoProyecto extends Component {
           <div className="newProjectContainer">
             <div className="newProjectBox">
               <h2>Metodología Basada en Proyecto</h2>
-              <br />
               <Button color="success" onClick={() => this.goPblProject()}>
                 Crear Proyecto
               </Button>
             </div>
             <div className="newProjectBox">
               <h2>Metodología Basada en el Pensamiento</h2>
-              <br />
               <Button color="success" onClick={() => this.goTblProject()}>
                 Crear Proyecto
               </Button>
             </div>
             <div className="newProjectBox">
               <h2>Aula Invertida</h2>
-              <br />
               <Button color="success" onClick={() => this.goFlippedProject()}>
                 Crear Proyecto
               </Button>
             </div>
             <div className="newProjectBox">
               <h2>Proyecto Estándar</h2>
-              <br />
               <Button color="success" onClick={() => this.goStandarProject()}>
                 Crear Proyecto
               </Button>

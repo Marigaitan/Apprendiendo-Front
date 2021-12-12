@@ -1,25 +1,16 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {
-  Alert,
-  Button,
-  Card,
-  CardBody,
-  CardTitle,
-  Label,
-  ListGroup,
-  ListGroupItem,
-  Modal,
+  Button, Label, Modal,
   ModalBody,
   ModalFooter,
-  ModalHeader,
-  Progress,
+  ModalHeader
 } from "reactstrap";
-import "../css/Global.css";
-import "../css/DocenteEditLesson.css";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
-import { Link } from "react-router-dom";
+import "../css/DocenteEditLesson.css";
+import "../css/Global.css";
 
 const cookies = new Cookies();
 

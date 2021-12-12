@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import HeaderStudent from "./HeaderAlumno";
-import "../css/ProgresoAlumno.css";
-import { API_HOST } from "../constants";
-import Cookies from "universal-cookie/es6";
 import axios from "axios";
-import { materias } from "../data/materias";
-
-import { ListarLogros } from "./ListarLogros";
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie/es6";
+import { API_HOST } from "../constants";
 import "../css/PerfilAlumno.css";
+import "../css/ProgresoAlumno.css";
+import HeaderStudent from "./HeaderAlumno";
+import { ListarLogros } from "./ListarLogros";
+
 
 const cookies = new Cookies();
 

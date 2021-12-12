@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Cookies from "universal-cookie/es6";
-import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
-import HeaderStudent from "./HeaderAlumno";
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useEffect, useState } from "react";
+import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
 import "../css/Global.css";
 import "../css/MenuDocente.css";
 import HeaderTeacher from "./Header";
-import Background from "../Images/fondoLetras.png";
-import { Button } from "reactstrap";
 import NavMetricas from "./NavMetricas";
 import ProgressBar from "./ProgressBar";
 
@@ -47,11 +44,11 @@ export const DocenteActividadesMetricas = () => {
     <div className="mainContainer">
       <HeaderTeacher />
       <div className="fondo_general container">
-        <h1> METRICAS</h1>
+        <h1> Métricas </h1>
         <NavMetricas activeBar="Actividades" />
 
         <div className="ml-2 mt-2">
-          <h2>Metricas por Actividades</h2>
+          <h2>Métricas por Actividades</h2>
 
           {activities.map((activity) => {
             return (
@@ -65,16 +62,20 @@ export const DocenteActividadesMetricas = () => {
                   <ProgressBar
                     key={activity.id}
                     bgcolor="#1b9a9a"
-                    completed={activity.avgCompletion}
+                    completed={Math.round(activity.avgCompletion * 100) / 100}
                     tarea="Promedio de avance en las actividades"
                   />
                   <ProgressBar
                     key={activity.id}
                     bgcolor="#1b9a9a"
-                    completed={activity.percentageCompleted}
+                    completed={
+                      Math.round(activity.percentageCompleted * 100) / 100
+                    }
                     tarea="Porcentaje completado de la actividad"
                   />
-                  <h2>Nota Promedio: {activity.avgGrade}</h2>
+                  <h2>
+                    Nota Promedio: {Math.round(activity.avgGrade * 100) / 100}
+                  </h2>
                 </div>
                 <br />
               </div>
