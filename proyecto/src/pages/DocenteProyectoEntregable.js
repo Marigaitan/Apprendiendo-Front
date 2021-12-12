@@ -56,7 +56,7 @@ export default class DocenteProyectoEntregable extends Component {
             <form onSubmit={this.handleSubmitEntregable}>
                 <label><h4>Título</h4></label><br />
                 <Input type="text" name="nameEntregable" value={this.state.nameEntregable} placeholder="Ingrese el título de la actividad entregable" maxLength="30" onChange={(n) => { this.setState({ nameEntregable: n.target.value }) }} />
-                <label><h4>Descripcion</h4></label><br />
+                <label><h4>Descripción</h4></label><br />
                 <Input type="text" name="descEntregable" value={this.state.descEntregable} placeholder="Ingrese el título de la actividad entregable" maxLength="255" onChange={(n) => { this.setState({ descEntregable: n.target.value }) }} />
                 <Button block color="primary" size="lg" type="submit">Crear Actividad</Button><br /><br />
 

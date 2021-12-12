@@ -189,6 +189,7 @@ export default class Tbl extends Component {
                             disableButtonClass1: false,
                             disableButtonClass2: false,
                             disableButtonClass3: false,
+                            disableButtonClass4: false,
                         })
                         alert("Proyecto creado exitosamente");
                     })
@@ -355,7 +356,22 @@ export default class Tbl extends Component {
                                                             </div>
                                                         )}
                                                     </FormGroup>
+
                                                 </div>
+                                                <div>
+                                                    <h3>Crear Quizz</h3>
+                                                    <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
+                                                </div>
+                                                <div>
+                                                    <h3>Crear Cuestionario</h3>
+                                                    <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
+                                                </div>
+                                                <div>
+                                                    <h3>Crear actividad entregable</h3>
+                                                    <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
+                                                </div>
+
+
 
                                                 <div className="center-text">
 
@@ -363,8 +379,8 @@ export default class Tbl extends Component {
 
                                             </ModalBody>
                                             <ModalFooter className="modalFooter">
-                                                <Button color="primary" onClick={() => this.addFirstLesson()}>Activar clase</Button>
-                                                <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                                                <Button color="primary" onClick={() => this.addFirstLesson()}>Guardar y activar clase</Button>
+                                                <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                             </ModalFooter>
                                         </ModalBody>
                                     </Modal>
@@ -415,7 +431,7 @@ export default class Tbl extends Component {
                                             </div>
                                             <br />
                                             <div>
-                                                <h3>Breve descripción (opcional)</h3>
+                                                <h3>Breve descripción </h3>
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
@@ -439,15 +455,15 @@ export default class Tbl extends Component {
                                             </div>
                                             <div>
                                                 <h3>Crear Quizz</h3>
-                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
                                             </div>
                                             <div>
                                                 <h3>Crear Cuestionario</h3>
-                                                <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                                <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
                                             </div>
                                             <div>
                                                 <h3>Crear Entregable</h3>
-                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
                                             </div>
                                             <div className="center-text">
 
@@ -455,8 +471,8 @@ export default class Tbl extends Component {
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="primary" onClick={() => this.addSecondLesson()}>Activar clase</Button>
-                                            <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                                            <Button color="primary" onClick={() => this.addSecondLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -503,7 +519,7 @@ export default class Tbl extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
+                                                        <Input type="textarea" name="textClass3" id="exampleText" onChange={this.handleChange} />
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -521,7 +537,7 @@ export default class Tbl extends Component {
                                                 <FormGroup>
                                                     <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
                                                     <br />
-                                                    {this.state.archivosClase2 && this.state.archivosClase2.map(document =>
+                                                    {this.state.archivosClase3 && this.state.archivosClase3.map(document =>
                                                         <div key={document.name} >
                                                             <Alert className="flexSpaceBetween">
                                                                 <Label>{document.name}</Label>
@@ -550,8 +566,8 @@ export default class Tbl extends Component {
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="primary" onClick={() => this.addThirdLesson()}>Activar clase</Button>
-                                            <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                                            <Button color="primary" onClick={() => this.addThirdLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -570,8 +586,8 @@ export default class Tbl extends Component {
                                     <p>
                                         Los estudiantes deben hacer entrega de las conclusiones finales en base a lo realizado en la clase anterior junto con el complemento de cómo lo realizaron.
                                     </p>
-                                    <div><Button disabled={this.state.disableButtonClass3} color="success" onClick={() => this.openModal(3)}  >Activar Clase</Button></div>
-                                    <Modal isOpen={this.state.openModal && this.state.modalId === 3} className="modalStyle">
+                                    <div><Button disabled={this.state.disableButtonClass4} color="success" onClick={() => this.openModal(4)}  >Activar Clase</Button></div>
+                                    <Modal isOpen={this.state.openModal && this.state.modalId === 4} className="modalStyle">
                                         <ModalHeader size='lg' >
                                         </ModalHeader>
                                         <ModalBody>
@@ -592,7 +608,7 @@ export default class Tbl extends Component {
                                                     <FormGroup>
                                                         <Label for="exampleText"><p>
                                                         </p></Label>
-                                                        <Input type="textarea" name="textClass1" id="exampleText" onChange={this.handleChange} />
+                                                        <Input type="textarea" name="textClass4" id="exampleText" onChange={this.handleChange} />
                                                     </FormGroup>
                                                 </Form>
                                             </div>
@@ -602,19 +618,19 @@ export default class Tbl extends Component {
                                                 <FormGroup>
                                                     <Label for="exampleText"><p>
                                                     </p></Label>
-                                                    <Input type="textarea" name="description3" id="exampleText" onChange={this.handleChange} />
+                                                    <Input type="textarea" name="description4" id="exampleText" onChange={this.handleChange} />
                                                 </FormGroup>
                                             </div>
                                             <div>
                                                 <h3>Disponibilizar material </h3>
                                                 <FormGroup>
-                                                    <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
+                                                    <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase4', this.state.lessonIds[2])} />
                                                     <br />
-                                                    {this.state.archivosClase2 && this.state.archivosClase2.map(document =>
+                                                    {this.state.archivosClase4 && this.state.archivosClase4.map(document =>
                                                         <div key={document.name} >
                                                             <Alert className="flexSpaceBetween">
                                                                 <Label>{document.name}</Label>
-                                                                <Button name={document.name} onClick={() => this.borrarArchivo(document, 'archivosClase3')}>Borrar</Button>
+                                                                <Button name={document.name} onClick={() => this.borrarArchivo(document, 'archivosClase4')}>Borrar</Button>
                                                             </Alert>
                                                         </div>
                                                     )}
@@ -622,15 +638,15 @@ export default class Tbl extends Component {
                                             </div>
                                             <div>
                                                 <h3>Crear Quizz</h3>
-                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                                <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
                                             </div>
                                             <div>
                                                 <h3>Crear Cuestionario</h3>
-                                                <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                                <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
                                             </div>
                                             <div>
                                                 <h3>Crear Entregable</h3>
-                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                                                <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
                                             </div>
                                             <div className="center-text">
 
@@ -638,8 +654,8 @@ export default class Tbl extends Component {
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="primary" onClick={() => this.addFourthLesson()}>Activar clase</Button>
-                                            <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                                            <Button color="primary" onClick={() => this.addFourthLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 

@@ -237,7 +237,7 @@ export default class Pbl extends Component {
     this.addLesson(lesson, this.state.archivosClase3);
   }
 
-  addForthLesson = () => {
+  addFourthLesson = () => {
     const lesson = {
       name: this.state.textClass4,
       id: this.state.lessonIds[3], //falta obtener el id de la lesson
@@ -399,7 +399,7 @@ export default class Pbl extends Component {
                   <h3 className="vertical-timeline-element-title"> Pregunta Disparadora</h3>
                   <h4 className="vertical-timeline-element-subtitle">Clase 1 </h4>
                   <p>
-                    Formular pregunta disparadora
+                    Formular pregunta disparadora. Se debe seleccionar una pregunta abierta que despierte el interés y motive a los alumnos.
                     <div>
                       <Button disabled={this.state.disableButtonClass1} color="success" onClick={() => this.openModal(1)}>Activar Clase</Button></div>
                   </p>
@@ -422,7 +422,7 @@ export default class Pbl extends Component {
                       </div>
                       <div></div>
                       <div>
-                        ¿Qué pregunta desea plantear?:
+                        <h3>Título: </h3>
                       </div>
                       <Form>
                         <FormGroup>
@@ -433,18 +433,12 @@ export default class Pbl extends Component {
                       </Form>
                       <br />
                       <div>
-                        <h3>Descripción acerca del tema (Opcional) </h3>
+                        <h3>Descripción:</h3>
                         <Form>
                           <FormGroup>
                             <Input type="textarea" name="description1" id="exampleText" onChange={this.handleChange} />
                           </FormGroup>
                         </Form>
-                        <h3>Adjuntar documentación </h3>
-                      </div>
-                      <div> Mediante la opción "Adjuntar Material" puede proporcionar
-                        el material que crea conveniente a sus alumnos, tales como
-                        documentos en formato word, excel, pdf</div>
-                      <div>
                         <h3>Disponibilizar material</h3>
                         <FormGroup>
                           <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase1', this.state.lessonIds[0])} />
@@ -458,11 +452,23 @@ export default class Pbl extends Component {
                             </div>
                           )}
                         </FormGroup>
+                        <div>
+                          <h3>Crear Quizz</h3>
+                          <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
+                        </div>
+                        <div>
+                          <h3>Crear Cuestionario</h3>
+                          <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
+                        </div>
+                        <div>
+                          <h3>Crear actividad entregable</h3>
+                          <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[0] : -1} />
+                        </div>
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="primary" onClick={() => this.addFirstLesson()}>Activar clase</Button>
-                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                      <Button color="primary" onClick={() => this.addFirstLesson()}>Guardar y activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                     </ModalFooter>
                   </Modal>
                 </VerticalTimelineElement>
@@ -479,8 +485,7 @@ export default class Pbl extends Component {
                   <h3 className="vertical-timeline-element-title">Formando Equipos</h3>
                   <h4 className="vertical-timeline-element-subtitle">Clase 2</h4>
                   <p>
-                    Formar equipos con diversidad de perfiles
-
+                    Dictar la consigna de formar equipos a los alumnos
                     <div>
                       <Button disabled={this.state.disableButtonClass2} color="success" onClick={() => this.openModal(2)}>Activar Clase</Button></div>
                   </p>
@@ -498,9 +503,26 @@ export default class Pbl extends Component {
                         posibilidad de que cada uno desempeñe un rol.
 
                       </div>
-
-
-                      <h3>Adjuntar documentación </h3>
+                      <div>
+                        <h3>Título: </h3>
+                        <Form>
+                          <FormGroup>
+                            <Label for="exampleText"><p>
+                            </p></Label>
+                            <Input type="textarea" name="textClass2" id="exampleText" onChange={this.handleChange} />
+                          </FormGroup>
+                        </Form>
+                      </div>
+                      <br />
+                      <div>
+                        <h3>Breve descripción:</h3>
+                        <FormGroup>
+                          <Label for="exampleText"><p>
+                          </p></Label>
+                          <Input type="textarea" name="description2" id="exampleText" onChange={this.handleChange} />
+                        </FormGroup>
+                      </div>
+                      <h3>Adjuntar documentación:</h3>
                       <FormGroup>
                         <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase2', this.state.lessonIds[1])} />
                         <br />
@@ -512,11 +534,15 @@ export default class Pbl extends Component {
                             </Alert>
                           </div>
                         )}
+                        <div>
+                          <h3>Crear Entregable:</h3>
+                          <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[1] : -1} />
+                        </div>
                       </FormGroup>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="primary" onClick={() => this.addSecondLesson()}>Activar clase</Button>
-                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                      <Button color="primary" onClick={() => this.addSecondLesson()}>Guardar y activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                     </ModalFooter>
                   </Modal>
 
@@ -547,24 +573,31 @@ export default class Pbl extends Component {
                         <div>
 
 
-                          En esta clase se les pide a los alumnos  que armen un
-                          plan de trabajo, donde presenten las tareas previstas,
-                          el encargado de realizarlas y las fechas de resolución
-                          esperadas.
+                          En esta clase se les solicita a los alumnos  que armen un
+                          plan de trabajo donde: presenten las tareas previstas, responsables y las fechas de resolución
+                          estimadas.
 
                         </div>
                         <div>
-                          <h3>Descripción</h3>
-                        </div>
-                        <div>
+                          <h3>Título</h3>
                           <Form>
                             <FormGroup>
                               <Label for="exampleText"><p>
                               </p></Label>
-                              <Input type="textarea" name="description1" id="exampleText" onChange={this.handleChange} />
+                              <Input type="textarea" name="textClass3" id="exampleText" onChange={this.handleChange} />
                             </FormGroup>
                           </Form>
-
+                        </div>
+                        <br />
+                        <div>
+                          <h3>Breve descripción (opcional)</h3>
+                          <FormGroup>
+                            <Label for="exampleText"><p>
+                            </p></Label>
+                            <Input type="textarea" name="description3" id="exampleText" onChange={this.handleChange} />
+                          </FormGroup>
+                        </div>
+                        <div>
                           <h3>Adjuntar documentación con lineamientos</h3>
                           <FormGroup>
                             <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
@@ -578,12 +611,20 @@ export default class Pbl extends Component {
                               </div>
                             )}
                           </FormGroup>
+                          <div>
+                            <h3>Crear Entregable</h3>
+                            <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+
+                          </div>
                         </div>
+
+
+                        <ModalFooter className="modalFooter">
+                          <Button color="primary" onClick={() => this.addThirdLesson()}>Guardar y activar clase</Button>
+                          <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
+
+                        </ModalFooter>
                       </ModalBody>
-                      <ModalFooter className="modalFooter">
-                        <Button color="primary" onClick={() => this.addThirdLesson()}>Activar clase</Button>
-                        <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
-                      </ModalFooter>
                     </Modal>
                   </div>
                 </VerticalTimelineElement>
@@ -619,14 +660,25 @@ export default class Pbl extends Component {
 
                         En esta clase se les solicita a los grupos que comiencen a investigar a partir de un
                         escenario concreto dado por la pregunta disparadora. El docente no va a preparar la información
-                        que deban preparar. La investigación es por cuenta de cada grupo y deben entregar los resultados
+                        que deban preparar aunque si puede disponibilizar preguntas que sirvan como guía.
+                        La investigación es por cuenta de cada grupo y deben entregar los resultados
                         con las fuentes consultadas.
 
                       </div>
                       <div>
+                          <h3>Título</h3>
+                          <Form>
+                            <FormGroup>
+                              <Label for="exampleText"><p>
+                              </p></Label>
+                              <Input type="textarea" name="textClass4" id="exampleText" onChange={this.handleChange} />
+                            </FormGroup>
+                          </Form>
+                        </div>
+                      <div>
 
 
-                        <h3>Descripciones o notas para la visualización del alumno</h3>
+                        <h3>Descripciones</h3>
                         <FormGroup>
                           <Input type="textarea" name="description4" id="exampleText" onChange={this.handleChange} />
                         </FormGroup>
@@ -650,10 +702,24 @@ export default class Pbl extends Component {
                           )}
                         </FormGroup>
                       </div>
+                      <div>
+                        <h3>Crear Quizz</h3>
+                        <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
+                      </div>
+                      <div>
+                        <h3>Crear Cuestionario</h3>
+                        <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
+                      </div>
+                      <div>
+                        <h3>Crear Entregable</h3>
+                        <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[3] : -1} />
+                      </div>
+
+
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="primary" onClick={() => this.addForthLesson()}>Activar clase</Button>
-                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                      <Button color="primary" onClick={() => this.addFourthLesson()}>Guardar y activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                     </ModalFooter>
                   </Modal>
                 </VerticalTimelineElement>
@@ -670,7 +736,7 @@ export default class Pbl extends Component {
                   <h3 className="vertical-timeline-element-title">Puesta en común y debate</h3>
                   <h4 className="vertical-timeline-element-subtitle">Clase 5</h4>
                   <p>
-                    Definir lineamientos para el debate
+                    Definir lineamientos y condiciones para el debate que se dará en el aula.
                   </p>
                   <div>  <Button disabled={this.state.disableButtonClass5} color="success" color="success" onClick={() => this.openModal(5)}>Activar Clase</Button>
                   </div>
@@ -690,12 +756,23 @@ export default class Pbl extends Component {
                         Al finalizar la puesta en común con el resto de los alumnos
                         deberán en conjunto idear un producto final a elaborar con la investigación realizada
                         (como un folleto, una presentación informativa para algún establecimiento, un trabajo de investigación cientifica).
+                        El docente puede disponibilizar nuevas preguntas que los alumnos deberán responder en la puesta en común.
 
+                      </div>
+                      <div>
+                        <h3>Título: </h3>
+                        <Form>
+                          <FormGroup>
+                            <Label for="exampleText"><p>
+                            </p></Label>
+                            <Input type="textarea" name="textClass5" id="exampleText" onChange={this.handleChange} />
+                          </FormGroup>
+                        </Form>
                       </div>
                       <div>
 
 
-                        <h3>Descripciones o notas para la visualización del alumno</h3>
+                        <h3>Descripciones</h3>
                         <FormGroup>
                           <Input type="textarea" name="description5" id="exampleText" onChange={this.handleChange} />
                         </FormGroup>
@@ -719,10 +796,23 @@ export default class Pbl extends Component {
                           )}
                         </FormGroup>
                       </div>
+                      <div>
+                        <h3>Crear Quizz</h3>
+                        <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[4] : -1} />
+                      </div>
+                      <div>
+                        <h3>Crear Cuestionario</h3>
+                        <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[4] : -1} />
+                      </div>
+
+                      <div>
+                        <h3>Crear Entregable</h3>
+                        <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[4] : -1} />
+                      </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="primary" onClick={() => this.addFifthLesson()}>Activar clase</Button>
-                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                      <Button color="primary" onClick={() => this.addFifthLesson()}>Guardar y activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                     </ModalFooter>
                   </Modal>
                 </VerticalTimelineElement>
@@ -758,9 +848,19 @@ export default class Pbl extends Component {
 
                       </div>
                       <div>
+                        <h3>Título:</h3>
+                        <Form>
+                          <FormGroup>
+                            <Label for="exampleText"><p>
+                            </p></Label>
+                            <Input type="textarea" name="textClass6" id="exampleText" onChange={this.handleChange} />
+                          </FormGroup>
+                        </Form>
+                      </div>
+                      <div>
 
 
-                        <h3>Descripciones o notas para la visualización del alumno</h3>
+                        <h3>Descripciones </h3>
                         <FormGroup>
                           <Input type="textarea" name="description6" id="exampleText" onChange={this.handleChange} />
                         </FormGroup>
@@ -785,10 +885,14 @@ export default class Pbl extends Component {
                           )}
                         </FormGroup>
                       </div>
+                      <div>
+                        <h3>Crear Entregable</h3>
+                        <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[5] : -1} />
+                      </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="primary" onClick={() => this.addSixthLesson()}>Activar clase</Button>
-                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                      <Button color="primary" onClick={() => this.addSixthLesson()}>Guardar y activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                     </ModalFooter>
                   </Modal>
                 </VerticalTimelineElement>
@@ -829,9 +933,19 @@ export default class Pbl extends Component {
 
                       </div>
                       <div>
+                        <h3>Ingresar título del tema </h3>
+                        <Form>
+                          <FormGroup>
+                            <Label for="exampleText"><p>
+                            </p></Label>
+                            <Input type="textarea" name="textClass7" id="exampleText" onChange={this.handleChange} />
+                          </FormGroup>
+                        </Form>
+                      </div>
+                      <div>
 
 
-                        <h3>Descripciones o notas para la visualización del alumno</h3>
+                        <h3>Descripciones </h3>
                         <FormGroup>
                           <Input type="textarea" name="description7" id="exampleText" onChange={this.handleChange} />
                         </FormGroup>
@@ -852,21 +966,21 @@ export default class Pbl extends Component {
                         </FormGroup>
                       </div>
                       <div>
-                        <h3>Crear Quizz</h3>
-                        <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                        <h3>Crear Quizz</h3>x
+                        <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[6] : -1} />
                       </div>
                       <div>
                         <h3>Crear Cuestionario</h3>
-                        <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                        <DocenteProyectoCuestionario lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[6] : -1} />
                       </div>
                       <div>
                         <h3>Crear Entregable</h3>
-                        <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[2] : -1} />
+                        <DocenteProyectoEntregable lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[6] : -1} />
                       </div>
                     </ModalBody>
                     <ModalFooter className="modalFooter">
-                      <Button color="primary" onClick={() => this.addSeventhLesson()}>Activar clase</Button>
-                      <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                      <Button color="primary" onClick={() => this.addSeventhLesson()}>Guardar y activar clase</Button>
+                      <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                     </ModalFooter>
                   </Modal>
                 </VerticalTimelineElement>

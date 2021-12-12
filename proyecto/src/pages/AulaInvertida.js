@@ -150,7 +150,7 @@ export default class AulaInvertida extends Component {
             documents: [],
             lessons: [
                 {
-                    name: "Pregunta Disparadora",
+                    name: "Lección Inicial",
                     position: 0,
                     description: '',
                     active: false,
@@ -158,7 +158,7 @@ export default class AulaInvertida extends Component {
                     documents: [],
                 },
                 {
-                    name: "Planificación",
+                    name: "Práctica Inicial",
                     position: 1,
                     description: '',
                     active: false,
@@ -166,7 +166,7 @@ export default class AulaInvertida extends Component {
                     documents: [],
                 },
                 {
-                    name: "Investigación",
+                    name: "Práctica de Refuerzo",
                     position: 2,
                     description: '',
                     active: false,
@@ -373,8 +373,8 @@ export default class AulaInvertida extends Component {
 
                                             </ModalBody>
                                             <ModalFooter className="modalFooter">
-                                                <Button color="primary" onClick={() => this.addFirstLesson()}>Activar clase</Button>
-                                                <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                                                <Button color="primary" onClick={() => this.addFirstLesson()}>Guardar y activar clase</Button>
+                                                <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                             </ModalFooter>
                                         </ModalBody>
                                     </Modal>
@@ -465,8 +465,8 @@ export default class AulaInvertida extends Component {
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="primary" onClick={() => this.addSecondLesson()}>Activar clase</Button>
-                                            <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                                            <Button color="primary" onClick={() => this.addSecondLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
@@ -548,8 +548,8 @@ export default class AulaInvertida extends Component {
 
                                         </ModalBody>
                                         <ModalFooter className="modalFooter">
-                                            <Button color="primary" onClick={() => this.addThirdLesson()}>Activar clase</Button>
-                                            <Button color="secondary" onClick={this.closeModal}>Cerrar sin guardar</Button>
+                                            <Button color="primary" onClick={() => this.addThirdLesson()}>Guardar y activar clase</Button>
+                                            <Button color="secondary" onClick={this.closeModal}>Cerrar</Button>
                                         </ModalFooter>
                                     </Modal>
 
