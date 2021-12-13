@@ -56,7 +56,7 @@ export default class AlumnoProyecto extends Component {
       return Promise.all(
         miembros.map((miembro) => {
           return axios.get("user/" + miembro.studentId).then((response) => ({
-            name: response.data.username,
+            name: response.data.firstName + " " + response.data.lastName,
             role: miembro.groupRole,
           }));
         })
@@ -126,16 +126,15 @@ export default class AlumnoProyecto extends Component {
                       key={lessons.id}
                       id={lessons.id}
                       className="vertical-timeline-element--work"
-                      //contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+                      contentStyle={{ background: "rgb(225, 206, 81)", color: "#000000", }}
                       contentArrowStyle={{
                         borderRight: "7px solid  rgb(33, 150, 243)",
                       }}
-                      date=""
                       iconStyle={{
                         background: "rgb(225, 206, 81)",
                         color: "#000000",
                       }}
-                      icon={<img src={LogoMini} className="small-img" />}
+                      icon={<img src={LogoMini} className="smallImgAlumnoProyecto" />}
                       iconOnClick={() => this.goLesson(lessons.id)}
                       align="alternate"
                     >
@@ -156,9 +155,7 @@ export default class AlumnoProyecto extends Component {
                 {this.state.integrantes.map((integrantes) => {
                   return (
                     <div key={integrantes.id} id={integrantes.id}>
-                      <h3>
-                        <li>{integrantes.name}</li>
-                      </h3>
+                      <h4>{integrantes.name}</h4>
                     </div>
                   );
                 })}

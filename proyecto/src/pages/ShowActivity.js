@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { Component } from 'react';
-import { Alert, Button, Card, CardBody, CardText, CardTitle, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Alert, Button, Col, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Cookies from 'universal-cookie/es6';
 import { API_HOST } from "../constants";
 import '../css/Global.css';
 import '../css/ShowActivity.css';
+import * as _ from "lodash";
 
 const cookies = new Cookies();
 
@@ -30,7 +31,7 @@ export default class ShowActivity extends Component {
     await axios.all(axiosActivities).then(responses => {
       let activities = responses.map(response => response.data);
       console.log(activities);
-      activities = activities.filter(activityList => activityList.length > 0 && activityList[0].dataType !== "ENTREGABLE" )
+      activities = activities.filter(activityList => activityList.length > 0 && activityList[0].dataType !== "ENTREGABLE")
       console.log(activities);
       this.setState({
         activitiesAnswers: activities
@@ -77,44 +78,34 @@ export default class ShowActivity extends Component {
     return (
       <div>
         {this.state.activitiesAnswers.map(activityList => {
-          let activity = activityList[0];
-          let actividad = JSON.parse(activity.data);
+          let activityAlumno = activityList[0];
+          let actividadRespuestas = JSON.parse(activityAlumno.data);
           return (
-            <div key={activity.id} id={activity.id} >
-              <Button block onClick={() => this.openModal(activity.id)} color="warning" className="button-table">
-                <h5>{activity.name}</h5>
+            <div key={activityAlumno.id} id={activityAlumno.id} >
+              <Button block onClick={() => this.openModal(activityAlumno.id)} color="warning" className="button-table">
+                <h5>{activityAlumno.name}</h5>
               </Button>
-              <Modal isOpen={this.state.openModal && this.state.modalId === activity.id}>
-                <ModalHeader size='lg'>
-                  {activity.name}
+              <Modal isOpen={this.state.openModal && this.state.modalId === activityAlumno.id}>
+                <ModalHeader tag="h2">
+                  {activityAlumno.name}
                 </ModalHeader>
                 <ModalBody>
-                  {activity.dataType === "CUESTIONARIO"
+                  {activityAlumno.dataType === "CUESTIONARIO"
                     ?
                     (<div>
-                      {actividad && actividad.map((respuesta, index) =>
-                        <div key={index} id={index}>
-                          <Card color="secondary" inverse>
-                            <CardBody>
-                              <CardTitle tag="h4">
-                                <Label>Pregunta {index + 1}</Label>
-                              </CardTitle>
-                              <CardText>
-                                {respuesta}
-                              </CardText>
-                            </CardBody>
-                          </Card>
-                          <br />
-                          <br />
+                      {actividadRespuestas && actividadRespuestas.map((respuesta, index) =>
+                        <div key={index} id={index} className="respuesta">
+                          <Label><h5>{JSON.parse(_.find(this.props.activities, { id: activityAlumno.source.activityId }).documents[0].data)[index].question}</h5></Label>
+                          <Label>{respuesta}</Label>
                         </div>
                       )}
                     </div>)
-                    : activity.dataType === "QUIZZ"
+                    : activityAlumno.dataType === "QUIZZ"
                       ?
                       (<div>
-                        {actividad && actividad.resultados.map((resultado, index) =>
+                        {actividadRespuestas && actividadRespuestas.resultados.map((resultado, index) =>
                           <div key={index} id={index} className="respuesta">
-                            <Label>{resultado.pregunta}</Label>
+                            <Label><h5>{resultado.pregunta}</h5></Label>
                             <Label>{resultado.respuesta}</Label>
                           </div>
                         )
@@ -127,11 +118,11 @@ export default class ShowActivity extends Component {
                   {/* ------------------------------ CALIFICACION ------------------------------ */}
                   {/* ------------------------------ CUESTIONARIO ------------------------------ */}
                   {/* ------------------------------ SIN CALIFAR TODAVIA ------------------------------ */}
-                  {activity.dataType === "CUESTIONARIO"
+                  {activityAlumno.dataType === "CUESTIONARIO"
                     ?
                     (<div className="full-width">
                       {
-                        activity.source.grade === null || activity.source.grade === -1
+                        activityAlumno.source.grade === null || activityAlumno.source.grade === -1
                           ?
                           (<div>
                             <Alert color='info'>Aun no se ha calificado</Alert>
@@ -156,13 +147,13 @@ export default class ShowActivity extends Component {
                               </FormGroup>
                             </div>
                             <div>
-                              <Button block outline color="primary" onClick={() => this.calificar(activity.source.activityId)}>Calificar</Button>
+                              <Button block outline color="primary" onClick={() => this.calificar(activityAlumno.source.activityId)}>Calificar</Button>
                               <Button block outline color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
                             </div>
                           </div>)
                           // ------------------------------------------------------------ YA CALIFICADO ------------------------------------------------------------------------------------------
                           : <div>
-                            <Alert>Calificado con {activity.source.grade}</Alert>
+                            <Alert>Calificado con {activityAlumno.source.grade}</Alert>
                             <div className="flex-start">
                               <Label>Editar Calificacion:</Label>
                               <FormGroup row>
@@ -183,15 +174,15 @@ export default class ShowActivity extends Component {
                                 </Col>
                               </FormGroup>
                             </div>
-                            <Button block color='warning' onClick={() => this.calificar(activity.source.activityId)}>Editar nota</Button>
+                            <Button block color='warning' onClick={() => this.calificar(activityAlumno.source.activityId)}>Editar nota</Button>
                             <Button block color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
                           </div>
                       }
                     </div>)
-                    : activity.dataType === "QUIZZ"
+                    : activityAlumno.dataType === "QUIZZ"
                       ?
                       (<div>
-                        <Alert>Calificado con {activity.source.grade}</Alert>
+                        <Alert>Calificado con {activityAlumno.source.grade}</Alert>
                         <Button color="secondary" onClick={() => this.closeModal()}>Cerrar</Button>
                       </div>)
                       : <div></div>

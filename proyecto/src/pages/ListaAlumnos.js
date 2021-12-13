@@ -33,14 +33,12 @@ export default class ListaAlumnos extends Component {
                 const year = classData.data.year;
                 const division = classData.data.division;
 
-                const students = studentsData.data.map(student => ({ id: student.id, username: student.username }));
-
                 //SET STATE
                 this.setState({
                     subject: subject,
                     year: year,
                     division: division,
-                    students: students,
+                    students: studentsData.data,
                 })
                 
             }))
@@ -59,7 +57,7 @@ export default class ListaAlumnos extends Component {
                         <div className='BloqueEstudiantes'>
                             <h2>Estudiantes</h2> 
                             <div>
-                                {this.state.students.map(student => { return (<div key={student.id} id={student.id}><h3><li>{student.username}</li></h3></div>) })}
+                                {this.state.students.map(student => { return (<div key={student.id} id={student.id}><h3><li>{student.firstName + " " + student.lastName}</li></h3></div>) })}
                             </div>
                         </div>
                 </div>

@@ -65,10 +65,7 @@ export default class AlumnoClassroom extends Component {
           const division = classData.data.division;
           const teacherId = classData.data.teacherId;
 
-          const students = studentsData.data.map((student) => ({
-            id: student.id,
-            username: student.username,
-          }));
+          const students = studentsData.data;
 
           const projects = projectsData.data.map((project) => ({
             id: project.id,
@@ -95,7 +92,7 @@ export default class AlumnoClassroom extends Component {
         })
       )
       .then((response) => {
-        const teacherName = response.data.username;
+        const teacherName = response.data.firstName + " " + response.data.lastName;
         console.log(response);
         this.setState({ teacherName: teacherName });
       })
@@ -135,13 +132,11 @@ export default class AlumnoClassroom extends Component {
           <div className="classData">
             <div className="proAlumno">
               <h2>Proyectos</h2>
-              <div>
+              <div style={{display: 'flex', flexDirection: 'column', gap: '15px', width: '200px'}}>
                 {this.state.activeProjects.map((project) => (
-                  <li>
-                    <Button onClick={() => this.goAlumnoProyecto(project)}>
+                    <Button key={project.id} onClick={() => this.goAlumnoProyecto(project)}>
                       {project.name}
                     </Button>
-                  </li>
                 ))}
               </div>
             </div>
@@ -151,7 +146,7 @@ export default class AlumnoClassroom extends Component {
                 {this.state.students.map((student) => {
                   return (
                     <div key={student.id} id={student.id}>
-                      <h3>{student.username}</h3>
+                      <h4>{student.firstName + " " + student.lastName}</h4>
                     </div>
                   );
                 })}

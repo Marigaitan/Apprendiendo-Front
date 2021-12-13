@@ -48,7 +48,7 @@ const HeaderTeacher = () => {
               </div>
             ) : (
               <h3>
-                <p id="userName">{cookies.get("username")}</p>
+                <p id="userName">{cookies.get("firstName") + " " + cookies.get("lastName")}</p>
               </h3>
             )}
             <div className="closemenu" onClick={menuIconClick}>
