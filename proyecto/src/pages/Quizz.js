@@ -5,7 +5,7 @@ import "../css/Quizz.css";
 
 const Quizz = React.memo(({ handleQuizz, workquizz }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  
+
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [respuestas, setrespuestas] = useState({
@@ -13,27 +13,33 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
     resultados: [],
   });
   const { puntaje, resultados } = respuestas;
-  const questions = JSON.parse(workquizz.data);
+  const [questions, setQuestions] = useState(JSON.parse(workquizz.data));
+  const [quizzIsRandom, setQuizzIsRandom] = useState(false);
 
-   //------------------random Options ---------------------------
-   useEffect(() => {
-    
-    for (let n=0; n < questions.length; n++) {
-      let options = questions[n].answerOptions;
-              let i = options.length - 1;
-              for (; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                const temp = options[i];
-                options[i] = options[j];
-                options[j] = temp;
-                questions[n].answerOptions = options;
-              }
-              
-            }
-            console.log("estructura random");
-            console.log(questions);
-            return questions;
-          });
+  //------------------random Options ---------------------------
+  useEffect(() => {
+  });
+
+
+  const quizzRandom = () => {
+    if (!quizzIsRandom) {
+      for (let n = 0; n < questions.length; n++) {
+        let options = questions[n].answerOptions;
+        let i = options.length - 1;
+        for (; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = options[i];
+          options[i] = options[j];
+          options[j] = temp;
+          questions[n].answerOptions = options;
+        }
+      }
+      console.log("estructura random");
+      console.log(questions);
+      setQuestions(qs => qs = questions);
+      setQuizzIsRandom(r => r = true);
+    }
+  }
 
   const handleAnswerButtonClick = (isCorrect, questionText, answerText) => {
     let aux = {
@@ -65,6 +71,7 @@ const Quizz = React.memo(({ handleQuizz, workquizz }) => {
   //console.log("ESTRUCTURA:", respuestas);
   return (
     <div classname="quizzBack">
+          {quizzRandom()}
       <div className="appQuizz">
         {showScore ? (
           <div className="score-section">
