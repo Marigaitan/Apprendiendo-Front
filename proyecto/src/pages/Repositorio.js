@@ -6,7 +6,8 @@ import {
   Alert,
   Button,
   Modal, ModalBody,
-  ModalFooter, ModalHeader
+  ModalFooter, ModalHeader,
+  Input, FormGroup
 } from "reactstrap";
 import Cookies from "universal-cookie/es6";
 import { API_HOST } from "../constants";
@@ -29,9 +30,13 @@ class Repositorio extends Component {
 
       openVerReviewsModal : false,
 
-      openVerTemplateModal : false,
+      openUsarTemplateModal : false,
 
-      updated: true
+      updated: true,
+
+      newProjectName: "",
+      
+      newProjectClassroom: ""
     };
   }
 
@@ -79,7 +84,7 @@ class Repositorio extends Component {
 
 //revisar estetica modal
   verReviewsModal (template) {
-    if (template != null) {
+    if (template != null && this.state.openVerReviewsModal) {
       return (
         <Modal isOpen={this.state.openVerReviewsModal} className="modalStyle">
           <ModalHeader size="lg">{template.name}</ModalHeader>
@@ -120,7 +125,7 @@ class Repositorio extends Component {
 
 
   calificarModal (template) {
-    if (template != null)
+    if (template != null && this.state.openCalificarModal)
     return (
       <Modal isOpen={this.state.openCalificarModal} className="modalStyle">
         <ModalHeader size="lg">{template.name}</ModalHeader>
@@ -163,29 +168,72 @@ class Repositorio extends Component {
     this.closeCalificarModal(template);
   }
 
+  handleChange = (event) => {
+    const value = event.target.value;
+    const name = event.target.name;
 
+    this.setState({
+      [name]: value
+    });
+  }
 
-
-  verTemplateModal (template) {
-    if (template != null)
-    return (
-      <Modal isOpen={this.state.openVerTemplateModal} className="modalStyle">
-        <ModalHeader size="lg">{template.name}</ModalHeader>
+  usarTemplateModal (template) {
+    if (template != null & this.state.teacher != null && this.state.openUsarTemplateModal)
+      return(
+        <Modal isOpen={this.state.openUsarTemplateModal}>
+        <ModalHeader className="title">
+          <h3 className="title">Crear nuevo Proyecto basado en el template</h3>
+        </ModalHeader>
         <ModalBody>
+          <div>
+            <h2>Nombre del nuevo proyecto:</h2>
+            <FormGroup>
+              <Input type="textarea" name="newProjectName" id="exampleText" onChange={this.handleChange} />
+            </FormGroup>
+          </div>
+          <div>
+            <h2>Aula donde quiere crear el nuevo proyecto:</h2>
+            {this.state.teacher.teacherClassrooms.map(classroom => <li><Button color="primary" onClick={() => this.selectClassroom(classroom)}>{classroom.subject + classroom.year + classroom.division} </Button></li>)}
+          </div>
         </ModalBody>
         <ModalFooter className="modalFooter">
-          <Button color="secondary" onClick={() => this.closeVerTemplateModal()}> Cerrar </Button>
+          <Button color="secondary" onClick={() => this.createProject()}>Crear y cerrar</Button>
         </ModalFooter>
       </Modal>
-    )
+      )
   }
 
-  openVerTemplateModal (template) {
-    this.setState({ openVerTemplateModal: true, selectedTemplate: template});
+  async createProject() {
+    let template = (await axios.get("template/" + this.state.selectedTemplate.id)).data;
+    let project = JSON.parse(template.template);
+
+    project.lessons.forEach( lesson => {
+      lesson.startDate = null;
+      lesson.activities.forEach(activity => activity.startDate = null ) 
+    });
+
+
+    project.name = this.state.newProjectName;
+    project.methodologyId = this.state.selectedTemplate.methodologyId;
+    project.classroomId = this.state.newProjectClassroom.id;
+    project.startDate = null;
+
+    axios.post("project/template", project);
+
+    this.closeUsarTemplateModal();
   }
 
-  closeVerTemplateModal () {
-    this.setState({ openVerTemplateModal: false});
+
+  selectClassroom(classroom) {
+    this.setState({newProjectClassroom: classroom})
+  }
+
+  openUsarTemplateModal (template) {
+    this.setState({ openUsarTemplateModal: true, selectedTemplate: template});
+  }
+
+  closeUsarTemplateModal () {
+    this.setState({ openUsarTemplateModal: false});
   }
 
 
@@ -226,7 +274,7 @@ class Repositorio extends Component {
                   </td>
 
                   <td>
-                    <Button color="primary" onClick={() => this.openVerTemplateModal(template)}> Usar </Button>{" "}  
+                    <Button color="primary" onClick={() => this.openUsarTemplateModal(template)}> Usar </Button>{" "}  
                   </td> 
                 </tr>
               ))}
@@ -235,7 +283,7 @@ class Repositorio extends Component {
         </div>
           {this.calificarModal(this.state.selectedTemplate)}
           {this.verReviewsModal(this.state.selectedTemplate)}
-          {this.verTemplateModal(this.state.selectedTemplate)}
+          {this.usarTemplateModal(this.state.selectedTemplate)}
         </div>
 
       
