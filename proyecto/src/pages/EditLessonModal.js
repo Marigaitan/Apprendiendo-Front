@@ -145,7 +145,7 @@ export default class EditLessonModal extends Component {
           }}
         >
           <Button outline block color="primary">
-            Logros (NO FUNCIONA TODAVIA, NO TOCAR)
+            Logros
           </Button>
         </Link>
       </div>

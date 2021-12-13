@@ -440,7 +440,7 @@ export default class Pbl extends Component {
                         </Form>
                         <h3>Disponibilizar material</h3>
                         <FormGroup>
-                          <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase1', this.state.lessonIds[0])} />
+                          <input type="file" name="archivosClase1" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase1', this.state.lessonIds[0])} />
                           <br />
                           {this.state.archivosClase1 && this.state.archivosClase1.map(document =>
                             <div key={document.name} >
@@ -523,7 +523,7 @@ export default class Pbl extends Component {
                       </div>
                       <h3>Adjuntar documentación:</h3>
                       <FormGroup>
-                        <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase2', this.state.lessonIds[1])} />
+                        <input type="file" name="archivosClase2" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase2', this.state.lessonIds[1])} />
                         <br />
                         {this.state.archivosClase2 && this.state.archivosClase2.map(document =>
                           <div key={document.name} >
@@ -599,7 +599,7 @@ export default class Pbl extends Component {
                         <div>
                           <h3>Adjuntar documentación con lineamientos</h3>
                           <FormGroup>
-                            <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
+                            <input type="file" name="archivosClase3" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase3', this.state.lessonIds[2])} />
                             <br />
                             {this.state.archivosClase3 && this.state.archivosClase3.map(document =>
                               <div key={document.name} >
@@ -689,7 +689,7 @@ export default class Pbl extends Component {
 
                         <h3>Adjuntar documentación con lineamientos</h3>
                         <FormGroup>
-                          <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase4', this.state.lessonIds[3])} />
+                          <input type="file" name="archivosClase4" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase4', this.state.lessonIds[3])} />
                           <br />
                           {this.state.archivosClase4 && this.state.archivosClase4.map(document =>
                             <div key={document.name} >
@@ -783,9 +783,9 @@ export default class Pbl extends Component {
 
                         <h3>Adjuntar documentación con lineamientos</h3>
                         <FormGroup>
-                          <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase5', this.state.lessonIds[4])} />
+                          <input type="file" name="archivosClase5" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase5', this.state.lessonIds[4])} />
                           <br />
-                          {this.state.archivosClase5 && this.state.archivosClase6.map(document =>
+                          {this.state.archivosClase5 && this.state.archivosClase5.map(document =>
                             <div key={document.name} >
                               <Alert className="flexSpaceBetween">
                                 <Label>{document.name}</Label>
@@ -872,7 +872,7 @@ export default class Pbl extends Component {
                         <h3>Adjuntar documentación con lineamientos</h3>
 
                         <FormGroup>
-                          <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase6', this.state.lessonIds[5])} />
+                          <input type="file" name="archivosClase6" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase6', this.state.lessonIds[5])} />
                           <br />
                           {this.state.archivosClase6 && this.state.archivosClase6.map(document =>
                             <div key={document.name} >
@@ -952,7 +952,7 @@ export default class Pbl extends Component {
                       <div>
                         <h3>Adjuntar documentación con lineamientos</h3>
                         <FormGroup>
-                          <input type="file" name="files" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase7', this.state.lessonIds[6])} />
+                          <input type="file" name="archivosClase7" onChange={(elem) => this.subirArchivos(elem.target.files, 'archivosClase7', this.state.lessonIds[6])} />
                           <br />
                           {this.state.archivosClase7 && this.state.archivosClase7.map(document =>
                             <div key={document.name} >
@@ -965,7 +965,7 @@ export default class Pbl extends Component {
                         </FormGroup>
                       </div>
                       <div>
-                        <h3>Crear Quizz</h3>x
+                        <h3>Crear Quizz</h3>
                         <DocenteProyectoQuizz lessonId={this.state.lessonIds.length > 0 ? this.state.lessonIds[6] : -1} />
                       </div>
                       <div>

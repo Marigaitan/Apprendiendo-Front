@@ -253,16 +253,16 @@ export default class DocenteEditGroups extends Component {
                         <div className="whiteboxButtons">
 
                             <Button className="bigButtons" onClick={() => this.props.history.goBack()}>Volver</Button>
-                            <Button className="bigButtons" onClick={this.crearNuevoGrupo}>Nuevo grupo</Button>
+                            <Button className="bigButtons" onClick={this.crearNuevoGrupo}>Nuevo equipo</Button>
 
                             <Modal isOpen={this.state.openModal && this.state.modalId === this.state.project.id}>
                                 <ModalHeader>
-                                    Nuevo grupo
+                                    Nuevo equipo
                                 </ModalHeader>
                                 <ModalBody>
-                                    <Label>Nombre del grupo:</Label>
+                                    <Label>Nombre del equipo:</Label>
                                     <Input type="text" name="nameGrupo" value={this.state.nameGrupo} onChange={this.handleChange}/>
-                                    <Label>Crear un nuevo grupo seleccionando a todos los integrantes sin grupo listados a continuacion:</Label>
+                                    <Label>Crear un nuevo equipo seleccionando a todos los integrantes sin equipo listados a continuacion:</Label>
                                     {this.state.alumnosSinGrupo.map((alumno, index) =>
                                         <div key={alumno.id}>
                                             <Alert>
@@ -276,7 +276,7 @@ export default class DocenteEditGroups extends Component {
                                     }
                                 </ModalBody>
                                 <ModalFooter>
-                                    <Button onClick={this.agregarAlumnosAGrupoNuevo} disabled={this.state.disabledButton}>Agregar grupo nuevo</Button>
+                                    <Button onClick={this.agregarAlumnosAGrupoNuevo} disabled={this.state.disabledButton}>Agregar equipo nuevo</Button>
                                     <Button onClick={() => this.closeModalNuevoGrupo()}>Cerrar</Button>
                                 </ModalFooter>
                             </Modal>
@@ -285,20 +285,20 @@ export default class DocenteEditGroups extends Component {
                             {this.state.grupos.map(grupo =>
                                 <div key={grupo.id}>
 
-                                    <Label><h3>Grupo {grupo.name}</h3></Label>
+                                    <Label><h3>Equipo {grupo.name}</h3></Label>
                                     <Button className="bigButtons" onClick={() => this.abrirModalEditarGrupo(grupo)}>Editar</Button>
 
                                     <Modal isOpen={this.state.openModal && this.state.modalId === grupo.id}>
                                         <ModalHeader>
-                                            Editar grupo {grupo.name}
+                                            Editar equipo {grupo.name}
                                         </ModalHeader>
                                         <ModalBody>
                                             <div>
                                                 <div>
-                                                    <h3>Alumnos en el grupo</h3>
+                                                    <h3>Alumnos en el equipo</h3>
                                                 </div>
                                                 <div>
-                                                    <h5>Estos son los alumnos del grupo. Para quitar alguno seleccionarlo y luego pulsar "Guardar cambios"</h5>
+                                                    <h5>Estos son los alumnos del equipo. Para quitar alguno seleccionarlo y luego pulsar "Guardar cambios"</h5>
                                                     {this.getStudentsInGroupByGroupId(grupo.id).map((student, index) =>
                                                         <div key={student.student.id}>
                                                             <Alert>
@@ -314,10 +314,10 @@ export default class DocenteEditGroups extends Component {
                                             </div>
                                             <div>
                                                 <div>
-                                                    <h3>Alumnos sin grupo</h3>
+                                                    <h3>Alumnos sin equipo</h3>
                                                 </div>
                                                 <div>
-                                                    <h5>A continuación se listan los alumnos sin grupo. Seleccionar los alumnos para agregar a todos los seleccionados</h5>
+                                                    <h5>A continuación se listan los alumnos sin equipo. Seleccionar los alumnos para agregar a todos los seleccionados</h5>
                                                     {this.state.alumnosSinGrupo.map((alumno, index) =>
                                                         <div>
                                                             <Alert color="info">
