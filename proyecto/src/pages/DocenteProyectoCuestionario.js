@@ -28,7 +28,7 @@ export default class DocenteProyectoCuestionario extends Component {
     removeFormFieldsC = (i) => {
         let newFormValuesCuestionario = [...this.state.formValuesCuestionario];
         newFormValuesCuestionario.splice(i, 1);
-        this.setState({ newFormValuesCuestionario: newFormValuesCuestionario });
+        this.setState({ formValuesCuestionario: newFormValuesCuestionario });
     }
     handleChangeC = (i, e) => {
         let newFormValuesCuestionario = [...this.state.formValuesCuestionario];
